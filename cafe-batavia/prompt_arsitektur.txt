@@ -1,0 +1,35 @@
+=== DESIGN SYSTEM & ARCHITECTURE PROMPT ===
+
+PROJECT: Cafe Batavia (Digital Transformation Landing Page)
+VIBE/FEELING: Colonial Luxury, Historical Grandeur, High-End Enterprise, Frictionless Tech.
+
+--- COLORS ---
+- Batavia Dark: #111111 (Latar Belakang Utama)
+- Batavia Charcoal: #1A1A1A (Latar Card/Modal)
+- Batavia Wood: #2C1A12 (Aksen Elemen Gelap/Bawah)
+- Batavia Gold: #C5A059 (Warna Utama CTA, Highlight Teks, Ikon)
+- Batavia Gold Glow: #E8C57A (Efek Hover dan Animasi Pulse)
+- Batavia Paper: #FDFBF7 (Warna Teks Utama, nuansa kertas vintage)
+
+--- TYPOGRAPHY ---
+- Heading/Serif: 'Playfair Display' - Memberikan kesan klasik, heritage, dan mewah.
+- Body/Sans: 'Plus Jakarta Sans' - Memberikan kesan ultra-modern, keterbacaan tinggi, dan kontras dengan heading historis.
+
+--- CORE TECH STACK ---
+- UI Framework: Tailwind CSS (via CDN with custom tailwind.config overrides).
+- Interactivity: Alpine.js (x-data, x-show, x-transition, x-model).
+- Icons: Phosphor Icons (Gaya ringan, modern, dan clean).
+- Assets: Unsplash images with heavy dark/gold gradient overlays for consistency.
+
+--- KEY UX/UI PATTERNS ---
+1. Glassmorphism: Digunakan pada Navbar dan Card untuk memberikan efek modern di atas gambar latar yang kuno/historis.
+2. Noise Texture: Overlay SVG dengan `feTurbulence` opasitas rendah (4%) di atas hero section untuk memberikan nuansa film lama/vintage.
+3. Asymmetrical Glowing Blobs: Animasi blur orb berwarna emas dan coklat di latar belakang (z-0) agar website terasa hidup tanpa mengganggu bacaan.
+4. Hotspot Animation: Ikon "Pulse" berdenyut menggunakan CSS `@keyframes` pada modul Virtual Tour untuk menarik klik user.
+
+--- STATE MANAGEMENT (ALPINE.JS) ---
+- `activeTab`: Mengatur pergantian tampilan antara Virtual Tour, Event Quotation, dan Menu.
+- `step`: Mengatur alur multi-step form pada Event Quotation (Step 1 -> 2 -> 3).
+- `estimate`: Kalkulator real-time untuk biaya event berdasarkan pax dan jenis event.
+- `lang`: Toggle bahasa 'id' / 'en' pada sistem menu.
+- `botOpen`: Trigger chatbot widget saat scroll melewati 30%.

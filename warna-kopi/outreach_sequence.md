@@ -1,0 +1,8 @@
+# Hari 1: The Hook & Value Drop
+Halo Manajemen Warna Kopi! 👋 Saya perhatikan kafe Anda di Gondanglutung punya potensi *hidden gem* yang luar biasa. Kombinasi view sawah, Budin, dan Choco Mint-nya juara. Tapi sayang banget, banyak remote worker di Jogja Utara malah lari ke kafe mainstream di Jalan Kaliurang cuma karena mereka nggak tahu seberapa kencang WiFi & nyamannya *workspace* di Warna Kopi. Saya sudah buatkan *live prototype* sistem website + reservasi WFC khusus untuk Warna Kopi. Mau saya kirimkan linknya? Cuma butuh 2 menit untuk lihat simulasi ROI-nya.
+
+# Hari 3: The Proof & FOMO
+Halo lagi! Melanjutkan pesan kemarin, saya coba bandingkan *search volume* "kafe wfc sleman" dengan traffic organik Warna Kopi saat ini. Ada sekitar 2.500 pencarian bulan lalu, dan sedihnya 85%-nya diserap kompetitor yang punya sistem digital rapi. Di *prototype* yang saya buat, saya sudah tanamkan fitur *Live WiFi Speed Test* & *Space Portfolio* yang bakal bikin *remote worker* langsung *booking* meja Anda. Sistem diskon setup 30% saya kebetulan berakhir dalam 48 jam. Boleh kita diskusi sebentar via telepon sore ini?
+
+# Hari 7: The Break-Up (Professional)
+Selamat pagi! Sepertinya Warna Kopi sedang sangat sibuk operasional, saya paham sepenuhnya. Ini *follow up* terakhir dari saya. Jika saat ini ekspansi *digital booking* & penarikan massal *remote worker* belum jadi prioritas, tidak apa-apa. Link *prototype* akan saya cabut besok. Namun jika suatu saat butuh sistem otomasi yang mendatangkan ROI 45% dalam 3 bulan, pintu saya selalu terbuka. Sukses terus untuk Warna Kopi!

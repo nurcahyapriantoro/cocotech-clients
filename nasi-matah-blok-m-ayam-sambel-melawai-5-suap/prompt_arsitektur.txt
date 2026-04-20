@@ -1,0 +1,30 @@
+# Panduan Arsitektur UI/UX: E-Commerce Skala Nasional F&B
+
+## 1. Identitas Visual & Warna (The Spicy Heritage)
+- **Primary Color (Spicy Red):** `#ef4444` hingga `#7f1d1d`. Menggugah selera, agresif, dan melambangkan rasa pedas ekstrem dari sambal Melawai.
+- **Secondary/Accent (Heritage Gold):** `#d4af37`. Memberikan kesan premium, eksklusif, dan "Sultan". Ini memisahkan brand ini dari sambal pinggir jalan biasa menjadi produk FMCG berkualitas tinggi.
+- **Background (Night Black & Earth):** `#0f0f0f` dan `#1a1a1a`. Warna gelap dipilih untuk membuat warna merah dan emas "menyala" (glowing), serta memberikan kesan garang namun elegan.
+- **Typography:**
+  - *Heading:* `Playfair Display` (Serif). Memberikan otoritas, sejarah, dan nilai "Heritage" (khas resep kuno/lokal).
+  - *Body:* `Plus Jakarta Sans` (Sans-serif). Sangat modern, mudah dibaca untuk UI e-commerce, dan relevan dengan lokasi klien (Jakarta).
+
+## 2. Struktur Layout (The 8 Pillars)
+1.  **Navigasi Glassmorphism:** Tetap terlihat rapi saat user scroll, dengan icon keranjang yang responsif (menarik perhatian untuk checkout).
+2.  **Hero Section Asimetris:** Tidak menggunakan desain kotak kaku. Menggunakan 'blobs' yang bergerak lambat di background, seolah merepresentasikan minyak cabai yang mendidih secara estetik.
+3.  **Bento Grid (Company Profile):** Menyajikan data sejarah, legalitas (BPOM/Halal), dan teknologi pengemasan dalam kotak-kotak terpisah namun harmonis. Mudah di-scan oleh mata B2B buyer/customer ritel.
+4.  **Core Feature (Live Catalog):** Memiliki lencana Halal dan BPOM yang *highly visible*. Ini penting karena targetnya adalah pengiriman nasional, trust adalah nomor 1.
+5.  **Competitor Reality (Data Visual):** Menggunakan bar chart CSS statis namun dianimasikan untuk memukul pain-point klien bahwa market share mereka diambil kompetitor.
+6.  **Scarcity Offer:** Countdown besar dengan warna neon/gold untuk memancing aksi instan.
+7.  **Omni-QR Footer:** Elemen mega footer yang padat informasi teknis operasional dengan placeholder QR B2B.
+8.  **Trojan Bot:** Muncul mendadak dengan efek suara visual, seolah-olah "menyerang" user dengan penawaran personal.
+
+## 3. Tech Stack Utama
+- **HTML5:** Struktur semantik.
+- **Tailwind CSS (via Script):** Full utility classes, memungkinkan injeksi warna custom di config tanpa compile build step.
+- **Alpine.js:** Digunakan untuk interaksi state yang kompleks di frontend (Cart Drawer, Penambahan Qty, Penghitungan Harga Real-time, Countdown Timer, Toggle Modal). Ringan dan langsung bekerja di HTML.
+- **Phosphor Icons:** Iconografi modern yang solid dan duotone, terlihat lebih eksklusif dari FontAwesome generik.
+
+## 4. Animasi Spesifik (Custom Keyframes)
+- `animate-blob`: Memberikan kesan organik/cairan di background.
+- `animate-glow`: Pulsing cahaya merah/emas pada elemen penting (tombol Add to cart, icon BPOM).
+- `animate-marquee`: Teks berjalan bergaya "Police Tape" / stiker penyegelan produk (relevan dengan packaging FMCG).

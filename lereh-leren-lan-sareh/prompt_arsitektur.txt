@@ -1,0 +1,31 @@
+# Arsitektur Digital & UI/UX Blueprint: Lereh Leren lan Sareh
+
+## 1. Filosofi Desain (UI/UX)
+**Tema:** "Mystic Mountain Bamboo"
+Desain ini bertujuan menerjemahkan makna "Lereh, Leren, lan Sareh" (Berhenti, Istirahat, Tenang) ke dalam pengalaman digital. Penggunaan animasi kabut dinamis di background menstimulasi emosi dan memori tentang suhu sejuk Gunung Merapi. Layout tidak kaku, menggunakan pendekatan "Bento Grid" modern yang dibalut material *Glassmorphism* (kaca buram) untuk memberi kesan elegan, premium, namun tetap membumi.
+
+## 2. Palet Warna (Tailwind Custom Colors)
+- **Deep Merapi Night (`#0f1712`)**: Hijau sangat gelap, merepresentasikan hutan pinus di malam hari. Digunakan sebagai *background* utama.
+- **Fresh Bamboo Green (`#4A5D23`)**: Hijau natural untuk tombol, badge, dan aksen interaktif (Aksen Primer).
+- **Coffee Wood (`#3e2723`)**: Coklat tanah untuk elemen heritage dan batas section.
+- **Mist Fog (`#e2e8f0`)**: Putih abu-abu untuk teks deskripsi, memastikan keterbacaan tinggi tanpa membuat mata lelah (High Accessibility).
+- **Luxury Gold (`#d4af37`)**: Digunakan sangat selektif untuk *Call to Action* (CTA) khusus penjualan, angka harga, dan highlight kata kunci emosional.
+
+## 3. Tipografi
+- **Headings (Playfair Display)**: Font Serif klasik yang memberikan kesan berwibawa, historis, dan estetik. Cocok untuk kafe bernuansa kearifan lokal keraton/Jawa.
+- **Body & UI Elements (Plus Jakarta Sans)**: Font Sans-Serif ultra-modern dengan tingkat keterbacaan (*legibility*) maksimal untuk deskripsi menu, tombol, dan form.
+
+## 4. Teknologi & Stack
+- **Struktur HTML5 Semantik**: Optimal untuk SEO Local (Google Maps/Search).
+- **Tailwind CSS (CDN)**: Utility-first styling untuk memodifikasi layout dengan sangat presisi (terutama Flexbox & Grid).
+- **Alpine.js**: Mengatur *State Management* tanpa perlu file JS eksternal yang berat. Digunakan untuk:
+  - Transisi Navbar saat scroll.
+  - Simulasi Add to Cart dinamis.
+  - Simulasi API Cuaca Real-time (Weather Toggle).
+  - Countdown Timer Scarcity (48 Jam).
+  - Trojan Horse Chatbot (Pop-up on scroll).
+- **Phosphor Icons**: Ikon garis modern yang lebih elegan dibanding FontAwesome standar.
+- **CSS Keyframes Native**: Menggerakkan layer kabut (`.fog-img`) secara horizontal terus menerus (Infinite Loop) tanpa memberatkan CPU.
+
+## 5. Algoritma Konversi B2B (The Pitch)
+Prototipe ini dirancang ganda: sebagai representasi web klien kepada end-user (wisatawan), sekaligus sebagai **Proposal Berjalan** kepada klien (Owner). Section "Ke Mana Uang Wisatawan Pergi?" (Competitor Reality) dan Chatbot yang menyapa spesifik, berfungsi men-trigger rasa takut ketinggalan (FOMO) dari sisi bisnis.

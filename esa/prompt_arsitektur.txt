@@ -1,0 +1,23 @@
+# DOKUMEN ARSITEKTUR & DESAIN: "ESA FINE DINING"
+
+## 1. Konsep Visual & Brand Identity
+- **Vibe:** High-End Luxury, Misterius, Elegan, namun mengakar pada kebudayaan lokal (Nusantara).
+- **Pemilihan Warna (Tailwind Config):**
+  - `Midnight Deep (#0A1118)`: Latar belakang utama. Memberikan kesan makan malam eksklusif, private, dan menonjolkan elemen emas.
+  - `Antique Gold (#D4AF37)` & `Vanilla Gold (#F3E5AB)`: Warna aksen untuk tipografi judul, tombol, dan interaktivitas. Melambangkan kualitas elit (Michelin-star aspirations).
+  - `Deep Wine / Sambal Red (#8C271E)`: Aksen warna peringatan/urgensi dan melambangkan bumbu-bumbu Nusantara.
+  - `Bone White (#F9F6F0)`: Digunakan untuk area membaca profil Chef/Filosofi agar kontras namun tidak tajam di mata.
+
+## 2. Pilihan Tipografi (Google Fonts)
+- **Headings (Playfair Display):** Serif klasik yang memberikan nuansa editorial, megah, dan prestisius. Digunakan pada nama "Esa", Judul Section, dan Testimoni Press.
+- **Body & UI (Plus Jakarta Sans):** Geometris, modern, dan sangat legible. Pemilihan "Jakarta" Sans juga memberikan easter-egg emosional yang relevan dengan "New Jakarta Cuisine".
+
+## 3. Tech Stack & Library
+- **Tailwind CSS (CDN via Script Configuration):** Setup CSS yang zero-build-time untuk prototype instan, dilengkapi modifikasi keyframes khusus (Blob animation, Marquee, Float, Pulse Gold).
+- **Alpine.js (CDN):** Engine reaktif ringan yang menangani seluruh State Management tanpa React/Vue. Digunakan untuk: Navigasi scroll-aware, Tabs Formulir Waitlist (Langkah 1,2,3), Countdown Timer FOMO, dan Pop-up Chatbot.
+- **Phosphor Icons:** Vektor ikon premium bergaris mulus yang sejalan dengan estetika fine dining modern.
+
+## 4. Sistem UX "The 8 Pillars of Conversion"
+- Navigasi dibuat transparan namun merespons scroll menjadi solid (Glassmorphism) agar fokus foto makanan hero section maksimal.
+- Fitur Interaktif Inti ("Spectacular Feature") dibuat menyerupai sistem pesanan tiket pesawat kelas bisnis. Memberikan ilusi kelangkaan (Scarcity) dengan badge "Live Queue: 142 Pax".
+- Penyisipan bot B2B di sudut kanan untuk melakukan penawaran langsung kepada pemilik tanpa mengganggu demo fungsionalitas.

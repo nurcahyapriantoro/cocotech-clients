@@ -1,0 +1,30 @@
+# Arsitektur & Pedoman Desain: Bakmi Tjo Kin Digital Enterprise
+
+## 1. Identitas Visual & Bahasa Desain (Design Language)
+- **Tema Utama:** "Nostalgia Klasik Bertemu Teknologi Masa Depan" (Heritage meets Hyper-Modernity).
+- **Vibe:** Elegan, Bersih, Terpercaya, Mahal namun Accessible.
+- **Palet Warna:**
+  - `Brand Dark (#1B3E35)`: Emerald Green gelap. Melambangkan klasik, warisan resep, dan stabilitas operasional.
+  - `Brand Light (#F8F5EE)`: Warm Ivory/Cream. Merepresentasikan tekstur bakmi, kehangatan, dan kenyamanan visual membaca.
+  - `Brand Accent (#B73A3A)`: Terracotta Red. Aksen warna oriental klasik yang membangkitkan selera makan dan menciptakan urgensi pada CTA.
+  - `Brand Gold (#D4AF37)`: Sentuhan premium/enterprise.
+- **Tipografi:** 
+  - *Headings/Quotes:* `Playfair Display` (Memberikan kesan otentik, artisanal, heritage dari Bandung).
+  - *Body/UI/Dashboards:* `Plus Jakarta Sans` (Geometris, sangat mudah dibaca untuk UI aplikasi, sangat modern).
+
+## 2. Tech Stack & Framework
+- **Struktur & Styling:** Tailwind CSS via CDN. Memanfaatkan utility class untuk mempercepat pembuatan Bento Grid, Glassmorphism, dan Typography. Konfigurasi warna kustom diinject via script.
+- **Interaktivitas (Reactivity):** Alpine.js. Digunakan untuk the "8 Pillars of Conversion", state management tab (Waitlist, Menu, CRM), perhitungan keranjang belanja real-time, efek sticky navbar saat scroll, dan countdown scarcity.
+- **Ikonografi:** Phosphor Icons (Regular, Bold, Fill, Duotone) untuk kesan UI yang clean dan modern.
+
+## 3. Instruksi Animasi Custom (CSS Keyframes)
+- `blob`: Digunakan pada background Hero Section untuk menciptakan bentuk asimetris organik yang bergerak lambat (seperti adonan/kuah), memberikan kesan situs yang 'hidup'.
+- `float`: Memberikan efek melayang perlahan pada mockup device / elemen UI melayang (menggambarkan cloud-system / teknologi ringan).
+- `marquee`: Teks berjalan tak terbatas untuk menampilkan USP (Unique Selling Proposition) seperti "0% Fee, Live Waitlist".
+- `pulse`: Ditempatkan sangat strategis hanya pada nomor antrean aktif dan tombol urgen untuk memandu mata pengguna (Visual Hierarchy).
+
+## 4. Spesifikasi UX & State Management (Alpine.js)
+1. **Navigasi Smart:** Navbar berubah dari transparan menjadi *Glassmorphism Blur* (`backdrop-blur-16px`) hanya setelah melewati scroll 20px.
+2. **Core Engine Tabs:** State `activeTab` mengontrol display antara Waitlist Simulator, Smart Menu, dan Loyalty Database dengan transisi `x-transition` opacity yang mulus (tanpa lompatan layout).
+3. **Smart POS Cart Logic:** Modul Menu menggunakan array object `items`. Terdapat *computed property* getter untuk menghitung `total` harga dan `saving` (penghematan 25% dari tidak menggunakan aplikasi Ojol).
+4. **Trojan Bot Logic:** Chatbot di pojok kanan bawah yang dimuat dalam mode *hidden* (`display: none`), dikontrol oleh event `@scroll.window`. Hanya akan pop-up secara dramatis saat user sudah teredukasi (melewati 30% scroll halaman). Menampilkan animasi pengetikan (typing indicator) sebelum memunculkan pesan.

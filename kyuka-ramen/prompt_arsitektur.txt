@@ -1,0 +1,25 @@
+# ARSITEKTUR UI/UX & STACK PANDUAN: KYUKA RAMEN DIGITAL ECOSYSTEM
+
+## 1. Tema Visual & Estetika: Wabi-Sabi meets Neo-Tokyo
+Desain tidak boleh terlihat seperti template restoran generik. Harus ada perpaduan antara tradisi Jepang yang tenang (Wabi-Sabi) dan elemen digital modern yang presisi (Neo-Tokyo).
+
+- **Kyuka Red (`#C62828` & `#8E1D1D`)**: Digunakan untuk elemen esensial (CTA, notifikasi, hover states). Merepresentasikan stempel Inkan tradisional dan passion.
+- **Sumi Ink (`#121212` & `#2D2D2D`)**: Warna gelap dominan untuk teks dan dark-mode cards. Menggambarkan tinta kaligrafi Jepang.
+- **Rice Paper (`#F9F8F6`)**: Background utama. Putih tulang/krem terang yang memberikan kesan organik dan bersih, tidak membuat mata lelah.
+- **Kintsugi Gold (`#C5A059`)**: Accent color ringan untuk highlight eksklusivitas.
+
+## 2. Tipografi (Google Fonts)
+- **Primary / UI Text:** `Plus Jakarta Sans`. Bersih, geometris, mencerminkan modernitas kota dan keterbacaan tingkat tinggi di mobile.
+- **Headings / Accent:** `Shippori Mincho`. Font serif Jepang yang elegan. Memberikan kesan heritage, mahal, dan autentik.
+
+## 3. Tech Stack & Library
+- **Struktur:** HTML5 Semantic murni.
+- **Styling:** Tailwind CSS (via CDN dengan konfigurasi tema custom di `<head>`).
+- **State & Interactivity:** Alpine.js (`x-data`, `x-show`, `x-transition`). Digunakan secara masif untuk membangun fungsionalitas 'Prototype' tanpa perlu backend sungguhan.
+- **Ikonografi:** Phosphor Icons (clean, minimal).
+
+## 4. Pola Konversi Utama (The Engine)
+1. **Glassmorphism Overlay**: Membuat UI melayang di atas brand imagery.
+2. **Interactive Prototype**: Pengguna (klien) *harus* bisa mengeklik simulasi pre-order. State berubah dari Katalog -> Form Data -> Sukses. Ini adalah "Aha!" moment.
+3. **Data Visualization**: Grafik komparasi sederhana menggunakan CSS width classes untuk menohok logika kerugian (Lost Traffic vs Captured Traffic).
+4. **Scarcity Bot & Timer**: Memicu urgensi pengambil keputusan. Bot harus muncul berdasarkan persentase scroll (intent-based).

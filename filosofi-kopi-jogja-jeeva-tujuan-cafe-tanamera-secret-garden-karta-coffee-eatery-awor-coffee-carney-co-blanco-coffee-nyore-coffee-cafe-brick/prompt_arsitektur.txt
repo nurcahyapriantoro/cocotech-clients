@@ -1,0 +1,27 @@
+# ARSITEKTUR & UI/UX INSTRUCTION: JOGJA COFFEE COLLECTIVE PROTO
+
+## 1. Konsep Visual & Tema Identitas
+- **Vibe:** "High-End Artisan Coffee meets Enterprise Tech". Elegan, modern, namun mengakar pada nuansa heritage kopi.
+- **Palet Warna Tailwind:** 
+  - Espresso/Dark (Teks utama/Latar Kontras): `#231809`, `#3A2A14`
+  - Cream/Parchment (Background Utama): `#F9F6F0`, `#E3D8C3`
+  - Gold/Accent (Call to Action/Highlight): `#B2915A`, `#D4AF37`
+- **Tipografi:** Google Fonts.
+  - Heading: `Playfair Display` (Memberikan kesan mewah, British/Heritage seperti Cafe Brick).
+  - Body/UI: `Plus Jakarta Sans` (Clean, highly legible, tech-oriented).
+
+## 2. Tech Stack & Library
+- **CSS Framework:** Tailwind CSS (via CDN dengan kustomisasi tema penuh di `<script>`).
+- **Interaktivitas:** Alpine.js (Wajib digunakan untuk simulasi Cart, Loyalty Card real-time, Tabs e-commerce, scroll spy Navbar, dan Scarcity Timer).
+- **Icons:** Phosphor Icons (Sangat modern, konsisten di seluruh UI).
+- **Visual Effects:** 
+  - CSS Keyframes untuk animasi "Blob", "Float" pada mock-up HP.
+  - CSS Glassmorphism (`backdrop-filter: blur()`).
+  - CSS Mesh Gradients & Noise Texture Overlay untuk kesan "organik/gritty" seperti tekstur kopi.
+
+## 3. Instruksi Modul Utama (UX Flow)
+1. **Navigasi:** Harus transparan di awal, saat discroll berubah menjadi solid glassmorphism dengan drop shadow tipis.
+2. **Hero Section:** Dilarang menggunakan foto generik. Gunakan desain purwarupa "UI dalam UI" (Floating mock-up) yang menunjukkan simulasi pemesanan Kopi/Merchandise.
+3. **Core Engine (Simulator):** Gunakan Alpine `x-data`. User harus bisa mengklik tab "Merch Store", "Loyalty Card", dan "Live Queue". Saat klik "Tambah ke keranjang", poin di "Loyalty Card" HARUS bertambah secara real-time.
+4. **Market Reality (Charts):** Gunakan div murni untuk membuat grafik bar animasi sederhana yang membandingkan traffic offline (tinggi) vs kebocoran konversi digital (rendah).
+5. **Chatbot Sales:** Sembunyikan saat load. Otomatis muncul (pop-up) ketika user scroll 30% halaman ke bawah. Beri pesan provokatif (menyebut semua 11 nama kafe).

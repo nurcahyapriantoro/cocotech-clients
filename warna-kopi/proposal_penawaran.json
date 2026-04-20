@@ -1,0 +1,11 @@
+{
+  "harga_setup_awal": "Rp 15.000.000",
+  "harga_diskon_48_jam": "Rp 10.500.000",
+  "maintenance_bulanan": "Rp 1.500.000",
+  "estimasi_roi": "Peningkatan 45% dalam reservasi grup kerja/mahasiswa dalam 3 bulan. Break-even dicapai dalam 45 hari dari tambahan 3-5 reservasi grup per minggu.",
+  "value_based_metrics": [
+    "Otomatisasi reservasi meja -> Menghemat 10+ jam operasional admin per minggu",
+    "Showcase Simulator WiFi Speed & Suasana Alam -> Mengkonversi traffic digital menjadi pengunjung fisik (Menarik komunitas remote worker & mahasiswa Jogja Utara)",
+    "Sistem Edukasi Anti-bocor -> Menahan laju pelanggan potensial agar tidak pindah ke kompetitor mainstream di Jalan Kaliurang"
+  ]
+}

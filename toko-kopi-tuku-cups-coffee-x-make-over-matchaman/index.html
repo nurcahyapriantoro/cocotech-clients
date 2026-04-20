@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecosystem Prototype | Tuku x Matchaman x Cups Coffee</title>
+    
+    <!-- Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            tuku: '#6b4c3a',
+                            tukulight: '#d2b48c',
+                            matcha: '#859f71',
+                            makeover: '#e83e8c',
+                            dark: '#1a1a1a',
+                            cream: '#fcfbf9'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom Styles & Animations */
+        body {
+            background-color: #fcfbf9;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+        ::selection {
+            background: #859f71;
+            color: white;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fcfbf9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b4c3a;
+            border-radius: 4px;
+        }
+        .glass-nav {
+            background: rgba(252, 251, 249, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(107, 76, 58, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #6b4c3a, #859f71, #e83e8c);
+        }
+        .mesh-bg {
+            background-color: #fcfbf9;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(133, 159, 113, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(232, 62, 140, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(107, 76, 58, 0.1) 0px, transparent 50%);
+        }
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(107, 76, 58, 0.15);
+        }
+        
+        /* Interactive Map Pulse */
+        .map-dot {
+            width: 16px;
+            height: 16px;
+            background-color: #e83e8c;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(232, 62, 140, 0.7);
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(232, 62, 140, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(232, 62, 140, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(232, 62, 140, 0); }
+        }
+    </style>
+</head>
+<body class="antialiased" 
+      x-data="appData()" 
+      @scroll.window="scrolled = (window.pageYOffset > 50); showBot = (window.pageYOffset > window.innerHeight * 0.3)">
+    
+    <div class="noise-overlay"></div>
+
+    <!-- 1. Ultra-Modern Navigation (Glassmorphism) -->
+    <nav :class="{'glass-nav py-4': scrolled, 'bg-transparent py-6': !scrolled}" 
+         class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer">
+                <i class="ph-fill ph-coffee text-3xl text-brand-tuku"></i>
+                <span class="font-serif font-bold text-xl tracking-tight text-brand-dark">Kolektif<span class="text-brand-matcha">.</span>Selatan</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8 font-sans font-medium text-sm text-brand-dark/80">
+                <a href="#heritage" class="hover:text-brand-tuku transition-colors">Narasi Sejarah</a>
+                <a href="#ecosystem" class="hover:text-brand-matcha transition-colors">Ekosistem Belanja</a>
+                <a href="#distribution" class="hover:text-brand-makeover transition-colors">Peta Titik Seduh</a>
+                <a href="#roi" class="hover:text-brand-tuku transition-colors">Analisis Kompetitor</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button @click="cartOpen = true" class="relative p-2 text-brand-dark hover:text-brand-tuku transition">
+                    <i class="ph ph-shopping-bag text-2xl"></i>
+                    <span x-show="cart.length > 0" x-text="cart.length" class="absolute top-0 right-0 bg-brand-makeover text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-pulse"></span>
+                </button>
+                <a href="#offer" class="hidden md:inline-block bg-brand-dark text-white px-6 py-2.5 rounded-full font-sans font-semibold text-sm hover:bg-brand-tuku transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                    Klaim Prototype Live
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shopping Cart Drawer (Alpine.js State) -->
+    <div x-show="cartOpen" 
+         class="fixed inset-0 z-[100] flex justify-end"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+        
+        <div class="absolute inset-0 bg-brand-dark/40 backdrop-blur-sm" @click="cartOpen = false"></div>
+        
+        <div class="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transition ease-in duration-200 transform"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="translate-x-full">
+            
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <h3 class="font-serif font-bold text-2xl">Keranjang Eksklusif</h3>
+                <button @click="cartOpen = false" class="text-gray-400 hover:text-brand-dark p-2">
+                    <i class="ph ph-x text-2xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <template x-if="cart.length === 0">
+                    <div class="text-center text-gray-500 mt-20 flex flex-col items-center">
+                        <i class="ph-duotone ph-shopping-cart text-6xl text-gray-300 mb-4"></i>
+                        <p class="font-sans">Belum ada komoditas di keranjang Anda.</p>
+                    </div>
+                </template>
+                <template x-for="(item, index) in cart" :key="index">
+                    <div class="flex gap-4 items-center bg-brand-cream p-3 rounded-2xl">
+                        <img :src="item.image" class="w-20 h-20 object-cover rounded-xl shadow-sm">
+                        <div class="flex-1">
+                            <h4 class="font-bold font-sans text-sm" x-text="item.name"></h4>
+                            <p class="text-xs text-gray-500 mt-1" x-text="item.category"></p>
+                            <p class="text-brand-tuku font-semibold mt-2" x-text="formatRupiah(item.price)"></p>
+                        </div>
+                        <button @click="removeFromCart(index)" class="text-red-400 hover:text-red-600 p-2">
+                            <i class="ph ph-trash"></i>
+                        </button>
+                    </div>
+                </template>
+            </div>
+            
+            <div class="p-6 border-t border-gray-100 bg-brand-cream/50">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="font-sans font-medium text-gray-600">Total Sub-kultur</span>
+                    <span class="font-serif font-bold text-2xl text-brand-dark" x-text="formatRupiah(cartTotal)"></span>
+                </div>
+                <button class="w-full bg-brand-tuku text-white py-4 rounded-full font-bold text-lg hover:bg-brand-dark transition shadow-lg flex items-center justify-center gap-2">
+                    Checkout Sekarang <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Hero Section: Highly Interactive & Asymmetric -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden mesh-bg">
+        <!-- Abstract Blobs -->
+        <div class="absolute top-20 -left-20 w-96 h-96 bg-brand-tukulight/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute top-40 -right-20 w-96 h-96 bg-brand-makeover/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-20 left-40 w-96 h-96 bg-brand-matcha/30 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" style="animation-delay: 4s;"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-dark/5 border border-brand-dark/10 backdrop-blur-sm animate-pulse-slow">
+                    <span class="flex w-2.5 h-2.5 bg-brand-makeover rounded-full"></span>
+                    <span class="font-sans text-xs font-bold tracking-widest uppercase text-brand-dark">Private Preview • Selatan Jakarta</span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl font-bold leading-[1.1] text-brand-dark">
+                    Skalasi Tanpa Batas.<br>
+                    Dari Kultural Menjadi <span class="text-gradient">Ekosistem Global.</span>
+                </h1>
+                <p class="font-sans text-lg text-gray-600 leading-relaxed max-w-xl">
+                    Lebih dari sekadar Es Kopi Susu Tetangga. Transformasi entitas kolaborasi <strong class="text-brand-tuku">Tuku, Matchaman, dan Cups Coffee X Make Over</strong> memerlukan infrastruktur digital level-enterprise. Jangan biarkan omset merchandise & loyalitas pelanggan menguap ke kompetitor.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#ecosystem" class="bg-brand-dark text-white px-8 py-4 rounded-full font-sans font-bold text-center hover:bg-brand-tuku transition hover:-translate-y-1 shadow-xl flex items-center justify-center gap-2">
+                        Jelajah Fitur Commerce <i class="ph-bold ph-shopping-cart"></i>
+                    </a>
+                    <a href="#roi" class="bg-white text-brand-dark border border-gray-200 px-8 py-4 rounded-full font-sans font-bold text-center hover:border-brand-tuku hover:text-brand-tuku transition flex items-center justify-center gap-2">
+                        Lihat Analisis ROI <i class="ph-bold ph-chart-line-up"></i>
+                    </a>
+                </div>
+                <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+                    <div class="flex -space-x-3">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+                    </div>
+                    <p class="text-sm font-sans font-medium text-gray-500">
+                        Sistem ini didesain spesifik untuk memonopoli<br>
+                        <strong class="text-brand-dark">3.5 Juta+ Demografi Lifestyle Jakarta</strong>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Hero Image / Composition -->
+            <div class="relative animate-float">
+                <div class="absolute inset-0 bg-gradient-to-tr from-brand-tuku/20 to-transparent rounded-3xl transform rotate-3"></div>
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Coffee Lifestyle Collaboration" class="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full border border-white/40">
+                
+                <!-- Floating Elements -->
+                <div class="absolute -left-10 top-20 glass-card p-4 rounded-2xl flex items-center gap-4 hover-lift cursor-pointer">
+                    <div class="w-12 h-12 rounded-full bg-brand-makeover/10 flex items-center justify-center">
+                        <i class="ph-fill ph-bag text-brand-makeover text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Merch Sales</p>
+                        <p class="font-serif font-bold text-xl">+450% ROI</p>
+                    </div>
+                </div>
+
+                <div class="absolute -right-8 bottom-32 glass-card p-4 rounded-2xl flex items-center gap-4 hover-lift cursor-pointer">
+                    <div class="w-12 h-12 rounded-full bg-brand-matcha/10 flex items-center justify-center">
+                        <i class="ph-fill ph-leaf text-brand-matcha text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Matcha Quality</p>
+                        <p class="font-serif font-bold text-xl">Grade A Uji</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="bg-brand-dark py-4 overflow-hidden flex border-y border-gray-800">
+        <div class="whitespace-nowrap animate-marquee flex gap-12 text-brand-cream/80 font-sans font-bold text-sm tracking-widest uppercase items-center">
+            <span>Kolaborasi Tanpa Batas</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Toko Kopi Tuku</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Matchaman</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Cups Coffee X Make Over</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Pelopor Es Kopi Susu Gula Aren</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Merchandise Eksklusif</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <!-- Duplicate for seamless loop -->
+            <span>Kolaborasi Tanpa Batas</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Toko Kopi Tuku</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Matchaman</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+            <span>Cups Coffee X Make Over</span> <i class="ph-fill ph-star-four text-brand-makeover"></i>
+        </div>
+    </div>
+
+    <!-- 3. Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="heritage" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mb-6">Narasi Emosional di Balik Setiap Tegukan</h2>
+                <p class="font-sans text-gray-600 text-lg">Konsumen kawasan Selatan tidak sekadar membeli kopi; mereka mengonsumsi cerita, estetika, dan status. Sistem ini menceritakan warisan Anda dengan format visual yang membius.</p>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[300px]">
+                
+                <!-- Bento Item 1: Tuku Heritage (Large) -->
+                <div class="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden relative group cursor-pointer hover-lift">
+                    <img src="https://images.unsplash.com/photo-1611162458324-aae1eb4129a4?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="px-3 py-1 bg-brand-tuku text-white text-xs font-bold rounded-full uppercase tracking-wider mb-3 inline-block">Pioneer Gula Aren</span>
+                        <h3 class="font-serif text-3xl text-white font-bold mb-2">Revolusi Es Kopi Susu Tetangga</h3>
+                        <p class="font-sans text-gray-300 text-sm max-w-md">Dari sudut kecil Cipete, menyeduh kultur yang merajai selera nusantara. Kami membangun narasi digital yang menghubungkan memori kolektif tersebut secara langsung ke layar smartphone konsumen.</p>
+                    </div>
+                </div>
+
+                <!-- Bento Item 2: Matchaman -->
+                <div class="md:col-span-2 rounded-3xl overflow-hidden relative group cursor-pointer hover-lift bg-brand-matcha">
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    <div class="relative h-full p-8 flex flex-col justify-center items-start">
+                        <i class="ph-duotone ph-plant text-5xl text-white mb-4"></i>
+                        <h3 class="font-serif text-2xl text-white font-bold mb-2">Presisi Kultivasi Uji, Jepang</h3>
+                        <p class="font-sans text-white/80 text-sm">Integrasi API yang memetakan asal-usul daun matcha secara real-time, meningkatkan persepsi premium dari Matchaman.</p>
+                    </div>
+                </div>
+
+                <!-- Bento Item 3: Make Over Collab -->
+                <div class="rounded-3xl overflow-hidden relative group cursor-pointer hover-lift">
+                    <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=600&q=80" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-brand-makeover/60 mix-blend-multiply"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end">
+                        <h3 class="font-serif text-xl text-white font-bold">Keberanian Visual Make Over</h3>
+                    </div>
+                </div>
+
+                <!-- Bento Item 4: Beans Sourcing -->
+                <div class="rounded-3xl overflow-hidden relative group cursor-pointer hover-lift bg-brand-dark p-6 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <i class="ph-fill ph-map-pin-line text-brand-tukulight text-3xl"></i>
+                        <span class="text-brand-tukulight font-bold font-sans text-xl">100%</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-xl text-white font-bold mb-1">Traceability Biji Kopi</h3>
+                        <p class="text-gray-400 text-xs font-sans">Kalkulasi jejak karbon & transparansi petani lokal.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE (CORE ENGINE) - Merch Store & Interactive Map -->
+    <section id="ecosystem" class="py-24 bg-brand-cream border-t border-gray-200 overflow-hidden" 
+             x-data="{ activeTab: 'merch', filter: 'all' }">
+        <div class="container mx-auto px-6 md:px-12">
+            
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-dark mb-4">Mesin Ekosistem Komersial</h2>
+                <p class="font-sans text-gray-600 max-w-2xl mx-auto">Sistem yang Anda butuhkan untuk mendominasi penjualan D2C (Direct-to-Consumer) apparel, biji kopi, dan memandu traffic organik ke titik seduh terdekat.</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-12">
+                <div class="bg-white p-1.5 rounded-full shadow-sm inline-flex border border-gray-200">
+                    <button @click="activeTab = 'merch'" 
+                            :class="activeTab === 'merch' ? 'bg-brand-dark text-white shadow-md' : 'text-gray-500 hover:text-brand-dark'"
+                            class="px-8 py-3 rounded-full font-sans font-bold text-sm transition-all duration-300 flex items-center gap-2">
+                        <i class="ph-bold ph-t-shirt"></i> E-Katalog Merchandise
+                    </button>
+                    <button @click="activeTab = 'map'" 
+                            :class="activeTab === 'map' ? 'bg-brand-tuku text-white shadow-md' : 'text-gray-500 hover:text-brand-tuku'"
+                            class="px-8 py-3 rounded-full font-sans font-bold text-sm transition-all duration-300 flex items-center gap-2">
+                        <i class="ph-bold ph-map-trifold"></i> Peta Titik Distribusi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 1: Interactive Merch Store -->
+            <div x-show="activeTab === 'merch'" 
+                 x-transition:enter="transition ease-out duration-500"
+                 x-transition:enter-start="opacity-0 translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="space-y-8">
+                
+                <!-- Filters -->
+                <div class="flex gap-4 overflow-x-auto pb-4 justify-center hide-scrollbar">
+                    <template x-for="cat in ['all', 'Apparel', 'Biji Kopi', 'Lifestyle']">
+                        <button @click="filter = cat"
+                                :class="filter === cat ? 'border-brand-dark text-brand-dark bg-white' : 'border-transparent text-gray-500 hover:bg-gray-100'"
+                                class="px-6 py-2 rounded-full border-2 font-sans text-sm font-bold capitalize transition-colors whitespace-nowrap"
+                                x-text="cat === 'all' ? 'Semua Koleksi' : cat">
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Products are injected from Alpine Data -->
+                    <template x-for="product in products.filter(p => filter === 'all' || p.category === filter)" :key="product.id">
+                        <div class="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 hover-lift group relative">
+                            <!-- Out of stock badge simulation -->
+                            <div x-show="product.stock < 10" class="absolute top-6 left-6 z-10 bg-brand-makeover text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                Sisa <span x-text="product.stock"></span> Items
+                            </div>
+
+                            <div class="relative h-64 rounded-2xl overflow-hidden mb-4 bg-gray-50">
+                                <img :src="product.image" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                                <!-- Quick Add Button -->
+                                <button @click="addToCart(product)" class="absolute bottom-4 left-1/2 -translate-x-1/2 w-11/12 bg-white/90 backdrop-blur text-brand-dark font-sans font-bold py-3 rounded-xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg flex justify-center items-center gap-2 hover:bg-brand-dark hover:text-white">
+                                    <i class="ph-bold ph-plus"></i> Tambah ke Tas
+                                </button>
+                            </div>
+                            <div class="px-2">
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1" x-text="product.category"></p>
+                                <h3 class="font-serif font-bold text-lg text-brand-dark leading-tight mb-2" x-text="product.name"></h3>
+                                <div class="flex justify-between items-center mt-4">
+                                    <span class="font-sans font-extrabold text-brand-tuku" x-text="formatRupiah(product.price)"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Tab 2: Interactive Distribution Map -->
+            <div x-show="activeTab === 'map'" 
+                 style="display: none;"
+                 x-transition:enter="transition ease-out duration-500"
+                 x-transition:enter-start="opacity-0 translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="relative bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row h-[600px]">
+                
+                <!-- Map Sidebar -->
+                <div class="w-full md:w-1/3 bg-white border-r border-gray-100 flex flex-col z-10">
+                    <div class="p-6 border-b border-gray-100 bg-brand-cream/30">
+                        <h3 class="font-serif font-bold text-2xl text-brand-dark mb-2">Lokasi Terdekat</h3>
+                        <div class="relative">
+                            <i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" placeholder="Cari area Selatan..." class="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl font-sans text-sm focus:outline-none focus:border-brand-tuku focus:ring-1 focus:ring-brand-tuku transition">
+                        </div>
+                    </div>
+                    <div class="flex-1 overflow-y-auto p-4 space-y-3">
+                        <!-- Branch List -->
+                        <template x-for="(branch, index) in branches" :key="index">
+                            <div @click="activeBranch = index" 
+                                 :class="activeBranch === index ? 'border-brand-tuku bg-brand-cream' : 'border-transparent hover:bg-gray-50'"
+                                 class="p-4 rounded-2xl border cursor-pointer transition-all">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-serif font-bold text-lg text-brand-dark" x-text="branch.name"></h4>
+                                    <span class="bg-brand-matcha/10 text-brand-matcha text-xs font-bold px-2 py-1 rounded" x-show="branch.isOpen">Buka</span>
+                                </div>
+                                <p class="text-sm font-sans text-gray-500 mb-3" x-text="branch.address"></p>
+                                <div class="flex gap-2">
+                                    <span class="text-xs font-semibold text-brand-dark bg-white border border-gray-200 px-2 py-1 rounded shadow-sm flex items-center gap-1"><i class="ph-fill ph-navigation-arrow"></i> Arahkan</span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Map Visualization Engine -->
+                <div class="flex-1 relative bg-[#e5e3df] overflow-hidden group">
+                    <!-- Simulated Map Background Image -->
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity filter contrast-125">
+                    
+                    <!-- Map Overlay Gradient for better visibility -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#e5e3df]/80"></div>
+
+                    <!-- Interactive Dots -->
+                    <template x-for="(branch, index) in branches" :key="index">
+                        <div class="absolute group/dot" :style="`top: ${branch.top}; left: ${branch.left};`">
+                            <div class="map-dot" :class="activeBranch === index ? 'bg-brand-makeover scale-125' : 'bg-brand-tuku'"></div>
+                            
+                            <!-- Hover Info Card -->
+                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 bg-white p-3 rounded-xl shadow-xl opacity-0 invisible group-hover/dot:opacity-100 group-hover/dot:visible transition-all duration-300 z-20 pointer-events-none transform translate-y-2 group-hover/dot:translate-y-0">
+                                <p class="font-serif font-bold text-sm mb-1" x-text="branch.name"></p>
+                                <p class="font-sans text-[10px] text-gray-500" x-text="branch.address"></p>
+                                <div class="mt-2 text-[10px] font-bold text-brand-tuku flex items-center gap-1">
+                                    <i class="ph-fill ph-clock"></i> Antrean: Sedang
+                                </div>
+                                <!-- Arrow -->
+                                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white transform rotate-45"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 5. The Stolen Traffic / Competitor Reality Section -->
+    <section id="roi" class="py-24 bg-brand-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-makeover/20 border border-brand-makeover/50 mb-6">
+                        <i class="ph-fill ph-warning-circle text-brand-makeover"></i>
+                        <span class="font-sans text-xs font-bold tracking-widest uppercase text-white">Visualisasi Kebocoran Omset</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Uang Anda Sedang Mengalir ke Kompetitor.</h2>
+                    <p class="font-sans text-gray-400 text-lg mb-8 leading-relaxed">
+                        Manajemen Tuku, Matchaman & Cups Coffee: Saat ini, <strong>68% konsumen Gen-Z dan Milenial</strong> di Kawasan Selatan mengharapkan integrasi seamless antara pembelian online & offline. Tanpa ekosistem commerce mandiri, mereka beralih ke platform pihak ketiga yang memakan margin 20%, atau lebih buruk—ke brand pesaing yang sudah memilikinya.
+                    </p>
+
+                    <!-- Real-Time Data Bars -->
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm font-sans font-bold mb-2">
+                                <span>Penjualan Merch & Beans Pihak Ketiga (Terpotong Margin)</span>
+                                <span class="text-brand-makeover">75% Hilang</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-3">
+                                <div class="bg-gray-600 h-3 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm font-sans font-bold mb-2">
+                                <span>Potensi Penjualan D2C (Dengan Sistem Prototype Ini)</span>
+                                <span class="text-brand-matcha">+450% Margin Murni</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-brand-tuku to-brand-matcha h-3 rounded-full relative" style="width: 90%">
+                                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_10px_#859f71] animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abstract Chart Graphic -->
+                <div class="relative flex justify-center">
+                    <div class="w-[400px] h-[400px] rounded-full border border-gray-700 relative flex items-center justify-center">
+                        <div class="w-[300px] h-[300px] rounded-full border border-gray-600 absolute animate-spin" style="animation-duration: 20s;"></div>
+                        <div class="w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-brand-tuku via-brand-dark to-brand-makeover opacity-50 filter blur-2xl animate-pulse-slow"></div>
+                        
+                        <div class="absolute bg-gray-900/80 backdrop-blur border border-gray-700 p-6 rounded-2xl shadow-2xl text-center z-10">
+                            <i class="ph-duotone ph-trend-up text-5xl text-brand-matcha mb-2"></i>
+                            <h3 class="font-serif font-bold text-3xl">Rp 1.2M+</h3>
+                            <p class="text-xs text-gray-400 font-sans uppercase tracking-widest mt-1">Potensi GMV / Kuartal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. The Self-Destructing Offer (Scarcity Engine) -->
+    <section id="offer" class="py-20 bg-brand-makeover relative overflow-hidden" x-data="countdownTimer()">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] opacity-20"></div>
+        <div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
+            
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Implementasi Eksklusif: Penawaran Terbatas</h2>
+            <p class="font-sans text-white/90 text-lg max-w-2xl mx-auto mb-10">
+                Kami hanya membuka 1 slot arsitektur skala besar bulan ini. Amankan pengembangan ekosistem ini dengan <strong>Setup Website Ekosistem: <strong>Rp 5.500.000</strong> (dari <s>Rp 10.000.000</s>) &bull; DP Rp 1.650.000 &bull; Subsidi Setup 30%</strong> sebelum waktu berakhir.
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-12">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-24 border border-white/20 shadow-xl">
+                    <span class="block font-serif text-4xl font-bold text-white mb-1" x-text="days"></span>
+                    <span class="text-[10px] font-sans font-bold uppercase tracking-widest text-white/70">Hari</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-24 border border-white/20 shadow-xl">
+                    <span class="block font-serif text-4xl font-bold text-white mb-1" x-text="hours"></span>
+                    <span class="text-[10px] font-sans font-bold uppercase tracking-widest text-white/70">Jam</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-24 border border-white/20 shadow-xl">
+                    <span class="block font-serif text-4xl font-bold text-white mb-1" x-text="mins"></span>
+                    <span class="text-[10px] font-sans font-bold uppercase tracking-widest text-white/70">Menit</span>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 w-24 border border-white/20 shadow-xl">
+                    <span class="block font-serif text-4xl font-bold text-white mb-1" x-text="secs"></span>
+                    <span class="text-[10px] font-sans font-bold uppercase tracking-widest text-white/70">Detik</span>
+                </div>
+            </div>
+
+            <button class="bg-white text-brand-dark px-10 py-5 rounded-full font-sans font-extrabold text-lg hover:bg-brand-dark hover:text-white transition-all shadow-[0_0_40px_rgba(255,255,255,0.4)] hover:shadow-none hover:-translate-y-1">
+                Klaim Proposal Arsitektur Sekarang
+            </button>
+            <p class="mt-4 text-xs font-sans text-white/60"><i class="ph-fill ph-lock-key"></i> Keputusan Final di Tangan Manajemen. 100% Confidential.</p>
+        </div>
+    </section>
+
+    <!-- 7. Omni-QR & Mega Footer -->
+    <footer class="bg-brand-cream pt-24 pb-12 border-t border-gray-200">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="md:col-span-4 space-y-6">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-coffee text-4xl text-brand-tuku"></i>
+                        <span class="font-serif font-bold text-2xl text-brand-dark">Kolektif<span class="text-brand-makeover">.</span>Selatan</span>
+                    </div>
+                    <p class="font-sans text-gray-500 text-sm leading-relaxed">
+                        Purwarupa eksklusif ekosistem digital untuk Toko Kopi Tuku, Matchaman, dan Cups Coffee x Make Over. Menghubungkan ranah luring ke beranda daring dengan presisi arsitektur tingkat tinggi.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-brand-tuku hover:border-brand-tuku transition shadow-sm"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-brand-tuku hover:border-brand-tuku transition shadow-sm"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-brand-tuku hover:border-brand-tuku transition shadow-sm"><i class="ph-fill ph-twitter-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="md:col-span-2 md:col-start-6">
+                    <h4 class="font-sans font-bold text-brand-dark mb-6 uppercase tracking-wider text-sm">Arsitektur</h4>
+                    <ul class="space-y-4 font-sans text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-tuku transition">Narasi Brand</a></li>
+                        <li><a href="#" class="hover:text-brand-tuku transition">E-Commerce</a></li>
+                        <li><a href="#" class="hover:text-brand-tuku transition">Titik Distribusi</a></li>
+                        <li><a href="#" class="hover:text-brand-tuku transition">Kalkulasi ROI</a></li>
+                    </ul>
+                </div>
+
+                <!-- Operational Hours -->
+                <div class="md:col-span-2">
+                    <h4 class="font-sans font-bold text-brand-dark mb-6 uppercase tracking-wider text-sm">Operasional Daring</h4>
+                    <ul class="space-y-4 font-sans text-sm text-gray-500">
+                        <li>Senin - Jumat<br><strong class="text-brand-dark">08:00 - 22:00</strong></li>
+                        <li>Akhir Pekan<br><strong class="text-brand-dark">07:00 - 23:00</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Omni-QR Code Generation via Vanilla JS (Simulated) -->
+                <div class="md:col-span-3 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm text-center flex flex-col items-center justify-center">
+                    <h4 class="font-sans font-bold text-brand-dark mb-2 text-sm">Pindai Purwarupa Ini</h4>
+                    <p class="text-[10px] text-gray-400 font-sans mb-4">Bagikan ke jajaran Manajemen.</p>
+                    <div id="dynamic-qr" class="w-32 h-32 bg-gray-100 rounded-xl flex items-center justify-center p-2 mb-2 relative overflow-hidden">
+                        <!-- Simulated QR Code Image Generation -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://kolektif-selatan.prototype&color=1a1a1a&bgcolor=ffffff" alt="QR Code" class="w-full h-full object-contain">
+                        <div class="absolute inset-0 bg-brand-dark/5 animate-pulse"></div>
+                    </div>
+                    <span class="text-xs font-mono text-gray-500">kolektif.selatan/proto-v1</span>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-sans text-sm text-gray-400">© 2023 Titanium God-Tier Architect. Hak Cipta Dilindungi.</p>
+                <div class="flex gap-6 font-sans text-sm text-gray-400">
+                    <a href="#" class="hover:text-brand-dark transition">Privasi</a>
+                    <a href="#" class="hover:text-brand-dark transition">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 8. The "Trojan Horse" Sales Bot -->
+    <div x-show="showBot" 
+         x-transition:enter="transition ease-out duration-500 transform"
+         x-transition:enter-start="opacity-0 translate-y-10"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-300 transform"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-10"
+         class="fixed bottom-6 right-6 z-50 flex flex-col items-end"
+         style="display: none;">
+         
+         <!-- Chat Bubble -->
+         <div class="bg-white rounded-2xl rounded-br-none shadow-2xl border border-gray-100 p-5 mb-4 w-72 relative">
+            <div class="flex items-center gap-3 mb-3 pb-3 border-b border-gray-100">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" class="w-10 h-10 rounded-full object-cover">
+                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+                </div>
+                <div>
+                    <h5 class="font-sans font-bold text-sm text-brand-dark">Arsitek AI</h5>
+                    <p class="text-[10px] text-gray-400 font-sans">Online</p>
+                </div>
+            </div>
+            <p class="font-sans text-sm text-gray-600 leading-relaxed">
+                Halo manajemen <strong>Toko Kopi Tuku, Cups Coffee X Make Over, Matchaman</strong>, kami siap mengimplementasikan sistem ini hari ini. Setup: <strong>Rp 5.500.000</strong> (DP Rp 1.650.000). Ingin jadwalkan meeting 15 menit? — <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;">cocotech.studio</a>
+            </p>
+            <div class="mt-4 flex gap-2">
+                <a href="#" class="flex-1 bg-brand-dark text-white text-center py-2 rounded-lg font-sans text-xs font-bold hover:bg-brand-tuku transition">Jadwalkan Demo</a>
+                <button @click="showBot = false" class="px-3 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-200 transition"><i class="ph-bold ph-x"></i></button>
+            </div>
+            
+            <!-- Triangle indicator -->
+            <div class="absolute -bottom-2 right-4 w-4 h-4 bg-white transform rotate-45 border-r border-b border-gray-100"></div>
+         </div>
+
+         <!-- Trigger Button -->
+         <button @click="showBot = !showBot" class="w-14 h-14 bg-brand-dark text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-brand-tuku hover:scale-110 transition-all duration-300">
+            <i class="ph-fill ph-chat-teardrop-dots text-3xl"></i>
+         </button>
+    </div>
+
+    <!-- Alpine.js Application Logic -->
+    <script>
+        function appData() {
+            return {
+                scrolled: false,
+                showBot: false,
+                cartOpen: false,
+                cart: [],
+                activeBranch: 0,
+                branches: [
+                    { name: 'Cipete Raya Hub', address: 'Jl. Cipete Raya No.7, Jakarta Selatan', isOpen: true, top: '45%', left: '30%' },
+                    { name: 'Senopati Collaborative Space', address: 'Kawasan Senopati, Kebayoran Baru', isOpen: true, top: '35%', left: '45%' },
+                    { name: 'Kemang X Matchaman', address: 'Jl. Kemang Raya, Jakarta Selatan', isOpen: false, top: '55%', left: '40%' }
+                ],
+                products: [
+                    { id: 1, name: 'Tuku Signature Beans 250g', category: 'Biji Kopi', price: 95000, stock: 45, image: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=500&q=80' },
+                    { id: 2, name: 'Matchaman Oversize Tee', category: 'Apparel', price: 250000, stock: 8, image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=500&q=80' },
+                    { id: 3, name: 'Make Over Collab Tumbler', category: 'Lifestyle', price: 185000, stock: 12, image: 'https://images.unsplash.com/photo-1517088926438-e6d2bc8fca9d?auto=format&fit=crop&w=500&q=80' },
+                    { id: 4, name: 'Tetangga Blend Single Origin', category: 'Biji Kopi', price: 120000, stock: 50, image: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?auto=format&fit=crop&w=500&q=80' }
+                ],
+                formatRupiah(number) {
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+                },
+                addToCart(product) {
+                    this.cart.push(product);
+                    this.cartOpen = true; // Auto open drawer to show action
+                },
+                removeFromCart(index) {
+                    this.cart.splice(index, 1);
+                },
+                get cartTotal() {
+                    return this.cart.reduce((sum, item) => sum + item.price, 0);
+                }
+            }
+        }
+
+        function countdownTimer() {
+            return {
+                time: 172800, // 48 hours in seconds
+                days: 0, hours: 0, mins: 0, secs: 0,
+                init() {
+                    this.calculate();
+                    setInterval(() => {
+                        if(this.time > 0) this.time--;
+                        this.calculate();
+                    }, 1000);
+                },
+                calculate() {
+                    this.days = String(Math.floor(this.time / 86400)).padStart(2, '0');
+                    this.hours = String(Math.floor((this.time % 86400) / 3600)).padStart(2, '0');
+                    this.mins = String(Math.floor((this.time % 3600) / 60)).padStart(2, '0');
+                    this.secs = String(this.time % 60).padStart(2, '0');
+                }
+            }
+        }
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

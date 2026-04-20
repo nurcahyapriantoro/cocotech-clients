@@ -1,0 +1,46 @@
+{
+  "client_name": "Manajemen Historis Cafe Batavia",
+  "project_type": "Enterprise F&B Ecosystem & Heritage Digitization",
+  "currency": "IDR",
+  "investment_tiers": [
+    {
+      "tier": "Core Digital Backbone",
+      "price_idr": 75000000,
+      "price_usd_equivalent": 5000,
+      "features": [
+        "Website Ultra-Responsive Tailwind",
+        "Bilingual SEO Digital Menu (Max 50 items)",
+        "Basic Event Inquiry Form"
+      ]
+    },
+    {
+      "tier": "The Heritage Conversion Engine (Recommended)",
+      "price_idr": 185000000,
+      "price_usd_equivalent": 12000,
+      "features": [
+        "Segala fitur Core",
+        "Automated Event Quotation System (Multi-step + PDF Gen)",
+        "Integration with WhatsApp API / Email Autoresponder",
+        "Advanced Analytics & Competitor Shield"
+      ]
+    },
+    {
+      "tier": "Full Immersion 360",
+      "price_idr": 375000000,
+      "price_usd_equivalent": 25000,
+      "features": [
+        "Segala fitur Heritage Engine",
+        "Shooting Virtual Tour 360 resolusi 8K (Lantai 1 & 2)",
+        "Custom 3D WebGL Hotspot Mapping",
+        "Dedicated Server & SLA Maintenance 1 Tahun"
+      ],
+      "discount_note": "Diskon setup 30% berlaku jika deal dalam 48 jam. (Menjadi Rp 262.500.000)"
+    }
+  ],
+  "roi_projection": {
+    "current_monthly_lost_revenue_est_idr": 150000000,
+    "projected_monthly_recovered_revenue_idr": 120000000,
+    "break_even_point_months": 2.5,
+    "roi_percentage_12_months": "380%"
+  }
+}

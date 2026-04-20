@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maiku Tiramisu | Premium Artisan Dessert & Real-time Pre-Order System</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cocoa: {
+                            900: '#2D1B15',
+                            800: '#3E2723',
+                            700: '#4E342E',
+                            600: '#5D4037',
+                        },
+                        mascarpone: {
+                            50: '#FFFCF5',
+                            100: '#FFF8E7',
+                            200: '#FDF1D7',
+                        },
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                        },
+                        accent: '#A0522D',
+                        danger: '#E53E3E'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-dark {
+            background: rgba(62, 39, 35, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #D4AF37, #FDF1D7, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .bento-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(62, 39, 35, 0.15);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+    </style>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+</head>
+<body class="bg-mascarpone-50 text-cocoa-900 font-sans antialiased overflow-x-hidden" 
+      x-data="globalState()" 
+      @scroll.window="handleScroll()">
+
+    <!-- 1. Ultra-Modern Glassmorphism Navigation -->
+    <nav :class="{ 'py-4 glass-dark shadow-2xl': scrolled, 'py-6 bg-transparent': !scrolled }" 
+         class="fixed w-full top-0 z-50 transition-all duration-500 ease-in-out border-b border-transparent"
+         :style="scrolled ? 'border-bottom-color: rgba(212, 175, 55, 0.1);' : ''">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <!-- Brand -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-500 to-mascarpone-200 flex items-center justify-center shadow-lg">
+                    <i class="ph-fill ph-cake text-cocoa-900 text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl tracking-wide" :class="{ 'text-mascarpone-50': scrolled, 'text-cocoa-900': !scrolled }">MAIKU</span>
+                    <span class="text-[0.6rem] tracking-[0.2em] uppercase font-semibold text-gold-400" style="margin-top: -4px;">Tiramisu Artisan</span>
+                </div>
+            </div>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="#heritage" class="hover:text-gold-400 transition-colors" :class="{ 'text-mascarpone-100': scrolled, 'text-cocoa-700': !scrolled }">Heritage</a>
+                <a href="#competitor" class="hover:text-gold-400 transition-colors" :class="{ 'text-mascarpone-100': scrolled, 'text-cocoa-700': !scrolled }">Market Reality</a>
+                <a href="#engine" class="hover:text-gold-400 transition-colors" :class="{ 'text-mascarpone-100': scrolled, 'text-cocoa-700': !scrolled }">Live Pre-Order</a>
+            </div>
+
+            <!-- CTA -->
+            <div class="hidden md:flex items-center gap-4">
+                <button @click="openCart = true" class="relative group p-2">
+                    <i class="ph ph-shopping-bag text-2xl transition-colors" :class="{ 'text-mascarpone-50 group-hover:text-gold-400': scrolled, 'text-cocoa-900 group-hover:text-gold-500': !scrolled }"></i>
+                    <span x-show="cartTotalItems > 0" x-text="cartTotalItems" class="absolute top-0 right-0 w-5 h-5 bg-danger text-white text-xs font-bold rounded-full flex items-center justify-center animate-bounce"></span>
+                </button>
+                <a href="#engine" class="bg-gold-400 hover:bg-gold-500 text-cocoa-900 px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="ph-bold ph-lightning"></i> Coba Prototype
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-2xl" :class="{ 'text-mascarpone-50': scrolled, 'text-cocoa-900': !scrolled }">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 2. Interactive Hero Section -->
+    <header class="relative min-h-[100vh] flex items-center pt-24 overflow-hidden bg-mascarpone-50">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold-400/20 rounded-full mix-blend-multiply filter blur-[80px] animate-blob"></div>
+            <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-cocoa-800/10 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-[-20%] left-[20%] w-[700px] h-[700px] bg-orange-900/10 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-4000"></div>
+            <!-- Texture Overlay -->
+            <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full grid lg:grid-cols-2 gap-12 items-center">
+            <div class="flex flex-col justify-center max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cocoa-900/5 border border-cocoa-900/10 w-max mb-6">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-danger opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-danger"></span>
+                    </span>
+                    <span class="text-xs font-bold text-cocoa-800 uppercase tracking-wider">Antrean Sold Out Setiap Hari</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-serif font-bold text-cocoa-900 leading-[1.1] mb-6">
+                    Jangan Biarkan <span class="italic font-light text-cocoa-600">Pelanggan Blok M</span> Kecewa Karena <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cocoa-800 to-gold-500">Stok Habis.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-cocoa-700 mb-10 leading-relaxed max-w-xl">
+                    Maiku Tiramisu memproduksi mahakarya dessert viral. Namun, popularitas tanpa <strong>sistem Pre-Order & Manajemen Stok Real-Time</strong> berarti Anda membuang potensi pendapatan hingga jutaan rupiah ke toko sebelah setiap hari.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#engine" class="group relative px-8 py-4 bg-cocoa-900 text-mascarpone-50 rounded-full font-bold text-center overflow-hidden transition-all shadow-[0_10px_30px_rgba(62,39,35,0.3)] hover:shadow-[0_15px_40px_rgba(62,39,35,0.5)] transform hover:-translate-y-1">
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shine_1.5s_ease] z-0"></div>
+                        <span class="relative z-10 flex items-center justify-center gap-2">
+                            Coba Live Prototype <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </a>
+                    <a href="#competitor" class="px-8 py-4 bg-transparent border-2 border-cocoa-900 text-cocoa-900 rounded-full font-bold text-center hover:bg-cocoa-900 hover:text-mascarpone-50 transition-colors flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-chart-line-up"></i> Lihat Analisis ROI
+                    </a>
+                </div>
+
+                <div class="mt-12 flex items-center gap-4 text-sm font-medium text-cocoa-600">
+                    <div class="flex -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-mascarpone-50 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-mascarpone-50 object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-mascarpone-50 object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="User">
+                    </div>
+                    <p>Mencegah <strong class="text-cocoa-900">150+ komplain</strong> stok habis per hari.</p>
+                </div>
+            </div>
+            
+            <!-- Floating Showcase -->
+            <div class="relative hidden lg:block animate-float">
+                <div class="absolute inset-0 bg-gradient-to-tr from-gold-400 to-transparent rounded-[3rem] blur-2xl opacity-30"></div>
+                <!-- Mockup Container -->
+                <div class="relative bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[3rem] shadow-2xl z-10">
+                    <!-- Glass Header -->
+                    <div class="flex justify-between items-center mb-6 px-2">
+                        <div>
+                            <p class="text-xs font-bold text-cocoa-500 uppercase">Live Dashboard</p>
+                            <p class="text-lg font-serif font-bold text-cocoa-900">Maiku Tiramisu Blok M</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                            <i class="ph-fill ph-check-circle text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <!-- Mockup Product Card -->
+                    <div class="bg-white rounded-2xl p-4 shadow-sm mb-4 border border-mascarpone-100 flex gap-4 items-center">
+                        <div class="w-20 h-20 bg-mascarpone-200 rounded-xl overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1571115177098-24c42d640fc9?auto=format&fit=crop&w=200&q=80" class="object-cover w-full h-full" alt="Tiramisu">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-cocoa-900">Signature Classic</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded">Sisa 12 Loyang</span>
+                                <span class="text-xs text-cocoa-500">Update Real-time</span>
+                            </div>
+                            <div class="mt-2 w-full bg-mascarpone-100 rounded-full h-1.5">
+                                <div class="bg-gold-400 h-1.5 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notification popup simulation -->
+                    <div class="absolute -bottom-6 -left-10 bg-cocoa-900 text-white p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
+                        <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                            <i class="ph-bold ph-shopping-cart text-green-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold">Pesanan Masuk!</p>
+                            <p class="text-xs text-gray-300">Kak Sarah PO 2 Pistachio Dream</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee Banner -->
+    <div class="bg-cocoa-900 py-3 overflow-hidden border-y border-cocoa-700 relative z-20">
+        <div class="flex whitespace-nowrap animate-marquee">
+            <template x-for="i in 5">
+                <div class="flex items-center text-mascarpone-50 mx-4">
+                    <span class="font-bold text-sm tracking-widest uppercase">Solusi Antrean Blok M</span>
+                    <i class="ph-fill ph-star-four text-gold-400 mx-4 text-xs"></i>
+                    <span class="font-bold text-sm tracking-widest uppercase">Auto-Sinkronisasi Stok</span>
+                    <i class="ph-fill ph-star-four text-gold-400 mx-4 text-xs"></i>
+                    <span class="font-bold text-sm tracking-widest uppercase">Sistem Pre-Order H-1</span>
+                    <i class="ph-fill ph-star-four text-gold-400 mx-4 text-xs"></i>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- 3. Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="heritage" class="py-24 bg-mascarpone-100 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold text-accent tracking-[0.2em] uppercase mb-3">Warisan Rasa</h2>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-cocoa-900">Bukan Sekadar Dessert,<br>Ini Mahakarya.</h3>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 max-w-5xl mx-auto">
+                <!-- Large Image Block -->
+                <div class="md:col-span-2 md:row-span-2 relative rounded-[2rem] overflow-hidden group bento-hover">
+                    <img src="https://images.unsplash.com/photo-1624531868514-9b5ee9464654?auto=format&fit=crop&w=800&q=80" alt="Artisan Tiramisu" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-cocoa-900/90 via-cocoa-900/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <h4 class="text-2xl font-serif font-bold text-mascarpone-50 mb-2">Resep Rahasia Mascarpone</h4>
+                        <p class="text-mascarpone-100/80 text-sm max-w-md leading-relaxed">
+                            Setiap layer Maiku Tiramisu diracik menggunakan keju mascarpone impor premium dan espresso house-blend pilihan. Tekstur velvet yang meleleh di mulut menciptakan histeria di Jakarta Selatan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Text Block -->
+                <div class="bg-white rounded-[2rem] p-8 border border-mascarpone-200 bento-hover shadow-sm flex flex-col justify-center">
+                    <div class="w-12 h-12 rounded-full bg-gold-400/20 flex items-center justify-center mb-4 text-gold-500">
+                        <i class="ph-fill ph-users-three text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-cocoa-900 mb-2">Fenomena Blok M</h4>
+                    <p class="text-cocoa-600 text-sm leading-relaxed">
+                        Ribuan orang rela mengantre demi satu gigitan. Namun, lonjakan demand ini membutuhkan sistem e-commerce setangguh rasa yang Anda sajikan.
+                    </p>
+                </div>
+
+                <!-- Dark Block -->
+                <div class="bg-cocoa-900 rounded-[2rem] p-8 bento-hover shadow-xl flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 opacity-10">
+                        <i class="ph-fill ph-crown text-9xl text-gold-400"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-gold-400 mb-2 relative z-10">Visi Digital</h4>
+                    <p class="text-mascarpone-100 text-sm leading-relaxed relative z-10">
+                        Kami merancang infrastruktur website ini untuk mereservasi eksklusivitas Maiku Tiramisu. Pelanggan bisa melakukan Pre-Order dengan elegan, tanpa kekecewaan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. The Stolen Traffic / Competitor Reality Section -->
+    <section id="competitor" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Left: Educational Hard-Hitting Copy -->
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-danger/10 border border-danger/20 w-max mb-6 text-danger">
+                        <i class="ph-bold ph-warning-circle"></i>
+                        <span class="text-xs font-bold uppercase tracking-wider">Kebocoran Pendapatan Terdeteksi</span>
+                    </div>
+                    
+                    <h2 class="text-4xl font-serif font-bold text-cocoa-900 mb-6">
+                        Setiap Menit Stok Habis,<br>Uang Anda Mengalir ke <span class="text-danger underline decoration-danger/30 decoration-4">Kompetitor</span>.
+                    </h2>
+                    
+                    <p class="text-cocoa-700 mb-8 text-lg">
+                        Di area Blok M yang hiper-kompetitif, loyalitas diuji oleh ketersediaan. Saat pelanggan datang ke toko dan produk sold out, mereka tidak pulang—mereka membeli dessert di kedai sebelah.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-danger/10 rounded-xl flex items-center justify-center text-danger">
+                                <i class="ph-bold ph-trend-down text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-cocoa-900 text-lg">Kehilangan Impulse Buying</h4>
+                                <p class="text-sm text-cocoa-600 mt-1">Tanpa sistem Pre-Order H-1, Anda kehilangan pelanggan yang ingin memastikan pesanan mereka untuk perayaan atau acara khusus.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600">
+                                <i class="ph-bold ph-lock-key text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-cocoa-900 text-lg">Kunci Revenue dengan Sistem Kami</h4>
+                                <p class="text-sm text-cocoa-600 mt-1">Biarkan sistem yang menerima pesanan 24/7. Pelanggan bayar lunas hari ini, ambil besok. Cashflow aman, zero waste production.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Bar Chart Simulation -->
+                <div class="bg-mascarpone-50 rounded-[2rem] p-8 border border-mascarpone-200 shadow-xl relative">
+                    <h3 class="text-center font-bold text-cocoa-900 mb-8 text-lg">Simulasi Kehilangan Penjualan Harian<br><span class="text-sm font-normal text-cocoa-500">(Berdasarkan 150 penolakan/hari @ Rp 65.000)</span></h3>
+                    
+                    <!-- Graph -->
+                    <div class="space-y-8 relative">
+                        <!-- Divider Line -->
+                        <div class="absolute left-[30%] top-0 bottom-0 w-px bg-cocoa-200 border-dashed border-l border-cocoa-300"></div>
+
+                        <!-- Bar 1: Tanpa Sistem -->
+                        <div class="relative z-10">
+                            <div class="flex justify-between text-sm font-bold text-cocoa-700 mb-2">
+                                <span>Tanpa Sistem Pre-Order</span>
+                                <span class="text-danger">- Rp 9.750.000 / Hari</span>
+                            </div>
+                            <div class="w-full bg-cocoa-100 rounded-full h-8 overflow-hidden flex">
+                                <div class="bg-danger/80 h-full flex items-center px-4 text-white text-xs font-bold transition-all duration-1000 w-[80%]">
+                                    Potensi Hilang (Pindah ke Toko Lain)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 2: Dengan Sistem Kami -->
+                        <div class="relative z-10">
+                            <div class="flex justify-between text-sm font-bold text-cocoa-700 mb-2">
+                                <span>Dengan Live Pre-Order Engine</span>
+                                <span class="text-green-600">+ Rp 9.750.000 Teramankan</span>
+                            </div>
+                            <div class="w-full bg-cocoa-100 rounded-full h-8 overflow-hidden flex shadow-inner">
+                                <div class="bg-gradient-to-r from-gold-400 to-gold-500 h-full flex items-center px-4 text-cocoa-900 text-xs font-bold transition-all duration-1000 w-[100%] relative overflow-hidden">
+                                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shine_2s_infinite]"></div>
+                                    <span class="relative z-10">100% Revenue Captured (Cash in Advance)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-gold-400/10 rounded-xl border border-gold-400/30 text-center">
+                        <p class="text-sm font-bold text-cocoa-900">ROI dalam 4 Hari Operasional!</p>
+                        <p class="text-xs text-cocoa-600 mt-1">Biaya setup website ini terbayar lunas hanya dengan menyelamatkan pesanan yang bocor selama 4 hari.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE (CORE ENGINE - INTERACTIVE) -->
+    <section id="engine" class="py-24 bg-cocoa-900 text-mascarpone-50 relative">
+        <!-- Texture -->
+        <div class="absolute inset-0 opacity-10 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold-400/20 border border-gold-400/30 w-max mb-6 text-gold-400">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-gold-400"></span>
+                    </span>
+                    <span class="text-xs font-bold uppercase tracking-wider">Live E-Commerce Engine Prototype</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Real-Time Pre-Order System</h2>
+                <p class="text-mascarpone-100/70 max-w-2xl mx-auto text-lg">
+                    Coba interaksi di bawah. Saat stok menipis, sistem memunculkan urgensi. Saat stok habis, tombol berubah menjadi "Pre-Order Besok". Tidak ada lagi peluang penjualan yang terlewat.
+                </p>
+            </div>
+
+            <!-- Interactive App Simulation (Alpine x-data defined globally) -->
+            <div class="bg-mascarpone-50 rounded-[2.5rem] p-6 md:p-10 text-cocoa-900 shadow-2xl overflow-hidden relative">
+                
+                <!-- Date Picker Simulation Header -->
+                <div class="flex flex-col md:flex-row justify-between items-center pb-6 border-b border-cocoa-200 mb-8 gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold font-serif">Katalog Maiku Tiramisu</h3>
+                        <p class="text-sm text-cocoa-500">Pick-up di Store Blok M</p>
+                    </div>
+                    <div class="flex bg-white rounded-xl p-1 shadow-sm border border-cocoa-100">
+                        <button class="px-6 py-2 rounded-lg bg-cocoa-900 text-white font-bold text-sm shadow-md transition-all">Hari Ini</button>
+                        <button class="px-6 py-2 rounded-lg text-cocoa-600 hover:bg-mascarpone-100 font-bold text-sm transition-all">Besok (PO)</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <template x-for="product in products" :key="product.id">
+                        <div class="bg-white rounded-2xl p-4 border border-mascarpone-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full relative">
+                            <!-- Out of Stock Overlay -->
+                            <div x-show="product.stock === 0" class="absolute inset-0 bg-white/60 backdrop-blur-[2px] z-10 rounded-2xl flex items-center justify-center transition-opacity" x-transition>
+                                <div class="bg-cocoa-900 text-white px-6 py-3 rounded-full font-bold shadow-xl rotate-[-10deg] border-2 border-gold-400">
+                                    SOLD OUT HARI INI
+                                </div>
+                            </div>
+
+                            <div class="w-full h-48 bg-mascarpone-100 rounded-xl mb-4 overflow-hidden relative">
+                                <img :src="product.img" :alt="product.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                
+                                <!-- Stock Badge dynamically styled -->
+                                <div class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold shadow-md backdrop-blur-md"
+                                     :class="{
+                                         'bg-green-500/90 text-white': product.stock > 5,
+                                         'bg-orange-500/90 text-white animate-pulse': product.stock > 0 && product.stock <= 5,
+                                         'bg-danger/90 text-white': product.stock === 0
+                                     }">
+                                    <span x-show="product.stock > 5" x-text="`Tersedia ${product.stock} Box`"></span>
+                                    <span x-show="product.stock > 0 && product.stock <= 5" x-text="`Sisa ${product.stock} Box! (Hampir Habis)`"></span>
+                                    <span x-show="product.stock === 0">Habis Terjual</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 flex flex-col">
+                                <h4 class="font-bold text-lg text-cocoa-900 mb-1" x-text="product.name"></h4>
+                                <p class="text-sm text-cocoa-500 mb-4 line-clamp-2" x-text="product.desc"></p>
+                                
+                                <div class="mt-auto flex items-center justify-between">
+                                    <span class="font-bold text-xl text-cocoa-900" x-text="formatRupiah(product.price)"></span>
+                                    
+                                    <!-- Conditional Button -->
+                                    <button x-show="product.stock > 0" 
+                                            @click="addToCart(product)"
+                                            class="w-10 h-10 rounded-full bg-gold-400 text-cocoa-900 flex items-center justify-center hover:bg-gold-500 hover:scale-110 transition-all shadow-lg active:scale-95">
+                                        <i class="ph-bold ph-plus text-lg"></i>
+                                    </button>
+
+                                    <button x-show="product.stock === 0" 
+                                            class="px-4 py-2 rounded-full bg-cocoa-900 text-white text-xs font-bold hover:bg-cocoa-800 transition-all shadow-lg active:scale-95 z-20 relative">
+                                        PO Untuk Besok
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Drawer (Simulated) -->
+    <div x-show="openCart" class="relative z-[100]" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div x-show="openCart" x-transition.opacity class="fixed inset-0 bg-cocoa-900/60 backdrop-blur-sm transition-opacity" @click="openCart = false"></div>
+        <div class="fixed inset-0 overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                    <div x-show="openCart" 
+                         x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700" 
+                         x-transition:enter-start="translate-x-full" 
+                         x-transition:enter-end="translate-x-0" 
+                         x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700" 
+                         x-transition:leave-start="translate-x-0" 
+                         x-transition:leave-end="translate-x-full" 
+                         class="pointer-events-auto w-screen max-w-md">
+                         
+                        <div class="flex h-full flex-col bg-white shadow-2xl">
+                            <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                                <div class="flex items-start justify-between">
+                                    <h2 class="text-xl font-bold font-serif text-cocoa-900" id="slide-over-title">Keranjang Belanja</h2>
+                                    <div class="ml-3 flex h-7 items-center">
+                                        <button type="button" @click="openCart = false" class="relative -m-2 p-2 text-cocoa-400 hover:text-cocoa-500 transition-colors">
+                                            <i class="ph-bold ph-x text-2xl"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8">
+                                    <div class="flow-root">
+                                        <ul role="list" class="-my-6 divide-y divide-cocoa-100">
+                                            <template x-for="(item, index) in cart" :key="index">
+                                                <li class="flex py-6">
+                                                    <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl border border-cocoa-100">
+                                                        <img :src="item.img" alt="Product image" class="h-full w-full object-cover object-center">
+                                                    </div>
+                                                    <div class="ml-4 flex flex-1 flex-col justify-center">
+                                                        <div>
+                                                            <div class="flex justify-between text-base font-medium text-cocoa-900">
+                                                                <h3 x-text="item.name" class="font-bold"></h3>
+                                                                <p class="ml-4" x-text="formatRupiah(item.price)"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-1 items-end justify-between text-sm mt-2">
+                                                            <p class="text-cocoa-500">Qty 1</p>
+                                                            <button type="button" @click="removeFromCart(index)" class="font-medium text-danger hover:text-red-500 flex items-center gap-1">
+                                                                <i class="ph-bold ph-trash"></i> Hapus
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                            
+                                            <li x-show="cart.length === 0" class="py-12 text-center text-cocoa-400 flex flex-col items-center">
+                                                <i class="ph-thin ph-shopping-cart text-6xl mb-4"></i>
+                                                <p>Keranjang masih kosong.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-cocoa-100 px-4 py-6 sm:px-6 bg-mascarpone-50">
+                                <div class="flex justify-between text-lg font-bold text-cocoa-900 mb-4">
+                                    <p>Total</p>
+                                    <p x-text="formatRupiah(cartTotal)"></p>
+                                </div>
+                                <p class="mt-0.5 text-sm text-cocoa-500 mb-6">Pajak dan ongkir dihitung saat checkout.</p>
+                                <div class="mt-6">
+                                    <button class="flex w-full items-center justify-center rounded-full border border-transparent bg-cocoa-900 px-6 py-4 text-base font-bold text-white shadow-md hover:bg-cocoa-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed" :disabled="cart.length === 0" @click="alert('Simulasi Checkout Berhasil! Sistem akan meneruskan ke Payment Gateway.')">
+                                        Checkout via WhatsApp / Payment Gateway
+                                    </button>
+                                </div>
+                                <div class="mt-6 flex justify-center text-center text-sm text-cocoa-500">
+                                    <p>
+                                        atau
+                                        <button type="button" @click="openCart = false" class="font-medium text-gold-500 hover:text-gold-400">
+                                            Lanjut belanja <span aria-hidden="true"> &rarr;</span>
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. The Self-Destructing Offer (Scarcity Engine) -->
+    <section class="py-20 bg-cocoa-900 border-y-4 border-gold-400 relative overflow-hidden" x-data="countdownTimer()">
+        <!-- Background elements -->
+        <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-gold-400/20 to-transparent transform -skew-x-12 translate-x-20 pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
+                Amankan Sistem Pre-Order Anda <span class="text-gold-400">Sekarang</span>.
+            </h2>
+            <p class="text-mascarpone-100 text-lg mb-10 max-w-2xl mx-auto">
+                Tawaran eksklusif Setup Website + Engine E-commerce khusus manajemen Maiku Tiramisu Blok M. Setup Website + Sistem Pre-Order: <strong>Rp 2.500.000</strong> (dari <s>Rp 5.000.000</s>) &bull; DP Rp 750.000 &bull; Diskon 30% akan hangus dalam:
+            </p>
+
+            <!-- Countdown Timer Alpine -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 md:w-28 md:h-28 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                        <span class="text-4xl md:text-5xl font-bold text-gold-400 font-serif" x-text="format(hours)"></span>
+                    </div>
+                    <span class="text-mascarpone-100/70 text-sm mt-3 uppercase tracking-widest font-bold">Jam</span>
+                </div>
+                <div class="text-4xl md:text-5xl font-bold text-gold-400 mt-6 md:mt-8 animate-pulse">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 md:w-28 md:h-28 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                        <span class="text-4xl md:text-5xl font-bold text-gold-400 font-serif" x-text="format(minutes)"></span>
+                    </div>
+                    <span class="text-mascarpone-100/70 text-sm mt-3 uppercase tracking-widest font-bold">Menit</span>
+                </div>
+                <div class="text-4xl md:text-5xl font-bold text-gold-400 mt-6 md:mt-8 animate-pulse">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 md:w-28 md:h-28 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                        <span class="text-4xl md:text-5xl font-bold text-gold-400 font-serif" x-text="format(seconds)"></span>
+                    </div>
+                    <span class="text-mascarpone-100/70 text-sm mt-3 uppercase tracking-widest font-bold">Detik</span>
+                </div>
+            </div>
+
+            <button class="bg-gold-400 hover:bg-gold-500 text-cocoa-900 px-10 py-5 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:shadow-[0_0_40px_rgba(212,175,55,0.8)] transform hover:-translate-y-1 flex items-center justify-center gap-3 mx-auto">
+                <i class="ph-bold ph-whatsapp text-2xl"></i> Klaim Diskon 30% via WhatsApp
+            </button>
+        </div>
+    </section>
+
+    <!-- 7. Omni-QR & Mega Footer -->
+    <footer class="bg-cocoa-950 text-mascarpone-50/70 pt-20 pb-10 border-t border-cocoa-800 relative z-10" style="background-color: #1A0F0C;">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <!-- Brand Info -->
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-500 to-mascarpone-200 flex items-center justify-center">
+                            <i class="ph-fill ph-cake text-cocoa-900 text-2xl"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-serif font-bold text-2xl tracking-wide text-white">MAIKU</span>
+                            <span class="text-[0.65rem] tracking-[0.2em] uppercase font-semibold text-gold-400" style="margin-top: -4px;">Tiramisu Artisan</span>
+                        </div>
+                    </div>
+                    <p class="mb-6 max-w-sm leading-relaxed text-sm">
+                        Prototipe eksklusif sistem pemesanan dan manajemen stok waktu nyata yang dirancang khusus untuk kedai dessert premium paling viral di Blok M, Jakarta Selatan.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gold-400 hover:text-cocoa-900 transition-colors">
+                            <i class="ph-fill ph-instagram-logo text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gold-400 hover:text-cocoa-900 transition-colors">
+                            <i class="ph-fill ph-tiktok-logo text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="md:col-span-3">
+                    <h4 class="text-white font-bold mb-6 font-serif tracking-wide">Navigasi</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#heritage" class="hover:text-gold-400 transition-colors">Filosofi & Heritage</a></li>
+                        <li><a href="#competitor" class="hover:text-gold-400 transition-colors">Analisis Pasar</a></li>
+                        <li><a href="#engine" class="hover:text-gold-400 transition-colors">Sistem E-Commerce</a></li>
+                    </ul>
+                </div>
+
+                <!-- Dynamic QR Section -->
+                <div class="md:col-span-4 bg-white/5 rounded-3xl p-6 border border-white/10 flex items-center gap-6">
+                    <div class="bg-white p-2 rounded-xl" id="qr-container">
+                        <!-- Placeholder QR (Generated conceptually) -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://demo.maikutiramisu.com/booking" alt="QR Code" class="w-24 h-24">
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1 text-sm">Scan untuk Pre-Order</h4>
+                        <p class="text-xs text-mascarpone-100/50 mb-3">Arahkan kamera untuk mencoba mobile experience.</p>
+                        <div class="flex items-center gap-2 text-xs font-bold text-green-400">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                            Sistem Aktif 24/7
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2024 Arsitektur Digital Eksklusif oleh AI Master Developer.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 8. The "Trojan Horse" Sales Bot -->
+    <div x-show="showBot" 
+         x-transition:enter="transition ease-out duration-500"
+         x-transition:enter-start="opacity-0 translate-y-10 scale-90"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         class="fixed bottom-6 right-6 z-[60] max-w-xs"
+         style="display: none;">
+        
+        <!-- Chat Bubble -->
+        <div class="bg-white rounded-2xl rounded-br-sm shadow-2xl p-5 mb-4 border border-cocoa-100 relative">
+            <button @click="showBot = false" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                <i class="ph-bold ph-x"></i>
+            </button>
+            <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-cocoa-900 flex-shrink-0 flex items-center justify-center text-gold-400 relative">
+                    <i class="ph-fill ph-robot text-xl"></i>
+                    <span class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+                </div>
+                <div>
+                    <p class="text-xs text-cocoa-500 font-bold mb-1">Architect Bot</p>
+                    <p class="text-sm text-cocoa-900 leading-snug">
+                        Halo manajemen <strong class="text-accent">Maiku Tiramisu Blok M</strong>! 👋 <br><br>
+                        Kami siap mengimplementasikan sistem Pre-Order ini <span class="bg-gold-400/20 px-1 font-bold">hari ini</span> untuk mengamankan revenue Anda yang bocor.<br><br>Dibuat oleh <strong>CocoTech</strong> — IT Agency sangat berpengalaman. <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">cocotech.studio</a>
+                    </p>
+                </div>
+            </div>
+            <a href="#" class="mt-4 w-full block text-center bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl text-sm font-bold transition-colors shadow-md flex items-center justify-center gap-2">
+                <i class="ph-bold ph-whatsapp text-lg"></i> Diskusi via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // Audio for bot pop-up
+        const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+
+        function globalState() {
+            return {
+                scrolled: false,
+                scrollPct: 0,
+                showBot: false,
+                botPlayed: false,
+                openCart: false,
+                
+                // E-commerce Engine Data
+                cart: [],
+                products: [
+                    { 
+                        id: 1, 
+                        name: 'Signature Classic Tiramisu', 
+                        desc: 'Resep asli Itali dengan mascarpone impor dan espresso house blend.',
+                        stock: 12, 
+                        price: 65000, 
+                        img: 'https://images.unsplash.com/photo-1571115177098-24c42d640fc9?auto=format&fit=crop&w=500&q=80' 
+                    },
+                    { 
+                        id: 2, 
+                        name: 'Pistachio Dream', 
+                        desc: 'Taburan kacang pistachio panggang dan krim mascarpone gurih manis.',
+                        stock: 3, 
+                        price: 75000, 
+                        img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=500&q=80' 
+                    },
+                    { 
+                        id: 3, 
+                        name: 'Matcha Opera', 
+                        desc: 'Perpaduan tiramisu klasik dengan ceremonial grade Uji Matcha.',
+                        stock: 0, 
+                        price: 70000, 
+                        img: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=80' 
+                    }
+                ],
+
+                get cartTotalItems() {
+                    return this.cart.length;
+                },
+
+                get cartTotal() {
+                    return this.cart.reduce((total, item) => total + item.price, 0);
+                },
+
+                addToCart(product) {
+                    if (product.stock > 0) {
+                        this.cart.push({...product});
+                        // Decrease stock in UI to show real-time effect
+                        const index = this.products.findIndex(p => p.id === product.id);
+                        if(index !== -1) {
+                            this.products[index].stock--;
+                        }
+                        this.openCart = true;
+                    }
+                },
+
+                removeFromCart(index) {
+                    // Re-add stock logic (simplified)
+                    const productId = this.cart[index].id;
+                    const pIndex = this.products.findIndex(p => p.id === productId);
+                    if(pIndex !== -1) {
+                        this.products[pIndex].stock++;
+                    }
+                    this.cart.splice(index, 1);
+                },
+
+                formatRupiah(number) {
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+                },
+
+                handleScroll() {
+                    this.scrolled = window.scrollY > 50;
+                    
+                    // Bot trigger logic (30% scroll)
+                    let docHeight = document.documentElement.scrollHeight;
+                    let winHeight = window.innerHeight;
+                    let scrollY = window.scrollY;
+                    this.scrollPct = (scrollY / (docHeight - winHeight)) * 100;
+                    
+                    if (this.scrollPct > 30 && !this.botPlayed) {
+                        this.showBot = true;
+                        this.botPlayed = true;
+                        popSound.volume = 0.5;
+                        popSound.play().catch(e => console.log("Auto-play prevented"));
+                    }
+                }
+            }
+        }
+
+        // Countdown Timer Logic
+        function countdownTimer() {
+            return {
+                time: 172800, // 48 hours in seconds
+                get hours() { return Math.floor(this.time / 3600); },
+                get minutes() { return Math.floor((this.time % 3600) / 60); },
+                get seconds() { return this.time % 60; },
+                format(val) {
+                    return val.toString().padStart(2, '0');
+                },
+                init() {
+                    setInterval(() => {
+                        if(this.time > 0) this.time--;
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

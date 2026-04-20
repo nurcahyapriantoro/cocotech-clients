@@ -1,0 +1,22 @@
+{
+  "project_name": "Digital VIP Infrastructure - Blok M Syndicate",
+  "client": "Chadol Gujeolpan, Nolda Pocha, Izokaya Management",
+  "pricing_model": "Value-Based Pricing",
+  "investment": {
+    "setup_fee_idr": 45000000,
+    "discount_30_pct_idr": 31500000,
+    "monthly_maintenance_and_server_idr": 4500000
+  },
+  "deliverables": [
+    "Enterprise-Grade Website dwibahasa/multibahasa (ID, EN, KR, JP).",
+    "Sistem Booking VIP & Private Tent terintegrasi Payment Gateway (Auto-DP).",
+    "Kalender Event Otomatis untuk Promo Alkohol & DJ.",
+    "Dashboard Manajemen Resepsionis Real-Time (Tablet Optimized)."
+  ],
+  "estimated_roi": {
+    "current_lost_revenue_monthly_estimate_idr": 135000000,
+    "projected_revenue_recovered_monthly_idr": 120000000,
+    "roi_breakeven_days": 8,
+    "note": "Dengan mencegah pembatalan booking VIP karena respon lambat, ROI modal setup sistem akan kembali dalam kurang dari 2 minggu operasional akhir pekan (berasumsi 10 VIP room fail rate per weekend teratasi)."
+  }
+}

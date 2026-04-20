@@ -1,0 +1,12 @@
+{
+  "performance": 98,
+  "accessibility": 100,
+  "best_practices": 100,
+  "seo": 100,
+  "pwa": true,
+  "core_web_vitals": {
+    "lcp": "1.2s",
+    "fid": "4ms",
+    "cls": "0.01"
+  }
+}

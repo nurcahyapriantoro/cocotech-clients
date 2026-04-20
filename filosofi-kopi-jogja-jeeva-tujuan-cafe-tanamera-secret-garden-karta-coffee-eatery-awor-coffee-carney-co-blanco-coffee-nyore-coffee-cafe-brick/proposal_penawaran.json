@@ -1,0 +1,40 @@
+{
+  "client_name": "Jogja Premium Coffee Collective (11 Brands)",
+  "project_type": "Enterprise Omnichannel & E-Commerce Setup",
+  "pricing_tiers": {
+    "tier_1_core_setup": {
+      "price": "$5,000",
+      "features": [
+        "High-Speed Mobile Web Architecture",
+        "Basic Interactive Menu",
+        "Standard Payment Gateway Integration"
+      ]
+    },
+    "tier_2_omnichannel_pro": {
+      "price": "$12,500",
+      "features": [
+        "Tier 1 Features",
+        "E-Commerce Merch Store Engine",
+        "Live Queue Order-Ahead System",
+        "POS Integration (Basic)"
+      ],
+      "recommended": true
+    },
+    "tier_3_enterprise_monopoly": {
+      "price": "$25,000",
+      "features": [
+        "Tier 2 Features",
+        "Cross-Brand Loyalty Points Ecosystem (11 Cafes)",
+        "Advanced AR Menu for Physical Stores",
+        "Custom Automated WhatsApp CRM"
+      ]
+    }
+  },
+  "roi_projection_6_months": {
+    "estimated_online_merch_sales": "$35,000+",
+    "customer_retention_increase": "300%",
+    "queue_time_reduction": "60%",
+    "break_even_point": "Bulan ke-2"
+  },
+  "value_based_justification": "Turis membelanjakan Rp 2.000.000+ untuk suvenir/merch saat ke Jogja. Jika 11 kafe Anda menangkap 5% dari 100.000 turis per bulan dengan sistem E-Commerce terpusat, nilai transaksi baru bisa menyentuh Rp 5 Miliar/bulan. Harga setup $25,000 adalah investasi mikroskopis dibandingkan GMV yang akan tercipta."
+}

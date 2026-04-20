@@ -1,0 +1,25 @@
+{
+  "client_name": "Lereh Leren lan Sareh",
+  "project_title": "Elite F&B Digital Ecosystem & Booking Engine",
+  "value_based_pricing": {
+    "standard_market_value_idr": 25000000,
+    "special_offer_price_idr": 17500000,
+    "discount_percentage": 30,
+    "validity_hours": 48
+  },
+  "deliverables": [
+    "Custom UI/UX Premium Design (Bamboo/Mountain Theme)",
+    "Interactive Digital Menu & Add-to-Cart Simulator",
+    "Automated WhatsApp Booking Engine",
+    "Kaliurang Travel Journal / Blog Engine (SEO Local)",
+    "Real-time Merapi Weather Widget",
+    "Dynamic Omni-QR Code Generation for Tables"
+  ],
+  "roi_calculation": {
+    "average_order_value_idr": 150000,
+    "extra_bookings_needed_to_break_even": 116,
+    "projected_monthly_extra_revenue_idr": 13500000,
+    "time_to_roi_months": 1.3
+  },
+  "guarantee": "100% Money-Back Guarantee jika sistem tidak menghasilkan minimal 30 reservasi online terverifikasi dalam 90 hari pertama setelah peluncuran."
+}

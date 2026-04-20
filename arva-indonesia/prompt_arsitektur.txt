@@ -1,0 +1,24 @@
+# Arsitektur UI/UX & Instruksi Developer: Arva B2B Portal
+
+## 1. Konsep Utama
+Website ini bukan sekadar landing page, melainkan sebuah **"Enterprise B2B Simulator"**. Tujuannya adalah membuktikan kepada klien (Arva) bahwa kita memahami kompleksitas bisnis ekspor mereka. Keseluruhan desain harus merepresentasikan 'High-end Global Distribution', terenkripsi, sangat eksklusif, dan tidak pasaran.
+
+## 2. Technology Stack & Eksekusi
+- **CSS Framework**: Tailwind CSS (via CDN) dengan konfigurasi `tailwind.config` khusus untuk menyuntikkan brand color.
+- **Interaktivitas**: Alpine.js (wajib untuk State Management: Login simulator, dynamic cart pricing FOB, tab switching, countdown timer).
+- **Iconography**: Phosphor Icons (varian fill dan outline untuk UI yang crisp).
+- **Typography**: 
+  - *Playfair Display* (Serif): Untuk Headline yang mewah, menekankan sisi 'Premium/Heritage' keripik tempe.
+  - *Plus Jakarta Sans* (Sans-serif): Untuk UI dashboard, form, dan data tabular agar sangat mudah dibaca (clean, modern).
+
+## 3. Brand Color Palette (Custom Tailwind)
+- `arva-black` (#0A0A0A) & `arva-charcoal` (#171717): Warna latar utama (Dark Mode Luxury).
+- `arva-gold` (#D4AF37): Warna aksen primer, representasi keripik premium dan kemewahan (Truffle).
+- Aksen Produk: `arva-truffle` (#4A3B32), `arva-mala` (#8B0000), `arva-honey` (#FFC30B), `arva-salt` (#FFB6C1).
+
+## 4. Arahan UI/UX Spesifik
+1. **Glassmorphism Layering**: Gunakan backdrop-blur secara ekstensif pada navbar dan card komponen untuk kesan modern "holographic".
+2. **Micro-interactions**: Tombol CTA harus berdenyut (animate-pulse), hover efek pada kartu produk harus mengangkat elemen (translate-y).
+3. **Core B2B Module**: Modul ini wajib menampilkan simulasi login dengan "Access Key". Setelah login, layout harus berubah drastis menjadi sebuah "Dashboard" dengan sidebar dan main area yang memiliki fungsi hitung harga FOB.
+4. **Scarcity Engine**: Timer 48 jam yang berjalan nyata menggunakan interval fungsi Alpine.js, diletakkan di section bawah dengan desain mencolok.
+5. **No Lorem Ipsum**: Seluruh copywriting harus berbahasa Indonesia baku-bisnis, spesifik menyebut lokasi Sleman, FDA, Halal, dan jenis produk Arva.

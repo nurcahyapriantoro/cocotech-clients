@@ -1,0 +1,49 @@
+{
+  "client_name": "Bon Bale Ekowisata",
+  "project_type": "Enterprise Ecotourism Booking Ecosystem",
+  "currency": "IDR",
+  "pricing_model": "Value-Based Pricing",
+  "packages": [
+    {
+      "tier": "Basic Digital Presence",
+      "price": 35000000,
+      "features": [
+        "Company Profile Website",
+        "Galeri Foto Resolusi Tinggi",
+        "Integrasi Google Maps",
+        "Tombol WhatsApp Standar"
+      ],
+      "roi_projection": "Peningkatan awareness online."
+    },
+    {
+      "tier": "Ecotourism Engine (RECOMMENDED)",
+      "price": 125000000,
+      "features": [
+        "Semua fitur Basic",
+        "Interactive Bundling Booking System",
+        "Manajemen Inventaris Dapur / Prediksi Porsi",
+        "Automated Upselling (Tur Salak)",
+        "Mobile-First Glassmorphism UI",
+        "SEO Lokal Area Sleman Ekstrem"
+      ],
+      "roi_projection": "Mencegah lost revenue dari tamu tanpa reservasi. Prediksi balik modal dalam 2.5 bulan (berdasarkan 200 reservasi bundling/bulan)."
+    },
+    {
+      "tier": "The Sleman Monopoly",
+      "price": 250000000,
+      "features": [
+        "Semua fitur Ecotourism Engine",
+        "Pembayaran Gateway Otomatis (Midtrans/Xendit)",
+        "Sistem Antrean Live (Digital Queueing)",
+        "Video Drone Cinematic Production",
+        "AI Chatbot Khusus Tanya Jawab Turis"
+      ],
+      "roi_projection": "Otomatisasi operasional 100%. Tidak butuh penambahan staf reservasi, peningkatan omzet 3x lipat."
+    }
+  ],
+  "special_offer": {
+    "discount_percentage": 30,
+    "valid_hours": 48,
+    "condition": "Diskon berlaku untuk tier 'Ecotourism Engine' atau lebih tinggi, jika kontrak ditandatangani sebelum timer di prototipe habis."
+  }
+}

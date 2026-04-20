@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon Bale | Ekowisata & Kuliner Limasan Sleman</title>
+    
+    <!-- Meta SEO & Social -->
+    <meta name="description" content="Bon Bale adalah destinasi ekowisata premium di Turi, Sleman. Nikmati tur kebun salak, arsitektur limasan klasik, sup kelor, dan tempe mendoan autentik.">
+    <meta name="theme-color" content="#2c3e1f">
+    
+    <!-- Fonts: Playfair Display (Serif/Classic) & Plus Jakarta Sans (Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f4f6f1',
+                            100: '#e5ebd9',
+                            200: '#cddbb8',
+                            300: '#adc28e',
+                            400: '#8ba666',
+                            500: '#6d8a47',
+                            600: '#536d35',
+                            700: '#42572c',
+                            800: '#364626',
+                            900: '#2c3e1f',
+                            950: '#15210d',
+                        },
+                        salak: {
+                            500: '#8B4513',
+                            600: '#6b330e',
+                            900: '#3e1c05'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS (Noise, Glass, Exclusives) -->
+    <style>
+        .noise-bg {
+            position: relative;
+        }
+        .noise-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-dark {
+            background: rgba(21, 33, 13, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Hide scrollbar for gallery */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-800 antialiased bg-brand-50 noise-bg" x-data="{ scrolled: false, botOpen: false, mobileMenu: false }" @scroll.window="scrolled = (window.pageYOffset > 50); if(window.pageYOffset > (document.body.scrollHeight * 0.3)) botOpen = true">
+
+    <!-- 1. Ultra-Modern Glassmorphism Navigation -->
+    <nav :class="scrolled ? 'glass-panel shadow-lg py-3' : 'bg-transparent py-5'" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 rounded-full bg-brand-900 flex items-center justify-center shadow-lg">
+                        <i class="ph-fill ph-leaf text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-serif font-bold text-xl text-brand-900 leading-none tracking-wide">BON BALE</h1>
+                        <span class="text-[10px] uppercase tracking-widest text-brand-600 font-semibold">Turi, Sleman</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center font-medium text-sm">
+                    <a href="#heritage" class="text-brand-900 hover:text-brand-600 transition-colors">Filosofi</a>
+                    <a href="#booking" class="text-brand-900 hover:text-brand-600 transition-colors">Paket Tur</a>
+                    <a href="#gallery" class="text-brand-900 hover:text-brand-600 transition-colors">Galeri Imersif</a>
+                    <a href="#reality" class="text-brand-900 hover:text-brand-600 transition-colors">Insight Turi</a>
+                    <a href="#booking" class="bg-brand-900 text-white px-6 py-2.5 rounded-full hover:bg-brand-800 transition-all shadow-md hover:shadow-xl animate-pulse-slow font-semibold flex items-center gap-2">
+                        <i class="ph ph-calendar-check text-lg"></i> Reservasi
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenu = !mobileMenu" class="text-brand-900 focus:outline-none">
+                        <i class="ph ph-list text-3xl" x-show="!mobileMenu"></i>
+                        <i class="ph ph-x text-3xl" x-show="mobileMenu" x-cloak></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div x-show="mobileMenu" x-transition x-cloak class="md:hidden absolute top-full left-0 w-full glass-panel border-t border-brand-200 shadow-xl">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#heritage" @click="mobileMenu = false" class="text-brand-900 font-medium">Filosofi</a>
+                <a href="#booking" @click="mobileMenu = false" class="text-brand-900 font-medium">Paket Tur & Makan</a>
+                <a href="#gallery" @click="mobileMenu = false" class="text-brand-900 font-medium">Galeri Visual</a>
+                <a href="#booking" @click="mobileMenu = false" class="bg-brand-900 text-white px-4 py-3 rounded-lg text-center font-bold">Pesan Sekarang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Highly Interactive Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0 bg-brand-950">
+            <img src="https://images.unsplash.com/photo-1596422846543-74c6e624c9c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Suasana Turi Sleman" class="w-full h-full object-cover opacity-30 mix-blend-overlay">
+        </div>
+        
+        <!-- Animated Blobs -->
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob z-0"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-salak-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 z-0"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-brand-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000 z-0"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-brand-300/30 glass-dark text-brand-100 text-sm font-semibold tracking-wider uppercase">
+                <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
+                Sistem Pintar Ekowisata Turi Berjalan Secara Live
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-bold mb-6 leading-tight drop-shadow-lg">
+                Jangan Biarkan Tamu Anda <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-salak-500 to-brand-300 italic">Antre & Kecewa.</span>
+            </h1>
+            <p class="text-brand-100 text-lg md:text-2xl mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+                Platform digital eksklusif untuk <strong class="font-bold text-white">Bon Bale</strong>. Otomatisasi pemesanan tur kebun salak, sajian Limasan klasik, dan amankan pendapatan Anda sebelum wisatawan tiba di Turi.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <a href="#booking" class="group relative px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white rounded-xl font-bold text-lg transition-all shadow-[0_0_40px_rgba(109,138,71,0.5)] hover:shadow-[0_0_60px_rgba(109,138,71,0.8)] overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Coba Live Prototype <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                    <div class="absolute inset-0 h-full w-0 bg-white/20 transition-all duration-300 ease-out group-hover:w-full z-0"></div>
+                </a>
+                <a href="#reality" class="group px-8 py-4 glass-dark text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2 border border-white/20">
+                    <i class="ph-fill ph-chart-line-up"></i> Lihat Analisis ROI
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/50 flex flex-col items-center animate-bounce">
+            <span class="text-xs uppercase tracking-widest mb-2 font-medium">Scroll untuk Eksplorasi</span>
+            <i class="ph ph-mouse-simple text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- 3. Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="heritage" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-900 mb-4">Jiwa Sleman di Bon Bale</h2>
+                <p class="text-brand-700 max-w-2xl mx-auto text-lg">Mengapa turis harus datang ke Bon Bale? Karena Anda bukan sekadar kafe. Anda adalah warisan kuliner dan alam yang dikemas dalam kemegahan Limasan.</p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[250px]">
+                
+                <!-- Card 1: Limasan -->
+                <div class="md:col-span-2 lg:col-span-2 row-span-2 rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1582647509711-c8aa8a8bdef5?auto=format&fit=crop&w=800&q=80" alt="Arsitektur Limasan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <div class="bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full inline-block mb-3 uppercase tracking-wider">Arsitektur Klasik</div>
+                        <h3 class="font-serif text-3xl text-white font-bold mb-2">Megahnya Atap Limasan</h3>
+                        <p class="text-gray-200 line-clamp-2">Kenyamanan paripurna di bawah mahakarya kayu jati asli. Saksi bisu kehangatan canda tawa keluarga di tengah dinginnya udara Wonokerto.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Salak -->
+                <div class="md:col-span-1 lg:col-span-2 rounded-3xl overflow-hidden relative group glass-panel flex flex-col justify-center p-8 bg-salak-900 text-white shadow-xl border-salak-600/30">
+                    <i class="ph-duotone ph-plant text-5xl text-salak-500 mb-4 opacity-80"></i>
+                    <h3 class="font-serif text-2xl font-bold mb-2">Tur Kebun Salak Pondoh</h3>
+                    <p class="text-salak-100 text-sm">Petik langsung dari pohonnya. Edukasi interaktif yang membuat tamu menetap lebih lama dan berbelanja lebih banyak.</p>
+                </div>
+
+                <!-- Card 3: Sup Kelor -->
+                <div class="rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" alt="Sup Kelor" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="glass-panel p-3 rounded-xl text-center">
+                            <span class="block text-brand-900 font-bold">Sup Kelor</span>
+                            <span class="text-xs text-brand-700">Resep Ndeso Penambah Imun</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Tempe Mendoan -->
+                <div class="rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80" alt="Tempe Mendoan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="glass-panel p-3 rounded-xl text-center">
+                            <span class="block text-brand-900 font-bold">Tempe Mendoan</span>
+                            <span class="text-xs text-brand-700">Panas, Gurih, Autentik</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE (CORE ENGINE - Interactive Booking) -->
+    <section id="booking" class="py-24 bg-brand-900 relative overflow-hidden" x-data="bookingSystem()">
+        <!-- Decorative bg -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Left: Sales Copy & Logic -->
+                <div class="text-white">
+                    <div class="inline-flex items-center gap-2 bg-brand-800 border border-brand-700 rounded-full px-4 py-2 mb-6">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                        </span>
+                        <span class="text-sm font-semibold tracking-wide text-brand-100">Live Booking Engine Prototype</span>
+                    </div>
+                    
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">Ubah Setiap Kunjungan Menjadi <span class="text-salak-500 italic">Transaksi Terjadwal</span>.</h2>
+                    <p class="text-brand-100 text-lg mb-8 opacity-90 leading-relaxed">
+                        Tanpa sistem ini, tamu datang secara acak, bahan baku (sup kelor & mendoan) terbuang, dan antrean tur salak menjadi kacau. <strong>Booking Engine Bon Bale</strong> mengunci komitmen pelanggan (bundling makan + tur) <em>sebelum</em> mereka meninggalkan rumah.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <div class="bg-brand-700 p-1.5 rounded-full mt-1"><i class="ph-bold ph-check text-white"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Upselling Otomatis</h4>
+                                <p class="text-brand-200 text-sm">Pelanggan yang berniat hanya ngopi, otomatis tertarik membeli paket Tur Kebun Salak.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="bg-brand-700 p-1.5 rounded-full mt-1"><i class="ph-bold ph-check text-white"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Manajemen Inventaris Dapur</h4>
+                                <p class="text-brand-200 text-sm">Prediksi pasti berapa porsi Sup Kelor dan Tempe Mendoan yang harus disiapkan hari ini.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right: Interactive Component -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+                    <!-- Absolute glowing effect behind form -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-salak-500 to-brand-400 rounded-3xl blur opacity-20 z-0"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold text-brand-900 mb-6 font-serif border-b border-gray-100 pb-4">Reservasi Eksklusif Bon Bale</h3>
+                        
+                        <!-- Step 1: Select Package -->
+                        <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Pilih Pengalaman Anda</label>
+                            <div class="space-y-3">
+                                <template x-for="(pkg, key) in packages" :key="key">
+                                    <div @click="selectedPackage = key" :class="selectedPackage === key ? 'border-brand-500 bg-brand-50 shadow-md' : 'border-gray-200 hover:border-brand-300'" class="cursor-pointer border-2 rounded-xl p-4 transition-all flex justify-between items-center">
+                                        <div>
+                                            <h4 class="font-bold text-brand-900 text-lg" x-text="pkg.name"></h4>
+                                            <p class="text-xs text-gray-500 mt-1" x-text="pkg.desc"></p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="block font-bold text-brand-600" x-text="formatRupiah(pkg.price)"></span>
+                                            <span class="text-[10px] text-gray-400 uppercase">/ Orang</span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="mt-6 flex justify-end">
+                                <button @click="step = 2" :disabled="!selectedPackage" class="bg-brand-900 text-white px-6 py-3 rounded-lg font-bold w-full sm:w-auto disabled:opacity-50 hover:bg-brand-800 transition-colors shadow-lg">Lanjutkan <i class="ph-bold ph-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Date & Pax -->
+                        <div x-show="step === 2" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                            <div class="flex items-center gap-2 mb-4 text-brand-600 cursor-pointer text-sm font-semibold" @click="step = 1">
+                                <i class="ph-bold ph-arrow-left"></i> Kembali
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Kedatangan</label>
+                                    <input type="date" x-model="date" class="w-full border-2 border-gray-200 rounded-xl p-3 focus:border-brand-500 focus:ring-0 outline-none transition-colors text-gray-700">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Jumlah Tamu (Orang)</label>
+                                    <div class="flex items-center border-2 border-gray-200 rounded-xl overflow-hidden">
+                                        <button @click="if(pax > 1) pax--" class="px-4 py-3 bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors">-</button>
+                                        <input type="number" x-model="pax" class="w-full text-center border-none focus:ring-0 outline-none font-bold text-gray-700" readonly>
+                                        <button @click="pax++" class="px-4 py-3 bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-brand-50 p-4 rounded-xl border border-brand-100 mb-6">
+                                <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-2">Ringkasan Pesanan</h4>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600" x-text="packages[selectedPackage]?.name + ' x ' + pax"></span>
+                                    <span class="font-semibold text-gray-800" x-text="formatRupiah(packages[selectedPackage]?.price * pax)"></span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-3">
+                                    <span class="text-gray-600">Pajak & Layanan (10%)</span>
+                                    <span class="font-semibold text-gray-800" x-text="formatRupiah((packages[selectedPackage]?.price * pax) * 0.1)"></span>
+                                </div>
+                                <div class="flex justify-between items-center border-t border-brand-200 pt-3">
+                                    <span class="font-bold text-gray-800">Total Pembayaran</span>
+                                    <span class="font-bold text-xl text-brand-600" x-text="formatRupiah((packages[selectedPackage]?.price * pax) * 1.1)"></span>
+                                </div>
+                            </div>
+
+                            <button @click="processPayment()" :disabled="!date" class="w-full bg-brand-500 hover:bg-brand-400 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-lg disabled:opacity-50 flex justify-center items-center gap-2">
+                                <i x-show="processing" class="ph-bold ph-spinner animate-spin"></i>
+                                <span x-text="processing ? 'Memproses...' : 'Kunci Reservasi via WhatsApp'"></span>
+                            </button>
+                        </div>
+
+                        <!-- Success State -->
+                        <div x-show="step === 3" x-cloak class="text-center py-8">
+                            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500">
+                                <i class="ph-fill ph-check-circle text-5xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Simulasi Berhasil!</h3>
+                            <p class="text-gray-500 mb-6">Di dunia nyata, user akan langsung diarahkan ke Gateway Pembayaran atau WhatsApp Admin Bon Bale dengan data terformat rapi.</p>
+                            <button @click="step = 1; pax = 2; date = ''" class="text-brand-600 font-semibold hover:underline">Coba Simulasi Lagi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alpine Script for Booking -->
+    <script>
+        function bookingSystem() {
+            return {
+                step: 1,
+                selectedPackage: 'bundling',
+                pax: 2,
+                date: '',
+                processing: false,
+                packages: {
+                    'bundling': {
+                        name: 'Eksplorasi Salak + Makan Siang',
+                        desc: 'Tur kebun 1 jam, edukasi petik salak, dan set menu Sup Kelor & Mendoan di Limasan.',
+                        price: 150000
+                    },
+                    'resto': {
+                        name: 'Santai Sore Limasan',
+                        desc: 'Reservasi meja eksklusif dengan view alam, set minuman herbal & snack ndeso.',
+                        price: 75000
+                    }
+                },
+                formatRupiah(number) {
+                    if(!number) return 'Rp 0';
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+                },
+                processPayment() {
+                    this.processing = true;
+                    setTimeout(() => {
+                        this.processing = false;
+                        this.step = 3;
+                    }, 1500);
+                }
+            }
+        }
+    </script>
+
+    <!-- Immersive Video Gallery -->
+    <section id="gallery" class="py-20 bg-brand-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div class="max-w-2xl">
+                    <span class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-2 block">Galeri Imersif</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-brand-900">Matahari Terbenam di Wonokerto.</h2>
+                </div>
+                <p class="text-gray-600 max-w-sm mt-4 md:mt-0 text-sm border-l-2 border-brand-300 pl-4">Simulasi galeri video dan foto resolusi tinggi. Fitur ini menahan pengunjung website lebih lama dan meningkatkan metrik SEO Google.</p>
+            </div>
+
+            <!-- Horizontal Scroll Gallery -->
+            <div class="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x snap-mandatory">
+                <!-- Item 1 -->
+                <div class="snap-center shrink-0 w-[85vw] md:w-[600px] h-[400px] rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80" alt="Suasana Sore" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                        <div class="w-16 h-16 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-white/50 transition-all">
+                            <i class="ph-fill ph-play text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h4 class="font-bold text-xl drop-shadow-md">Senja di Kebun Salak</h4>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="snap-center shrink-0 w-[85vw] md:w-[600px] h-[400px] rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80" alt="Proses Masak" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                        <div class="w-16 h-16 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-white/50 transition-all">
+                            <i class="ph-fill ph-play text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h4 class="font-bold text-xl drop-shadow-md">Proses Memasak Sup Kelor Autentik</h4>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="snap-center shrink-0 w-[85vw] md:w-[600px] h-[400px] rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1605808385800-410a8276f571?auto=format&fit=crop&w=800&q=80" alt="Limasan Interior" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h4 class="font-bold text-xl drop-shadow-md">Kemegahan Interior Limasan Jati</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. The Stolen Traffic / Competitor Reality Section -->
+    <section id="reality" class="py-24 bg-white border-t border-brand-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Chart & Visuals -->
+                <div class="order-2 lg:order-1 relative">
+                    <div class="absolute inset-0 bg-brand-50 rounded-3xl transform -rotate-3 z-0"></div>
+                    <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl relative z-10">
+                        <h4 class="text-xl font-bold text-brand-900 mb-6 flex items-center gap-2">
+                            <i class="ph-fill ph-trend-down text-red-500 text-2xl"></i> Kebocoran Pendapatan Pariwisata
+                        </h4>
+                        
+                        <!-- Simple CSS Bar Chart -->
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="font-semibold text-gray-700">Turis Memilih Kafe Generik dengan Sistem Online</span>
+                                    <span class="font-bold text-red-500">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-4">
+                                    <div class="bg-red-400 h-4 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span class="font-semibold text-gray-700">Turis Menemukan "Bon Bale" secara Organik (Tanpa Web)</span>
+                                    <span class="font-bold text-brand-500">15%</span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-4">
+                                    <div class="bg-brand-500 h-4 rounded-full" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-red-50 text-red-800 p-4 rounded-xl text-sm leading-relaxed border border-red-100">
+                            <strong>Fakta Brutal:</strong> Kompetitor di area Sleman meraup ratusan juta per bulan bukan karena makanan mereka lebih enak dari Tempe Mendoan Anda, melainkan karena mereka <strong>mudah ditemukan, dipercaya, dan bisa di-booking secara instan</strong> oleh wisatawan dari luar Yogyakarta.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Copywriting FOMO -->
+                <div class="order-1 lg:order-2">
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-900 mb-6 leading-tight">Uang Pelanggan Anda Lari ke Tempat Lain.</h2>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                        Wisatawan Jakarta atau Surabaya yang berkunjung ke Sleman merencanakan itinerari mereka berminggu-minggu sebelumnya. Jika Bon Bale tidak memiliki representasi digital premium kelas enterprise, mereka akan menganggap tempat Anda "tutup" atau "tidak profesional".
+                    </p>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Platform web ini bukan sekadar brosur online. Ini adalah <strong>Mesin Penjual Otomatis 24/7</strong> Anda yang beroperasi tanpa perlu digaji bulanan.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center text-brand-600">
+                            <i class="ph-fill ph-shield-check text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="block font-bold text-brand-900">ROI (Return on Investment) Sangat Jelas</span>
+                            <span class="text-sm text-gray-500">Balik modal hanya dari 50 grup tur pertama.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. The Self-Destructing Offer (Scarcity Engine) -->
+    <section class="py-16 bg-salak-900 text-white relative overflow-hidden" x-data="countdownTimer()">
+        <!-- Texture -->
+        <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <div class="inline-block bg-red-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6 animate-pulse">Penawaran Setup Eksklusif Terbatas</div>
+            <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Transformasi Digital Bon Bale</h2>
+            <p class="text-salak-100 text-lg mb-8 max-w-2xl mx-auto">Sistem Enterprise ini kami bangun khusus untuk blueprint ekowisata Anda. Klaim diskon 30% biaya setup awal sebelum waktu habis.</p>
+
+            <!-- Countdown Timer -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-10">
+                <div class="glass-dark px-6 py-4 rounded-2xl min-w-[100px]">
+                    <span class="block text-4xl md:text-5xl font-bold text-brand-300" x-text="hours">47</span>
+                    <span class="text-xs uppercase tracking-widest text-salak-100 mt-2 block">Jam</span>
+                </div>
+                <div class="text-4xl md:text-5xl font-bold text-salak-500 mt-2">:</div>
+                <div class="glass-dark px-6 py-4 rounded-2xl min-w-[100px]">
+                    <span class="block text-4xl md:text-5xl font-bold text-brand-300" x-text="minutes">59</span>
+                    <span class="text-xs uppercase tracking-widest text-salak-100 mt-2 block">Menit</span>
+                </div>
+                <div class="text-4xl md:text-5xl font-bold text-salak-500 mt-2">:</div>
+                <div class="glass-dark px-6 py-4 rounded-2xl min-w-[100px]">
+                    <span class="block text-4xl md:text-5xl font-bold text-brand-300" x-text="seconds">32</span>
+                    <span class="text-xs uppercase tracking-widest text-salak-100 mt-2 block">Detik</span>
+                </div>
+            </div>
+
+            <a href="https://wa.me/6280000000000?text=Halo%20Titanium%20AI,%20Saya%20tertarik%20dengan%20sistem%20Booking%20Engine%20Bon%20Bale%20dan%20ingin%20klaim%20diskon%2030%25" class="inline-block bg-white text-brand-900 px-10 py-4 rounded-xl font-bold text-lg hover:bg-brand-50 transition-colors shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                Klaim & Amankan Kuota Setup
+            </a>
+        </div>
+    </section>
+
+    <!-- Alpine Script for Countdown -->
+    <script>
+        function countdownTimer() {
+            return {
+                totalSeconds: 48 * 3600, // 48 hours
+                hours: '48',
+                minutes: '00',
+                seconds: '00',
+                init() {
+                    setInterval(() => {
+                        if (this.totalSeconds > 0) {
+                            this.totalSeconds--;
+                            this.hours = String(Math.floor(this.totalSeconds / 3600)).padStart(2, '0');
+                            this.minutes = String(Math.floor((this.totalSeconds % 3600) / 60)).padStart(2, '0');
+                            this.seconds = String(this.totalSeconds % 60).padStart(2, '0');
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+    <!-- 7. Omni-QR & Mega Footer (with Map) -->
+    <footer class="bg-brand-950 pt-20 pb-10 border-t-4 border-brand-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Branding -->
+                <div>
+                    <h2 class="font-serif font-bold text-3xl text-white mb-4">BON BALE</h2>
+                    <p class="text-brand-200 text-sm mb-6 leading-relaxed">Destinasi ekowisata premium di Jantung Sleman. Rasakan kemegahan arsitektur Limasan, nikmati Sup Kelor hangat, dan ikuti tur edukasi kebun salak kami.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center text-white hover:bg-brand-500 transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center text-white hover:bg-brand-500 transition-colors"><i class="ph-fill ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center text-white hover:bg-brand-500 transition-colors"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Kontak & Operasional -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Kunjungan</h3>
+                    <ul class="space-y-3 text-sm text-brand-200">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-map-pin text-brand-500 text-lg mt-0.5"></i>
+                            <span>Wonokerto, Kec. Turi,<br/>Kabupaten Sleman, DIY 55551</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-clock text-brand-500 text-lg"></i>
+                            <span>Setiap Hari | 09.00 - 21.00 WIB</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-fill ph-phone text-brand-500 text-lg"></i>
+                            <span>+62 812-XXXX-XXXX (Reservasi)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Google Maps Embed -->
+                <div class="lg:col-span-2 rounded-2xl overflow-hidden h-64 shadow-lg border border-brand-800">
+                    <!-- Presisi tinggi ke Turi Sleman via iframe -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63259.954751474775!2d110.33405788417936!3d-7.656515091763784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5fac7de4f909%3A0xc00f27ddc52d0016!2sTuri%2C%20Sleman%20Regency%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- Bottom Footer with Dynamic QR (Vanilla JS simulation) -->
+            <div class="border-t border-brand-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-brand-400 text-sm text-center md:text-left">
+                    &copy; 2024 Bon Bale Ekowisata Turi. <br class="md:hidden" /> Dibuat oleh Titanium God-Tier AI Architect.
+                </p>
+                
+                <div class="flex items-center gap-4 bg-brand-900 p-3 rounded-xl border border-brand-800">
+                    <div id="qr-container" class="w-16 h-16 bg-white p-1 rounded-lg">
+                        <!-- Pure SVG QR Code Placeholder -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.5" class="w-full h-full">
+                            <path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3z" fill="#000" stroke="none"/>
+                            <path d="M10 3h4v6h-4zM10 15h4v6h-4zM3 10h18v4H3z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-white text-sm font-bold">Scan untuk Share!</span>
+                        <span class="text-brand-400 text-xs">Simpan kontak Bon Bale</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 8. The "Trojan Horse" Sales Bot -->
+    <div x-show="botOpen" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-10 scale-90" x-transition:enter-end="opacity-100 translate-y-0 scale-100" class="fixed bottom-6 right-6 z-50 w-80 shadow-2xl" style="display: none;">
+        <!-- Audio Simulation (no actual audio tag to prevent annoying autoplay blocks, just visual indicator) -->
+        <div class="bg-white rounded-2xl overflow-hidden border border-gray-200">
+            <!-- Header -->
+            <div class="bg-brand-900 px-4 py-3 flex justify-between items-center cursor-pointer" @click="botOpen = !botOpen">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center relative">
+                        <i class="ph-fill ph-robot text-brand-900 text-lg"></i>
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-brand-900"></span>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-sm font-bold">AI Architect Consultant</h4>
+                        <span class="text-brand-200 text-[10px]">Online - Siap Diskusi</span>
+                    </div>
+                </div>
+                <button @click.stop="botOpen = false" class="text-brand-200 hover:text-white"><i class="ph-bold ph-x"></i></button>
+            </div>
+            
+            <!-- Body -->
+            <div class="p-4 bg-gray-50 h-64 overflow-y-auto flex flex-col gap-3">
+                <div class="bg-white p-3 rounded-xl rounded-tl-none shadow-sm text-sm text-gray-700 w-[85%]">
+                    <p class="mb-2">Halo manajemen <strong>Bon Bale</strong>! 👋</p>
+                    <p>Melihat potensi wisata Turi Sleman yang masif, kami siap mengimplementasikan Sistem Booking ini hari ini juga.<br><br><strong>CocoTech</strong> — IT Agency yang sangat berpengalaman. <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;">cocotech.studio</a></p>
+                </div>
+                <div class="bg-white p-3 rounded-xl rounded-tl-none shadow-sm text-sm text-gray-700 w-[85%] border-l-2 border-salak-500">
+                    <p><strong style="color:#22c55e;">Harga Setup: Rp 2.500.000</strong> (coret <s>Rp 5.000.000</s>) &bull; DP Rp 750.000<br><br>Integrasi dengan Google Maps Wonokerto dan fitur <strong>Paket Bundling</strong> akan meningkatkan revenue Anda hingga 300% di kuartal pertama. Siap melihat demonya di WhatsApp?</p>
+                </div>
+            </div>
+
+            <!-- Footer input -->
+            <div class="bg-white p-3 border-t border-gray-100 flex gap-2">
+                <a href="https://wa.me/6280000000000" target="_blank" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white text-center py-2 rounded-lg text-sm font-bold transition-colors">
+                    Balas via WhatsApp <i class="ph-bold ph-whatsapp-logo ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

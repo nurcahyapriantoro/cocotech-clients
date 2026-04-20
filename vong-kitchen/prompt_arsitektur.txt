@@ -1,0 +1,29 @@
+# Arsitektur & Styling Guide Vong Kitchen Prototype
+
+1. **Vibe & Psikologi Desain**: 
+   - **Hyper-Luxury & Kosmopolitan**. Mencerminkan keanggunan gaya "New York American Bistro" dengan sentuhan SCBD. 
+   - Gelap, eksklusif, namun mengundang. 
+   - Konsep "Glassmorphism" dipadukan dengan tekstur noise (grain) tipis untuk memberi kesan material fisik kelas atas.
+
+2. **Warna Dasar (Tailwind Config)**:
+   - **Vong Gold**: `#D4AF37` (Aksen utama, garis, tombol CTA)
+   - **Gold Light**: `#F3E5AB` (Gradient text)
+   - **Dark Obsidian**: `#050505` (Background Utama, lebih gelap dari hitam biasa)
+   - **Charcoal Panel**: `#1A1A1A` (Latar belakang card / tab Alpine)
+
+3. **Tipografi Pilihan**:
+   - *Headlines*: **Playfair Display** (Serif elegan, miring/italic untuk emphasis layaknya menu restoran bintang Michelin).
+   - *Body & UI Text*: **Plus Jakarta Sans** (Sangat modern, mudah dibaca, clean, geometris).
+
+4. **Tech Stack & Fungsionalitas Inti**:
+   - **HTML5 Utuh** dalam satu file.
+   - **Tailwind CSS (CDN)** dengan kustomisasi keyframes untuk animasi `float` (elemen mengambang perlahan) dan `glow` (bayangan emas yang berdenyut).
+   - **Alpine.js (CDN)** sebagai motor penggerak UI:
+     - `x-data` untuk state navigasi (blur on scroll).
+     - `x-data` tab UI di section The Spectacular Feature (Menu vs Booking vs Valet).
+     - `x-data` simulasi Valet dengan timer fake state (`idle` -> `requested` -> `ready`).
+     - `x-data` Countdown scarcity offer.
+     - `x-data` Trojan Horse Sales Bot dengan trigger deteksi scroll ke bawah.
+   - **Vanilla JS Web Audio API**: Menghasilkan bunyi simulasi "Ping" halus saat bot pop-up muncul tanpa perlu aset file .mp3 eksternal.
+
+5. **Key Components**: Bento Grid untuk menceritakan filosofi Chef Jean-Georges & Cedric, Bar Chart sederhana menggunakan div Tailwind untuk komparasi data FOMO, dan Formulir Corporate Reservation yang realistis (meski simulasi).

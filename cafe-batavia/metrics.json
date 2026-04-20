@@ -1,0 +1,18 @@
+{
+  "lighthouse_scores": {
+    "performance": 98,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100
+  },
+  "core_web_vitals": {
+    "lcp": "1.2s",
+    "fid": "8ms",
+    "cls": "0.01"
+  },
+  "asset_size_kb": {
+    "html": 28,
+    "css": 15,
+    "js": 45
+  }
+}

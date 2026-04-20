@@ -1,0 +1,20 @@
+{
+  "client": "Bon Bale - Sleman",
+  "audit_type": "Fictional High-End Prototype Metrics",
+  "lighthouse_scores": {
+    "performance": 99,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100
+  },
+  "core_web_vitals": {
+    "lcp": "1.2s",
+    "fid": "8ms",
+    "cls": "0.01"
+  },
+  "conversion_projection": {
+    "booking_rate_increase": "300%",
+    "bounce_rate_reduction": "65%",
+    "average_session_duration": "4m 15s"
+  }
+}

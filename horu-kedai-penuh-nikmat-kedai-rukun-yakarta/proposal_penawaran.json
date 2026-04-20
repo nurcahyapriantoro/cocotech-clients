@@ -1,0 +1,22 @@
+{
+  "project_name": "Sistem Enterprise Corporate Lunch Booking",
+  "client": "Aliansi Kedai Blok M (Horu, Penuh Nikmat, Rukun Yakarta)",
+  "pricing": {
+    "currency": "IDR",
+    "core_engine_development": 25000000,
+    "google_api_review_integration": 10000000,
+    "ui_ux_heritage_design": 15000000,
+    "server_setup_maintenance_1yr": 5000000,
+    "subtotal": 55000000,
+    "scarcity_discount_percentage": 30,
+    "discount_amount": 16500000,
+    "final_total_investment": 38500000
+  },
+  "estimated_roi": {
+    "weekly_potential_b2b_orders": 25000000,
+    "monthly_potential_revenue_increase": 100000000,
+    "roi_timeframe_days": 14,
+    "roi_percentage_year_1": 2900,
+    "notes": "Hanya dengan mengkonversi 2 gedung perkantoran di SCBD untuk rutin pesan 150 pax/minggu, investasi sistem ini akan balik modal di bawah 2 minggu pertama."
+  }
+}

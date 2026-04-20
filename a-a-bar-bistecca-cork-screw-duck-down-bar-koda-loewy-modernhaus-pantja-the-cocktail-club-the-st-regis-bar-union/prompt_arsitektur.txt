@@ -1,0 +1,35 @@
+# ARSITEKTUR UI/UX & STACK PANDUAN - "THE ELITE COLLECTIVE ENGINE"
+
+## 1. BRAND IDENTITY & VIBE
+- **Keywords:** Ultra-Premium, Exclusive, Mysterious, Nightlife, Institutional, High-Net-Worth.
+- **Inspirasi Fisik:** Pencahayaan remang elegan, meja marmer, gelas kristal, kartu akses hitam (Black Card).
+- **Desain Filosofi:** "Frictionless Luxury". Setiap interaksi digital harus terasa semulus tuangan sampanye mahal.
+
+## 2. COLOR PALETTE (Tailwind Custom)
+- `brand-dark` (#0a0a0a): Warna dasar utama, hitam pekat, melambangkan malam dan eksklusivitas.
+- `brand-onyx` (#141414): Hitam keabu-abuan untuk surface dan card glassmorphism.
+- `brand-gold` (#D4AF37): Emas klasik (Bukan kuning terang) untuk aksen, CTA, dan teks penting.
+- `brand-goldlight` (#F3E5AB): Sorotan emas saat hover/glow.
+- `brand-platinum` (#E5E4E2): Teks paragraf, elegan, lebih lembut dari putih murni.
+- `brand-wine` (#4E070C): Merah anggur gelap untuk aksen peringatan elegan atau sentuhan warna subtle.
+
+## 3. TYPOGRAPHY
+- **Heading (H1-H4):** `Playfair Display` (Serif). Memberikan kesan heritage, mapan, dan institusi fine dining klasik.
+- **Body & UI Elements:** `Plus Jakarta Sans` (Sans-serif). Sangat modern, mudah dibaca di layar kecil (mobile-first), memberikan keseimbangan dengan gaya klasik heading.
+
+## 4. TECH STACK & LOGIC
+- **HTML5 Semantic:** Struktur jelas (`<nav>`, `<section>`, `<article>`, `<footer>`).
+- **Tailwind CSS (CDN):** Utilitas untuk styling super cepat. Wajib menggunakan modifikasi `tailwind.config` untuk warna kustom dan keyframes animasi.
+- **Alpine.js (CDN):** 
+  - Engine Interaktivitas Ringan. Dilarang menggunakan jQuery.
+  - Penggunaan spesifik: State tabs (`x-data="{ activeTab: '...' }"`), form simulasi (`bookingSimulator`), countdown real-time, dan scroll detection otomatis untuk chatbot (`@scroll.window`).
+- **Icons:** Phosphor Icons (via Web CDN). Pilih varian 'light' untuk kesan tipis & premium, atau 'fill' untuk ikon solid.
+- **CSS Animations (Inject to `<style>`):** 
+  - `animate-blob`: Background gradient mesh yang bergerak sangat lambat (ambient).
+  - `animate-glow`: Pulsing shadow warna emas pada tombol CTA.
+  - `animate-marquee`: Teks berjalan tanpa putus untuk menampilkan brand klien.
+  - Glassmorphism: `backdrop-blur-md` wajib dipasangkan dengan border transparan.
+
+## 5. THE 8 PILLARS IMPLEMENTATION NOTES
+- **Trojan Bot:** Harus menggunakan z-index ekstrim tinggi (`z-50`) dan trigger berbasis *scroll depth* (30%). Tone bahasa bot harus langsung menembak *pain point* atau menyapa nama brand.
+- **Competitor Reality:** Jangan gunakan grafik JS berat (seperti Chart.js), cukup gunakan manipulasi lebar div berbasis Tailwind (misal: `w-[45%]`) untuk menampilkan bar chart perbandingan yang ringan namun *striking*.

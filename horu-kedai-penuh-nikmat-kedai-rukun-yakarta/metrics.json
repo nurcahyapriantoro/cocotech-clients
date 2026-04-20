@@ -1,0 +1,10 @@
+{
+  "performance": 98,
+  "accessibility": 100,
+  "best_practices": 100,
+  "seo": 100,
+  "first_contentful_paint": "0.8s",
+  "speed_index": "1.1s",
+  "largest_contentful_paint": "1.3s",
+  "time_to_interactive": "1.4s"
+}

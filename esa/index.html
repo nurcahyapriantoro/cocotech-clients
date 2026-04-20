@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esa | New Jakarta Cuisine - Exclusive Prototype by Titanium AI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0A1118',       // Midnight Deep
+                            charcoal: '#1A1A1A',   // Charcoal
+                            gold: '#D4AF37',       // Antique Gold
+                            goldlight: '#F3E5AB',  // Vanilla Gold
+                            bone: '#F9F6F0',       // Bone White
+                            accent: '#8C271E'      // Deep Wine / Sambal Red
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'pulse-gold': 'pulseGold 2s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGold: {
+                            '0%, 100%': { boxShadow: '0 0 0 0 rgba(212, 175, 55, 0.4)' },
+                            '50%': { boxShadow: '0 0 0 15px rgba(212, 175, 55, 0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom Styles & Effects */
+        body {
+            background-color: #F9F6F0;
+            color: #1A1A1A;
+            overflow-x: hidden;
+        }
+        
+        .glass-nav {
+            background: rgba(10, 17, 24, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .dark-section {
+            background-color: #0A1118;
+            color: #F9F6F0;
+        }
+
+        .noise-bg {
+            position: relative;
+        }
+        .noise-bg::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(to right, #D4AF37, #F3E5AB, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Hide scrollbar for bento/marquee */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .bento-card {
+            background: rgba(26, 26, 26, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+        .bento-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+
+<body x-data="{ scrolled: false, showBot: false, mobileMenu: false }" @scroll.window="scrolled = (window.pageYOffset > 50); showBot = (window.pageYOffset > 800)">
+
+    <!-- PILLAR 1: Glassmorphism Nav -->
+    <header 
+        class="fixed w-full top-0 z-50 transition-all duration-300"
+        :class="scrolled ? 'glass-nav py-4' : 'bg-transparent py-6'">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="font-serif text-3xl font-bold tracking-wider" :class="scrolled ? 'text-brand-gold' : 'text-brand-gold'">Esa</span>
+                <span class="text-xs tracking-[0.2em] uppercase mt-1 hidden md:block" :class="scrolled ? 'text-brand-bone/70' : 'text-brand-bone/80'">New Jakarta Cuisine</span>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#filosofi" class="text-sm font-medium hover:text-brand-gold transition-colors" :class="scrolled ? 'text-brand-bone' : 'text-brand-bone'">Filosofi</a>
+                <a href="#chef" class="text-sm font-medium hover:text-brand-gold transition-colors" :class="scrolled ? 'text-brand-bone' : 'text-brand-bone'">Sang Koki</a>
+                <a href="#waitlist" class="text-sm font-medium hover:text-brand-gold transition-colors" :class="scrolled ? 'text-brand-bone' : 'text-brand-bone'">Eksklusif Waitlist</a>
+                <a href="#roi" class="text-sm font-medium hover:text-brand-gold transition-colors" :class="scrolled ? 'text-brand-bone' : 'text-brand-bone'">Analisis Bisnis</a>
+                <a href="#waitlist" class="px-6 py-2.5 bg-brand-gold text-brand-dark font-semibold text-sm rounded-none border border-brand-gold hover:bg-transparent hover:text-brand-gold transition-all animate-pulse-gold">
+                    Reservasi VIP
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-brand-gold text-2xl">
+                <i class="ph" :class="mobileMenu ? 'ph-x' : 'ph-list'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div x-show="mobileMenu" x-transition class="lg:hidden absolute top-full left-0 w-full bg-brand-dark/95 backdrop-blur-lg border-t border-brand-gold/20 py-4 px-6 flex flex-col gap-4 shadow-xl">
+            <a href="#filosofi" class="text-brand-bone text-lg font-serif">Filosofi</a>
+            <a href="#chef" class="text-brand-bone text-lg font-serif">Sang Koki</a>
+            <a href="#waitlist" class="text-brand-gold text-lg font-serif">Reservasi Waitlist</a>
+        </div>
+    </header>
+
+    <!-- PILLAR 2: Interactive Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center dark-section overflow-hidden z-10 pt-20">
+        <!-- Background Assets -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2070&auto=format&fit=crop" alt="Fine Dining Ambiance" class="w-full h-full object-cover opacity-20 mix-blend-overlay">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent"></div>
+        </div>
+        
+        <!-- Blobs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-gold/10 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob"></div>
+        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-brand-accent/20 rounded-full mix-blend-screen filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-gold/30 bg-brand-gold/5 backdrop-blur-sm mb-6 animate-fade-in-up">
+                <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase">Digital Prototype for Aditya & Jessica</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-tight mb-6 animate-fade-in-up" style="animation-delay: 0.2s;">
+                Mendefinisikan Ulang <br>
+                <span class="gold-gradient-text">Kuliner Jakarta.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-brand-bone/80 font-light max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 0.4s;">
+                Berhenti kehilangan reservasi VIP dan biarkan sistem bekerja untuk Anda. 
+                Sambut era baru <strong>"New Jakarta Cuisine"</strong> di Esa dengan infrastruktur digital premium yang mencerminkan mahakarya kuliner di atas piring Anda.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.6s;">
+                <a href="#waitlist" class="w-full sm:w-auto px-8 py-4 bg-brand-gold text-brand-dark font-bold tracking-wide uppercase text-sm hover:bg-brand-goldlight transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    Coba Live Prototype
+                </a>
+                <a href="#roi" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-bone/30 text-brand-bone font-bold tracking-wide uppercase text-sm hover:border-brand-gold hover:text-brand-gold transition-all flex items-center justify-center gap-2">
+                    <i class="ph ph-chart-line-up text-xl"></i> Lihat Analisis ROI
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-float opacity-70">
+            <span class="text-xs tracking-widest uppercase text-brand-gold">Discover</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-brand-gold to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- PILLAR 3: Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="filosofi" class="py-24 bg-brand-bone relative noise-bg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-[0.3em] uppercase text-brand-accent mb-3">Identitas Esa</h2>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal">Lebih Dari Sekadar Rasa</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Grid Item 1: Chef Profile -->
+                <div id="chef" class="md:col-span-2 bg-white p-8 md:p-12 shadow-lg border border-gray-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-bl-[100px] -z-10 transition-transform group-hover:scale-110"></div>
+                    <i class="ph-fill ph-cooking-pot text-4xl text-brand-gold mb-6"></i>
+                    <h4 class="text-2xl font-serif font-bold text-brand-charcoal mb-4">Pedigree Kelas Dunia, Jiwa Nusantara</h4>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Dari disiplin militeristik dapur <strong>Marina Bay Sands Singapura</strong> hingga inovasi radikal dan presisi di <strong>Relae Kopenhagen</strong>. Sang Koki kini pulang ke Jakarta. Membawa teknik Michelin-starred untuk membedah, merakit ulang, dan meninggikan derajat bahan lokal Nusantara. Ini bukan fusi; ini adalah <em>evolusi</em> masakan Jakarta.
+                    </p>
+                    <div class="flex gap-4">
+                        <span class="px-3 py-1 bg-gray-100 text-xs font-semibold tracking-wider text-gray-500 uppercase">Ex-MBS Singapore</span>
+                        <span class="px-3 py-1 bg-gray-100 text-xs font-semibold tracking-wider text-gray-500 uppercase">Ex-Relae CPH</span>
+                    </div>
+                </div>
+
+                <!-- Grid Item 2: The Ingredients -->
+                <div class="bg-brand-dark p-8 shadow-lg border border-brand-gold/20 relative overflow-hidden group">
+                    <i class="ph-fill ph-leaf text-4xl text-brand-gold mb-6"></i>
+                    <h4 class="text-2xl font-serif font-bold text-brand-bone mb-4">Hiper-Lokal</h4>
+                    <p class="text-brand-bone/70 leading-relaxed text-sm">
+                        Kami bekerja langsung dengan petani, nelayan, dan pengrajin dari Kepulauan Seribu hingga dataran tinggi Jawa. Tidak ada kompromi. Hanya bahan baku terbaik di titik kematangan absolut yang berhak masuk ke dapur Esa.
+                    </p>
+                </div>
+
+                <!-- Grid Item 3: The Founders -->
+                <div class="bg-brand-accent p-8 shadow-lg text-brand-bone relative overflow-hidden">
+                    <i class="ph-fill ph-handshake text-4xl text-brand-goldlight mb-6"></i>
+                    <h4 class="text-2xl font-serif font-bold mb-4">Visi Aditya & Jessica</h4>
+                    <p class="text-brand-bone/90 leading-relaxed text-sm">
+                        Membangun institusi yang tak hanya menyajikan makanan, tetapi narasi kebanggaan. Esa didirikan untuk mematahkan stigma bahwa masakan lokal tidak bisa bersanding di ranah fine dining elit global.
+                    </p>
+                </div>
+
+                <!-- Grid Item 4: PR & Accolades (Mini) -->
+                <div class="md:col-span-2 bg-[url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center p-8 shadow-lg relative flex items-end min-h-[250px]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/60 to-transparent"></div>
+                    <div class="relative z-10">
+                        <h4 class="text-2xl font-serif font-bold text-brand-gold mb-2">"Gebrakan Kuliner Paling Diantisipasi di Jakarta"</h4>
+                        <p class="text-brand-bone/80 text-sm">- Jurnal Gastronomi Asia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 4: THE SPECTACULAR FEATURE (Booking Engine & PR) -->
+    <section id="waitlist" class="py-24 dark-section noise-bg relative border-y border-brand-gold/20" x-data="waitlistEngine()">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <!-- Left: The Pitch & PR -->
+                <div class="lg:w-1/2">
+                    <h2 class="text-sm font-bold tracking-[0.3em] uppercase text-brand-gold mb-3">Spectacular Feature Demo</h2>
+                    <h3 class="text-4xl md:text-5xl font-serif font-bold text-brand-bone mb-6 leading-tight">
+                        Sistem <span class="text-brand-gold italic">Exclusive Waitlist</span> & Manajemen Reputasi.
+                    </h3>
+                    <p class="text-brand-bone/70 text-lg leading-relaxed mb-8">
+                        Klien fine dining tidak sekadar "memesan meja"; mereka meminta undangan. Engine ini mengeliminasi no-shows, membangun hype, dan menampilkan <em>Press Clippings</em> secara elegan untuk memvalidasi status prestisius Esa.
+                    </p>
+
+                    <!-- PR Clippings Marquee -->
+                    <div class="mt-12">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-brand-bone/50 mb-4 border-b border-brand-bone/10 pb-2">Telah Diulas Oleh</h4>
+                        <div class="relative overflow-hidden w-full h-16 flex items-center">
+                            <div class="flex gap-12 animate-marquee whitespace-nowrap opacity-60">
+                                <!-- Marquee Items -->
+                                <span class="font-serif text-xl font-bold tracking-wider">Tatler Asia</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Michelin Guide (Aspirations)</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Jakarta Post</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Prestige Indonesia</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Tatler Asia</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Michelin Guide (Aspirations)</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Jakarta Post</span>
+                                <span class="font-serif text-xl font-bold tracking-wider">Prestige Indonesia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Waitlist Engine UI -->
+                <div class="lg:w-1/2 w-full">
+                    <div class="bento-card p-8 md:p-10 rounded-2xl relative">
+                        <!-- Live Queue Badge -->
+                        <div class="absolute -top-4 -right-4 bg-brand-accent text-brand-bone text-xs font-bold px-4 py-2 rounded-full shadow-lg border border-brand-accent/50 flex items-center gap-2 animate-pulse">
+                            <span class="w-2 h-2 bg-white rounded-full"></span>
+                            Live Queue: 142 Pax
+                        </div>
+
+                        <h4 class="text-2xl font-serif font-bold text-brand-gold mb-8 text-center border-b border-brand-gold/20 pb-4">Request An Invitation</h4>
+
+                        <!-- Step 1: Pax -->
+                        <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                            <label class="block text-sm font-semibold text-brand-bone/80 mb-4 uppercase tracking-wider">Ukuran Rombongan</label>
+                            <div class="grid grid-cols-4 gap-3 mb-8">
+                                <template x-for="i in 4" :key="i">
+                                    <button @click="pax = i" :class="pax === i ? 'bg-brand-gold text-brand-dark' : 'border border-brand-gold/30 text-brand-gold hover:bg-brand-gold/10'" class="py-3 rounded font-bold transition-colors">
+                                        <span x-text="i"></span>
+                                    </button>
+                                </template>
+                            </div>
+                            <button @click="step = 2" class="w-full py-4 bg-brand-gold text-brand-dark font-bold uppercase tracking-wider hover:bg-brand-goldlight transition-colors">Lanjutkan</button>
+                        </div>
+
+                        <!-- Step 2: Date & Preference -->
+                        <div x-show="step === 2" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-brand-bone/80 mb-2 uppercase tracking-wider">Bulan Kunjungan (Estimasi)</label>
+                                <select class="w-full bg-brand-dark border border-brand-gold/30 text-brand-bone p-3 rounded focus:outline-none focus:border-brand-gold">
+                                    <option>Oktober (Fully Booked)</option>
+                                    <option>November (Waiting List)</option>
+                                    <option>Desember (Available)</option>
+                                </select>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-sm font-semibold text-brand-bone/80 mb-2 uppercase tracking-wider">Preferensi Pengalaman</label>
+                                <div class="space-y-3">
+                                    <label class="flex items-center gap-3 cursor-pointer p-3 border border-brand-gold/30 rounded hover:bg-brand-gold/5">
+                                        <input type="radio" name="exp" class="accent-brand-gold" checked>
+                                        <span class="text-sm text-brand-bone">Chef's Tasting Menu (12 Courses)</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 cursor-pointer p-3 border border-brand-gold/30 rounded hover:bg-brand-gold/5">
+                                        <input type="radio" name="exp" class="accent-brand-gold">
+                                        <span class="text-sm text-brand-bone">Private Dining Room (Min. 6 Pax)</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <button @click="step = 1" class="w-1/3 py-4 border border-brand-gold/30 text-brand-gold font-bold uppercase tracking-wider hover:bg-brand-gold/10 transition-colors">Kembali</button>
+                                <button @click="submitWaitlist()" class="w-2/3 py-4 bg-brand-gold text-brand-dark font-bold uppercase tracking-wider hover:bg-brand-goldlight transition-colors relative">
+                                    <span x-show="!loading">Kirim Pengajuan</span>
+                                    <i x-show="loading" class="ph ph-spinner animate-spin text-xl text-center w-full block"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Success -->
+                        <div x-show="step === 3" style="display: none;" class="text-center py-8" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100">
+                            <i class="ph-fill ph-check-circle text-6xl text-brand-gold mb-4 mx-auto"></i>
+                            <h4 class="text-2xl font-serif font-bold text-brand-bone mb-2">Pengajuan Diterima</h4>
+                            <p class="text-brand-bone/70 text-sm mb-6">Concierge kami akan menghubungi Anda segera setelah meja tersedia. Anda berada di urutan #143.</p>
+                            <button @click="step = 1" class="text-brand-gold text-sm underline hover:text-brand-goldlight">Mulai Ulang Simulasi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 5: The Stolen Traffic / Competitor Reality Section -->
+    <section id="roi" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold tracking-[0.3em] uppercase text-brand-accent mb-3">Realitas Brutal Industri</h2>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-brand-charcoal mb-6">Ke Mana Perginya Tamu VIP Anda?</h3>
+                <p class="text-gray-600 text-lg">
+                    Di Jakarta, audiens fine dining menginginkan <strong>eksklusivitas</strong> dan <strong>kenyamanan</strong> sejak detik pertama mereka mencari nama Anda di Google. Jika mereka menemukan proses booking yang manual via WhatsApp biasa tanpa branding yang kuat, kepercayaan mereka runtuh.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Bar Chart CSS -->
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 class="text-lg font-bold font-sans text-brand-charcoal mb-6 text-center">Rasio Konversi Reservasi High-Ticket</h4>
+                    
+                    <div class="space-y-6">
+                        <!-- Bar 1 -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="font-semibold text-gray-700">Restoran Fine Dining dengan Sistem Otomatis (Kompetitor Top)</span>
+                                <span class="font-bold text-brand-accent">85% Retensi</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                <div class="bg-brand-accent h-4 rounded-full w-[85%] relative overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 2 -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="font-semibold text-gray-700">Restoran dengan Reservasi Manual/Admin Lambat</span>
+                                <span class="font-bold text-gray-500">35% Retensi</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-gray-400 h-4 rounded-full w-[35%]"></div>
+                            </div>
+                            <p class="text-xs text-brand-accent mt-2 font-medium"><i class="ph-fill ph-warning-circle"></i> 50% Pelanggan potensial hilang karena gesekan (friction) dalam proses booking.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Impact -->
+                <div>
+                    <h4 class="text-3xl font-serif font-bold text-brand-charcoal mb-6">Ubah <span class="text-brand-accent italic">"Friction"</span> Menjadi <span class="text-brand-gold italic">"Desire"</span></h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-brand-dark text-brand-gold rounded-full flex items-center justify-center text-xl">
+                                <i class="ph-fill ph-clock"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-lg font-bold text-brand-charcoal">Hemat 40 Jam Manajerial</h5>
+                                <p class="text-gray-600 text-sm mt-1">Sistem kami menyortir, memverifikasi, dan mengurutkan tamu secara otomatis. Staf Anda fokus pada pelayanan, bukan balas pesan.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-brand-dark text-brand-gold rounded-full flex items-center justify-center text-xl">
+                                <i class="ph-fill ph-shield-star"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-lg font-bold text-brand-charcoal">Eliminasi No-Shows</h5>
+                                <p class="text-gray-600 text-sm mt-1">Integrasi dengan sistem payment gateway untuk Deposit/Hold Kartu Kredit yang aman dan mulus.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-brand-dark text-brand-gold rounded-full flex items-center justify-center text-xl">
+                                <i class="ph-fill ph-crown"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-lg font-bold text-brand-charcoal">Brand Perception 10X Lipat</h5>
+                                <p class="text-gray-600 text-sm mt-1">Website yang terlihat berharga miliaran rupiah membuat tamu rela membayar mahal untuk 'New Jakarta Cuisine' tanpa ragu.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 6: The Self-Destructing Offer (Scarcity Engine) -->
+    <section class="py-20 bg-brand-gold relative overflow-hidden" x-data="countdown()">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-brand-dark mb-6">Proposal Khusus Untuk Esa</h2>
+            <p class="text-brand-dark/80 text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto">
+                Aditya & Jessica, implementasi infrastruktur digital elit ini normalnya dihargai <strong>$25,000</strong>. Jika Anda mengambil keputusan dalam jendela waktu ini, kami memberikan potongan harga Setup Fee sebesar <span class="font-bold underline text-brand-accent">30%</span>.
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-10">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-dark text-brand-gold rounded-lg flex items-center justify-center text-3xl md:text-5xl font-bold font-serif shadow-xl">
+                        <span x-text="hours"></span>
+                    </div>
+                    <span class="text-brand-dark font-bold text-sm uppercase mt-3 tracking-wider">Jam</span>
+                </div>
+                <div class="text-brand-dark text-4xl font-bold mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-dark text-brand-gold rounded-lg flex items-center justify-center text-3xl md:text-5xl font-bold font-serif shadow-xl">
+                        <span x-text="minutes"></span>
+                    </div>
+                    <span class="text-brand-dark font-bold text-sm uppercase mt-3 tracking-wider">Menit</span>
+                </div>
+                <div class="text-brand-dark text-4xl font-bold mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-dark text-brand-gold rounded-lg flex items-center justify-center text-3xl md:text-5xl font-bold font-serif shadow-xl">
+                        <span x-text="seconds"></span>
+                    </div>
+                    <span class="text-brand-dark font-bold text-sm uppercase mt-3 tracking-wider">Detik</span>
+                </div>
+            </div>
+
+            <button onclick="alert('Membuka WhatsApp ke Titanium AI Architect...')" class="px-10 py-5 bg-brand-dark text-brand-gold font-bold text-lg uppercase tracking-widest hover:bg-black hover:scale-105 transition-all shadow-2xl">
+                Klaim Penawaran & Mulai Setup
+            </button>
+            <p class="text-xs text-brand-dark/70 font-semibold mt-4">*Penawaran hangus secara otomatis. Kami hanya menerima 1 klien per bulan untuk kualitas maksimal.</p>
+        </div>
+    </section>
+
+    <!-- PILLAR 7: Omni-QR & Mega Footer -->
+    <footer class="bg-brand-dark text-brand-bone border-t border-brand-gold/20 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            
+            <div class="md:col-span-1">
+                <span class="font-serif text-4xl font-bold text-brand-gold block mb-4">Esa</span>
+                <p class="text-brand-bone/60 text-sm leading-relaxed mb-6">
+                    Redefining New Jakarta Cuisine. Mahakarya rasa dari Kepulauan Nusantara ke atas piring fine dining global.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-colors">
+                        <i class="ph-fill ph-instagram-logo text-xl"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center text-brand-gold hover:bg-brand-gold hover:text-brand-dark transition-colors">
+                        <i class="ph-fill ph-envelope-simple text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="text-lg font-bold text-brand-gold mb-6 font-serif">Alamat Eksekutif</h4>
+                <p class="text-brand-bone/70 text-sm leading-relaxed">
+                    Kawasan Pusat Bisnis Terpadu<br>
+                    Jakarta, Indonesia<br>
+                    (Lokasi privat dikirim setelah reservasi dikonfirmasi)
+                </p>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="text-lg font-bold text-brand-gold mb-6 font-serif">Jam Operasional</h4>
+                <ul class="text-brand-bone/70 text-sm space-y-2">
+                    <li class="flex justify-between"><span>Selasa - Sabtu</span> <span>18:00 - 22:30</span></li>
+                    <li class="flex justify-between text-brand-accent font-semibold mt-2"><span>Minggu & Senin</span> <span>Tutup</span></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-1 flex flex-col items-center md:items-end">
+                <h4 class="text-sm font-bold text-brand-bone/50 uppercase tracking-widest mb-4">Scan For Immediate Booking</h4>
+                <!-- Dynamic QR Container using simple CSS hack for prototype -->
+                <div class="w-32 h-32 bg-white p-2 rounded shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://prototype.titanium-ai.com/esa" alt="QR Code" class="w-full h-full object-contain">
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-8 border-t border-brand-bone/10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-brand-bone/40">&copy; 2024 Esa Jakarta. Crafted by Titanium God-Tier AI Architect.</p>
+            <div class="flex gap-6 text-xs text-brand-bone/40">
+                <a href="#" class="hover:text-brand-gold transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-brand-gold transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PILLAR 8: The "Trojan Horse" Sales Bot -->
+    <div 
+        x-show="showBot" 
+        x-transition:enter="transition ease-out duration-500"
+        x-transition:enter-start="opacity-0 translate-y-10"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        class="fixed bottom-6 right-6 z-50 flex flex-col items-end"
+        style="display: none;"
+    >
+        <!-- Chat Bubble -->
+        <div class="bg-brand-charcoal border border-brand-gold/40 shadow-2xl rounded-2xl p-5 mb-4 w-80 relative transform transition-all">
+            <!-- Ping animation on corner -->
+            <div class="absolute -top-2 -right-2 flex h-4 w-4">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-4 w-4 bg-brand-gold"></span>
+            </div>
+            
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-brand-accent flex items-center justify-center flex-shrink-0 text-white">
+                    <i class="ph-fill ph-robot text-2xl"></i>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold text-brand-gold mb-1">Titanium Sales Exec</h5>
+                    <p class="text-xs text-brand-bone/90 leading-relaxed mb-3">
+                        Halo manajemen Esa (Aditya & Jessica), website ini baru sebuah awalan. Kami siap mengimplementasikan sistem antrean & reputasi ini <strong>hari ini</strong> untuk mendongkrak valuasi Anda.
+                    </p>
+                    <button class="w-full py-2 bg-brand-gold text-brand-dark text-xs font-bold uppercase rounded hover:bg-brand-goldlight transition-colors">
+                        Diskusikan Integrasi
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toggle Button -->
+        <button @click="showBot = false" class="w-14 h-14 bg-brand-dark border-2 border-brand-gold rounded-full flex items-center justify-center text-brand-gold shadow-xl hover:scale-110 transition-transform">
+            <i class="ph ph-x text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Alpine.js Application Logic -->
+    <script>
+        // Waitlist Engine Component
+        function waitlistEngine() {
+            return {
+                step: 1,
+                pax: 2,
+                loading: false,
+                submitWaitlist() {
+                    this.loading = true;
+                    // Simulate API Call
+                    setTimeout(() => {
+                        this.loading = false;
+                        this.step = 3;
+                    }, 1500);
+                }
+            }
+        }
+
+        // Countdown Timer Component (48 Hours from page load)
+        function countdown() {
+            return {
+                endTime: new Date().getTime() + (48 * 60 * 60 * 1000), // 48 hours
+                hours: '47',
+                minutes: '59',
+                seconds: '59',
+                init() {
+                    setInterval(() => {
+                        let now = new Date().getTime();
+                        let distance = this.endTime - now;
+                        
+                        if (distance < 0) return;
+                        
+                        let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        let s = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                        this.hours = h < 10 ? '0' + h : h;
+                        this.minutes = m < 10 ? '0' + m : m;
+                        this.seconds = s < 10 ? '0' + s : s;
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

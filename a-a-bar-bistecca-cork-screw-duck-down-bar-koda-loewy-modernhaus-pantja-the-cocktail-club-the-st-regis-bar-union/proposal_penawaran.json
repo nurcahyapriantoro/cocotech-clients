@@ -1,0 +1,24 @@
+{
+  "project_name": "The Elite Collective - Core Digital Engine",
+  "client_target": "Jakarta Premium F&B Collective (Union Group, The Loewy Group, etc.)",
+  "currency": "USD",
+  "total_value": 25000,
+  "equivalent_idr": "Rp 385,000,000",
+  "pricing_model": "Value-Based Pricing + Scarcity Discount",
+  "offer_discount": {
+    "type": "Setup Fee Reduction",
+    "percentage": 30,
+    "condition": "Sign in 48 Hours"
+  },
+  "deliverables": [
+    "Custom VIP Minimum Spend Booking System",
+    "Biometric-ready Encrypted Member Portal",
+    "Automated Event Roster & Pre-Sale Ticket Engine",
+    "POS & CRM Data Sync API Integration"
+  ],
+  "roi_projection": {
+    "metric": "VIP Booking Retention & Upfront Deposit",
+    "estimated_monthly_gain_idr": "Rp 2,700,000,000",
+    "payback_period": "Kurang dari 5 Hari Operasional Malam"
+  }
+}

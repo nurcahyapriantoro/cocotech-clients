@@ -1,0 +1,26 @@
+{
+  "client_name": "Vong Kitchen",
+  "project_tier": "Titanium Elite F&B Architecture",
+  "pricing": {
+    "currency": "USD",
+    "value": 25000,
+    "idr_equivalent": 385000000,
+    "pricing_strategy": "Value-Based Pricing (ROI Centric)",
+    "scarcity_discount_30_percent_active": true,
+    "discounted_price_usd": 17500,
+    "discounted_price_idr": 269500000
+  },
+  "roi_projection": {
+    "timeline": "90 Days Post-Launch",
+    "metric_1": "+45% High-Ticket Corporate Bookings (Automated Deposit Collection)",
+    "metric_2": "+30% Premium Wine Upsell via Interactive Pairing Algorithm",
+    "metric_3": "Saving 2.5 hours/day of operational staff phone/valet coordination"
+  },
+  "deliverables": [
+    "Bespoke Ultra-Luxury UI/UX Design",
+    "Custom Corporate Booking Engine with Payment Gateway Integration",
+    "Interactive Digital Menu with Sommelier Wine Pairing Logic",
+    "VIP Valet Retrieval Sub-system Integration",
+    "Enterprise-Grade Hosting & Security Architecture"
+  ]
+}

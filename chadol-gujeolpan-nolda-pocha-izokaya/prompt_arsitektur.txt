@@ -1,0 +1,28 @@
+=== ARSITEKTUR & DESAIN UI/UX: BLOK M SYNDICATE ===
+
+1. TEMA & IDENTITAS VISUAL:
+- Vibe: "High-End East Asian Nightlife" (Otentik, Mewah, Misterius).
+- Palet Warna: 
+  * Background Utama: Deep Dark Void (#0a0a0f) & Obsidian (#16161f) untuk nuansa eksklusif.
+  * Aksen Nolda Pocha / Chadol: Neon Pink/Red (#ff2a5f) untuk menangkap energi Pocha jalanan / daging premium.
+  * Aksen VIP Izokaya: Imperial Gold (#d4af37) untuk lambang kekayaan & privasi.
+  * Aksen Soju/Minuman: Mint Soju (#a8e6cf) untuk event-event promo alkohol.
+- Tipografi: 
+  * Heading: 'Playfair Display' (Memberikan kesan heritage/sejarah yang mewah dan otentik Asia Timur klasik).
+  * Body: 'Plus Jakarta Sans' (Sangat tajam, modern, bersih untuk data UI dan form booking).
+
+2. TEKNIK UI/UX KUNCI:
+- Glassmorphism: Navbar dan Container menggunakan background semi-transparan dengan `backdrop-blur` tebal untuk kesan modern dan tidak memblokir elemen artistik di belakangnya.
+- Asymmetrical Glowing Orbs: Menggunakan CSS animasi `@keyframes blob` dengan `mix-blend-screen` untuk membuat blob cahaya neon bergerak lambat di background hero section, mensimulasikan lampu-lampu jalanan Seoul/Tokyo di malam hari.
+- UI Simulasi: Fitur inti bukan sekadar teks, tapi *interactive simulation* (Trilingual Toggle, Select Venue, Simulate Pay DP). Menggunakan State Management Alpine.js (`x-show`, `x-transition`) untuk transisi tanpa reload.
+
+3. STRATEGI PSIKOLOGI (CRO - Conversion Rate Optimization):
+- "The Stolen Traffic": Penggunaan visual bar chart CSS yang langsung membandingkan revenue manual vs digital. Menyerang pain-point owner restoran (uang yang lari ke saingan).
+- "Trojan Horse Bot": Chat widget di pojok kanan bawah yang otomatis terbuka (pop-up) ketika user scroll 30% dari halaman. Menangkap perhatian dengan sapaan personal spesifik ke nama restoran klien.
+- "Scarcity Engine": Countdown otomatis 48 jam yang diletakkan persis di atas tombol CTA terakhir. Memberikan batasan psikologis bahwa harga diskon 30% ini bersifat sangat mendesak.
+
+4. STACK TEKNOLOGI:
+- HTML5 murni tanpa build tools (untuk demonstrasi instan).
+- Tailwind CSS (via CDN config kustom untuk warna dan animasi spesifik).
+- Alpine.js (Lightweight reactivity, perfect untuk tab, modals, step-form simulasi, dan scroll listener).
+- Phosphor Icons / FontAwesome (Ikon modern garis tebal).

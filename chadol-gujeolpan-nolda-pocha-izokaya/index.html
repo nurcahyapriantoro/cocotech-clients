@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksklusif: Revolusi Digital Chadol Gujeolpan, Nolda Pocha & Izokaya</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0a0a0f',
+                            card: '#16161f',
+                            neon: '#ff2a5f',
+                            gold: '#d4af37',
+                            soju: '#a8e6cf',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom Keyframes & Utilities */
+        body { background-color: #0a0a0f; color: #ffffff; overflow-x: hidden; }
+        .glass { background: rgba(22, 22, 31, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-solid { background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 42, 95, 0.2); }
+        .neon-text { text-shadow: 0 0 10px rgba(255, 42, 95, 0.7), 0 0 20px rgba(255, 42, 95, 0.5); }
+        .gold-text { text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        .noise-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; opacity: 0.03; background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E'); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Bar Chart Animations */
+        .bar-grow { animation: growUp 1.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; transform-origin: bottom; opacity: 0; }
+        @keyframes growUp { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+    </style>
+</head>
+<body x-data="globalApp()" @scroll.window="handleScroll" class="font-sans text-gray-200">
+    <div class="noise-bg"></div>
+
+    <!-- 1. Ultra-Modern Navigation (Glassmorphism) -->
+    <nav :class="{'glass-solid py-3': scrolled > 50, 'bg-transparent py-6': scrolled <= 50}" class="fixed top-0 w-full z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-neon to-purple-600 flex items-center justify-center shadow-[0_0_15px_rgba(255,42,95,0.5)]">
+                    <i class="ph-bold ph-bowl-food text-xl text-white"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-lg leading-none tracking-wide">BLOK M SYNDICATE</span>
+                    <span class="text-[0.65rem] text-brand-neon uppercase tracking-widest">Chadol • Nolda • Izokaya</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#heritage" class="hover:text-brand-neon transition-colors">Filosofi</a>
+                <a href="#booking-engine" class="hover:text-brand-neon transition-colors">Sistem VIP</a>
+                <a href="#competitor" class="hover:text-brand-neon transition-colors">Analisis Pasar</a>
+                <a href="#calendar" class="hover:text-brand-neon transition-colors">Event Promo</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button @click="scrollTo('booking-engine')" class="relative group hidden sm:block">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-neon to-brand-gold rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200 animate-pulse-slow"></div>
+                    <div class="relative px-6 py-2.5 bg-brand-dark rounded-full leading-none flex items-center">
+                        <span class="text-sm font-semibold text-white">Live Prototype</span>
+                        <i class="ph-bold ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section: Highly Interactive & Emotion-Driven -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-neon/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-brand-gold/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/2 w-[800px] h-[400px] bg-blue-900/20 rounded-full mix-blend-screen filter blur-[150px] animate-blob animation-delay-4000"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-neon/30 bg-brand-neon/5 backdrop-blur-md mb-8 animate-fade-in-up">
+                <span class="flex h-2 w-2 rounded-full bg-brand-neon animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-wider text-brand-neon uppercase">Proposal Sistem Eksklusif</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                Berhenti Kehilangan Tamu VIP. <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-neon via-pink-500 to-brand-gold neon-text">
+                    Dominasi Malam Blok M.
+                </span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 200ms;">
+                Sistem reservasi manual via WhatsApp membunuh potensi pendapatan Anda. Kami membangun infrastruktur digital dwibahasa, sistem DP otomatis, dan manajemen ruang VIP eksklusif untuk <strong>Chadol Gujeolpan, Nolda Pocha, & Izokaya.</strong>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 animate-fade-in-up" style="animation-delay: 300ms;">
+                <button @click="scrollTo('booking-engine')" class="w-full sm:w-auto px-8 py-4 bg-brand-neon text-white font-bold rounded-lg hover:bg-pink-600 transition-colors shadow-[0_0_20px_rgba(255,42,95,0.4)] flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-rocket-launch text-xl"></i> Coba Live Prototype
+                </button>
+                <button @click="scrollTo('competitor')" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-gray-600 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-chart-line-up text-xl"></i> Lihat Analisis ROI
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee Banner -->
+    <div class="border-y border-gray-800 bg-black/50 py-4 overflow-hidden relative">
+        <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
+        <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-brand-dark to-transparent z-10"></div>
+        <div class="flex whitespace-nowrap animate-marquee items-center gap-12 text-gray-500 font-semibold tracking-widest text-sm">
+            <span>CHADOL GUJEOLPAN</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <span>NOLDA POCHA</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <span>IZOKAYA</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <span>AUTHENTIC EAST ASIAN DINING</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <span>BLOK M JAKARTA</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <!-- Repeat for seamless loop -->
+            <span>CHADOL GUJEOLPAN</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <span>NOLDA POCHA</span>
+            <i class="ph-fill ph-star text-brand-neon text-xs"></i>
+            <span>IZOKAYA</span>
+        </div>
+    </div>
+
+    <!-- 3. Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="heritage" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 text-center">
+                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-4">Jiwa Otentik Asia Timur. <br><span class="text-gray-500">Kini Dalam Etalase Digital Premium.</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Anda tidak hanya menjual makanan, Anda menjual atmosfer, budaya, dan pengalaman kelas atas. Website Anda harus mencerminkan kemewahan yang sama.</p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+                <!-- Item 1: Chadol -->
+                <div class="md:col-span-2 glass rounded-3xl p-8 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-900/40 to-transparent opacity-50 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <span class="px-3 py-1 bg-red-950/80 border border-red-500/30 rounded-full text-xs font-bold w-max mb-3 text-red-400">Korean Heritage</span>
+                        <h3 class="text-3xl font-serif font-bold text-white mb-2">Chadol Gujeolpan</h3>
+                        <p class="text-gray-300 w-2/3">Eksklusivitas daging berkualitas berpadu dengan tradisi dinasti. Pengalaman santap yang pantas mendapatkan antrean prioritas.</p>
+                    </div>
+                </div>
+                <!-- Item 2: Nolda -->
+                <div class="glass rounded-3xl p-8 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-soju/20 to-transparent opacity-50 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <span class="px-3 py-1 bg-teal-950/80 border border-teal-500/30 rounded-full text-xs font-bold w-max mb-3 text-brand-soju">Nightlife</span>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Nolda Pocha</h3>
+                        <p class="text-gray-400 text-sm">Energi jalanan Seoul di jantung Jakarta. Tenda merah, soju, dan reservasi meja yang selalu penuh.</p>
+                    </div>
+                </div>
+                <!-- Item 3: Izokaya -->
+                <div class="glass rounded-3xl p-8 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80 z-0"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522336572468-97b06e8ef143?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-700 mix-blend-luminosity"></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <span class="px-3 py-1 bg-gray-900/80 border border-gray-500/30 rounded-full text-xs font-bold w-max mb-3 text-gray-300">Japanese Authenticity</span>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Izokaya</h3>
+                        <p class="text-gray-400 text-sm">Ketenangan tatami dan kehangatan sake. Sempurna untuk pertemuan bisnis rahasia yang butuh reservasi DP tinggi.</p>
+                    </div>
+                </div>
+                <!-- Item 4: Digital Bridging -->
+                <div class="md:col-span-2 glass bg-gradient-to-r from-brand-dark to-brand-card rounded-3xl p-8 flex items-center justify-between border-brand-neon/20">
+                    <div class="w-1/2">
+                        <h3 class="text-2xl font-bold mb-3">Tiga Entitas. Satu Ekosistem.</h3>
+                        <p class="text-gray-400 text-sm">Satu portal website cerdas mendistribusikan trafik, menangani multibahasa (ID, EN, KR, JP), dan mengelola ketersediaan ruangan VIP secara real-time tanpa campur tangan admin.</p>
+                    </div>
+                    <div class="w-1/3 flex justify-center">
+                        <div class="w-32 h-32 border-4 border-dashed border-brand-neon/30 rounded-full flex items-center justify-center animate-spin" style="animation-duration: 10s;">
+                            <i class="ph-fill ph-arrows-merge text-4xl text-brand-neon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. The Stolen Traffic / Competitor Reality Section -->
+    <section id="competitor" class="py-24 bg-black relative border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-16">
+            <div class="w-full lg:w-1/2">
+                <div class="inline-block px-3 py-1 bg-red-900/30 border border-red-500/50 rounded-full text-red-400 text-xs font-bold mb-6">
+                    <i class="ph-bold ph-warning-circle inline-block mr-1"></i> REALITAS PAHIT BLOK M
+                </div>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 leading-tight">Uang VIP Anda <br><span class="text-red-500">Dicuri oleh Senopati.</span></h2>
+                <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                    Setiap malam akhir pekan, puluhan calon pelanggan VIP (ekspatriat Korea/Jepang dan eksekutif Jakarta) membatalkan niat ke restoran Anda karena <strong>sistem reservasi manual via WhatsApp yang lambat merespons.</strong>
+                </p>
+                <ul class="space-y-4 mb-8 text-gray-300">
+                    <li class="flex items-start gap-3">
+                        <i class="ph-fill ph-x-circle text-red-500 text-xl mt-1"></i>
+                        <span>Admin slow response saat jam sibuk operasional.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="ph-fill ph-x-circle text-red-500 text-xl mt-1"></i>
+                        <span>Tamu asing (KR/JP) frustrasi dengan kendala bahasa di WA.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="ph-fill ph-x-circle text-red-500 text-xl mt-1"></i>
+                        <span>Risiko <em>No-Show</em> tinggi karena tidak ada sistem Auto-DP Payment Gateway.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Interactive CSS Bar Chart -->
+            <div class="w-full lg:w-1/2 glass p-8 rounded-2xl border border-gray-800" x-data="{ shown: false }" x-intersect="shown = true">
+                <h3 class="text-center text-sm font-bold text-gray-500 mb-8 uppercase tracking-widest">Kehilangan Potensi Pendapatan Bulanan (VIP Room)</h3>
+                
+                <div class="flex items-end justify-center gap-6 h-64 border-b border-gray-700 pb-2">
+                    <!-- Bar 1 -->
+                    <div class="flex flex-col items-center gap-2 w-20">
+                        <div class="text-xs font-mono text-gray-400">Rp 45Jt</div>
+                        <div class="w-full bg-gray-700 rounded-t-md transition-all duration-1000 ease-out" :class="shown ? 'h-32' : 'h-0'"></div>
+                        <div class="text-xs font-bold text-center mt-2">Dengan WA<br>(Sekarang)</div>
+                    </div>
+                    <!-- Bar 2 -->
+                    <div class="flex flex-col items-center gap-2 w-20">
+                        <div class="text-xs font-mono text-brand-neon font-bold">Rp 180Jt+</div>
+                        <div class="relative w-full bg-gradient-to-t from-brand-neon to-purple-600 rounded-t-md transition-all duration-1000 ease-out delay-300 flex justify-center" :class="shown ? 'h-60 shadow-[0_0_20px_rgba(255,42,95,0.5)]' : 'h-0'">
+                            <div class="absolute -top-3 w-6 h-6 bg-brand-gold rounded-full animate-pulse blur-[5px]"></div>
+                        </div>
+                        <div class="text-xs font-bold text-brand-neon text-center mt-2">Sistem Web<br>(Target)</div>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-6 font-mono">*Berdasarkan data rata-rata F&B kelas atas di Jaksel dengan booking engine otomatis.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE: VIP Booking Engine & Trilingual Simulator (x-data core) -->
+    <section id="booking-engine" class="py-24 relative z-10 bg-brand-dark" x-data="bookingEngine()">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-serif font-bold mb-4 gold-text">Modul Intelijen: Reservasi VIP & Ekosistem Acara</h2>
+                <p class="text-gray-400">Simulasi langsung. Rasakan mulusnya calon pelanggan Anda memesan ruangan eksklusif dengan bayaran uang muka (DP) otomatis.</p>
+            </div>
+
+            <div class="glass rounded-3xl border border-gray-700 overflow-hidden flex flex-col lg:flex-row shadow-2xl shadow-brand-neon/10">
+                
+                <!-- Left Panel: Booking Interface -->
+                <div class="w-full lg:w-[60%] p-8 bg-brand-card">
+                    
+                    <!-- Top Bar: Lang & Title -->
+                    <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-800">
+                        <h3 class="font-bold text-lg" x-text="uiText[lang].title"></h3>
+                        <!-- Trilingual Toggle -->
+                        <div class="flex bg-black rounded-lg p-1 border border-gray-700">
+                            <button @click="lang = 'ID'" :class="lang === 'ID' ? 'bg-gray-800 text-white' : 'text-gray-500'" class="px-3 py-1 rounded text-xs font-bold transition-colors">ID</button>
+                            <button @click="lang = 'EN'" :class="lang === 'EN' ? 'bg-gray-800 text-white' : 'text-gray-500'" class="px-3 py-1 rounded text-xs font-bold transition-colors">EN</button>
+                            <button @click="lang = 'KR'" :class="lang === 'KR' ? 'bg-gray-800 text-white' : 'text-gray-500'" class="px-3 py-1 rounded text-xs font-bold transition-colors">KR</button>
+                            <button @click="lang = 'JP'" :class="lang === 'JP' ? 'bg-gray-800 text-white' : 'text-gray-500'" class="px-3 py-1 rounded text-xs font-bold transition-colors">JP</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Select Venue & Date -->
+                    <div x-show="step === 1" x-transition.opacity>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <!-- Venue Select -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-2" x-text="uiText[lang].venueLabel"></label>
+                                <select x-model="selectedVenue" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-brand-neon transition-colors appearance-none">
+                                    <option value="" disabled selected x-text="uiText[lang].selectVenue"></option>
+                                    <option value="Chadol Gujeolpan VIP">Chadol Gujeolpan - Royal VIP</option>
+                                    <option value="Nolda Pocha Rooftop">Nolda Pocha - Private Tent</option>
+                                    <option value="Izokaya Tatami">Izokaya - Premium Tatami</option>
+                                </select>
+                            </div>
+                            <!-- Date Select -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-2" x-text="uiText[lang].dateLabel"></label>
+                                <input type="date" x-model="selectedDate" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 outline-none focus:border-brand-neon transition-colors" style="color-scheme: dark;">
+                            </div>
+                        </div>
+                        <button @click="nextStep()" class="w-full py-4 bg-brand-neon text-white font-bold rounded-lg hover:bg-pink-600 transition-colors flex justify-center items-center gap-2" :class="{'opacity-50 cursor-not-allowed': !selectedVenue || !selectedDate}" :disabled="!selectedVenue || !selectedDate">
+                            <span x-text="uiText[lang].btnNext"></span> <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Deposit Payment Simulation -->
+                    <div x-show="step === 2" x-transition.opacity style="display: none;">
+                        <div class="bg-black border border-gray-800 rounded-xl p-5 mb-6">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-400 text-sm" x-text="uiText[lang].summaryVenue"></span>
+                                <span class="font-bold text-brand-gold" x-text="selectedVenue"></span>
+                            </div>
+                            <div class="flex justify-between mb-4 border-b border-gray-800 pb-4">
+                                <span class="text-gray-400 text-sm" x-text="uiText[lang].summaryDate"></span>
+                                <span class="font-bold" x-text="selectedDate"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="block text-xs text-gray-500 uppercase tracking-wider" x-text="uiText[lang].dpLabel"></span>
+                                    <span class="text-2xl font-mono font-bold text-brand-neon">Rp 1.650.000</span>
+                                </div>
+                                <div class="bg-green-900/30 text-green-400 px-3 py-1 rounded text-xs border border-green-800">
+                                    <i class="ph-bold ph-shield-check"></i> Secure
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button @click="step = 1" class="px-4 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                                <i class="ph-bold ph-arrow-left"></i>
+                            </button>
+                            <button @click="processPayment()" class="flex-1 py-3 bg-gradient-to-r from-brand-gold to-yellow-600 text-black font-bold rounded-lg hover:opacity-90 transition-opacity flex justify-center items-center gap-2 relative overflow-hidden group">
+                                <div class="absolute top-0 left-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+                                <i class="ph-bold ph-credit-card"></i> <span x-text="uiText[lang].btnPay"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Success -->
+                    <div x-show="step === 3" x-transition.opacity style="display: none;" class="text-center py-8">
+                        <div class="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/50">
+                            <i class="ph-bold ph-check text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2" x-text="uiText[lang].successTitle"></h3>
+                        <p class="text-gray-400 mb-6 text-sm" x-text="uiText[lang].successDesc"></p>
+                        <button @click="reset()" class="text-brand-neon text-sm font-bold border-b border-brand-neon pb-1 hover:text-white transition-colors">Test Again</button>
+                    </div>
+
+                </div>
+
+                <!-- Right Panel: Alcohol Promo / DJ Event Calendar -->
+                <div class="w-full lg:w-[40%] bg-black p-8 border-l border-gray-800 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-soju/10 rounded-full blur-[80px] pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-6">
+                            <i class="ph-fill ph-calendar-star text-brand-soju text-2xl"></i>
+                            <h3 class="font-bold text-lg">Upcoming Events</h3>
+                        </div>
+                        <ul class="space-y-4 relative z-10">
+                            <li class="glass p-4 rounded-xl border border-gray-800 hover:border-brand-soju/50 transition-colors cursor-pointer">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-bold text-brand-soju bg-brand-soju/10 px-2 py-1 rounded">24 Nov 2024</span>
+                                    <span class="text-xs text-gray-500">Nolda Pocha</span>
+                                </div>
+                                <h4 class="font-bold mb-1">Soju Bomb Friday x DJ K-Pop</h4>
+                                <p class="text-xs text-gray-400">Free flow soju cocktail for VIP table bookings.</p>
+                            </li>
+                            <li class="glass p-4 rounded-xl border border-gray-800 hover:border-brand-gold/50 transition-colors cursor-pointer">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-bold text-brand-gold bg-brand-gold/10 px-2 py-1 rounded">01 Dec 2024</span>
+                                    <span class="text-xs text-gray-500">Izokaya</span>
+                                </div>
+                                <h4 class="font-bold mb-1">Sake Tasting Night</h4>
+                                <p class="text-xs text-gray-400">Exclusive imported sake from Hokkaido. Limited to 20 pax.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500 italic">*Fitur Kalender ini menarik audiens untuk book langsung tanpa tanya ketersediaan di WA.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. The Self-Destructing Offer (Scarcity Engine) -->
+    <section class="py-20 bg-gradient-to-br from-red-950 to-brand-dark relative z-10 border-t border-red-900/50" x-data="countdownTimer()">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="inline-block p-4 rounded-full bg-red-500/10 mb-6">
+                <i class="ph-fill ph-clock-countdown text-5xl text-brand-neon animate-pulse"></i>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">Penawaran Eksklusif Tertutup</h2>
+            <p class="text-gray-300 text-lg mb-8">Sebagai agensi premium, kami hanya menangani 3 klien F&B tier atas per bulan. Kami mengalokasikan slot bulan ini untuk <strong>Blok M Syndicate</strong>. Amankan pengembangan sistem VIP ini dengan harga setup <strong>Rp 5.500.000</strong> (dari <s>Rp 10.000.000</s>) — DP Rp 1.650.000 &bull; potongan biaya setup sebesar 30% sebelum waktu habis.</p>
+            
+            <!-- Countdown -->
+            <div class="flex justify-center gap-4 mb-10">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-black border border-red-500/30 rounded-xl flex items-center justify-center text-2xl md:text-4xl font-mono font-bold text-white shadow-[0_0_15px_rgba(255,42,95,0.2)]" x-text="hours"></div>
+                    <span class="text-xs text-gray-500 mt-2 uppercase">Jam</span>
+                </div>
+                <div class="text-3xl md:text-4xl font-bold text-gray-600 mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-black border border-red-500/30 rounded-xl flex items-center justify-center text-2xl md:text-4xl font-mono font-bold text-white shadow-[0_0_15px_rgba(255,42,95,0.2)]" x-text="minutes"></div>
+                    <span class="text-xs text-gray-500 mt-2 uppercase">Menit</span>
+                </div>
+                <div class="text-3xl md:text-4xl font-bold text-gray-600 mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-black border border-red-500/30 rounded-xl flex items-center justify-center text-2xl md:text-4xl font-mono font-bold text-brand-neon shadow-[0_0_15px_rgba(255,42,95,0.4)]" x-text="seconds"></div>
+                    <span class="text-xs text-gray-500 mt-2 uppercase">Detik</span>
+                </div>
+            </div>
+
+            <button class="px-10 py-5 bg-white text-black font-bold text-lg rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                Klaim Kuota Blok M Hari Ini
+            </button>
+            <p class="mt-4 text-xs text-gray-500 font-mono">Proposal ID: #BLOKM-VIP-2024 | Valid for: Chadol, Nolda, Izokaya Management</p>
+        </div>
+    </section>
+
+    <!-- 7. Omni-QR & Mega Footer -->
+    <footer class="bg-black pt-20 pb-10 border-t border-gray-900 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="md:col-span-2">
+                <h3 class="text-2xl font-serif font-bold text-white mb-4">Blok M Syndicate <br><span class="text-brand-neon">Digital Infrastructure</span></h3>
+                <p class="text-gray-500 text-sm max-w-sm mb-6">Infrastruktur web berkinerja tinggi yang dirancang khusus untuk memonopoli reservasi VIP F&B tematik Asia Timur di Jakarta Selatan.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:text-brand-neon transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:text-brand-neon transition-colors"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:text-brand-neon transition-colors"><i class="ph-fill ph-envelope-simple text-xl"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-4">Venue Terintegrasi</h4>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li><a href="#" class="hover:text-brand-neon transition-colors">Chadol Gujeolpan</a></li>
+                    <li><a href="#" class="hover:text-brand-neon transition-colors">Nolda Pocha Rooftop</a></li>
+                    <li><a href="#" class="hover:text-brand-neon transition-colors">Izokaya Premium</a></li>
+                    <li><a href="#" class="hover:text-brand-neon transition-colors">Sistem Admin Master</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-4">Akses Cepat (QR)</h4>
+                <div class="w-24 h-24 bg-white p-2 rounded-lg" id="qr-container">
+                    <!-- Dynamic QR generated by Vanilla JS -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://prototype-blokm-syndicate.com" alt="QR Code" class="w-full h-full">
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Scan for Live Prototype</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-gray-900 text-center flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+            <p>&copy; 2024 Titanium God-Tier Architect. Confidential Proposal for Client.</p>
+            <p class="mt-2 md:mt-0">Engineered with Alpine.js & Tailwind CSS.</p>
+        </div>
+    </footer>
+
+    <!-- 8. The "Trojan Horse" Sales Bot -->
+    <div x-show="showBot" 
+         x-transition:enter="transition ease-out duration-500" 
+         x-transition:enter-start="opacity-0 translate-y-10" 
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-300" 
+         x-transition:leave-start="opacity-100 translate-y-0" 
+         x-transition:leave-end="opacity-0 translate-y-10"
+         class="fixed bottom-6 right-6 z-50 w-80 glass-solid rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden"
+         style="display: none;">
+        
+        <div class="bg-gradient-to-r from-brand-neon to-purple-600 p-4 flex justify-between items-center cursor-pointer" @click="toggleBot()">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Consultant" class="w-10 h-10 rounded-full border-2 border-white object-cover">
+                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></span>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-bold leading-none">Titanium Architect</h4>
+                    <span class="text-[10px] text-white/80">Online - Ready to Deploy</span>
+                </div>
+            </div>
+            <i class="ph-bold ph-caret-down text-white" :class="botOpen ? 'rotate-0' : 'rotate-180'"></i>
+        </div>
+
+        <div x-show="botOpen" class="p-5 bg-brand-dark/95 backdrop-blur-xl h-64 overflow-y-auto flex flex-col gap-4 text-sm">
+            <div class="flex gap-2">
+                <div class="w-8 h-8 rounded-full bg-brand-neon flex-shrink-0 flex items-center justify-center mt-1">
+                    <i class="ph-bold ph-robot text-white"></i>
+                </div>
+                <div class="bg-gray-800 rounded-2xl rounded-tl-none p-3 text-gray-200">
+                    <p class="mb-2">Halo Manajemen <strong>Chadol Gujeolpan, Nolda Pocha, & Izokaya</strong>! 👋</p>
+                    <p>Saya memperhatikan Anda memiliki masalah dengan double-booking VIP di akhir pekan via WhatsApp.</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <div class="w-8 h-8 rounded-full bg-brand-neon flex-shrink-0 flex items-center justify-center mt-1">
+                    <i class="ph-bold ph-robot text-white"></i>
+                </div>
+                <div class="bg-gray-800 rounded-2xl rounded-tl-none p-3 text-gray-200">
+                    <p>Sistem kami bisa mengotomatiskan DP payment gateway (QRIS/CC) langsung ke rekening restoran, dan melayani turis ekspatriat tanpa hambatan bahasa.<br><br>Dibuat oleh <strong>CocoTech</strong> — IT Agency yang sangat berpengalaman. <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">cocotech.studio</a></p>
+                </div>
+            </div>
+            <div class="bg-brand-neon/10 border border-brand-neon/30 p-3 rounded-xl mt-2 text-center">
+                <p class="text-xs text-brand-neon font-bold mb-2">Ingin menjadwalkan meeting demo?</p>
+                <button class="w-full py-2 bg-brand-neon text-white rounded-lg font-bold hover:bg-pink-600 transition-colors">Yes, Let's Talk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic (Alpine.js) -->
+    <script>
+        function globalApp() {
+            return {
+                scrolled: 0,
+                scrollPercent: 0,
+                showBot: false,
+                botOpen: true,
+                handleScroll() {
+                    this.scrolled = window.scrollY;
+                    let winHeight = window.innerHeight;
+                    let docHeight = document.body.clientHeight;
+                    this.scrollPercent = (this.scrolled / (docHeight - winHeight)) * 100;
+                    
+                    // Trigger bot at 30% scroll
+                    if (this.scrollPercent > 30 && !this.showBot) {
+                        this.showBot = true;
+                        // Play a tiny subtle sound (simulated)
+                        console.log("Bot deployed via Trojan Horse logic.");
+                    }
+                },
+                scrollTo(id) {
+                    const el = document.getElementById(id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                },
+                toggleBot() {
+                    this.botOpen = !this.botOpen;
+                }
+            }
+        }
+
+        function bookingEngine() {
+            return {
+                lang: 'ID',
+                step: 1,
+                selectedVenue: '',
+                selectedDate: '',
+                uiText: {
+                    'ID': {
+                        title: 'Reservasi Ruang VIP', venueLabel: 'Pilih Venue Eksklusif', selectVenue: '-- Pilih Restoran --', dateLabel: 'Tanggal Kedatangan',
+                        btnNext: 'Lanjutkan ke Pembayaran DP', summaryVenue: 'Venue Terpilih:', summaryDate: 'Tanggal:', dpLabel: 'Deposit Wajib (Minimum)',
+                        btnPay: 'Bayar DP Sekarang', successTitle: 'Reservasi Berhasil Dikunci!', successDesc: 'Ruangan VIP Anda telah diamankan. Tanda terima telah dikirimkan ke email Anda.'
+                    },
+                    'EN': {
+                        title: 'VIP Room Reservation', venueLabel: 'Select Exclusive Venue', selectVenue: '-- Choose Restaurant --', dateLabel: 'Arrival Date',
+                        btnNext: 'Proceed to Deposit Payment', summaryVenue: 'Selected Venue:', summaryDate: 'Date:', dpLabel: 'Required Deposit (Minimum)',
+                        btnPay: 'Pay Deposit Now', successTitle: 'Reservation Successfully Locked!', successDesc: 'Your VIP room is secured. Receipt has been sent to your email.'
+                    },
+                    'KR': {
+                        title: 'VIP 룸 예약', venueLabel: '전용 장소 선택', selectVenue: '-- 레스토랑 선택 --', dateLabel: '도착 날짜',
+                        btnNext: '예약금 결제 진행', summaryVenue: '선택한 장소:', summaryDate: '날짜:', dpLabel: '필수 예약금 (최소)',
+                        btnPay: '지금 예약금 결제', successTitle: '예약이 성공적으로 확정되었습니다!', successDesc: 'VIP 룸이 확보되었습니다. 영수증이 이메일로 전송되었습니다.'
+                    },
+                    'JP': {
+                        title: 'VIPルーム予約', venueLabel: '専用会場を選択', selectVenue: '-- レストランを選択 --', dateLabel: '到着日',
+                        btnNext: 'デポジット支払いに進む', summaryVenue: '選択された会場:', summaryDate: '日付:', dpLabel: '必要なデポジット（最小）',
+                        btnPay: '今すぐデポジットを支払う', successTitle: '予約が正常にロックされました！', successDesc: 'VIPルームが確保されました。領収書がメールに送信されました。'
+                    }
+                },
+                nextStep() {
+                    if(this.selectedVenue && this.selectedDate) {
+                        this.step = 2;
+                    }
+                },
+                processPayment() {
+                    let btn = event.currentTarget;
+                    let originalHTML = btn.innerHTML;
+                    btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin text-xl"></i> Memproses Gateway...`;
+                    btn.classList.add('opacity-75', 'cursor-not-allowed');
+                    
+                    setTimeout(() => {
+                        this.step = 3;
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    }, 1500);
+                },
+                reset() {
+                    this.step = 1;
+                    this.selectedVenue = '';
+                    this.selectedDate = '';
+                }
+            }
+        }
+
+        function countdownTimer() {
+            return {
+                endTime: new Date().getTime() + (48 * 60 * 60 * 1000), // 48 hours from load
+                hours: '48',
+                minutes: '00',
+                seconds: '00',
+                init() {
+                    setInterval(() => {
+                        let now = new Date().getTime();
+                        let distance = this.endTime - now;
+                        
+                        if (distance < 0) {
+                            this.hours = '00'; this.minutes = '00'; this.seconds = '00';
+                            return;
+                        }
+                        
+                        let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        let s = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                        this.hours = h.toString().padStart(2, '0');
+                        this.minutes = m.toString().padStart(2, '0');
+                        this.seconds = s.toString().padStart(2, '0');
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

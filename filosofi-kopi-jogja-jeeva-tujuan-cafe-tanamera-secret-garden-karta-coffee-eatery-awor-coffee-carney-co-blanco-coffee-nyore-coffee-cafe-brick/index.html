@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogja Coffee Collective | High-End Omnichannel Experience</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        coffee: {
+                            50: '#F9F6F0',
+                            100: '#F3EFE6',
+                            200: '#E3D8C3',
+                            300: '#D3C0A0',
+                            400: '#C2A97D',
+                            500: '#B2915A',
+                            600: '#947645',
+                            700: '#755B32',
+                            800: '#5A4424',
+                            900: '#3A2A14',
+                            950: '#231809',
+                        },
+                        gold: '#D4AF37'
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-glow': 'glow 3s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        glow: {
+                            '0%, 100%': { opacity: 1, boxShadow: '0 0 10px rgba(212,175,55,0.8)' },
+                            '50%': { opacity: .5, boxShadow: '0 0 2px rgba(212,175,55,0.2)' }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Countdown Timer Logic
+        function countdownTimer() {
+            return {
+                hours: 47,
+                minutes: 59,
+                seconds: 22,
+                init() {
+                    setInterval(() => {
+                        if (this.seconds > 0) {
+                            this.seconds--;
+                        } else {
+                            if (this.minutes > 0) {
+                                this.minutes--;
+                                this.seconds = 59;
+                            } else {
+                                if (this.hours > 0) {
+                                    this.hours--;
+                                    this.minutes = 59;
+                                    this.seconds = 59;
+                                }
+                            }
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F9F6F0; color: #231809; overflow-x: hidden; }
+        [x-cloak] { display: none !important; }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .glass-dark { background: rgba(35, 24, 9, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F9F6F0; }
+        ::-webkit-scrollbar-thumb { background: #D3C0A0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B2915A; }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-coffee-500 selection:text-white" x-data="{ lang: 'id', scrolled: false }">
+
+    <!-- NAVIGATION (BILINGUAL) -->
+    <nav x-data="{ mobileMenuOpen: false }" 
+         @scroll.window="scrolled = (window.pageYOffset > 50)"
+         :class="scrolled ? 'glass shadow-xl py-3' : 'bg-transparent py-6'"
+         class="fixed w-full top-0 z-40 transition-all duration-300 px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 group cursor-pointer" @click="window.scrollTo(0,0)">
+                <div class="w-10 h-10 bg-coffee-950 rounded flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-coffee-950 transition-colors">
+                    <i class="ph-bold ph-coffee text-xl"></i>
+                </div>
+                <span class="font-serif font-bold text-xl tracking-tight text-coffee-950">Jogja <span class="text-coffee-500">Collective</span></span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 font-bold text-xs uppercase tracking-widest text-coffee-800">
+                <a href="#about" class="hover:text-coffee-500 transition-colors" x-text="lang==='en' ? 'Heritage' : 'Warisan'"></a>
+                <a href="#features" class="hover:text-coffee-500 transition-colors" x-text="lang==='en' ? 'Omnichannel' : 'Sistem Integrasi'"></a>
+                <a href="#reality" class="hover:text-coffee-500 transition-colors flex items-center gap-2"><i class="ph-fill ph-chart-line-up text-coffee-500"></i> <span x-text="lang==='en' ? 'Data Analytics' : 'Analitik Data'"></span></a>
+            </div>
+
+            <!-- Lang Toggle & CTA -->
+            <div class="hidden md:flex items-center gap-4">
+                <div class="flex bg-coffee-200/50 p-1 border border-coffee-300 rounded">
+                    <button @click="lang='en'" class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors rounded-sm" :class="lang==='en' ? 'bg-coffee-950 text-white' : 'text-coffee-800 hover:text-coffee-950'">EN</button>
+                    <button @click="lang='id'" class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors rounded-sm" :class="lang==='id' ? 'bg-coffee-950 text-white' : 'text-coffee-800 hover:text-coffee-950'">ID</button>
+                </div>
+                <button onclick="document.getElementById('penawaran').scrollIntoView()" class="bg-coffee-900 text-white px-6 py-2.5 rounded text-[10px] uppercase tracking-widest font-bold shadow-lg hover:bg-coffee-800 hover:shadow-coffee-500/30 transition-all flex items-center gap-2">
+                    <span x-text="lang==='en' ? 'Request Engine' : 'Pesan Ekosistem'"></span> <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 px-6 lg:px-12 bg-white overflow-hidden flex items-center min-h-screen">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-20 right-10 w-96 h-96 bg-coffee-200 rounded-full mix-blend-multiply blur-3xl opacity-50 animate-blob"></div>
+        <div class="absolute bottom-20 left-10 w-72 h-72 bg-gold/20 rounded-full mix-blend-multiply blur-3xl opacity-50 animate-blob" style="animation-delay: 2s"></div>
+
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10 w-full">
+            <div class="max-w-2xl reveal" x-intersect="$el.classList.add('in')">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-coffee-300 text-coffee-800 text-[10px] font-bold uppercase tracking-widest mb-6 bg-coffee-100 shadow-sm">
+                    <i class="ph-fill ph-star text-gold text-sm animate-pulse-glow"></i>
+                    <span x-text="lang==='en' ? 'Enterprise Solution for Jogja F&B Leaders' : 'Solusi Enterprise untuk Industri Kopi Jogja'"></span>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-coffee-950 leading-[1.1] mb-6">
+                    <span x-text="lang==='en' ? 'Aesthetic Alone ' : 'Estetika Saja '"></span><br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-coffee-600 to-coffee-400" x-text="lang==='en' ? 'Is Not Enough.' : 'Tidaklah Cukup.'"></span><br>
+                    <span x-text="lang==='en' ? 'Conversion is King.' : 'Konversi yang Utama.'"></span>
+                </h1>
+                
+                <p class="text-lg text-coffee-700/80 mb-10 leading-relaxed font-light" x-text="lang==='en' ? 'From Plaza Malioboro to the serene corners of Sleman, thousands of patrons admire your architecture. But without Mobile Ordering & Omnichannel Loyalty, they just take photos and spend their money at digitized generic franchises.' : 'Dari Plaza Malioboro hingga sudut Sleman, ribuan jiwa mengagumi arsitektur kafe Anda. Namun tanpa Kecepatan Mobile & Loyalitas Omnichannel, mereka hanya berfoto, lalu melarikan uangnya ke kompetitor bersistem digital.'"></p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="document.getElementById('engine').scrollIntoView()" class="bg-coffee-900 text-gold hover:text-white px-8 py-4 rounded font-bold text-xs uppercase tracking-widest transition-all shadow-[0_10px_20px_rgba(35,24,9,0.3)] flex items-center gap-3">
+                        <i class="ph-bold ph-rocket-launch text-lg"></i> <span x-text="lang==='en' ? 'Try Live Prototype' : 'Coba Live Prototype'"></span>
+                    </button>
+                    <button onclick="document.getElementById('reality').scrollIntoView()" class="bg-white text-coffee-900 border border-coffee-300 px-8 py-4 rounded font-bold text-xs uppercase tracking-widest hover:bg-coffee-50 transition-all flex items-center gap-3">
+                        <i class="ph-bold ph-chart-line-up text-lg"></i> <span x-text="lang==='en' ? 'View ROI Analytics' : 'Lihat Analisis ROI'"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hero Visual: Floating App Prototype -->
+            <div class="relative w-full h-[650px] hidden lg:block reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
+                <div class="absolute inset-0 bg-[url('https://picsum.photos/seed/jogjacafe/800/1000')] bg-cover rounded-3xl opacity-20 filter sepia-[.5] mask-image: linear-gradient(to bottom, black 50%, transparent 100%); mix-blend-multiply"></div>
+                <div class="absolute inset-x-8 top-12 bottom-0 glass-dark rounded-[2.5rem] shadow-2xl p-6 border border-coffee-700/50 flex flex-col animate-float">
+                    <!-- Fake App Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-3 text-white">
+                            <img src="https://i.pravatar.cc/150?img=15" class="w-10 h-10 rounded border border-coffee-500 grayscale object-cover">
+                            <div>
+                                <p class="text-[10px] text-coffee-400 font-mono tracking-widest uppercase" x-text="lang==='en' ? 'Gold Tier Member' : 'Member Platinum'"></p>
+                                <p class="font-serif font-bold">Rangga Pramudya</p>
+                            </div>
+                        </div>
+                        <div class="bg-coffee-950 px-3 py-1.5 rounded-full flex items-center gap-2 border border-gold/30">
+                            <i class="ph-fill ph-ticket text-gold"></i>
+                            <span class="text-white font-bold text-xs font-mono">1,240 Pts</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Fake App Banner -->
+                    <div class="w-full h-32 bg-gradient-to-r from-coffee-800 to-coffee-950 rounded-2xl mb-6 relative overflow-hidden border border-coffee-700">
+                        <img src="https://picsum.photos/seed/promo/600/300" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay">
+                        <div class="relative z-10 p-5 h-full flex flex-col justify-center">
+                            <span class="bg-red-600 text-white text-[8px] font-bold uppercase tracking-widest px-2 py-1 rounded inline-flex w-max mb-2">Exclusive</span>
+                            <h3 class="text-white font-serif font-bold text-xl">Secret Garden Edition</h3>
+                            <p class="text-coffee-300 text-xs mt-1">Diskon 20% Biji Kopi Arabica</p>
+                        </div>
+                    </div>
+
+                    <h4 class="text-white font-serif font-bold mb-3" x-text="lang==='en' ? 'Favorite Orders' : 'Pesanan Favorit'"></h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-coffee-900 rounded-xl p-4 border border-coffee-800 hover:border-gold transition-colors">
+                            <img src="https://picsum.photos/seed/kopi1/200/200" class="w-full h-24 object-cover rounded-lg mb-3 filter grayscale brightness-75">
+                            <p class="text-white text-sm font-bold">Ice Aren Tanamera</p>
+                            <p class="text-coffee-400 text-xs font-mono mt-1">Rp 35.000</p>
+                        </div>
+                        <div class="bg-coffee-900 rounded-xl p-4 border border-coffee-800 hover:border-gold transition-colors">
+                            <img src="https://picsum.photos/seed/kopi2/200/200" class="w-full h-24 object-cover rounded-lg mb-3 filter grayscale brightness-75">
+                            <p class="text-white text-sm font-bold">Awor Signature Blend</p>
+                            <p class="text-coffee-400 text-xs font-mono mt-1">Rp 120.000</p>
+                        </div>
+                    </div>
+
+                    <!-- Fake App Bottom Nav -->
+                    <div class="mt-auto bg-coffee-950 rounded-2xl p-4 flex justify-around border border-coffee-800 border-t-gold/30">
+                        <i class="ph-fill ph-house text-2xl text-gold animate-pulse"></i>
+                        <i class="ph ph-qr-code text-2xl text-white/40 hover:text-white transition-colors cursor-pointer"></i>
+                        <i class="ph ph-shopping-bag text-2xl text-white/40 hover:text-white transition-colors cursor-pointer"></i>
+                        <i class="ph ph-user text-2xl text-white/40 hover:text-white transition-colors cursor-pointer"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE BRANDS -->
+    <div class="bg-coffee-950 py-5 overflow-hidden border-y border-coffee-800">
+        <div class="whitespace-nowrap flex gap-8 animate-marquee items-center text-white/50">
+            <span class="font-serif text-lg tracking-widest">FILOSOFI KOPI JOGJA</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">JEEVA</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">TUJUAN CAFE</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">TANAMERA</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">SECRET GARDEN</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">KARTA COFFEE</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">AWOR COFFEE</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">CARNEY CO</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">BLANCO COFFEE</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">NYORE COFFEE</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">CAFE BRICK</span><span class="text-gold">✦</span>
+            <!-- duplicate for loop -->
+            <span class="font-serif text-lg tracking-widest">FILOSOFI KOPI JOGJA</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">JEEVA</span><span class="text-gold">✦</span>
+            <span class="font-serif text-lg tracking-widest">TUJUAN CAFE</span>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <section class="py-12 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-coffee-200">
+            <div class="text-center group p-4">
+                <i class="ph-fill ph-bag text-3xl text-coffee-500 mb-3 block transform group-hover:-translate-y-1 transition-transform"></i>
+                <p class="font-serif text-3xl font-bold text-coffee-950 mb-1">Rp 120M+</p>
+                <p class="text-[10px] tracking-widest text-coffee-400 uppercase font-bold" x-text="lang==='en' ? 'Potential E-Comm GMV' : 'Potensi GMV Digital'"></p>
+            </div>
+            <div class="text-center group p-4">
+                <i class="ph-fill ph-users-three text-3xl text-coffee-500 mb-3 block transform group-hover:-translate-y-1 transition-transform"></i>
+                <p class="font-serif text-3xl font-bold text-coffee-950 mb-1">300%</p>
+                <p class="text-[10px] tracking-widest text-coffee-400 uppercase font-bold" x-text="lang==='en' ? 'Loyalty Return Rate' : 'Peningkatan Retensi'"></p>
+            </div>
+            <div class="text-center group p-4">
+                <i class="ph-fill ph-clock-countdown text-3xl text-coffee-500 mb-3 block transform group-hover:-translate-y-1 transition-transform"></i>
+                <p class="font-serif text-3xl font-bold text-coffee-950 mb-1">-60%</p>
+                <p class="text-[10px] tracking-widest text-coffee-400 uppercase font-bold" x-text="lang==='en' ? 'Queue Time Reduced' : 'Penurunan Waktu Antre'"></p>
+            </div>
+            <div class="text-center group p-4">
+                <i class="ph-fill ph-storefront text-3xl text-coffee-500 mb-3 block transform group-hover:-translate-y-1 transition-transform"></i>
+                <p class="font-serif text-3xl font-bold text-coffee-950 mb-1">1 Ecosystem</p>
+                <p class="text-[10px] tracking-widest text-coffee-400 uppercase font-bold" x-text="lang==='en' ? 'Fully Integrated Solution' : 'Solusi Terintegrasi Penuh'"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HERITAGE (ABOUT) -->
+    <section id="about" class="py-24 px-6 lg:px-12 bg-coffee-50 relative border-t border-coffee-200">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal" x-intersect="$el.classList.add('in')">
+                <div class="h-px w-20 bg-coffee-500 mx-auto mb-6"></div>
+                <h3 class="text-4xl lg:text-5xl font-serif font-bold text-coffee-950 mb-6" x-text="lang==='en' ? 'The Aesthetic Soul. Ready to Scale.' : 'Jiwa Estetika. Siap Diskalakan.'"></h3>
+                <p class="text-coffee-700 text-lg leading-relaxed" x-text="lang==='en' ? 'Every corner of your cafe tells a story. From the British grandeur at Cafe Brick, the industrial vibe at Blanco, to the lush serenity of Secret Garden. You have mastered physical architecture. Now, master the digital retention.' : 'Setiap sudut bangunan menceritakan kisah. Dari kemegahan arsitektur British di Cafe Brick, nuansa industrial di Blanco, hingga rimbunnnya Secret Garden. Anda telah menguasai seni tata ruang fisik; kini saatnya menguasai retensi pelanggan digital secara massal.'"></p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 w-full max-w-5xl reveal" x-intersect="$el.classList.add('in')">
+                <div class="bg-white p-10 border border-coffee-200 rounded-2xl shadow-sm hover:shadow-xl transition-shadow flex items-start gap-6">
+                    <div class="bg-red-50 p-4 rounded text-red-600"><i class="ph-bold ph-warning-circle text-3xl"></i></div>
+                    <div>
+                        <h4 class="text-xl font-bold text-coffee-950 mb-3 font-serif" x-text="lang==='en' ? 'The Queue Tragedy' : 'Tragedi Antrean Fisik'"></h4>
+                        <p class="text-coffee-600 text-sm leading-relaxed" x-text="lang==='en' ? 'Modern tourists despise waiting. They snap photos of the exterior, then order coffee from a digital competitor nearby because your queue is too long.' : 'Konsumen era digital membenci antrean. Mereka memotret eksterior kedai Anda, lalu justru memesan kopi kompetitor lewat aplikasi ojek online karena panjangnya barisan kasir Anda.'"></p>
+                    </div>
+                </div>
+                <div class="bg-white p-10 border border-coffee-200 rounded-2xl shadow-sm hover:shadow-xl transition-shadow flex items-start gap-6">
+                    <div class="bg-green-50 p-4 rounded text-green-600"><i class="ph-bold ph-rocket-launch text-3xl"></i></div>
+                    <div>
+                        <h4 class="text-xl font-bold text-coffee-950 mb-3 font-serif" x-text="lang==='en' ? 'The Omnichannel Fix' : 'Solusi Omnichannel'"></h4>
+                        <p class="text-coffee-600 text-sm leading-relaxed" x-text="lang==='en' ? 'Order-ahead systems, digital membership tiers, and seamless physical-to-digital merchandising. Transform one-time visitors into lifelong disciples.' : 'Sistem Order-Ahead otomatis, hierarki membership berbasis barcode, dan penjualan merchandise nasional. Ubah turis sekali-lewat menjadi pelanggan setia seumur hidup.'"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OMNICHANNEL ENGINE SIMULATOR (FEATURE WOW FACTOR) -->
+    <section id="features" class="py-24 px-6 lg:px-12 bg-[#111] text-white relative border-t-8 border-gold">
+        <div class="max-w-7xl mx-auto relative z-10" 
+             x-data="{ 
+                tab: 'ecommerce',
+                cart: [],
+                loyaltyPoints: 1250,
+                products: [
+                    { id: 1, name: 'Tanamera Premium Roast 250g', price: 95000, points: 50, img: 'https://picsum.photos/seed/bean1/200/200', tag: 'Biji Kopi' },
+                    { id: 2, name: 'Kaos Oversize Awor Limited', price: 175000, points: 100, img: 'https://picsum.photos/seed/shirt1/200/200', tag: 'Merch' },
+                    { id: 3, name: 'Cafe Brick Signature Mug', price: 85000, points: 40, img: 'https://picsum.photos/seed/mug1/200/200', tag: 'Aksesoris' }
+                ],
+                addToCart(product) {
+                    this.cart.push(product);
+                    this.loyaltyPoints += product.points;
+                    alert('Prototype: Menambahkan ' + product.name + ' ke cart (+ ' + product.points + ' Pts)');
+                },
+                get cartTotal() {
+                    return this.cart.reduce((total, item) => total + item.price, 0);
+                },
+                formatRupiah(number) {
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+                }
+             }">
+
+            <div class="text-center max-w-4xl mx-auto mb-16 reveal" x-intersect="$el.classList.add('in')">
+                <span class="bg-black text-gold px-5 py-2 inline-block border border-gold/40 text-[10px] font-bold uppercase tracking-[.3em] rounded-sm mb-6">Omnichannel Simulator Engine</span>
+                <h2 class="text-4xl lg:text-5xl font-serif font-bold mb-4" x-text="lang==='en' ? 'One Platform. Millions in New Revenue.' : 'Satu Platform. Jutaan Pendapatan Baru.'"></h2>
+                <p class="text-white/50 text-base max-w-2xl mx-auto" x-text="lang==='en' ? 'Stop letting loyal patrons leave with just memories. Convert physical space into repeated e-commerce conversions with an integrated ecosystem.' : 'Jangan biarkan pelanggan pulang hanya dengan kenangan. Ubah pengalaman gerai fisik menjadi mesin e-commerce terus menerus via integrasi ekosistem.'"></p>
+            </div>
+
+            <!-- UI Simulator App Shell -->
+            <div class="bg-black rounded-3xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col md:flex-row min-h-[650px] reveal" x-intersect="$el.classList.add('in')">
+                
+                <!-- Sidebar -->
+                <div class="w-full md:w-72 bg-[#1A1A1A] p-6 border-b md:border-b-0 md:border-r border-white/10 flex flex-row md:flex-col gap-2 overflow-x-auto">
+                    <div class="hidden md:flex items-center gap-4 mb-8 pb-6 border-b border-white/10">
+                        <div class="w-12 h-12 bg-coffee-950 rounded flex items-center justify-center border border-gold">
+                            <i class="ph-bold ph-storefront text-2xl text-gold"></i>
+                        </div>
+                        <p class="font-bold text-white leading-snug">Jogja Kopi<br><span class="text-xs text-white/40 uppercase tracking-widest font-mono">App Prototype</span></p>
+                    </div>
+                    
+                    <button @click="tab = 'ecommerce'" :class="tab === 'ecommerce' ? 'bg-coffee-900 border-gold/50' : 'border-transparent text-white/50 hover:bg-white/5 hover:text-white'" class="flex items-center gap-3 px-5 py-4 rounded border transition-all whitespace-nowrap">
+                        <i class="ph-fill ph-shopping-cart text-xl"></i> <span class="font-bold text-sm tracking-wide">Merch E-Store</span>
+                    </button>
+                    <button @click="tab = 'loyalty'" :class="tab === 'loyalty' ? 'bg-coffee-900 border-gold/50' : 'border-transparent text-white/50 hover:bg-white/5 hover:text-white'" class="flex items-center gap-3 px-5 py-4 rounded border transition-all whitespace-nowrap">
+                        <i class="ph-fill ph-identification-card text-xl"></i> <span class="font-bold text-sm tracking-wide">Loyalty Card ID</span>
+                    </button>
+                    <button @click="tab = 'queue'" :class="tab === 'queue' ? 'bg-coffee-900 border-gold/50' : 'border-transparent text-white/50 hover:bg-white/5 hover:text-white'" class="flex items-center gap-3 px-5 py-4 rounded border transition-all whitespace-nowrap">
+                        <i class="ph-fill ph-timer text-xl"></i> <span class="font-bold text-sm tracking-wide">Live POS Queue</span>
+                    </button>
+                </div>
+
+                <!-- Main Work Area -->
+                <div class="flex-1 p-8 bg-[#0F0F0F] relative">
+                    
+                    <!-- TAB 1: E-Commerce -->
+                    <div x-show="tab === 'ecommerce'" class="animate-[reveal_.5s_ease_out]">
+                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
+                            <div>
+                                <h3 class="text-2xl font-serif font-bold text-white">Eksklusif Katalog</h3>
+                                <p class="text-xs text-white/40 font-mono mt-1" x-text="lang==='en' ? 'Nationwide Shipping Active' : 'Pengiriman Nasional Aktif'"></p>
+                            </div>
+                            <div class="bg-coffee-950 px-4 py-2 rounded flex items-center gap-2 border border-coffee-800">
+                                <i class="ph-bold ph-shopping-bag text-gold"></i>
+                                <span class="text-white font-bold" x-text="cart.length"></span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <template x-for="product in products" :key="product.id">
+                                <div class="bg-[#1C1C1C] rounded-xl border border-white/10 hover:border-gold/50 transition-colors group">
+                                    <img :src="product.img" class="w-full h-40 object-cover rounded-t-xl filter grayscale group-hover:grayscale-0 transition-all duration-500">
+                                    <div class="p-5">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <span class="text-[9px] uppercase font-bold tracking-[.2em] text-white/40" x-text="product.tag"></span>
+                                            <span class="text-[9px] bg-coffee-800 text-gold px-2 py-0.5 rounded font-mono font-bold">+<span x-text="product.points"></span> Pts</span>
+                                        </div>
+                                        <h4 class="font-bold text-white text-sm mb-1 leading-snug" x-text="product.name"></h4>
+                                        <p class="text-white/60 font-mono text-xs mb-4" x-text="formatRupiah(product.price)"></p>
+                                        <button @click="addToCart(product)" class="w-full bg-white/5 hover:bg-gold hover:text-black text-white font-bold text-xs uppercase tracking-widest py-3 transition-colors rounded">
+                                            <i class="ph-bold ph-plus mr-1"></i> Add To Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Loyalty System -->
+                    <div x-show="tab === 'loyalty'" x-cloak class="animate-[reveal_.5s_ease_out]">
+                        <h3 class="text-3xl font-serif font-bold text-white mb-8">Digital Membership</h3>
+                        
+                        <div class="bg-gradient-to-tr from-coffee-950 via-[#3a2000] to-[#120a00] p-8 rounded-2xl border border-gold/30 shadow-[0_10px_40px_rgba(212,175,55,0.15)] flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
+                            <i class="ph-fill ph-crown text-9xl absolute right-0 bottom-0 opacity-10 text-gold -translate-y-4 translate-x-4"></i>
+                            
+                            <div class="relative z-10 w-full md:w-auto">
+                                <p class="text-gold font-bold text-[10px] tracking-[.3em] uppercase mb-1">Jogja Collective Group</p>
+                                <p class="font-serif text-3xl text-white mb-6">Platinum VIP</p>
+                                
+                                <p class="text-white/40 text-xs uppercase font-bold tracking-widest mb-1">Current Balance</p>
+                                <h4 class="text-5xl font-mono font-bold text-white"><span x-text="loyaltyPoints"></span> <span class="text-base text-gold">PTS</span></h4>
+                            </div>
+                            
+                            <div class="bg-white p-3 rounded-lg relative z-10 shrink-0 cursor-pointer hover:scale-105 transition-transform" onclick="alert('Kasir Filosofi Kopi Jogja melakukan pemindaian (Scan) BARCODE ini. Saldo poin otomatis dipotong 500 Pts = Harga Kopi Gratis!')">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=MEM-88219" class="w-32 h-32 md:w-40 md:h-40">
+                                <p class="text-center text-[10px] text-black font-bold mt-2 tracking-widest uppercase">Tap to Scan</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 border border-white/10 bg-white/5 p-6 rounded">
+                            <h4 class="font-bold text-white mb-3 text-sm flex items-center gap-2"><i class="ph-fill ph-info text-gold"></i> Omnichannel Loop:</h4>
+                            <p class="text-xs text-white/50 leading-relaxed font-mono" x-text="lang==='en' ? 'Points earned by buying Merchandise online can be instantly spent physically by scanning the barcode at Jeeva, Tujuan Cafe, or Blanco. Customers are locked into your ecosystem!' : 'Poin yang didapat dari belanja Kaos Online dapat di-scan dan dihabiskan untuk membeli Kopi fisik malam harinya di cabang Jeeva atau Blanco manapun secara instan. Siklus pendapatan 360 derajat!'"></p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: POS Queue -->
+                    <div x-show="tab === 'queue'" x-cloak class="animate-[reveal_.5s_ease_out]">
+                        <h3 class="text-3xl font-serif font-bold text-white mb-2">Live POS Queue</h3>
+                        <p class="text-white/40 text-sm mb-10 font-mono">Branch: Secret Garden Coffee</p>
+                        
+                        <div class="bg-[#1C1C1C] p-10 rounded border border-white/10 text-center max-w-lg mx-auto">
+                            <p class="text-white/50 text-sm tracking-widest uppercase font-bold mb-4" x-text="lang==='en' ? 'Your Calling Number' : 'Nomor Panggilan Anda'"></p>
+                            <h1 class="text-7xl lg:text-[100px] font-bold text-white mb-8 tracking-tighter">B-88</h1>
+                            <div class="inline-flex items-center gap-3 bg-yellow-500/10 text-yellow-500 font-mono text-sm px-6 py-3 rounded border border-yellow-500/20">
+                                <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span></span>
+                                Barista Preparing (Est. 4 mins)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATA & REALITY (GRAFIK) -->
+    <section id="reality" class="py-24 bg-white relative border-t border-coffee-200">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal" x-intersect="$el.classList.add('in')">
+                <span class="bg-red-100 text-red-800 border border-red-200 px-4 py-1.5 rounded-full text-[10px] uppercase font-bold tracking-[.2em] mb-6 inline-block" x-text="lang==='en' ? 'The Grim Reality' : 'Realita Pahit Industri'"></span>
+                <h2 class="text-4xl lg:text-5xl font-serif font-bold text-coffee-950 mb-6 leading-tight" x-text="lang==='en' ? 'Converting Foot Traffic into Data.' : 'Turis Datang, Omset Menguap.'"></h2>
+                
+                <div class="space-y-6 text-coffee-700 text-lg leading-relaxed">
+                    <p x-text="lang==='en' ? 'You have incredibly beautiful cafes (Cafe Brick, Carney Co, Nyore). People visit constantly. But are you capturing their emails? Are you able to sell them merchandise a week after they leave Jogja? No.' : 'Eksterior Cafe Brick atau Nyore Coffee mungkin paling fotogenik di Jogja. Turis datang secara masif. Tapi apakah Anda mengantongi email mereka? Apakah Anda bisa menjual tumbler secara online saat mereka kembali ke kotanya? Tidak.'"></p>
+                    <div class="border-l-4 border-gold pl-6 py-2">
+                        <p class="font-serif font-bold text-coffee-950 text-xl" x-text="lang==='en' ? 'Without an omnichannel bridge, scaling relies solely on selling cups of coffee—which has a hard limit.' : 'Tanpa infrastruktur Omnichannel, eskalasi bisnis Anda terjebak mutlak pada kapasitas tempat duduk fisik kedai.'"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fake Chart Graphic -->
+            <div class="bg-coffee-50 p-8 rounded border border-coffee-200 shadow-xl reveal relative" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
+                <!-- Bar 1 -->
+                <div class="mb-8">
+                    <div class="flex justify-between text-xs font-bold font-mono text-coffee-900 mb-2 uppercase tracking-widest">
+                        <span>Physical Traffic (In-Store)</span>
+                        <span>98%</span>
+                    </div>
+                    <div class="w-full bg-coffee-200 h-6 flex overflow-hidden">
+                        <div class="bg-coffee-950 h-full" style="width: 98%;"></div>
+                    </div>
+                </div>
+                <!-- Bar 2 -->
+                <div class="mb-8">
+                    <div class="flex justify-between text-xs font-bold font-mono text-coffee-900 mb-2 uppercase tracking-widest">
+                        <span>Merch Online Conversion</span>
+                        <span class="text-red-600">Lost (12%)</span>
+                    </div>
+                    <div class="w-full bg-coffee-200 h-6 flex overflow-hidden relative">
+                        <div class="bg-red-500 h-full absolute left-0" style="width: 12%;"></div>
+                        <div class="bg-red-200 h-full absolute left-[12%]" style="width: 60%;"></div>
+                        <span class="absolute top-1/2 left-[20%] -translate-y-1/2 text-[10px] font-bold text-red-900">Untapped Market Potential</span>
+                    </div>
+                </div>
+                <!-- Bar 3 -->
+                <div>
+                    <div class="flex justify-between text-xs font-bold font-mono text-coffee-900 mb-2 uppercase tracking-widest">
+                        <span>Customer LTV (Loyalty Return)</span>
+                        <span class="text-green-600">Engine ROI (85%)</span>
+                    </div>
+                    <div class="w-full bg-coffee-200 h-6 flex overflow-hidden">
+                        <div class="bg-green-600 h-full" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONI (WOW FACTOR) -->
+    <section class="py-24 bg-coffee-50 relative border-y border-coffee-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
+                <h3 class="font-serif text-4xl font-bold text-coffee-950 mb-4" x-text="lang==='en' ? 'Industry Validation' : 'Validasi Industri'"></h3>
+                <p class="text-coffee-600">Mengelola *database* puluhan ribu pelanggan lokal dengan aman.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-8 border border-coffee-200 rounded-xl shadow-sm reveal" x-intersect="$el.classList.add('in')">
+                    <div class="flex gap-1 text-gold mb-4"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-coffee-800 italic mb-6 leading-relaxed font-serif text-lg">"Sejak memakai arsitektur Loyalty dari tim spesialis ini, penjualan biji kopi eceran di web kami naik 400%. Konsumen kumpulkan poin beli kopi hitam, ditukarkan jadi Kaos. Ekosistem gila."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/150?img=11" class="w-12 h-12 rounded-full grayscale object-cover">
+                        <div>
+                            <p class="font-bold text-coffee-950 text-sm">Dimas W.</p>
+                            <p class="text-[10px] font-bold text-coffee-400 tracking-widest uppercase">F&B Ops Manager</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 border border-coffee-200 rounded-xl shadow-sm reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
+                    <div class="flex gap-1 text-gold mb-4"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-sm text-coffee-800 italic mb-6 leading-relaxed font-serif text-lg">"Fitur Order-Ahead menghilangkan antrean kasar di pintu masuk. Omzet Harian fisik melesat tajam karena perputaran (*table turnover*) pelanggan jauh lebih cepat!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/150?img=32" class="w-12 h-12 rounded-full grayscale object-cover">
+                        <div>
+                            <p class="font-bold text-coffee-950 text-sm">Sarah L.</p>
+                            <p class="text-[10px] font-bold text-coffee-400 tracking-widest uppercase">Senior Cafe Owner, Malioboro</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERI FOTO KOPI JOGJA -->
+    <section class="bg-coffee-950 pb-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-1 p-1">
+            <div class="aspect-square bg-coffee-800 overflow-hidden group"><img src="https://picsum.photos/seed/kopi21/600/600" class="w-full h-full object-cover filter contrast-125 grayscale group-hover:grayscale-0 hover:scale-110 transition-all duration-700"></div>
+            <div class="aspect-square md:col-span-2 bg-coffee-800 overflow-hidden group"><img src="https://picsum.photos/seed/kopi22/1200/600" class="w-full h-full object-cover filter contrast-125 grayscale group-hover:grayscale-0 hover:scale-110 transition-all duration-700"></div>
+            <div class="aspect-square bg-coffee-800 overflow-hidden group"><img src="https://picsum.photos/seed/kopi23/600/600" class="w-full h-full object-cover filter contrast-125 grayscale group-hover:grayscale-0 hover:scale-110 transition-all duration-700"></div>
+        </div>
+    </section>
+
+    <!-- MEKANISME HARGA FOOTER (TIER 3: ENTERPRISE OPS - COCOTECH) -->
+    <!-- As per GEMINI.md protocol: Placed cleanly at the bottom, offering High Tier Solution -->
+    <section id="penawaran" class="bg-coffee-950 border-t border-coffee-800 relative z-30">
+        <div class="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cartographer.png')] pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto px-6 py-28 relative z-10">
+            <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
+                <div class="inline-flex items-center gap-2 border border-gold/40 text-gold text-[10px] font-bold uppercase tracking-[.2em] px-4 py-2 rounded-sm mb-6 bg-gold/10">
+                    <i class="ph-fill ph-seal-check"></i> Diskon Eksekusi Infrastruktur
+                </div>
+                <p class="text-white/40 text-[11px] font-bold uppercase tracking-[.4em] mb-4">Mewakili <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">CocoTech Digital Agency</a></p>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-6">
+                    <span x-text="lang==='en' ? 'Dominate Jogja digitally. ' : 'Monopoli digital untuk '"></span><br>
+                    <em class="text-gold italic underline decoration-gold/30 underline-offset-8" x-text="lang==='en' ? 'Beyond The Storefront.' : 'Jogja Collective.'"></em>
+                </h2>
+            </div>
+
+            <div class="bg-[#120C05] rounded-3xl p-8 md:p-14 reveal shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-coffee-800 flex flex-col lg:flex-row gap-16 items-center" x-intersect="$el.classList.add('in')">
+                <div class="flex-1 w-full">
+                    <h3 class="text-white font-bold text-2xl font-serif mb-8 flex items-center gap-3"><i class="ph-fill ph-hard-drives text-gold text-3xl"></i> Enterprise Ops System (Tier 3)</h3>
+                    <ul class="space-y-5 text-sm text-white/70 mb-10 font-bold font-mono">
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Bilingual Web Application Profiling</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Omnichannel App Layout (Merch Cart & Point System)</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Live AWS/Vercel Cloud Deployment & Domain</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> QR Integration Bridge Ready</li>
+                    </ul>
+
+                    <div class="bg-gradient-to-br from-coffee-800 to-coffee-950 text-white rounded p-8 border border-coffee-700 relative overflow-hidden">
+                        <i class="ph-fill ph-tag text-[150px] absolute right-0 top-0 text-white opacity-5 -translate-y-10 translate-x-10"></i>
+                        <p class="text-[10px] text-coffee-300 font-bold uppercase tracking-widest mb-2 font-mono">Sistem Down Payment (30%)</p>
+                        <p class="font-serif text-4xl lg:text-5xl font-bold text-white mb-2">Rp 2.850.000</p>
+                        <p class="text-xs text-white/50 mb-4 font-mono font-bold">Harga Setup Penuh: Rp 9.500.000 (dari Rp 17.500.000)</p>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-[400px] flex flex-col justify-center items-center bg-black border border-white/5 p-10 rounded">
+                    <p class="text-white font-bold tracking-[.2em] text-[10px] text-center uppercase mb-8 border border-white/10 px-4 py-2 text-white/50"><span class="text-gold">Sistem Scarcity:</span> Proposal Berakhir Dalam</p>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="flex justify-center gap-3 mb-10 w-full" x-data="countdownTimer()" x-init="init()">
+                        <div class="bg-[#111] border border-coffee-800 text-center py-4 px-5 rounded flex-1">
+                            <p class="font-mono text-3xl font-bold text-white mb-1" x-text="String(hours).padStart(2, '0')"></p><p class="text-[9px] uppercase tracking-widest text-[#666] font-bold">Jam</p>
+                        </div>
+                        <div class="text-3xl font-light text-white/20 mt-2">:</div>
+                        <div class="bg-[#111] border border-coffee-800 text-center py-4 px-5 rounded flex-1">
+                            <p class="font-mono text-3xl font-bold text-white mb-1" x-text="String(minutes).padStart(2, '0')"></p><p class="text-[9px] uppercase tracking-widest text-[#666] font-bold">Mnt</p>
+                        </div>
+                        <div class="text-3xl font-light text-white/20 mt-2">:</div>
+                        <div class="bg-[#111] border border-coffee-800 text-center py-4 px-5 rounded flex-1">
+                            <p class="font-mono text-3xl font-bold text-gold mb-1" x-text="String(seconds).padStart(2, '0')"></p><p class="text-[9px] uppercase tracking-widest text-gold font-bold">Dtk</p>
+                        </div>
+                    </div>
+
+                    <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20Kami%20dari%20Collective%20Kopi%20Jogja%20ingin%20tanya%20detail%20setup%20Omnichannel-nya." target="_blank"
+                       class="w-full bg-[#25D366] hover:bg-[#1DAA55] text-white py-4 font-bold text-xs uppercase tracking-widest flex justify-center items-center gap-3 transition-colors shadow-lg rounded mb-3">
+                        <i class="ph-fill ph-whatsapp-logo text-xl"></i> Konsultasi Engineer
+                    </a>
+                    <a href="proposal.html" target="_blank"
+                       class="w-full border border-white/20 text-white hover:border-gold hover:text-gold py-4 font-bold text-xs uppercase tracking-widest flex justify-center items-center gap-3 transition-colors rounded">
+                        <i class="ph-fill ph-file-pdf text-xl text-red-500"></i> Unduh PDF Resmi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE TROJAN HORSE SALES BOT (VGA/Terminal Styled) -->
+    <div x-data="{ open: false, showed: false }"
+         @scroll.window="if(window.pageYOffset > 1000 && !showed) { open = true; showed = true; const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3'); audio.volume = 0.5; audio.play().catch(e=>{}); }"
+         class="fixed bottom-6 right-6 z-50 flex flex-col items-end hidden md:flex">
+        
+        <div x-show="open" x-transition x-cloak class="bg-black/90 backdrop-blur border border-coffee-800 shadow-[0_10px_40px_rgba(0,0,0,0.8)] w-80 mb-4 rounded-xl overflow-hidden font-mono">
+            <div class="bg-coffee-950 p-3 flex justify-between items-center border-b border-coffee-800">
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-white font-bold tracking-widest">COCOTECH.SYS</span>
+                </div>
+                <button @click="open=false" class="text-white/40 hover:text-white"><i class="ph-bold ph-x"></i></button>
+            </div>
+            <div class="p-4 space-y-4 text-xs text-white/80 h-48 overflow-y-auto">
+                <div class="flex gap-3">
+                    <div class="text-gold font-bold">></div>
+                    <div class="leading-relaxed">Sistem mendeteksi manajemen <span class="text-gold font-bold uppercase">Filosofi Kopi Jogja, Tanamera, Blanco dkk.</span> sedang melihat prototipe ini.</div>
+                </div>
+                <div class="flex gap-3">
+                    <div class="text-gold font-bold">></div>
+                    <div class="leading-relaxed">Arsitektur Omnichannel di atas siap dijalankan untuk memonopoli data dan dompet pelanggan turis Anda sebelum mereka kembali ke Jakarta. Ada kendala soal skema harga? — Dibuat oleh CocoTech, IT Agency sangat berpengalaman. cocotech.studio</div>
+                </div>
+            </div>
+            <div class="p-2 border-t border-coffee-800 flex gap-2">
+                <span class="text-gold font-bold ml-2 mt-2">></span>
+                <input type="text" placeholder="CMD: Balas ke WhatsApp..." class="flex-1 bg-transparent px-2 py-2 text-white outline-none placeholder:text-white/20">
+                <button class="bg-white/10 hover:bg-gold hover:text-black w-8 h-8 rounded text-white flex items-center justify-center transition-colors"><i class="ph-bold ph-arrow-enter"></i></button>
+            </div>
+        </div>
+        
+        <!-- Toggle Button -->
+        <button @click="open=!open" class="w-14 h-14 bg-coffee-100 rounded flex items-center justify-center text-coffee-950 shadow-2xl hover:bg-gold transition-colors border border-coffee-300">
+            <i class="ph-fill ph-terminal-window text-2xl"></i>
+        </button>
+    </div>
+
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

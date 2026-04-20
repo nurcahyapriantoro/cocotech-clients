@@ -1,0 +1,28 @@
+{
+  "client_name": "Indo Risakti",
+  "category": "UMKM Ekspor & Kerajinan Ramah Lingkungan",
+  "pain_points": [
+    "Sulit meyakinkan buyer Eropa & AS terkait kualitas dan standar pengiriman",
+    "Belum memiliki narasi digital tentang 'Fair Trade' dan 'Eco-Friendly' yang diakui global",
+    "Tidak ada fasilitas perhitungan konversi mata uang otomatis atau pelacakan kontainer B2B"
+  ],
+  "fomo_trigger": "Permintaan kerajinan tangan berbahan alam (eco-friendly decor) dari Eropa/AS sangat tinggi, namun mayoritas kontrak B2B jatuh ke tangan eksportir dari Bali atau Jepara karena portofolio digital mereka (website) lebih siap, memancing trust buyer internasional.",
+  "wow_factor": "Modul Pelacakan Ekspor (Cargo Freight Tracking) B2B & Bilingual Auto-Currency Toggle",
+  "pricing_tier": "Tier 3: Full Enterprise Ops System",
+  "pricing": {
+    "development": 45000000,
+    "maintenance_yearly": 7500000,
+    "currency": "IDR"
+  },
+  "package_details": [
+    "D2C/B2B International Commerce Gateway",
+    "Geocoded Currency Adjuster (USD/EUR/IDR)",
+    "Fair Trade Digital Certification Center",
+    "Container Shipping Logistics Integration Mock-up",
+    "Bilingual Infrastructure Framework"
+  ],
+  "discount_offer": {
+    "percentage": 30,
+    "valid_hours": 48
+  }
+}

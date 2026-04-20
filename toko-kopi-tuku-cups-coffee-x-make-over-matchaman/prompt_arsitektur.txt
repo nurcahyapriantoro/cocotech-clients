@@ -1,0 +1,32 @@
+# Instruksi UI/UX & Arsitektur Frontend
+
+## 1. Tema Visual & Identitas Brand ("Urban Earthy Glow")
+- **Deskripsi**: Estetika modern, premium, dan mengakar pada kultur kopi lokal (Jakarta Selatan) dipadukan dengan sentuhan kosmetik berani (Make Over) dan elemen natural (Matcha).
+- **Palet Warna Utama**:
+  - `brand-tuku` (#6b4c3a): Cokelat kopi pekat, hangat, membumi.
+  - `brand-matcha` (#859f71): Hijau daun matcha, organik, menenangkan.
+  - `brand-makeover` (#e83e8c): Magenta/Pink neon berani untuk aksen kontras & FOMO CTA.
+  - `brand-dark` (#1a1a1a): Hitam elegan untuk teks dan latar kontras.
+  - `brand-cream` (#fcfbf9): Off-white/krem susu sebagai latar utama (bersih, luas).
+
+## 2. Tipografi (Google Fonts)
+- **Primary/Heading**: `Playfair Display` (Serif) - Memberikan nuansa heritage, editorial, mewah, dan naratif emosional.
+- **Secondary/Body**: `Plus Jakarta Sans` (Sans-serif) - Modern, clean, keterbacaan tingkat tinggi, nuansa urban metropolis.
+
+## 3. Tech Stack & Library
+- **CSS Framework**: Tailwind CSS (via CDN) dengan konfigurasi `tailwind.config` inline.
+- **Interaktivitas**: Alpine.js (via CDN) untuk state management (Tabs, Cart Modal, Scroll Event, Chatbot, Countdown Timer).
+- **Iconography**: Phosphor Icons (via CDN) menggunakan varian `ph-fill`, `ph-bold`, dan `ph-duotone`.
+- **Custom CSS**: Glassmorphism (`backdrop-filter`), CSS Grid Layout (Bento box), Gradient Meshes, dan Keyframe Animations (`blob`, `pulse-slow`, `marquee`).
+
+## 4. Struktur Arsitektur (UX Flow)
+1. **Glass-Nav**: Berubah menjadi blur saat discroll, indikator keranjang dinamis.
+2. **Hero Interactive**: Latar belakang mesh-gradient bergerak. CTA memicu modal/scroll.
+3. **Heritage (Bento Grid)**: Menyajikan asal-usul brand menggunakan grid asimetris. Gambar merespons hover (scale).
+4. **Core E-Commerce Engine (Alpine.js Tabs)**:
+   - *Tab E-Katalog*: Menampilkan produk merchandise dengan badge stok, filter kategori, dan tombol tambah ke keranjang.
+   - *Tab Peta Distribusi*: Layout terpisah antara daftar cabang dan visualisasi peta (titik berdenyut absolute positioning).
+5. **Data Kompetitor**: Visualisasi bar chart persentase keuntungan.
+6. **Scarcity Engine**: Countdown JS dinamis (48 jam) untuk menciptakan urgensi diskon setup 30%.
+7. **Omni-QR Footer**: Generasi QR code, jam operasional, navigasi.
+8. **Floating Bot**: Chatbot Alpine.js yang muncul setelah user scrolling 30% dari tinggi layar.

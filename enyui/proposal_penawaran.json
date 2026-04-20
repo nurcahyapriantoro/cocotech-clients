@@ -1,0 +1,26 @@
+{
+  "client_name": "Enyui Cafe Management",
+  "project_type": "Premium F&B Digital Ecosystem & Automated Commercial Booking Engine",
+  "pricing_model": "Value-Based Pricing",
+  "investment": {
+    "standard_setup_fee_idr": 21400000,
+    "exclusive_discount_30_pct_idr": 6420000,
+    "final_setup_fee_idr": 14980000,
+    "monthly_maintenance_and_server_idr": 1500000
+  },
+  "roi_calculation": {
+    "problem": "Fotografer komersial menggunakan spot kafe gratis/hanya beli 1 kopi (Loss Rp 15.000.000/bulan).",
+    "solution": "Digital gatekeeping dengan Booking Engine. Paket termurah Rp 750.000, paket termahal Rp 2.500.000.",
+    "break_even_point": "Hanya membutuhkan 10 booking paket Commercial (Rp 1.500.000) untuk ROI 100% dari biaya setup di bulan pertama.",
+    "projected_annual_added_revenue_idr": 180000000
+  },
+  "deliverables": [
+    "High-End UI/UX Design (Japandi Concept)",
+    "Automated Photography Booking System with Date Picker",
+    "Artisan Interactive Menu Catalog",
+    "Tailwind CSS & Alpine.js Custom Architecture",
+    "Omnichannel QR Code Generation",
+    "Zero-Downtime Cloud Hosting Setup"
+  ],
+  "validity": "48 Hours (Scarcity Engine applied)"
+}

@@ -1,0 +1,31 @@
+= UI/UX & ARCHITECTURE INSTRUCTIONS FOR 'BON BALE' =
+
+1. DESIGN PHILOSOPHY
+- Konsep: Ecotourism Elegance / Javanese Heritage
+- Vibe: Premium, Hangat, Menyatu dengan alam, Autentik.
+- Estetika Visual: Menggunakan efek Glassmorphism untuk memadukan elemen UI modern (booking engine) dengan visual pedesaan tradisional.
+- Background: Implementasi Noise Texture halus (SVG filter) untuk memberi kesan 'earthy' dan organik, bukan warna solid digital yang kaku.
+
+2. TYPOGRAPHY
+- Headings (H1-H3): 'Playfair Display' (Serif) untuk menonjolkan kemewahan klasik, warisan budaya, dan arsitektur Limasan.
+- Body & UI Elements: 'Plus Jakarta Sans' (Sans-serif) yang modern, super rapi, dan memiliki tingkat keterbacaan tinggi di layar mobile kecil.
+
+3. COLOR PALETTE (TERINJEKSI DI TAILWIND CONFIG)
+- Brand Greens: Turunan warna hijau dedaunan hutan (#536d35 hingga #2c3e1f) merepresentasikan alam Wonokerto.
+- Salak Browns: Aksen warna kulit salak pondoh (#8B4513) digunakan khusus untuk efek gradient, highlights, dan badge.
+- Whites/Creams: Digunakan sebagai base UI card untuk kontras yang bersih (#f4f6f1).
+
+4. TECH STACK (CDN-BASED FOR PROTOTYPING)
+- Framework CSS: Tailwind CSS (v3 via CDN script).
+- Interaktivitas: Alpine.js (Lightweight reactive state untuk scroll, mobile menu, booking logic, timer, dan chatbot).
+- Iconography: Phosphor Icons Web (Modern, outline, dan fill versions).
+
+5. CRITICAL UI COMPONENTS
+- Sticky Glass Navbar: Transisi dari transparent ke blur (backdrop-filter) saat user scroll melewati 50px.
+- Bento Grid Profile: Digunakan pada section "Heritage" untuk menata foto Limasan, Tur Salak, dan Kuliner dengan hierarki asimetris yang trendi.
+- Booking Form State Machine: Menggunakan `x-show` dengan transisi mulus untuk memecah form booking menjadi 3 step (Pilih Paket -> Tanggal & Jumlah Pax -> Ringkasan Total).
+
+6. ANIMATION & MICRO-INTERACTIONS
+- Floating Blobs: Background hero menggunakan absolute divs yang diberi efek blur-3xl dan animasi keyframe custom.
+- Hover States: Gambar di dalam galeri menggunakan `scale-110` dengan durasi 1000ms untuk efek cinematic zoom.
+- Chatbot Pop-up: Delay berdasarkan presentase scroll (30%) agar terasa "organik" membaca intensi pengunjung.

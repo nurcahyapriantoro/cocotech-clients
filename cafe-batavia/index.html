@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Digitalisasi Premium: Cafe Batavia</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN Config) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        batavia: {
+                            gold: '#C5A059',
+                            goldglow: '#E8C57A',
+                            dark: '#111111',
+                            charcoal: '#1A1A1A',
+                            wood: '#2C1A12',
+                            paper: '#FDFBF7',
+                            red: '#8B0000'
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out',
+                        'pulse-gold': 'pulseGold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGold: {
+                            '0%, 100%': { opacity: 1, boxShadow: '0 0 0 0 rgba(197, 160, 89, 0.7)' },
+                            '50%': { opacity: .8, boxShadow: '0 0 0 15px rgba(197, 160, 89, 0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Custom Styles & Animations */
+        body { background-color: #111111; color: #FDFBF7; overflow-x: hidden; }
+        
+        .glass-nav {
+            background: rgba(17, 17, 17, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            transition: all 0.4s ease;
+        }
+        .glass-nav.scrolled {
+            background: rgba(17, 17, 17, 0.95);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-card {
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+        }
+
+        .text-glow { text-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .box-glow { box-shadow: 0 0 30px rgba(197, 160, 89, 0.15); }
+        
+        /* Noise Texture */
+        .noise-bg::before {
+            content: "";
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 360 Tour Hotspot Animation */
+        .hotspot-ripple {
+            position: absolute;
+            width: 24px; height: 24px;
+            background: #C5A059;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .hotspot-ripple::after {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 2px solid #C5A059;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111111; }
+        ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E8C57A; }
+
+        /* Chart Animation */
+        .chart-bar { transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body x-data="globalState()" @scroll.window="handleScroll" class="font-sans antialiased relative">
+
+    <!-- Pillar 1: Navigasi Ultra-Modern (Glassmorphism) -->
+    <nav :class="{'scrolled': isScrolled}" class="glass-nav fixed w-full top-0 z-50 py-4 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Vector Logo Representation -->
+                <svg width="40" height="40" viewBox="0 0 100 100" class="text-batavia-gold">
+                    <path fill="currentColor" d="M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z" opacity="0.2"/>
+                    <path fill="none" stroke="currentColor" stroke-width="3" d="M50 10 L85 28 L85 72 L50 90 L15 72 L15 28 Z"/>
+                    <text x="50" y="55" font-family="Playfair Display" font-size="28" fill="currentColor" text-anchor="middle" font-weight="bold">CB</text>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-xl text-batavia-paper tracking-wider">CAFE BATAVIA</span>
+                    <span class="text-[10px] text-batavia-gold tracking-[0.2em] uppercase">Digital Transformation Prototype</span>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-batavia-paper/80">
+                <a href="#solusi" class="hover:text-batavia-gold transition-colors">Ekosistem Inti</a>
+                <a href="#analisis" class="hover:text-batavia-gold transition-colors">Analisis Pasar</a>
+                <a href="#penawaran" class="hover:text-batavia-gold transition-colors">Sistem ROI</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#prototype" class="hidden md:inline-flex px-6 py-2.5 border border-batavia-gold text-batavia-gold hover:bg-batavia-gold hover:text-batavia-dark transition-all rounded-sm font-semibold tracking-wide text-sm">
+                    Coba Live Prototype
+                </a>
+                <a href="#penawaran" class="animate-pulse-gold px-6 py-2.5 bg-batavia-gold text-batavia-dark rounded-sm font-bold tracking-wide text-sm flex items-center gap-2">
+                    <i class="ph ph-trend-up text-lg"></i>
+                    Lihat Analisis ROI
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pillar 2: Hero Section Sangat Interaktif -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden noise-bg pt-20">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <!-- Simulated High-Res Background Image -->
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542315124-2c0b82b9a149?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-batavia-dark/90 via-batavia-dark/80 to-batavia-dark"></div>
+            
+            <!-- Animated Blobs -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-batavia-gold/10 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-batavia-wood/40 rounded-full mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center animate-fade-in-up">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-batavia-gold/30 bg-batavia-gold/10 text-batavia-gold text-xs font-bold tracking-widest uppercase mb-6 backdrop-blur-sm">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-batavia-gold opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-batavia-gold"></span>
+                </span>
+                Presentasi Eksklusif Untuk Manajemen Historis
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl font-bold leading-tight mb-6 text-glow">
+                Warisan <span class="text-batavia-gold italic">Kolonial Abad ke-19,</span><br/>
+                Infrastruktur <span class="text-batavia-paper underline decoration-batavia-gold decoration-4 underline-offset-8">Bisnis Abad ke-21.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-batavia-paper/80 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+                Di Jl. Pintu Besar Utara No.14, sejarah tidak tergantikan. Namun <b class="text-white">ribuan dolar pendapatan potensial hilang setiap bulan</b> karena proses reservasi event manual, menu yang tidak ramah turis asing, dan ketiadaan representasi ruang secara digital. Sistem ini dirancang untuk menutup kebocoran tersebut.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <button @click="document.getElementById('core-engine').scrollIntoView()" class="w-full sm:w-auto px-8 py-4 bg-batavia-gold text-batavia-dark font-bold text-lg rounded-sm hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(197,160,89,0.4)] transition-all flex items-center justify-center gap-3">
+                    <i class="ph ph-laptop text-2xl"></i>
+                    Akses Modul Prototype
+                </button>
+                <button @click="document.getElementById('analisis').scrollIntoView()" class="w-full sm:w-auto px-8 py-4 border border-batavia-paper/20 hover:border-batavia-gold text-batavia-paper hover:text-batavia-gold font-bold text-lg rounded-sm transition-all flex items-center justify-center gap-3 glass-card">
+                    <i class="ph ph-chart-bar text-2xl"></i>
+                    Lihat Kebocoran Profit
+                </button>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+            <span class="text-xs text-batavia-gold uppercase tracking-widest font-semibold">Scroll untuk Evolusi</span>
+            <i class="ph ph-arrow-down text-batavia-gold text-xl"></i>
+        </div>
+    </section>
+
+    <!-- Pillar 3: Deep Company Profile & Heritage (Bento Grid) -->
+    <section class="py-24 relative z-10 bg-batavia-dark border-t border-batavia-gold/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Filosofi <span class="text-batavia-gold">The Grandeur</span></h2>
+                <p class="text-batavia-paper/60 max-w-2xl mx-auto text-lg">Mengapa Cafe Batavia membutuhkan representasi digital yang sama mewahnya dengan lampu gantung kristal dan perabotan kayu jatinya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Grid Item 1 -->
+                <div class="glass-card p-8 rounded-xl md:col-span-2 group hover:border-batavia-gold/50 transition-all">
+                    <div class="w-14 h-14 rounded-full bg-batavia-gold/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-buildings text-3xl text-batavia-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3">Saksi Bisu Sejarah Pinangsia</h3>
+                    <p class="text-batavia-paper/70 leading-relaxed mb-4">Berdiri kokoh sejak awal abad ke-19 sebagai pusat administrasi VOC. Aura kolonial Belanda yang autentik ini adalah magnet komersial utama yang belum sepenuhnya ter-monetisasi secara online kepada event organizer premium.</p>
+                    <div class="h-1 w-20 bg-batavia-gold rounded-full opacity-50 group-hover:w-full transition-all duration-500"></div>
+                </div>
+
+                <!-- Grid Item 2 -->
+                <div class="glass-card p-8 rounded-xl group hover:border-batavia-gold/50 transition-all flex flex-col justify-center items-center text-center">
+                    <i class="ph ph-star text-5xl text-batavia-gold mb-4 drop-shadow-[0_0_15px_rgba(197,160,89,0.5)]"></i>
+                    <h3 class="font-serif text-xl font-bold mb-2">Standard Kuliner Bintang 5</h3>
+                    <p class="text-batavia-paper/70 text-sm">Hidangan Nusantara dan Western berkualitas tinggi yang membutuhkan visualisasi interaktif bilingual untuk audiens ekspatriat dan turis internasional.</p>
+                </div>
+
+                <!-- Grid Item 3 -->
+                <div class="glass-card p-8 rounded-xl group hover:border-batavia-gold/50 transition-all overflow-hidden relative">
+                    <div class="absolute -right-10 -bottom-10 opacity-5">
+                        <i class="ph ph-crown text-9xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold mb-3 relative z-10 text-batavia-gold">Kehilangan Momentum Konversi?</h3>
+                    <p class="text-batavia-paper/70 leading-relaxed relative z-10">Tamu VIP, Duta Besar, dan Eksekutif mengharapkan proses reservasi tanpa gesekan (frictionless). Formulir PDF atau komunikasi WhatsApp manual menurunkan persepsi brand dan tingkat konversi event berskala besar.</p>
+                </div>
+
+                <!-- Grid Item 4 -->
+                <div class="glass-card p-8 rounded-xl md:col-span-2 bg-gradient-to-r from-[#1A1A1A] to-[#2C1A12] border-batavia-gold/30">
+                    <div class="flex items-start md:items-center justify-between flex-col md:flex-row gap-6">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold mb-2">Solusi: The Batavia Engine</h3>
+                            <p class="text-batavia-paper/80 max-w-md">Sebuah infrastruktur website kustom yang menggabungkan Virtual Tour, Event Quotation Engine, dan Multilingual Digital Menu dalam satu ekosistem ultra-cepat.</p>
+                        </div>
+                        <button @click="document.getElementById('core-engine').scrollIntoView()" class="px-6 py-3 bg-batavia-paper text-batavia-dark font-bold rounded-sm hover:bg-batavia-gold transition-colors whitespace-nowrap">
+                            Lihat Modul Interaktif <i class="ph ph-arrow-right inline-block ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillar 4: THE SPECTACULAR FEATURE (CORE ENGINE - WAJIB ADA & Interaktif) -->
+    <section id="core-engine" class="py-24 relative bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-16">
+                <span class="text-batavia-gold font-bold tracking-widest uppercase text-sm mb-2 block">Prototype Engine Live</span>
+                <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6">Arsitektur Digital <span class="text-transparent bg-clip-text bg-gradient-to-r from-batavia-gold to-yellow-200">Eksklusif</span></h2>
+                <p class="text-xl text-batavia-paper/60 max-w-3xl">Berinteraksilah dengan modul-modul di bawah ini. Inilah yang akan dirasakan oleh calon klien High-Net-Worth Individual (HNWI) Anda saat mengunjungi situs web baru Cafe Batavia.</p>
+            </div>
+
+            <!-- Alpine Tab System -->
+            <div x-data="{ activeTab: 'tour' }" class="w-full">
+                <!-- Tab Navigation -->
+                <div class="flex flex-wrap gap-2 md:gap-4 mb-8 border-b border-batavia-gold/20 pb-4">
+                    <button @click="activeTab = 'tour'" :class="activeTab === 'tour' ? 'bg-batavia-gold text-batavia-dark' : 'text-batavia-paper/70 hover:text-batavia-gold border border-batavia-paper/20'" class="px-6 py-3 rounded-t-lg md:rounded-lg font-semibold transition-all flex items-center gap-2">
+                        <i class="ph ph-camera-rotate text-xl"></i> Virtual Tour 360°
+                    </button>
+                    <button @click="activeTab = 'event'" :class="activeTab === 'event' ? 'bg-batavia-gold text-batavia-dark' : 'text-batavia-paper/70 hover:text-batavia-gold border border-batavia-paper/20'" class="px-6 py-3 rounded-t-lg md:rounded-lg font-semibold transition-all flex items-center gap-2">
+                        <i class="ph ph-calendar-check text-xl"></i> Event Quotation System
+                    </button>
+                    <button @click="activeTab = 'menu'" :class="activeTab === 'menu' ? 'bg-batavia-gold text-batavia-dark' : 'text-batavia-paper/70 hover:text-batavia-gold border border-batavia-paper/20'" class="px-6 py-3 rounded-t-lg md:rounded-lg font-semibold transition-all flex items-center gap-2">
+                        <i class="ph ph-book-open-text text-xl"></i> Bilingual SEO Menu
+                    </button>
+                </div>
+
+                <!-- Modul 1: Virtual Tour 360 -->
+                <div x-show="activeTab === 'tour'" x-transition.opacity.duration.500ms class="glass-card rounded-2xl border border-batavia-gold/30 overflow-hidden relative min-h-[500px]">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+                    
+                    <!-- Overlay Grid to simulate 360 structure -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-batavia-dark via-transparent to-transparent pointer-events-none"></div>
+                    
+                    <div x-data="{ hotspotOpen: null }" class="absolute inset-0">
+                        <!-- Hotspot 1 -->
+                        <div class="absolute top-[40%] left-[30%]">
+                            <div @click="hotspotOpen = 1" class="hotspot-ripple"></div>
+                            <div x-show="hotspotOpen === 1" @click.outside="hotspotOpen = null" x-transition class="absolute top-8 left-8 w-64 bg-batavia-dark/95 border border-batavia-gold p-4 rounded-lg shadow-2xl z-20">
+                                <h4 class="font-serif font-bold text-batavia-gold text-lg mb-1">The Churchill Bar</h4>
+                                <p class="text-sm text-batavia-paper/80 mb-3">Dinobatkan sebagai bar terbaik di dunia oleh Newsweek edisi internasional. Kapasitas 50 Pax.</p>
+                                <button class="text-xs bg-batavia-gold text-batavia-dark px-3 py-1 rounded font-bold w-full">Request Layout Ruangan</button>
+                            </div>
+                        </div>
+
+                        <!-- Hotspot 2 -->
+                        <div class="absolute top-[60%] right-[25%]">
+                            <div @click="hotspotOpen = 2" class="hotspot-ripple"></div>
+                            <div x-show="hotspotOpen === 2" @click.outside="hotspotOpen = null" x-transition class="absolute top-8 right-8 w-64 bg-batavia-dark/95 border border-batavia-gold p-4 rounded-lg shadow-2xl z-20">
+                                <h4 class="font-serif font-bold text-batavia-gold text-lg mb-1">Grand Salon (Lantai 2)</h4>
+                                <p class="text-sm text-batavia-paper/80 mb-3">Menghadap langsung ke Taman Fatahillah. Jendela kayu jati masif abad ke-19. Kapasitas 150 Pax.</p>
+                                <button class="text-xs bg-batavia-gold text-batavia-dark px-3 py-1 rounded font-bold w-full">Lihat Video Panoramik</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-6 left-6 right-6 flex justify-between items-end pointer-events-none">
+                        <div>
+                            <span class="bg-batavia-dark/80 text-batavia-paper px-4 py-2 rounded-lg text-sm font-semibold border border-batavia-gold/30 backdrop-blur inline-flex items-center gap-2">
+                                <i class="ph ph-hand-swipe text-batavia-gold"></i> Simulasi Interaktif Area Restoran
+                            </span>
+                        </div>
+                        <div class="bg-batavia-dark/80 p-2 rounded-lg border border-batavia-gold/30 backdrop-blur pointer-events-auto flex gap-2">
+                            <button class="w-10 h-10 flex items-center justify-center bg-batavia-charcoal rounded hover:bg-batavia-gold hover:text-batavia-dark transition"><i class="ph ph-plus"></i></button>
+                            <button class="w-10 h-10 flex items-center justify-center bg-batavia-charcoal rounded hover:bg-batavia-gold hover:text-batavia-dark transition"><i class="ph ph-minus"></i></button>
+                            <button class="w-10 h-10 flex items-center justify-center bg-batavia-charcoal rounded hover:bg-batavia-gold hover:text-batavia-dark transition"><i class="ph ph-arrows-out"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modul 2: Event Quotation System -->
+                <div x-show="activeTab === 'event'" x-transition.opacity.duration.500ms style="display: none;" class="glass-card rounded-2xl border border-batavia-gold/30 p-8">
+                    <div x-data="{ step: 1, eventType: '', date: '', pax: 50, estimate: 0 }" class="max-w-3xl mx-auto">
+                        <div class="text-center mb-10">
+                            <h3 class="font-serif text-3xl font-bold mb-2">Automated Event Quotation</h3>
+                            <p class="text-batavia-paper/60">Simulator kalkulasi otomatis. Memangkas waktu admin membalas email hingga 80% dan menyaring klien berdasarkan budget minimum.</p>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="flex justify-between mb-8 relative">
+                            <div class="absolute top-1/2 left-0 w-full h-1 bg-batavia-charcoal -z-10 transform -translate-y-1/2"></div>
+                            <div class="absolute top-1/2 left-0 h-1 bg-batavia-gold -z-10 transform -translate-y-1/2 transition-all duration-500" :style="'width: ' + ((step-1)/2 * 100) + '%'"></div>
+                            
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-colors" :class="step >= 1 ? 'bg-batavia-gold border-batavia-gold text-batavia-dark' : 'bg-batavia-dark border-batavia-charcoal text-batavia-paper'">1</div>
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-colors" :class="step >= 2 ? 'bg-batavia-gold border-batavia-gold text-batavia-dark' : 'bg-batavia-dark border-batavia-charcoal text-batavia-paper'">2</div>
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-colors" :class="step >= 3 ? 'bg-batavia-gold border-batavia-gold text-batavia-dark' : 'bg-batavia-dark border-batavia-charcoal text-batavia-paper'">3</div>
+                        </div>
+
+                        <!-- Step 1 -->
+                        <div x-show="step === 1" x-transition>
+                            <h4 class="font-bold text-xl mb-4 text-batavia-gold">Pilih Jenis Acara</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="border border-batavia-paper/20 rounded-lg p-4 cursor-pointer hover:border-batavia-gold transition-all relative" :class="eventType === 'wedding' ? 'border-batavia-gold bg-batavia-gold/10' : ''">
+                                    <input type="radio" name="event" value="wedding" x-model="eventType" class="hidden">
+                                    <i class="ph ph-heart text-3xl text-batavia-gold mb-2 block"></i>
+                                    <span class="font-semibold block">Private Wedding</span>
+                                    <span class="text-xs text-batavia-paper/60">Minimum Rp 50.000.000</span>
+                                    <div x-show="eventType === 'wedding'" class="absolute top-4 right-4 text-batavia-gold"><i class="ph-fill ph-check-circle text-xl"></i></div>
+                                </label>
+                                <label class="border border-batavia-paper/20 rounded-lg p-4 cursor-pointer hover:border-batavia-gold transition-all relative" :class="eventType === 'corporate' ? 'border-batavia-gold bg-batavia-gold/10' : ''">
+                                    <input type="radio" name="event" value="corporate" x-model="eventType" class="hidden">
+                                    <i class="ph ph-briefcase text-3xl text-batavia-gold mb-2 block"></i>
+                                    <span class="font-semibold block">Corporate Gathering</span>
+                                    <span class="text-xs text-batavia-paper/60">Minimum Rp 30.000.000</span>
+                                    <div x-show="eventType === 'corporate'" class="absolute top-4 right-4 text-batavia-gold"><i class="ph-fill ph-check-circle text-xl"></i></div>
+                                </label>
+                            </div>
+                            <div class="mt-8 flex justify-end">
+                                <button @click="if(eventType) { step = 2; estimate = eventType === 'wedding' ? 50000000 : 30000000; }" class="bg-batavia-gold text-batavia-dark px-6 py-2 rounded font-bold hover:bg-yellow-500 disabled:opacity-50" :disabled="!eventType">Selanjutnya</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div x-show="step === 2" x-transition style="display: none;">
+                            <h4 class="font-bold text-xl mb-4 text-batavia-gold">Detail Skala Acara</h4>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm mb-2 text-batavia-paper/80">Perkiraan Tanggal</label>
+                                    <input type="date" x-model="date" class="w-full bg-batavia-dark border border-batavia-paper/20 rounded-lg p-3 text-batavia-paper focus:border-batavia-gold focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2 text-batavia-paper/80 flex justify-between">
+                                        <span>Jumlah Tamu (Pax)</span>
+                                        <span class="font-bold text-batavia-gold" x-text="pax + ' Orang'"></span>
+                                    </label>
+                                    <input type="range" min="20" max="250" step="10" x-model="pax" @input="estimate = (eventType === 'wedding' ? 50000000 : 30000000) + ((pax - 50) * 450000)" class="w-full accent-batavia-gold">
+                                    <div class="flex justify-between text-xs text-batavia-paper/40 mt-1">
+                                        <span>20</span><span>250+</span>
+                                    </div>
+                                </div>
+                                <div class="bg-batavia-gold/5 border border-batavia-gold/20 p-4 rounded-lg flex justify-between items-center">
+                                    <span class="text-sm font-serif">Estimasi Investasi Live:</span>
+                                    <span class="text-xl font-bold text-batavia-gold" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(estimate > 0 ? estimate : 0)"></span>
+                                </div>
+                            </div>
+                            <div class="mt-8 flex justify-between">
+                                <button @click="step = 1" class="px-6 py-2 border border-batavia-paper/20 rounded text-batavia-paper hover:border-batavia-gold">Kembali</button>
+                                <button @click="if(date) step = 3" class="bg-batavia-gold text-batavia-dark px-6 py-2 rounded font-bold hover:bg-yellow-500" :disabled="!date">Kunci Jadwal</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div x-show="step === 3" x-transition style="display: none;" class="text-center">
+                            <i class="ph-fill ph-check-circle text-6xl text-batavia-gold mb-4"></i>
+                            <h4 class="font-serif text-2xl font-bold mb-2">Quotation Siap Dikirim!</h4>
+                            <p class="text-batavia-paper/70 mb-6">Dalam sistem riil, sistem akan men-generate proposal PDF secara otomatis berlogo Cafe Batavia dan mengirimkannya langsung ke email klien beserta tombol "Bayar DP via Payment Gateway".</p>
+                            <div class="bg-batavia-charcoal p-4 rounded text-left border border-batavia-paper/10 mb-6">
+                                <p class="text-sm"><span class="text-batavia-paper/50">Tipe:</span> <span x-text="eventType" class="uppercase text-batavia-gold font-semibold"></span></p>
+                                <p class="text-sm"><span class="text-batavia-paper/50">Pax:</span> <span x-text="pax"></span> Orang</p>
+                                <p class="text-sm"><span class="text-batavia-paper/50">Estimasi:</span> <span class="font-bold text-green-400" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(estimate)"></span></p>
+                            </div>
+                            <button @click="step = 1; eventType=''; date=''; pax=50" class="text-batavia-gold underline text-sm">Reset Simulator</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modul 3: Bilingual Menu -->
+                <div x-show="activeTab === 'menu'" x-transition.opacity.duration.500ms style="display: none;" class="glass-card rounded-2xl border border-batavia-gold/30 p-8" x-data="menuData()">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                        <div>
+                            <h3 class="font-serif text-3xl font-bold mb-2">Digital Menu Teroptimasi</h3>
+                            <p class="text-batavia-paper/60 text-sm">Responsif, mudah dicari, dwibahasa untuk menjaring ekspatriat (SEO Global).</p>
+                        </div>
+                        <div class="flex gap-4 w-full md:w-auto">
+                            <div class="relative w-full md:w-64">
+                                <i class="ph ph-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-batavia-paper/50"></i>
+                                <input type="text" x-model="searchQuery" placeholder="Cari hidangan..." class="w-full bg-batavia-dark border border-batavia-paper/20 rounded-full py-2 pl-10 pr-4 text-sm focus:border-batavia-gold focus:outline-none">
+                            </div>
+                            <button @click="lang = lang === 'id' ? 'en' : 'id'" class="px-4 py-2 border border-batavia-gold rounded-full text-batavia-gold font-bold text-sm w-16 text-center hover:bg-batavia-gold hover:text-batavia-dark transition">
+                                <span x-text="lang.toUpperCase()"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <template x-for="item in filteredMenu" :key="item.id">
+                            <div class="p-4 border border-batavia-paper/10 rounded-lg hover:border-batavia-gold/50 transition-colors bg-batavia-dark/50 flex gap-4">
+                                <div class="w-20 h-20 bg-batavia-charcoal rounded-md flex-shrink-0 bg-cover bg-center" :style="'background-image: url('+item.img+')'"></div>
+                                <div class="flex-grow">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-bold font-serif text-lg text-batavia-gold" x-text="item.name"></h4>
+                                        <span class="font-bold text-sm" x-text="item.price"></span>
+                                    </div>
+                                    <p class="text-xs text-batavia-paper/60 mt-1 leading-relaxed" x-text="item.desc[lang]"></p>
+                                    <div class="mt-2 flex gap-2">
+                                        <template x-for="tag in item.tags">
+                                            <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border border-batavia-paper/20 text-batavia-paper/50" x-text="tag"></span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div x-show="filteredMenu.length === 0" class="col-span-2 text-center py-10 text-batavia-paper/50">
+                            Hidangan tidak ditemukan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillar 5: The Stolen Traffic / Competitor Reality Section -->
+    <section id="analisis" class="py-24 bg-batavia-dark relative border-t border-batavia-gold/10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-block px-3 py-1 bg-red-900/30 text-red-400 border border-red-500/30 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Peringatan Eksekutif</div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Kompetitor di Jakarta Barat Telah Beradaptasi. <span class="text-batavia-paper/40">Anda?</span></h2>
+                    <p class="text-batavia-paper/70 leading-relaxed text-lg mb-6">
+                        Di area premium seperti Taman Sari dan sekitarnya, generasi baru Event Organizer dan perencana pernikahan korporat tidak lagi mentolerir proses komunikasi PDF lambat. Mereka membutuhkan jawaban seketika (Instant Quotation) dan visualisasi ruang (Virtual Tour 360).
+                    </p>
+                    <p class="text-batavia-paper/70 leading-relaxed text-lg mb-8">
+                        Berdasarkan riset pasar B2B F&B Q3 2023, <b class="text-batavia-gold">68% klien HNWI membatalkan niat reservasi</b> venue jika website tidak menyediakan informasi ketersediaan kalender dan visualisasi ruang digital yang mumpuni. Uang mereka lari ke hotel bintang 5 moderen.
+                    </p>
+                    
+                    <ul class="space-y-4 text-sm md:text-base">
+                        <li class="flex items-center gap-3 text-batavia-paper/80">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl"></i> Kehilangan Leads Wedding (Est. Rp 150M+ / Event)
+                        </li>
+                        <li class="flex items-center gap-3 text-batavia-paper/80">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl"></i> Citra Brand Digital yang Tertinggal
+                        </li>
+                        <li class="flex items-center gap-3 text-batavia-paper/80">
+                            <i class="ph-fill ph-check-circle text-green-500 text-xl"></i> <b>Sistem Kami Akan Membalikkan Fakta Ini.</b>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Graphic Comparison CSS -->
+                <div class="bg-batavia-charcoal p-8 rounded-2xl border border-batavia-paper/10 relative">
+                    <h3 class="font-bold text-xl text-center mb-8 border-b border-batavia-paper/10 pb-4">Tingkat Konversi Reservasi Event (Simulasi Q3)</h3>
+                    
+                    <div class="flex items-end h-64 gap-8 justify-center mt-10">
+                        <!-- Bar 1 (Current) -->
+                        <div class="flex flex-col items-center w-24 group">
+                            <span class="text-batavia-paper/50 font-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity text-sm">12%</span>
+                            <div class="w-full bg-red-900/50 rounded-t-md h-[12%] border border-red-500/30 chart-bar relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')]"></div>
+                            </div>
+                            <span class="mt-4 text-xs font-bold text-center text-batavia-paper/60 leading-tight">Cafe Batavia<br>(Saat Ini)</span>
+                        </div>
+
+                        <!-- Bar 2 (Competitor) -->
+                        <div class="flex flex-col items-center w-24 group">
+                            <span class="text-batavia-paper/50 font-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity text-sm">45%</span>
+                            <div class="w-full bg-batavia-paper/20 rounded-t-md h-[45%] border border-batavia-paper/30 chart-bar relative"></div>
+                            <span class="mt-4 text-xs font-bold text-center text-batavia-paper/60 leading-tight">Kompetitor<br>Modern</span>
+                        </div>
+
+                        <!-- Bar 3 (Future) -->
+                        <div class="flex flex-col items-center w-24 group">
+                            <span class="text-batavia-gold font-bold mb-2 text-lg drop-shadow-lg">82%</span>
+                            <div class="w-full bg-gradient-to-t from-batavia-gold/50 to-batavia-gold rounded-t-md h-[82%] border border-yellow-200/50 chart-bar relative box-glow">
+                                <div class="absolute top-0 w-full h-1 bg-white/50 animate-pulse"></div>
+                            </div>
+                            <span class="mt-4 text-xs font-bold text-center text-batavia-gold leading-tight">Cafe Batavia<br>(Dengan Sistem)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillar 6: The Self-Destructing Offer (Scarcity Engine) -->
+    <section id="penawaran" class="py-20 relative bg-gradient-to-b from-batavia-dark to-batavia-wood border-y border-batavia-gold/30">
+        <!-- Luxury Pattern Overlay -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#D4AF37 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10" x-data="countdownTimer()">
+            <i class="ph ph-hourglass-high text-5xl text-batavia-gold mb-6 animate-pulse-gold inline-block"></i>
+            <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Penawaran Eksklusif <span class="text-batavia-gold">First-Mover</span></h2>
+            <p class="text-batavia-paper/80 mb-8 text-lg">Infrastruktur senilai <b>$25,000</b> ini ditawarkan khusus untuk Manajemen Historis Cafe Batavia dengan <b>Diskon Setup 30%</b> jika deal dilakukan sebelum timer ini berakhir. Penawaran ini tidak akan diulang.</p>
+
+            <!-- Countdown Timer -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-10">
+                <div class="bg-batavia-dark border border-batavia-gold/30 w-20 h-24 md:w-28 md:h-32 rounded-xl flex flex-col items-center justify-center shadow-[0_0_20px_rgba(197,160,89,0.15)]">
+                    <span class="text-3xl md:text-5xl font-serif font-bold text-batavia-gold" x-text="hours">47</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-2 text-batavia-paper/50">Jam</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-serif font-bold text-batavia-gold mt-4 md:mt-8">:</div>
+                <div class="bg-batavia-dark border border-batavia-gold/30 w-20 h-24 md:w-28 md:h-32 rounded-xl flex flex-col items-center justify-center shadow-[0_0_20px_rgba(197,160,89,0.15)]">
+                    <span class="text-3xl md:text-5xl font-serif font-bold text-batavia-gold" x-text="minutes">59</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-2 text-batavia-paper/50">Menit</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-serif font-bold text-batavia-gold mt-4 md:mt-8">:</div>
+                <div class="bg-batavia-dark border border-batavia-gold/30 w-20 h-24 md:w-28 md:h-32 rounded-xl flex flex-col items-center justify-center shadow-[0_0_20px_rgba(197,160,89,0.15)]">
+                    <span class="text-3xl md:text-5xl font-serif font-bold text-batavia-gold" x-text="seconds">59</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-2 text-batavia-paper/50">Detik</span>
+                </div>
+            </div>
+
+            <button onclick="alert('Inisiasi Pembicaraan Kontrak VIP via WhatsApp...')" class="w-full md:w-auto px-10 py-5 bg-batavia-gold text-batavia-dark font-black text-xl md:text-2xl rounded-sm hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(197,160,89,0.4)] uppercase tracking-wide">
+                Klaim Proposal Sekarang
+            </button>
+            <p class="mt-4 text-xs text-batavia-paper/40"><i class="ph ph-lock-key"></i> 100% Secure & Confidential B2B Proposal</p>
+        </div>
+    </section>
+
+    <!-- Pillar 7: Omni-QR & Mega Footer -->
+    <footer class="bg-[#0a0a0a] pt-20 pb-10 border-t border-batavia-gold/20 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-5 pointer-events-none transform translate-x-1/3 -translate-y-1/3">
+            <svg width="400" height="400" viewBox="0 0 100 100" class="text-batavia-gold">
+                <path fill="none" stroke="currentColor" stroke-width="1" d="M50 10 L85 28 L85 72 L50 90 L15 72 L15 28 Z"/>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 relative z-10">
+            <div class="md:col-span-2">
+                <h3 class="font-serif text-3xl font-bold text-batavia-paper mb-4 tracking-wider">CAFE BATAVIA</h3>
+                <p class="text-batavia-paper/60 mb-6 max-w-sm leading-relaxed">Sistem Prototipe Level Enterprise untuk mentransformasi warisan sejarah menjadi mesin konversi masa depan yang terukur dan elegan.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-batavia-gold/30 flex items-center justify-center text-batavia-gold hover:bg-batavia-gold hover:text-batavia-dark transition"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-batavia-gold/30 flex items-center justify-center text-batavia-gold hover:bg-batavia-gold hover:text-batavia-dark transition"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-batavia-gold/30 flex items-center justify-center text-batavia-gold hover:bg-batavia-gold hover:text-batavia-dark transition"><i class="ph-fill ph-envelope-simple text-xl"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-batavia-gold mb-4 uppercase tracking-widest text-sm">Lokasi Eksekusi</h4>
+                <address class="not-italic text-batavia-paper/60 text-sm leading-relaxed">
+                    Jl. Pintu Besar Utara No.14,<br>
+                    Pinangsia, Taman Sari,<br>
+                    Jakarta Barat 11110<br><br>
+                    <strong>Area:</strong> Fatahillah Square
+                </address>
+            </div>
+
+            <!-- Dynamic QR Injection -->
+            <div>
+                <h4 class="font-bold text-batavia-gold mb-4 uppercase tracking-widest text-sm">Akses Eksekutif</h4>
+                <div class="bg-white p-2 rounded-lg w-fit mb-3">
+                    <!-- Placeholder for Dynamic QR to be generated via JS -->
+                    <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=ProposalCafeBatavia" alt="QR Code" class="w-20 h-20">
+                </div>
+                <p class="text-xs text-batavia-paper/50">Scan untuk mengunduh rincian teknis (PDF).</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-12 border-t border-batavia-paper/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-batavia-paper/40">
+            <p>&copy; 2023 Titanium AI Architect. Confidential Proposal for Cafe Batavia.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-batavia-gold">Privacy Policy</a>
+                <a href="#" class="hover:text-batavia-gold">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Pillar 8: The "Trojan Horse" Sales Bot -->
+    <div x-show="botOpen" 
+         x-transition:enter="transition ease-out duration-500" 
+         x-transition:enter-start="opacity-0 translate-y-10" 
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="fixed bottom-6 right-6 z-[100] w-80 shadow-2xl" style="display: none;">
+        
+        <div class="bg-batavia-charcoal border border-batavia-gold rounded-xl overflow-hidden">
+            <div class="bg-batavia-dark p-4 border-b border-batavia-gold/20 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <div class="w-8 h-8 bg-batavia-gold rounded-full flex items-center justify-center text-batavia-dark">
+                            <i class="ph-fill ph-robot text-xl"></i>
+                        </div>
+                        <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-sm text-batavia-gold">Titanium Architect Bot</h5>
+                        <p class="text-[10px] text-batavia-paper/50">Online - Ready to Deploy</p>
+                    </div>
+                </div>
+                <button @click="botOpen = false" class="text-batavia-paper/50 hover:text-white"><i class="ph ph-x"></i></button>
+            </div>
+            
+            <div class="p-5">
+                <div class="bg-batavia-dark/50 border border-batavia-paper/10 p-3 rounded-lg text-sm text-batavia-paper/90 leading-relaxed mb-4">
+                    "Halo manajemen Cafe Batavia, saya mendeteksi potensi kehilangan konversi di website lama Anda. Kami siap mengimplementasikan sistem Virtual Tour & Smart Event Quotation ini ke server Anda dalam 7 hari kerja. Mari jadwalkan meeting?"
+                </div>
+                <div class="flex flex-col gap-2">
+                    <button class="bg-batavia-gold text-batavia-dark font-bold text-sm py-2 rounded shadow hover:bg-yellow-500 transition flex justify-center items-center gap-2">
+                        <i class="ph-fill ph-whatsapp-logo text-lg"></i> Jadwalkan Zoom Meeting
+                    </button>
+                    <button @click="botOpen = false" class="border border-batavia-paper/20 text-batavia-paper/60 text-xs py-2 rounded hover:text-batavia-paper transition">Nanti saja</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Alpine.js Global State
+        function globalState() {
+            return {
+                isScrolled: false,
+                botOpen: false,
+                botTriggered: false,
+                handleScroll() {
+                    this.isScrolled = window.scrollY > 50;
+                    
+                    // Trigger bot at 30% scroll
+                    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    if (scrollPercent > 30 && !this.botTriggered) {
+                        this.botOpen = true;
+                        this.botTriggered = true;
+                        // Play a tiny notification sound (simulated with JS Audio context for realism, though often blocked by browsers unless interacted, we use standard logic)
+                        try {
+                            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                            const osc = ctx.createOscillator();
+                            const gain = ctx.createGain();
+                            osc.connect(gain);
+                            gain.connect(ctx.destination);
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(880, ctx.currentTime);
+                            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+                            osc.start(ctx.currentTime);
+                            osc.stop(ctx.currentTime + 0.5);
+                        } catch(e) {}
+                    }
+                }
+            }
+        }
+
+        // Alpine.js Menu Data
+        function menuData() {
+            return {
+                lang: 'id',
+                searchQuery: '',
+                items: [
+                    { id: 1, name: "Bitterballen Batavia", price: "Rp 85.000", tags: ["Appetizer", "Dutch"], img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=200&auto=format&fit=crop", desc: { id: "Bola-bola daging renyah bergaya Belanda klasik, disajikan dengan mustard.", en: "Classic Dutch crispy meat croquettes served with premium mustard."} },
+                    { id: 2, name: "Rijsttafel Heritage", price: "Rp 350.000", tags: ["Main Course", "Signature"], img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=200&auto=format&fit=crop", desc: { id: "Penyajian gaya kolonial dengan 12 macam lauk Nusantara premium.", en: "Colonial-style feast featuring 12 varieties of premium Indonesian side dishes."} },
+                    { id: 3, name: "Sate Maranggi Wagyu", price: "Rp 210.000", tags: ["Main Course", "Local"], img: "https://images.unsplash.com/photo-1555507036-ab1f40ce88f4?q=80&w=200&auto=format&fit=crop", desc: { id: "Daging sapi Wagyu pilihan dibakar dengan bumbu kecap manis khas Purwakarta.", en: "Premium Wagyu beef skewers grilled with sweet soy sauce from Purwakarta."} },
+                    { id: 4, name: "Poffertjes", price: "Rp 75.000", tags: ["Dessert", "Dutch"], img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=200&auto=format&fit=crop", desc: { id: "Panekuk mini tradisional Belanda dengan taburan gula halus dan mentega.", en: "Traditional mini Dutch fluffy pancakes with powdered sugar and butter."} }
+                ],
+                get filteredMenu() {
+                    if (this.searchQuery === '') return this.items;
+                    const q = this.searchQuery.toLowerCase();
+                    return this.items.filter(i => 
+                        i.name.toLowerCase().includes(q) || 
+                        i.desc[this.lang].toLowerCase().includes(q)
+                    );
+                }
+            }
+        }
+
+        // Alpine.js Countdown
+        function countdownTimer() {
+            return {
+                endTime: new Date().getTime() + (48 * 60 * 60 * 1000), // 48 Hours from now
+                hours: '47',
+                minutes: '59',
+                seconds: '59',
+                init() {
+                    setInterval(() => {
+                        const now = new Date().getTime();
+                        const distance = this.endTime - now;
+                        if (distance < 0) return;
+                        
+                        this.hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                        this.minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                        this.seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

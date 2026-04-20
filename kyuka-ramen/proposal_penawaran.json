@@ -1,0 +1,29 @@
+{
+  "client_name": "Kyuka Ramen - Blok M",
+  "project_type": "Digital Waitlist & Pre-Order Ecosystem",
+  "pricing": {
+    "currency": "IDR",
+    "value_based_tiers": [
+      {
+        "tier": "Phase 1: Architecture Setup",
+        "description": "Pengembangan sistem Pre-Order kustom, Integrasi Payment Gateway, dan Landing Page High-Conversion.",
+        "normal_price": 50000000,
+        "discounted_price_48h": 35000000
+      },
+      {
+        "tier": "Phase 2: Database & Retainer (Monthly)",
+        "description": "Manajemen server, maintenance database leads, blast WhatsApp/Email promo mingguan.",
+        "monthly_fee": 5000000
+      }
+    ]
+  },
+  "roi_projection": {
+    "current_assumed_lost_traffic": "50 pelanggan/hari",
+    "average_order_value": 150000,
+    "daily_lost_revenue": 7500000,
+    "system_recovery_rate": "30%",
+    "projected_recovered_revenue_per_month": 67500000,
+    "payback_period_days": 16,
+    "conclusion": "Investasi Rp 35 Juta akan balik modal dalam 16 hari dari penyelamatan traffic yang sebelumnya kabur."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "project_name": "Esa - Elite Digital Waitlist & Brand Prestige Engine",
+  "client": "Aditya Muskita & Jessica Eveline (Esa Jakarta)",
+  "normal_investment_usd": 25000,
+  "normal_investment_idr": "Rp 385.000.000",
+  "scarcity_offer": {
+    "discount": "30% (Setup Fee Only)",
+    "validity_hours": 48,
+    "discounted_investment_idr": "Rp 269.500.000"
+  },
+  "roi_projections": [
+    "Peningkatan retensi reservasi VIP sebesar 400% melalui sistem UX tanpa gesekan (frictionless).",
+    "Penghematan 40 jam kerja operasional/manajerial per minggu dari otomasi balasan WhatsApp & plotting meja.",
+    "Eliminasi 95% tingkat No-Show dengan integrasi Credit Card Hold Authorization yang aman."
+  ],
+  "deliverables": [
+    "Custom UI/UX Premium dengan animasi micro-interactions.",
+    "Exclusive Waitlist & Booking Engine dengan algoritma prioritas pelanggan.",
+    "Integrasi Payment Gateway High-Tier.",
+    "PR & Media Management Dashboard (Reputation clipping)."
+  ]
+}

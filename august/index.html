@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>August Jakarta | World-Class Reservation System Prototype</title>
+    
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        august: {
+                            black: '#0d0d0d',
+                            charcoal: '#1a1a1a',
+                            gold: '#C5A880',
+                            goldlight: '#e0cfa9',
+                            cream: '#F7F4EF',
+                            accent: '#8c2b2b'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #F7F4EF;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(197, 168, 128, 0.1);
+        }
+        
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30,30,30,0.8) 0%, rgba(13,13,13,0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+        }
+
+        /* Glowing Orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+        }
+        .glow-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: rgba(197, 168, 128, 0.15); }
+        .glow-2 { bottom: 10%; right: -5%; width: 35vw; height: 35vw; background: rgba(140, 43, 43, 0.1); }
+        
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #C5A880, #e0cfa9, #C5A880);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0d0d0d; }
+        ::-webkit-scrollbar-thumb { background: #C5A880; border-radius: 4px; }
+        
+        /* Interactive Chart */
+        .chart-bar { transition: height 1.5s ease-out; }
+    </style>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="augustApp()" @scroll.window="handleScroll" class="antialiased font-sans selection:bg-august-gold selection:text-august-black">
+
+    <!-- Ambient Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="glow-orb glow-1 animate-float"></div>
+        <div class="glow-orb glow-2 animate-float" style="animation-delay: -3s;"></div>
+        <!-- Noise Texture Overlay -->
+        <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E'); mix-blend-mode: overlay;"></div>
+    </div>
+
+    <!-- PILLAR 1: Ultra-Modern Navigation -->
+    <nav :class="{'glass py-4': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full top-0 z-50 transition-all duration-500 border-b border-transparent" :class="{'!border-august-gold/20': scrolled}">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="font-serif text-2xl tracking-[0.2em] text-august-cream uppercase font-bold">August</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-widest text-august-cream/80 uppercase">
+                <a href="#heritage" class="hover:text-august-gold transition-colors">Heritage</a>
+                <a href="#engine" class="hover:text-august-gold transition-colors">Booking Engine</a>
+                <a href="#roi" class="hover:text-august-gold transition-colors">ROI Analytics</a>
+            </div>
+            <div>
+                <a href="#engine" class="relative inline-flex h-10 items-center justify-center px-6 overflow-hidden font-medium text-august-black bg-august-gold rounded-none hover:bg-august-goldlight transition-all duration-300 group">
+                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                    <span class="relative text-xs tracking-widest uppercase font-bold">Test Prototype</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PILLAR 2: Interactive Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 relative z-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-august-gold/30 bg-august-gold/10 text-august-gold text-xs font-bold tracking-widest uppercase mb-4">
+                    <i class="ph-fill ph-star text-sm"></i> Asia's 50 Best Restaurants
+                </div>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold leading-[1.1] text-august-cream">
+                    Mesin Reservasi <br> <span class="text-gradient italic">Kelas Dunia</span> untuk Mahakarya Kuliner.
+                </h1>
+                <p class="text-lg md:text-xl text-august-cream/70 font-light leading-relaxed max-w-lg">
+                    Dirancang eksklusif untuk <strong>Chef Hans Christian</strong> & <strong>Budi Cahyadi</strong>. Singkirkan aplikasi pihak ketiga, amankan deposit lintas mata uang, dan hadirkan pengalaman *white-label* sempurna sejak klik pertama.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#engine" class="px-8 py-4 bg-august-gold text-august-black font-bold tracking-widest uppercase text-sm flex items-center justify-center gap-3 hover:bg-august-goldlight transition shadow-[0_0_20px_rgba(197,168,128,0.3)] hover:shadow-[0_0_30px_rgba(197,168,128,0.5)]">
+                        Coba Live Prototype <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                    <a href="#roi" class="px-8 py-4 bg-transparent border border-august-gold/30 text-august-cream font-bold tracking-widest uppercase text-sm flex items-center justify-center gap-3 hover:bg-august-gold/10 transition">
+                        Lihat Analisis ROI
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative w-full h-[600px] hidden lg:block">
+                <!-- Abstract Representation of August Food & Architecture -->
+                <div class="absolute inset-0 bg-gradient-to-br from-august-charcoal to-august-black rounded-t-full border border-august-gold/20 overflow-hidden glass-card transform hover:scale-[1.02] transition-transform duration-700">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-30 mix-blend-luminosity"></div>
+                    
+                    <!-- Floating UI Cards Simulating Booking System -->
+                    <div class="absolute top-1/4 -left-10 glass-card p-4 flex items-center gap-4 border border-august-gold/30 shadow-2xl animate-float rounded-lg w-64">
+                        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                            <i class="ph-fill ph-check-circle text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-august-cream/60 uppercase tracking-wider">Deposit Secured</p>
+                            <p class="text-lg font-serif font-bold text-august-gold">USD $150.00</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-1/3 -right-8 glass-card p-4 flex items-center gap-4 border border-august-gold/30 shadow-2xl animate-float rounded-lg w-72" style="animation-delay: 2s;">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                            <i class="ph-fill ph-globe-hemisphere-west text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-august-cream/60 uppercase tracking-wider">International Guest</p>
+                            <p class="text-sm font-sans font-bold text-august-cream">Singapore (SGD Converted)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+            <span class="text-xs tracking-[0.2em] uppercase">Scroll</span>
+            <i class="ph-light ph-caret-down text-xl text-august-gold"></i>
+        </div>
+    </section>
+
+    <!-- PILLAR 3: Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="heritage" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-august-cream mb-4">Filosofi & Fondasi <span class="text-august-gold italic">August</span></h2>
+                <p class="text-august-cream/60 max-w-2xl mx-auto text-lg">Menerjemahkan warisan private dining 2021 menjadi mahakarya Franco-Asian yang diakui Asia's 50 Best. Website Anda harus menceritakan kisah ini.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
+                <!-- Box 1: Hans Christian -->
+                <div class="glass-card p-8 flex flex-col justify-between group hover:border-august-gold/50 transition-colors reveal">
+                    <div class="mb-6 text-august-gold"><i class="ph-light ph-knife text-4xl group-hover:scale-110 transition-transform"></i></div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-august-cream mb-2">Chef Hans Christian</h3>
+                        <p class="text-sm text-august-cream/60 leading-relaxed">Eksekusi presisi Franco-Asian dengan jiwa bahan lokal. Website saat ini belum sepenuhnya merepresentasikan filosofi mendalam di balik setiap hidangan yang diciptakan.</p>
+                    </div>
+                </div>
+                
+                <!-- Box 2: Budi Cahyadi -->
+                <div class="glass-card p-8 flex flex-col justify-between group hover:border-august-gold/50 transition-colors reveal delay-100">
+                    <div class="mb-6 text-august-gold"><i class="ph-light ph-wine text-4xl group-hover:scale-110 transition-transform"></i></div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-august-cream mb-2">Budi Cahyadi</h3>
+                        <p class="text-sm text-august-cream/60 leading-relaxed">Mastery of Hospitality. Pengalaman ruang makan yang hangat dan elegan harus dimulai sejak detik tamu membuka halaman website untuk mereservasi meja.</p>
+                    </div>
+                </div>
+
+                <!-- Box 3: Asia's 50 Best -->
+                <div class="glass-card p-8 flex flex-col justify-center items-center text-center group hover:border-august-gold/50 transition-colors reveal delay-200 border-august-gold/30 md:row-span-2 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-august-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="ph-fill ph-trophy text-6xl text-august-gold mb-6 animate-pulse-slow"></i>
+                    <h3 class="text-2xl font-serif font-bold text-august-cream mb-4">Asia's 50 Best Restaurants</h3>
+                    <p class="text-sm text-august-cream/70 leading-relaxed">Satu-satunya wakil Indonesia. Gelar prestisius ini menuntut infrastruktur digital yang sama eksklusifnya, bukan sekadar menggunakan tautan Linktree atau platform generik.</p>
+                </div>
+
+                <!-- Box 4: The Evolution -->
+                <div class="glass-card p-8 md:col-span-2 flex flex-col justify-between group hover:border-august-gold/50 transition-colors reveal delay-300">
+                    <div class="flex items-start justify-between mb-4">
+                        <i class="ph-light ph-clock-counter-clockwise text-3xl text-august-gold"></i>
+                        <span class="text-xs uppercase tracking-widest text-august-cream/40">Est. 2021</span>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-august-cream mb-3">Dari Private Dining ke Panggung Global</h3>
+                        <p class="text-august-cream/60 leading-relaxed">Memulai langkah di tengah tantangan 2021 sebagai entitas private dining, ketangguhan August adalah cerita epik. Sistem khusus (Bespoke System) kami memungkinkan publikasi PR, pers, dan galeri penghargaan secara interaktif dan elegan di dalam domain Anda sendiri.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 4: THE SPECTACULAR FEATURE (CORE ENGINE - Multi-Currency Booking) -->
+    <section id="engine" class="py-24 relative z-10 bg-august-charcoal/50 border-y border-august-gold/10" x-data="bookingEngine()">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16 reveal">
+                <span class="text-august-gold text-sm font-bold tracking-[0.2em] uppercase mb-2 block">The Core Architecture</span>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-august-cream mb-4">White-Label Reservation & Deposit Engine</h2>
+                <p class="text-august-cream/60 max-w-3xl mx-auto text-lg">Solusi utama untuk masalah No-Show tamu VIP dan internasional. Sistem terintegrasi dengan deposit kartu kredit multi-mata uang, langsung masuk ke kas August tanpa potongan aplikasi pihak ketiga.</p>
+            </div>
+
+            <!-- Interactive Booking UI Simulator -->
+            <div class="max-w-4xl mx-auto glass-card rounded-2xl overflow-hidden shadow-2xl shadow-august-black reveal">
+                <div class="flex border-b border-august-gold/20">
+                    <!-- Progress Steps -->
+                    <template x-for="(s, index) in ['Detail Reservasi', 'Konversi Mata Uang', 'Secure Deposit']" :key="index">
+                        <div class="flex-1 py-4 text-center border-r border-august-gold/20 last:border-0 relative" :class="{'bg-august-gold/10': step === index + 1}">
+                            <span class="text-xs font-bold uppercase tracking-widest transition-colors" :class="step >= index + 1 ? 'text-august-gold' : 'text-august-cream/30'" x-text="s"></span>
+                            <div class="absolute bottom-0 left-0 h-0.5 bg-august-gold transition-all duration-500" :style="step >= index + 1 ? 'width: 100%' : 'width: 0%'"></div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="p-8 md:p-12 min-h-[400px] flex flex-col justify-center">
+                    <!-- Step 1: Details -->
+                    <div x-show="step === 1" x-transition.opacity.duration.500ms>
+                        <h3 class="text-2xl font-serif text-august-cream mb-6 text-center">Pilih Pengalaman Anda</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-august-cream/60 mb-2">Tanggal</label>
+                                <input type="date" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none focus:border-august-gold transition" value="2024-12-01">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest text-august-cream/60 mb-2">Jumlah Tamu</label>
+                                <select x-model="guests" @change="calculateDeposit()" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none focus:border-august-gold transition">
+                                    <option value="2">2 Tamu</option>
+                                    <option value="4">4 Tamu</option>
+                                    <option value="6">6 Tamu</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button @click="nextStep()" class="w-full py-4 bg-august-gold text-august-black font-bold uppercase tracking-widest hover:bg-august-goldlight transition">Lanjutkan</button>
+                    </div>
+
+                    <!-- Step 2: Currency & Deposit -->
+                    <div x-show="step === 2" x-transition.opacity.duration.500ms style="display: none;">
+                        <h3 class="text-2xl font-serif text-august-cream mb-2 text-center">Tamu Internasional?</h3>
+                        <p class="text-center text-august-cream/50 text-sm mb-6">Sistem otomatis mendeteksi lokasi dan mengonversi deposit.</p>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-8">
+                            <template x-for="c in currencies" :key="c.code">
+                                <div @click="setCurrency(c)" class="cursor-pointer border p-4 rounded text-center transition-all" :class="currency === c.code ? 'border-august-gold bg-august-gold/10' : 'border-august-gold/20 hover:border-august-gold/50'">
+                                    <div class="text-2xl mb-1" x-text="c.flag"></div>
+                                    <div class="text-sm font-bold text-august-cream" x-text="c.code"></div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div class="bg-august-black p-6 rounded border border-august-gold/20 flex justify-between items-center mb-8">
+                            <div>
+                                <span class="block text-xs uppercase tracking-widest text-august-cream/50 mb-1">Total Deposit Wajib</span>
+                                <span class="text-2xl font-serif text-august-gold" x-text="formattedDeposit()"></span>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-xs uppercase tracking-widest text-august-cream/50 mb-1">Per Tamu</span>
+                                <span class="text-lg font-serif text-august-cream" x-text="formattedPerGuest()"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <button @click="step = 1" class="w-1/3 py-4 border border-august-gold/50 text-august-gold font-bold uppercase tracking-widest hover:bg-august-gold/10 transition">Kembali</button>
+                            <button @click="nextStep()" class="w-2/3 py-4 bg-august-gold text-august-black font-bold uppercase tracking-widest hover:bg-august-goldlight transition">Kunci Reservasi</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Secure Payment -->
+                    <div x-show="step === 3" x-transition.opacity.duration.500ms style="display: none;">
+                        <div class="text-center mb-8">
+                            <div class="w-16 h-16 bg-august-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 text-august-gold">
+                                <i class="ph-fill ph-lock-key text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-serif text-august-cream">Payment Gateway Terintegrasi</h3>
+                            <p class="text-august-cream/50 text-sm mt-2">Dana langsung masuk ke rekening August. Bebas komisi platform.</p>
+                        </div>
+
+                        <div class="space-y-4 mb-8 max-w-md mx-auto">
+                            <input type="text" placeholder="Nama Pemegang Kartu" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
+                            <input type="text" placeholder="Nomor Kartu (Simulasi)" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="text" placeholder="MM/YY" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
+                                <input type="text" placeholder="CVC" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
+                            </div>
+                        </div>
+
+                        <button @click="submitSimulation()" class="w-full max-w-md mx-auto block py-4 bg-green-700 text-white font-bold uppercase tracking-widest hover:bg-green-600 transition shadow-[0_0_20px_rgba(21,128,61,0.4)]">
+                            <span x-show="!processing">Otorisasi Pembayaran</span>
+                            <span x-show="processing" class="flex justify-center items-center gap-2"><i class="ph-bold ph-spinner animate-spin"></i> Memproses...</span>
+                        </button>
+                    </div>
+
+                    <!-- Success State -->
+                    <div x-show="step === 4" x-transition.opacity.duration.500ms style="display: none;" class="text-center">
+                        <i class="ph-fill ph-check-circle text-6xl text-green-500 mb-6"></i>
+                        <h3 class="text-3xl font-serif text-august-cream mb-2">Deposit Berhasil Diamankan</h3>
+                        <p class="text-august-cream/60 mb-8">Pendapatan dipastikan masuk sebelum tamu bahkan tiba di restoran. Ini adalah standar fine dining global.</p>
+                        <button @click="resetEngine()" class="py-3 px-8 border border-august-gold text-august-gold hover:bg-august-gold/10 transition rounded">Mulai Ulang Simulasi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 5: The Stolen Traffic / Competitor Reality Section -->
+    <section id="roi" class="py-24 relative z-10" x-data="{ intersect: false }" x-intersect.threshold.0.5="intersect = true">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-august-cream mb-6">Realita Menyakitkan Industri F&B High-End</h2>
+                    <p class="text-lg text-august-cream/70 mb-6 leading-relaxed">
+                        Tanpa sistem deposit kartu kredit terintegrasi di website Anda sendiri, Anda kehilangan hingga <strong>30% potensi pendapatan</strong> akibat tamu <em class="text-red-400">No-Show</em>. 
+                    </p>
+                    <p class="text-lg text-august-cream/70 mb-8 leading-relaxed">
+                        Lebih buruk lagi, menggunakan platform pihak ketiga berarti memberikan persentase keuntungan Anda, data pelanggan Anda, dan menurunkan gengsi status <strong>Asia's 50 Best</strong> Anda.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-august-cream/80">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl"></i> Tidak ada komisi per reservasi lagi.
+                        </li>
+                        <li class="flex items-center gap-3 text-august-cream/80">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl"></i> Tidak ada tamu internasional yang batal sepihak.
+                        </li>
+                        <li class="flex items-center gap-3 text-august-cream/80">
+                            <i class="ph-fill ph-check-circle text-green-500 text-xl"></i> 100% kepemilikan data tamu (CRM) untuk August.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Dynamic Data Chart using CSS Heights -->
+                <div class="glass-card p-8 rounded-2xl border-red-500/20 reveal delay-200">
+                    <h3 class="text-xl font-bold font-serif text-august-cream mb-8 text-center border-b border-august-gold/20 pb-4">Proyeksi Penyelamatan Pendapatan (Per Bulan)</h3>
+                    
+                    <div class="flex items-end justify-around h-64 mb-4 gap-4">
+                        <!-- Bar 1 -->
+                        <div class="w-1/2 flex flex-col items-center justify-end h-full">
+                            <div class="text-august-cream/50 text-sm font-bold mb-2">Loss: ~Rp 45 Juta</div>
+                            <div class="w-full bg-red-900/50 border border-red-500/50 rounded-t-md chart-bar flex items-center justify-center relative overflow-hidden" 
+                                 :style="intersect ? 'height: 40%' : 'height: 0%'">
+                                <div class="absolute inset-0 bg-red-500/20 animate-pulse"></div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <span class="block text-xs text-august-cream/50 uppercase tracking-widest">Sistem Lama</span>
+                                <span class="block text-[10px] text-red-400">(Tamu No-Show)</span>
+                            </div>
+                        </div>
+
+                        <!-- Bar 2 -->
+                        <div class="w-1/2 flex flex-col items-center justify-end h-full">
+                            <div class="text-august-gold text-xl font-bold mb-2">+ Rp 45 Juta Secured</div>
+                            <div class="w-full bg-august-gold/30 border border-august-gold rounded-t-md chart-bar relative overflow-hidden" 
+                                 :style="intersect ? 'height: 100%' : 'height: 0%'">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-transparent to-august-gold/40"></div>
+                            </div>
+                            <div class="text-center mt-4">
+                                <span class="block text-xs text-august-gold uppercase tracking-widest font-bold">August Core System</span>
+                                <span class="block text-[10px] text-green-400">(100% Deposit Secured)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 6: The Self-Destructing Offer (Scarcity Engine) -->
+    <section class="py-16 relative z-10" x-data="countdownTimer()">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-gradient-to-r from-august-charcoal via-black to-august-charcoal border border-august-gold p-8 md:p-12 text-center rounded-2xl shadow-[0_0_50px_rgba(197,168,128,0.15)] relative overflow-hidden">
+                <!-- Warning Tape -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-red-600"></div>
+                
+                <h2 class="text-2xl md:text-4xl font-serif font-bold text-august-cream mb-4">Eksklusif Untuk Manajemen <span class="text-august-gold italic">August</span></h2>
+                <p class="text-august-cream/70 mb-8 max-w-2xl mx-auto">Kami hanya menangani <strong>1 Klien Fine Dining per Kuartal</strong> untuk menjaga kualitas enterprise. Amankan slot kuartal ini dengan diskon setup VIP 30% sebelum penawaran ini hancur (Self-Destruct).</p>
+                
+                <div class="flex justify-center gap-4 md:gap-8 mb-10">
+                    <div class="flex flex-col">
+                        <span class="text-4xl md:text-6xl font-sans font-bold text-august-gold" x-text="hours">48</span>
+                        <span class="text-xs uppercase tracking-widest text-august-cream/50 mt-2">Jam</span>
+                    </div>
+                    <div class="text-4xl md:text-6xl font-bold text-august-gold/50">:</div>
+                    <div class="flex flex-col">
+                        <span class="text-4xl md:text-6xl font-sans font-bold text-august-gold" x-text="minutes">00</span>
+                        <span class="text-xs uppercase tracking-widest text-august-cream/50 mt-2">Menit</span>
+                    </div>
+                    <div class="text-4xl md:text-6xl font-bold text-august-gold/50">:</div>
+                    <div class="flex flex-col">
+                        <span class="text-4xl md:text-6xl font-sans font-bold text-red-500 animate-pulse" x-text="seconds">00</span>
+                        <span class="text-xs uppercase tracking-widest text-august-cream/50 mt-2">Detik</span>
+                    </div>
+                </div>
+
+                <a href="https://wa.me/6281234567890?text=Halo%20Titanium,%20kami%20manajemen%20August%20tertarik%20mengunci%20slot%20setup%20VIP%20sistem%20reservasi." target="_blank" class="inline-block px-10 py-5 bg-august-gold text-august-black font-bold uppercase tracking-widest text-sm hover:bg-white hover:scale-105 transition-all duration-300">
+                    Kunci Slot VIP Sekarang
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 7: Omni-QR & Mega Footer -->
+    <footer class="bg-black pt-24 pb-12 border-t border-august-gold/10 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="md:col-span-2">
+                <span class="font-serif text-3xl tracking-[0.2em] text-august-cream uppercase font-bold block mb-6">August</span>
+                <p class="text-august-cream/50 text-sm max-w-sm mb-6 leading-relaxed">Sebuah prototype presentasi dari "Titanium God-Tier Architect" untuk mendemonstrasikan kapabilitas digital selevel dengan hidangan bintang dunia Anda.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-august-gold/30 flex items-center justify-center text-august-cream hover:bg-august-gold hover:text-black transition"><i class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-august-gold/30 flex items-center justify-center text-august-cream hover:bg-august-gold hover:text-black transition"><i class="ph-fill ph-envelope-simple"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-august-gold text-xs font-bold uppercase tracking-widest mb-6">Informasi</h4>
+                <ul class="space-y-4 text-sm text-august-cream/60">
+                    <li><a href="#" class="hover:text-august-gold transition">Tentang Chef</a></li>
+                    <li><a href="#" class="hover:text-august-gold transition">Reservasi Private Dining</a></li>
+                    <li><a href="#" class="hover:text-august-gold transition">Press & Accolades</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="text-august-gold text-xs font-bold uppercase tracking-widest mb-6">Scan Untuk Akses Mobile</h4>
+                <div class="bg-white p-2 rounded-lg inline-block">
+                    <!-- Dynamic QR generation concept -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://august-prototype.com" alt="QR Code" class="w-24 h-24">
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 pt-8 border-t border-august-gold/10 flex flex-col md:flex-row justify-between items-center text-xs text-august-cream/40 tracking-wider">
+            <p>&copy; 2026 August. Purwarupa dibuat oleh <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;text-decoration:underline;">CocoTech</a> &mdash; IT Agency terpercaya Indonesia.</p>
+            <p class="mt-2 md:mt-0">Confidential Pitch Deck Prototype.</p>
+        </div>
+    </footer>
+
+    <!-- PILLAR 8: The "Trojan Horse" Sales Bot -->
+    <div x-show="botOpen" x-transition.duration.500ms class="fixed bottom-6 right-6 z-50 w-80 glass-card rounded-2xl border border-august-gold/30 shadow-2xl overflow-hidden" style="display: none;">
+        <div class="bg-august-gold text-august-black p-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-robot text-xl"></i>
+                <span class="font-bold text-sm tracking-wide">Titanium Concierge</span>
+            </div>
+            <button @click="botOpen = false" class="hover:text-white transition"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-august-cream leading-relaxed mb-4">
+                Halo <strong>Chef Hans</strong> & <strong>Budi</strong>, <br><br>
+                Melihat posisi Anda di Asia's 50 Best, sistem reservasi Anda saat ini membocorkan puluhan juta rupiah tiap bulan akibat kelemahan struktur deposit. Dibuat oleh <strong>CocoTech</strong> — IT Agency sangat berpengalaman menangani fine dining &amp; hospitality premium Indonesia. <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">cocotech.studio</a> 
+                <br><br>Saya siap mengintegrasikan arsitektur white-label ini dalam 14 hari.
+            </p>
+            <a href="https://wa.me/6281234567890?text=Mari%20jadwalkan%20meeting%20untuk%20membahas%20sistem%20ini." target="_blank" class="block text-center w-full py-3 bg-august-gold/10 border border-august-gold text-august-gold text-xs font-bold uppercase tracking-widest hover:bg-august-gold hover:text-black transition">
+                Jadwalkan Private Meeting
+            </a>
+        </div>
+    </div>
+
+    <!-- Application Logic (AlpineJS Extracted) -->
+    <script>
+        // Intersect Plugin for Alpine
+        document.addEventListener('alpine:init', () => {
+            Alpine.directive('intersect', (el, { value, modifiers, expression }, { evaluateLater, cleanup }) => {
+                let evaluate = evaluateLater(expression)
+                let observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            evaluate()
+                            if (modifiers.includes('once')) observer.disconnect()
+                        }
+                    })
+                }, { threshold: modifiers.includes('threshold') ? parseFloat(modifiers[modifiers.indexOf('threshold') + 1]) : 0 })
+                observer.observe(el)
+                cleanup(() => observer.disconnect())
+            })
+        })
+
+        function augustApp() {
+            return {
+                scrolled: false,
+                botOpen: false,
+                botTriggered: false,
+                handleScroll() {
+                    this.scrolled = window.scrollY > 50;
+                    
+                    // Reveal Animation Logic
+                    let reveals = document.querySelectorAll('.reveal');
+                    for (let i = 0; i < reveals.length; i++) {
+                        let windowHeight = window.innerHeight;
+                        let elementTop = reveals[i].getBoundingClientRect().top;
+                        let elementVisible = 100;
+                        if (elementTop < windowHeight - elementVisible) {
+                            reveals[i].classList.add("active");
+                        }
+                    }
+
+                    // Bot Logic (Trigger at 30% scroll)
+                    let docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    let scrollPercent = (window.scrollY / docHeight) * 100;
+                    if (scrollPercent > 30 && !this.botTriggered) {
+                        this.botOpen = true;
+                        this.botTriggered = true;
+                        // Play a tiny notification sound (simulated with console for browser policy)
+                        console.log("Beep! Chatbot opened.");
+                    }
+                }
+            }
+        }
+
+        function bookingEngine() {
+            return {
+                step: 1,
+                guests: 2,
+                currency: 'IDR',
+                basePriceIDR: 750000, // Deposit per guest in IDR
+                processing: false,
+                currencies: [
+                    { code: 'IDR', flag: '🇮🇩', rate: 1 },
+                    { code: 'USD', flag: '🇺🇸', rate: 0.000064 },
+                    { code: 'SGD', flag: '🇸🇬', rate: 0.000086 }
+                ],
+                calculateDeposit() {
+                    // Reactive calculation
+                },
+                setCurrency(c) {
+                    this.currency = c.code;
+                },
+                getCurrentRate() {
+                    return this.currencies.find(c => c.code === this.currency).rate;
+                },
+                formattedPerGuest() {
+                    let amount = this.basePriceIDR * this.getCurrentRate();
+                    if(this.currency === 'IDR') return `Rp ${amount.toLocaleString('id-ID')}`;
+                    if(this.currency === 'USD') return `$${amount.toFixed(2)}`;
+                    if(this.currency === 'SGD') return `S$${amount.toFixed(2)}`;
+                },
+                formattedDeposit() {
+                    let total = (this.basePriceIDR * this.guests) * this.getCurrentRate();
+                    if(this.currency === 'IDR') return `Rp ${total.toLocaleString('id-ID')}`;
+                    if(this.currency === 'USD') return `$${total.toFixed(2)}`;
+                    if(this.currency === 'SGD') return `S$${total.toFixed(2)}`;
+                },
+                nextStep() {
+                    this.step++;
+                },
+                submitSimulation() {
+                    this.processing = true;
+                    setTimeout(() => {
+                        this.processing = false;
+                        this.step = 4;
+                    }, 2000);
+                },
+                resetEngine() {
+                    this.step = 1;
+                    this.guests = 2;
+                    this.currency = 'IDR';
+                }
+            }
+        }
+
+        function countdownTimer() {
+            return {
+                endTime: new Date().getTime() + (48 * 60 * 60 * 1000), // 48 hours from now
+                hours: '48',
+                minutes: '00',
+                seconds: '00',
+                init() {
+                    setInterval(() => {
+                        let now = new Date().getTime();
+                        let distance = this.endTime - now;
+                        
+                        if (distance < 0) return; // Expired
+                        
+                        let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        let s = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                        this.hours = h.toString().padStart(2, '0');
+                        this.minutes = m.toString().padStart(2, '0');
+                        this.seconds = s.toString().padStart(2, '0');
+                    }, 1000);
+                }
+            }
+        }
+
+        // Trigger initial scroll handling to set reveals
+        setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

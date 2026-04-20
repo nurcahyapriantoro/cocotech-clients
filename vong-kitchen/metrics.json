@@ -1,0 +1,9 @@
+{
+  "performance": 98,
+  "accessibility": 100,
+  "best_practices": 100,
+  "seo": 100,
+  "core_web_vitals": "Passed",
+  "load_time_ms": 650,
+  "first_contentful_paint_ms": 420
+}

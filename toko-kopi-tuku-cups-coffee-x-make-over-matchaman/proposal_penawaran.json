@@ -1,0 +1,44 @@
+{
+  "project_name": "Digital Ecosystem & D2C Merch Engine Architecture",
+  "client": "Kolektif Selatan (Tuku, Matchaman, Cups Coffee X Make Over)",
+  "total_investment_idr": 385000000,
+  "total_investment_usd": 25000,
+  "pricing_model": "Value-Based Pricing",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Strategic Blueprint & Heritage Storytelling",
+      "cost_idr": 85000000,
+      "deliverables": "Brand Narrative UX, Bento Grid Development, Copywriting Psikologis."
+    },
+    {
+      "phase": 2,
+      "name": "E-Commerce Merch Engine (Core)",
+      "cost_idr": 150000000,
+      "deliverables": "Custom Cart, Payment Gateway Integration, Inventory Sync."
+    },
+    {
+      "phase": 3,
+      "name": "Interactive Distribution Map & API",
+      "cost_idr": 90000000,
+      "deliverables": "Geo-location mapping, Queue simulation, Branch management."
+    },
+    {
+      "phase": 4,
+      "name": "Conversion Optimization & Launch",
+      "cost_idr": 60000000,
+      "deliverables": "A/B Testing, SEO Mastery, Performance Audit (Lighthouse 95+)."
+    }
+  ],
+  "roi_projections": {
+    "online_merchandise_sales_increase": "+45%",
+    "pure_margin_improvement": "+450% (dibandingkan platform pihak ketiga)",
+    "customer_retention_rate": "+32%",
+    "payback_period_months": 2.5
+  },
+  "scarcity_offer": {
+    "discount_percentage": 30,
+    "condition": "Disetujui dalam 48 jam",
+    "discounted_total_idr": 269500000
+  }
+}

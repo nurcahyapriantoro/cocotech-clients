@@ -1,0 +1,29 @@
+# Instruksi Arsitektur UI/UX & Konfigurasi Teknis: Maiku Tiramisu
+
+## 1. Identitas Visual & Tema
+*   **Vibe:** Premium Artisan, Luxurious Italian Dessert, Modern Hype (Blok M Crowd).
+*   **Warna Utama:**
+    *   `Cocoa/Espresso (#3E2723, #2D1B15)`: Melambangkan kopi dan cokelat premium yang intens.
+    *   `Mascarpone Cream (#FFFCF5, #FFF8E7)`: Warna background dominan, memberikan kesan bersih, mewah, dan creamy.
+    *   `Gold Accent (#D4AF37)`: Sentuhan premium/artisan untuk tombol CTA dan highlight text.
+    *   `Danger/Urgency (#E53E3E)`: Warna peringatan khusus saat stok menipis atau Sold Out.
+
+## 2. Tipografi (Google Fonts)
+*   **Heading/Title:** `Playfair Display` (Serif). Menciptakan nuansa klasik, mahal, dan eksklusif.
+*   **Body/UI Elements:** `Plus Jakarta Sans` (Sans-Serif). Sangat modern, mudah dibaca di layar kecil, merepresentasikan vibe metropolitan Jakarta.
+
+## 3. Tech Stack Requirement
+*   **Framework:** HTML5 murni utuh tanpa modul terpisah.
+*   **CSS:** Tailwind CSS (via CDN dengan kustomisasi konfigurasi pada tag `<script>`).
+*   **Interaktivitas & State Management:** Alpine.js (`x-data`, `@click`, `x-show`, `x-transition`). Wajib digunakan untuk mengatur logika keranjang belanja, pengurangan stok waktu nyata, dan efek scroll.
+*   **Iconography:** Phosphor Icons (via CDN) karena desainnya rapi dan mendukung varian tebal/tipis (`ph-bold`, `ph-fill`).
+
+## 4. UX / Interaksi Utama Wajib
+*   **Glassmorphism Sticky Nav:** Navbar harus transparan saat awal, dan menjadi background blur-gelap saat pengguna scroll ke bawah (`@scroll.window`).
+*   **Simulasi State Stok (Core Engine):** Harus ada daftar produk dengan status persediaan (contoh: 12 box, sisa 3 box, 0 box). Jika stok 0, UI card produk menjadi *dimmed* / diblok dengan tulisan "Habis Terjual" dan tombol berubah secara dinamis menjadi "PO Untuk Besok".
+*   **Notification Bot Simulation:** Gunakan event listener scroll pada Alpine. Ketika *scroll depth* mencapai 30%, munculkan popup di pojok kanan bawah seperti ada agent CS yang mengirim pesan langsung.
+
+## 5. Animasi (CSS Keyframes Kustom)
+*   Ciptakan objek *blob* abstrak di background *Hero Section* dengan animasi rotasi/scaling lambat agar background terasa "hidup".
+*   Gunakan efek *Shine/Glow* pada tombol utama (CTA) agar mengundang *click-through rate (CTR)* yang tinggi.
+*   Tambahkan *Marquee* berjalan (CSS animate-marquee) untuk menampilkan *selling point* seperti "Solusi Antrean Blok M - Auto-Sinkronisasi Stok".

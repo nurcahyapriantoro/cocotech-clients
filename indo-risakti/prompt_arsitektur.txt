@@ -1,0 +1,13 @@
+Role: Act as a World-Class Frontend Developer, UI/UX Expert, and Conversion Rate Optimizer. 
+Tech Stack: HTML5, Tailwind CSS (via CDN), Google Fonts (Inter & Playfair Display), Phosphor Icons/FontAwesome, Alpine.js/Vanilla JS.
+Design Constraints: Mobile-first, Ultra-fast loading, skema warna Eco-Luxury (Rattan Texture, Sage Green #8A9A5B, Terracotta #E2725B, Off-White #FAF9F6).
+Mandatory Sections & Spectacular Features:
+1. Header Bilingual Toggle: Tombol saklar (ID/EN) di navigasi yang langsung mengubah teks secara reaktif dengan Alpine/JS.
+2. Hero Section: Menampilkan gambar premium kerajinan anyaman tradisional. Elemen CTA ("Export Catalog" / "Katalog Ekspor" yang mencolok).
+3. Dynamic QR Preview Widget: Widget melayang berisi QR Code ke halaman ini (dikelola via JS window.location.href).
+4. Client-Specific Spectacular Feature (Cargo Freight Tracking): Modul interaktif pelacakan kargo laut rute Tj. Priok (ID) - Rotterdam (EU) / Los Angeles (US). Simulasi peta rute animasi sederhana. Kalkulator estimasi konversi mata uang otomatis US$/Euro.
+5. Social Proof: Emblazoned "Fair Trade Certified" & "Eco-Friendly Sustainable 100%" badge. Ulasan global "4.9/5 from US & EU Buyers" dengan animasi glowing.
+6. The "Stolen Traffic" Section (FOMO): Tampilkan grafik statis perbandingan pencarian "Eco Rattan Decor Indonesia". "75% of Global Buyers currently divert to Bali/Jepara due to lack of digital trust. Reclaim your global market share today."
+7. The Self-Destructing Offer: Section penawaran sistem website B2B ini diskon 30% hanya untuk 48 Jam. Gunakan JS Countdown Timer yang nyata terhitung mundur.
+8. Sticky WhatsApp Footer & The "Trojan Horse" Sales Bot: Tombol chat statis dan Bot yang otomatis terbuka saat scroll 30%. ("Halo manajemen Indo Risakti! Keren kan sistem portal ekspornya? Kalau ada pertanyaan seputar harga atau fitur, langsung ketik di sini ya, ini langsung masuk ke WhatsApp saya!")
+Teks bot saat ID/EN toggle berubah harus tetap berbahasa Indonesia karena diarahkan ke pemilik toko.

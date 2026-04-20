@@ -1,0 +1,34 @@
+# TITANIUM GOD-TIER ARCHITECTURE PROMPT
+
+## 1. Identitas Brand & Estetika Visual
+- **Brand:** August (Jakarta) - Franco-Asian Fine Dining
+- **Vibe:** Eksklusif, Misterius, Elegan, Internasional, High-End.
+- **Color Palette:**
+  - `august-black`: #0d0d0d (Obsidian / True Black untuk kedalaman)
+  - `august-charcoal`: #1a1a1a (Soft black untuk elemen glassmorphism)
+  - `august-gold`: #C5A880 (Muted Champagne Gold untuk aksen mewah)
+  - `august-cream`: #F7F4EF (Off-white / Cream untuk teks yang tidak menyakiti mata)
+- **Typography:**
+  - *Headings/Serif:* 'Playfair Display' (Mewakili kuliner klasik, elegan)
+  - *Body/Sans:* 'Plus Jakarta Sans' (Mewakili modernitas, kejelasan UI, dan lokasi mereka di Jakarta)
+
+## 2. Tech Stack & Library
+- **CSS Framework:** Tailwind CSS (via CDN) dengan injeksi konfigurasi warna & animasi custom.
+- **Interaktivitas:** Alpine.js (via CDN) untuk state management super ringan (Scroll detection, Booking Wizard, Countdown, Modal, Currency Converter).
+- **Icons:** Phosphor Icons (Light & Fill variants) untuk tampilan ultra-modern yang lebih estetik dari FontAwesome standar.
+- **Efek Khusus (Vanilla CSS):** Glassmorphism, Floating Orbs (Glow effect), Noise Texture Overlay, Smooth Transitions, Dynamic Bar Charts.
+
+## 3. Aturan UI/UX (The 8 Pillars)
+1. **Navigasi:** Transparan di top, berubah menjadi glassmorphism gelap saat scroll down.
+2. **Hero:** Copywriting berani ("Mesin Reservasi Kelas Dunia"), ada *floating elements* yang menyimulasikan kartu deposit USD & SGD.
+3. **Heritage (Bento Grid):** Layout asimetris grid untuk menceritakan Chef Hans Christian, Budi Cahyadi, dan status Asia's 50 Best.
+4. **Core Engine (Booking Simulator):** UI Wizard 3 Langkah (Detail -> Currency -> CC Payment). Harus interaktif dengan Alpine `x-show` dan kalkulasi deposit dinamis.
+5. **Data/Reality Section:** Perbandingan visual (Chart animasi CSS) antara *No-Show Loss* vs *Secured Revenue*.
+6. **Urgency:** Countdown 48 Jam, bold, warna merah aksen.
+7. **Omni-QR Footer:** Bersih, rapi, ada simulasi QR Code untuk akses mobile.
+8. **Bot Sales:** Muncul otomatis (z-index 50) ketika scroll melebihi 30%, menyapa spesifik (Halo Chef Hans & Budi).
+
+## 4. Copywriting Guidelines
+- Jangan pernah menggunakan Lorem Ipsum.
+- Gunakan bahasa Indonesia profesional kelas atas dengan campuran istilah industri hospitality (White-label, Secure Deposit, No-Show, Fine Dining, Mastery of Hospitality).
+- Sentuh titik emosional (Rasa sakit kehilangan uang karena no-show, gengsi gelar Asia's 50 Best).

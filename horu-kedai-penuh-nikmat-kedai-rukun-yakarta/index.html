@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Prototype - Aliansi Kedai Blok M (Horu, Penuh Nikmat, Rukun Yakarta)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- Tailwind Config & Custom Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#FDF8F5',
+                            100: '#F8ECE6',
+                            200: '#EFD1C4',
+                            300: '#E4B19D',
+                            400: '#D6896E',
+                            500: '#C84B31', // Terracotta Core
+                            600: '#B43D24',
+                            700: '#96301A',
+                            800: '#7C2A18',
+                            900: '#672517',
+                        },
+                        dark: '#1A1A1A',
+                        cream: '#F4F1EA'
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism & Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-dark {
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDF8F5; }
+        ::-webkit-scrollbar-thumb { background: #C84B31; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #96301A; }
+
+        /* Noise Texture */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        /* Hide Alpine Cloak */
+        [x-cloak] { display: none !important; }
+        
+        /* Bar Chart Animations */
+        .bar-fill { transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-brand-50 text-dark font-sans antialiased overflow-x-hidden relative" x-data="{ scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+
+    <!-- Background Noise overlay -->
+    <div class="bg-noise fixed"></div>
+
+    <!-- 1. ULTRA-MODERN NAVIGATION -->
+    <nav :class="scrolled ? 'glass py-3 shadow-sm' : 'bg-transparent py-6'" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-2 group cursor-pointer">
+                <div class="w-10 h-10 bg-brand-500 text-white rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg">
+                    <i class="ph ph-cooking-pot text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-xl leading-none text-dark tracking-tight">Aliansi Kedai</h1>
+                    <p class="text-[10px] text-brand-600 font-bold uppercase tracking-widest">Blok M Selatan</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-700">
+                <a href="#heritage" class="hover:text-brand-500 transition-colors">Kisah Kami</a>
+                <a href="#booking" class="hover:text-brand-500 transition-colors">Corporate Booking</a>
+                <a href="#reviews" class="hover:text-brand-500 transition-colors">Ulasan Warga</a>
+                <a href="#roi" class="hover:text-brand-500 transition-colors flex items-center gap-1">
+                    <i class="ph-fill ph-trend-up text-brand-500"></i> Analisis Pasar
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="hidden md:flex relative px-6 py-2.5 rounded-full bg-dark text-white font-semibold text-sm hover:bg-gray-800 transition shadow-xl overflow-hidden group">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i class="ph ph-calendar-plus text-lg"></i>
+                        Booking Sekarang
+                    </span>
+                    <div class="absolute inset-0 h-full w-0 bg-brand-500 transition-all duration-300 ease-out group-hover:w-full z-0"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HIGH-IMPACT HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+        <!-- Abstract Animated Blobs -->
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-brand-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob z-0"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob animation-delay-2000 z-0"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob animation-delay-4000 z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Copywriting -->
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-brand-200 text-sm font-semibold text-brand-700 shadow-sm">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                        </span>
+                        Sistem Penjualan B2B Aktif
+                    </div>
+                    
+                    <h2 class="text-5xl lg:text-7xl font-serif font-bold text-dark leading-[1.1] tracking-tight">
+                        Rasa Rumahan.<br>
+                        <span class="text-brand-500 italic">Skala Metropolitan.</span>
+                    </h2>
+                    
+                    <p class="text-lg text-gray-600 leading-relaxed font-medium max-w-xl">
+                        Jangan biarkan antrean panjang di Horu, Penuh Nikmat, dan Rukun Yakarta membatasi omzet Anda. Ubah nostalgia kuliner Blok M menjadi <b class="text-dark">mesin profit korporat</b> dengan sistem pemesanan lunch-box otomatis.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#booking" class="px-8 py-4 rounded-full bg-brand-500 text-white font-bold text-center hover:bg-brand-600 transition shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2 animate-pulse-slow">
+                            <i class="ph-bold ph-rocket-launch text-xl"></i> Coba Live Prototype
+                        </a>
+                        <a href="#roi" class="px-8 py-4 rounded-full bg-white text-dark border border-gray-200 font-bold text-center hover:bg-gray-50 transition shadow-sm flex items-center justify-center gap-2">
+                            <i class="ph-bold ph-chart-bar text-xl"></i> Lihat Analisis ROI
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual: Glassmorphic Dashboard Preview -->
+                <div class="relative">
+                    <div class="glass p-4 rounded-3xl shadow-2xl border border-white/50 relative z-10 transform lg:rotate-2 hover:rotate-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Suasana Kedai Blok M" class="rounded-2xl w-full h-[400px] object-cover shadow-inner grayscale-[20%] hover:grayscale-0 transition duration-700">
+                        
+                        <!-- Floating Revenue Card -->
+                        <div class="absolute -bottom-6 -left-6 glass-dark p-5 rounded-2xl shadow-2xl flex items-center gap-4 animate-bounce" style="animation-duration: 4s;">
+                            <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                                <i class="ph-fill ph-money text-2xl text-green-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Potensi Pesanan Korporat</p>
+                                <p class="text-xl font-bold text-white">Rp 25.400.000 <span class="text-sm font-normal text-gray-400">/minggu</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Live Order Card -->
+                        <div class="absolute top-10 -right-8 glass p-4 rounded-2xl shadow-xl flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/100?img=33" alt="User" class="w-10 h-10 rounded-full border-2 border-white">
+                            <div>
+                                <p class="text-sm font-bold text-dark">PT Sudirman Tech</p>
+                                <p class="text-xs text-brand-600 font-semibold">Memesan 150 Bento Horu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. DEEP COMPANY PROFILE & HERITAGE (BENTO GRID) -->
+    <section id="heritage" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-sm font-bold text-brand-500 uppercase tracking-widest mb-2">Pilar Kultural</h3>
+                <h2 class="text-3xl lg:text-4xl font-serif font-bold text-dark">Jiwa Blok M dalam Setiap Suapan</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Kami tidak sekadar menjual makanan. Horu, Kedai Penuh Nikmat, dan Rukun Yakarta adalah monumen kenyamanan bagi para pekerja keras Jakarta yang merindukan masakan rumah.</p>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+                <!-- Horu -->
+                <div class="md:col-span-2 relative rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="https://images.unsplash.com/photo-1626804475297-41609ae0bc44?auto=format&fit=crop&w=800&q=80" alt="Horu" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="px-3 py-1 bg-brand-500 text-white text-xs font-bold rounded-full">Viral #1</span>
+                            <span class="px-3 py-1 glass text-white text-xs font-bold rounded-full">Comfort Food</span>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Horu</h3>
+                        <p class="text-gray-300 text-sm w-3/4">Sensasi lauk pauk hangat yang diantre ratusan orang setiap jam makan siang. Sebuah mahakarya sederhana bumbu nusantara.</p>
+                    </div>
+                </div>
+
+                <!-- Kedai Penuh Nikmat -->
+                <div class="relative rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" alt="Penuh Nikmat" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-serif font-bold text-white mb-2">Kedai Penuh Nikmat</h3>
+                        <p class="text-gray-300 text-sm">Resep rahasia keluarga yang dipertahankan selama tiga generasi, kini melegenda di sudut Selatan Jakarta.</p>
+                    </div>
+                </div>
+
+                <!-- Rukun Yakarta -->
+                <div class="relative rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="absolute inset-0 bg-brand-900"></div>
+                    <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-center items-center text-center">
+                        <i class="ph-fill ph-storefront text-5xl text-brand-400 mb-4"></i>
+                        <h3 class="text-xl font-serif font-bold text-white mb-2">Rukun Yakarta</h3>
+                        <p class="text-brand-200 text-sm">Titik temu budaya dan kuliner. Ruang rukun tempat memori diciptakan lewat hidangan penutup yang manis.</p>
+                    </div>
+                </div>
+
+                <!-- Automation Promo -->
+                <div class="md:col-span-2 relative rounded-3xl overflow-hidden glass border border-brand-200 flex items-center p-8">
+                    <div class="flex-1 pr-8">
+                        <h3 class="text-2xl font-bold text-dark mb-3">Siap Mendominasi SCBD & Sudirman?</h3>
+                        <p class="text-gray-600 text-sm mb-6">Kami tahu kedai Anda sibuk. Oleh karena itu, kami merancang portal khusus pemesanan makan siang korporat berskala besar. Otomatis, Rapi, dan Cepat.</p>
+                        <a href="#booking" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:text-brand-800 transition-colors">
+                            Lihat Engine Pemesanan <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="w-1/3 flex justify-center">
+                        <i class="ph-duotone ph-buildings text-8xl text-brand-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE (CORE ENGINE - INTERACTIVE) -->
+    <section id="booking" class="py-24 bg-brand-50 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-wider rounded-md mb-4 border border-brand-200">
+                    <i class="ph-bold ph-cpu"></i> Core Module
+                </div>
+                <h2 class="text-3xl lg:text-5xl font-serif font-bold text-dark mb-4">Sistem Corporate Lunch Box</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Simulasi langsung. Modul ini akan tertanam di website Anda, memungkinkan HRD dan Event Manager memesan ratusan porsi dalam 3 klik tanpa harus menelepon Anda.</p>
+            </div>
+
+            <!-- Alpine.js Complex App State -->
+            <div x-data="bookingApp()" class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+                <!-- Progress Header -->
+                <div class="bg-dark text-white px-8 py-6 flex justify-between items-center relative">
+                    <div class="absolute bottom-0 left-0 h-1 bg-brand-500 transition-all duration-500" :style="`width: ${ (step/3) * 100 }%`"></div>
+                    <h3 class="font-bold text-lg flex items-center gap-2"><i class="ph-fill ph-briefcase"></i> Portal Korporat B2B</h3>
+                    <div class="text-sm text-gray-400 font-semibold">Langkah <span x-text="step"></span> dari 3</div>
+                </div>
+
+                <div class="p-8 lg:p-12">
+                    <!-- Step 1: Pilih Paket -->
+                    <div x-show="step === 1" x-transition.opacity.duration.500ms>
+                        <h4 class="text-2xl font-bold text-dark mb-6">Pilih Signature Package Blok M</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <template x-for="(pkg, name) in packages" :key="name">
+                                <div @click="selectPackage(name)" :class="selectedPackage === name ? 'border-brand-500 ring-2 ring-brand-500/20 bg-brand-50' : 'border-gray-200 hover:border-brand-300'" class="border-2 rounded-2xl p-6 cursor-pointer transition-all relative">
+                                    <div x-show="selectedPackage === name" class="absolute top-4 right-4 text-brand-500">
+                                        <i class="ph-fill ph-check-circle text-2xl"></i>
+                                    </div>
+                                    <div class="w-14 h-14 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                                        <i :class="pkg.icon" class="text-3xl text-brand-600"></i>
+                                    </div>
+                                    <h5 class="font-bold text-lg text-dark mb-1" x-text="name"></h5>
+                                    <p class="text-brand-600 font-semibold mb-3">Rp <span x-text="pkg.price.toLocaleString('id-ID')"></span> <span class="text-xs text-gray-500 font-normal">/ box</span></p>
+                                    <p class="text-sm text-gray-500 leading-relaxed" x-text="pkg.desc"></p>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <button @click="nextStep()" :disabled="!selectedPackage" :class="!selectedPackage ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-600 shadow-lg shadow-brand-500/30'" class="px-8 py-3 bg-brand-500 text-white font-bold rounded-xl transition">Selanjutnya <i class="ph-bold ph-arrow-right ml-1"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Detail Pesanan -->
+                    <div x-show="step === 2" x-cloak x-transition.opacity.duration.500ms>
+                        <button @click="step = 1" class="text-sm text-gray-500 hover:text-brand-500 font-semibold mb-6 flex items-center gap-1"><i class="ph-bold ph-arrow-left"></i> Kembali</button>
+                        <h4 class="text-2xl font-bold text-dark mb-6">Detail Pengiriman Korporat</h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Pengiriman</label>
+                                    <div class="relative">
+                                        <i class="ph-bold ph-calendar-blank absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                        <input type="date" x-model="date" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Perusahaan / Gedung</label>
+                                    <div class="relative">
+                                        <i class="ph-bold ph-buildings absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                        <input type="text" placeholder="Cth: Menara Astra Lt. 12" x-model="company" class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                                <label class="block text-sm font-semibold text-gray-700 mb-4">Jumlah Porsi (Minimal 50)</label>
+                                <div class="flex items-center gap-4 mb-6">
+                                    <button @click="if(pax > 50) pax -= 10" class="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-dark hover:border-brand-500 transition shadow-sm"><i class="ph-bold ph-minus"></i></button>
+                                    <div class="flex-1 text-center text-4xl font-black text-brand-500" x-text="pax"></div>
+                                    <button @click="pax += 10" class="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-dark hover:border-brand-500 transition shadow-sm"><i class="ph-bold ph-plus"></i></button>
+                                </div>
+                                <input type="range" min="50" max="500" step="10" x-model.number="pax" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                                <p class="text-xs text-center text-gray-500 mt-4"><i class="ph-fill ph-info"></i> Diskon 10% untuk pesanan di atas 100 porsi.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button @click="nextStep()" :disabled="!date || !company" :class="(!date || !company) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-600 shadow-lg shadow-brand-500/30'" class="px-8 py-3 bg-brand-500 text-white font-bold rounded-xl transition">Hitung Biaya <i class="ph-bold ph-calculator ml-1"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Kalkulasi & Finalisasi -->
+                    <div x-show="step === 3" x-cloak x-transition.opacity.duration.500ms>
+                        <button @click="step = 2" class="text-sm text-gray-500 hover:text-brand-500 font-semibold mb-6 flex items-center gap-1"><i class="ph-bold ph-arrow-left"></i> Edit Detail</button>
+                        
+                        <div class="bg-dark text-white rounded-2xl p-8 shadow-xl relative overflow-hidden">
+                            <!-- Decor -->
+                            <i class="ph-duotone ph-receipt absolute -right-10 -bottom-10 text-9xl text-white/5"></i>
+                            
+                            <h4 class="text-xl font-serif font-bold text-brand-300 mb-6 border-b border-white/10 pb-4">Invoice Estimasi</h4>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Paket Terpilih</span>
+                                    <span class="font-bold" x-text="selectedPackage"></span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Tujuan</span>
+                                    <span class="font-bold text-right" x-text="company"></span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Kuantitas</span>
+                                    <span class="font-bold"><span x-text="pax"></span> Box</span>
+                                </div>
+                                <div class="flex justify-between items-center pt-4 border-t border-white/10" x-show="pax >= 100">
+                                    <span class="text-green-400 text-sm"><i class="ph-bold ph-tag"></i> Diskon Korporat (10%)</span>
+                                    <span class="text-green-400 font-bold">- Rp <span x-text="discount.toLocaleString('id-ID')"></span></span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-end pt-6 border-t border-white/20">
+                                <span class="text-lg text-gray-300">Total Pembayaran</span>
+                                <span class="text-4xl font-black text-brand-400">Rp <span x-text="total.toLocaleString('id-ID')"></span></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex flex-col items-center">
+                            <button @click="submitOrder()" class="w-full lg:w-auto px-12 py-4 bg-brand-500 text-white font-bold text-lg rounded-xl hover:bg-brand-600 transition shadow-lg shadow-brand-500/30 flex items-center justify-center gap-2 animate-pulse-slow">
+                                <i class="ph-bold ph-whatsapp-logo text-2xl"></i> Proses Pembayaran
+                            </button>
+                            <p class="text-sm text-gray-500 mt-4">*Ini adalah simulasi. Sistem asli akan terhubung langsung ke WhatsApp Admin/Payment Gateway Anda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alpine Component Logic -->
+            <script>
+                function bookingApp() {
+                    return {
+                        step: 1,
+                        selectedPackage: '',
+                        date: '',
+                        company: '',
+                        pax: 50,
+                        packages: {
+                            'Horu Signature Box': { price: 45000, desc: 'Lauk pauk komplit khas Horu, nasi hangat, sambal gila, packaging premium anti-tumpah.', icon: 'ph-duotone ph-bowl-food' },
+                            'Penuh Nikmat Bento': { price: 55000, desc: 'Menu legendaris Penuh Nikmat dengan ekstra protein (Sapi/Ayam), sayur segar, dan kerupuk.', icon: 'ph-duotone ph-bento-box' },
+                            'Rukun Sweet Tray': { price: 25000, desc: 'Aneka jajanan dan dessert dari Rukun Yakarta, cocok untuk coffee break meeting.', icon: 'ph-duotone ph-cake' }
+                        },
+                        get subtotal() {
+                            if(!this.selectedPackage) return 0;
+                            return this.packages[this.selectedPackage].price * this.pax;
+                        },
+                        get discount() {
+                            return this.pax >= 100 ? this.subtotal * 0.1 : 0;
+                        },
+                        get total() {
+                            return this.subtotal - this.discount;
+                        },
+                        selectPackage(name) {
+                            this.selectedPackage = name;
+                        },
+                        nextStep() {
+                            if (this.step < 3) this.step++;
+                            window.scrollTo({ top: document.getElementById('booking').offsetTop - 100, behavior: 'smooth' });
+                        },
+                        submitOrder() {
+                            alert('BOM! Pesanan senilai Rp ' + this.total.toLocaleString('id-ID') + ' masuk ke HP Anda saat Anda sedang tidur. Inilah kekuatan otomatisasi.');
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </section>
+
+    <!-- 5. THE STOLEN TRAFFIC / COMPETITOR REALITY (EDUCATIONAL PITCH) -->
+    <section id="roi" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Data Visualisasi CSS Sederhana -->
+                <div x-data="{ visible: false }" x-intersect.threshold.50="visible = true" class="bg-gray-50 p-8 rounded-3xl border border-gray-200 shadow-inner">
+                    <h3 class="text-xl font-bold text-dark mb-8">Distribusi Pesanan Nasi Kotak Perkantoran (Area SCBD/Sudirman) - Q3 2023</h3>
+                    
+                    <div class="space-y-6">
+                        <!-- Bar 1 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-gray-600">Katering Generik (Website Optimal)</span>
+                                <span class="text-dark">65% (Rp 450 Juta/Bulan)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                <div class="bg-gray-800 h-4 rounded-full bar-fill" :style="visible ? 'width: 65%' : 'width: 0%'"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 2 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold mb-2">
+                                <span class="text-gray-600">Restoran Cepat Saji (Sistem App)</span>
+                                <span class="text-dark">25% (Rp 175 Juta/Bulan)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                <div class="bg-gray-500 h-4 rounded-full bar-fill" :style="visible ? 'width: 25%' : 'width: 0%'"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 3 -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-2">
+                                <span class="text-brand-600 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> Kedai Area Blok M (Tanpa Web B2B)</span>
+                                <span class="text-brand-600">Terbuang (Hanya 10%)</span>
+                            </div>
+                            <div class="w-full bg-red-100 rounded-full h-4 overflow-hidden relative">
+                                <div class="bg-brand-500 h-4 rounded-full bar-fill relative overflow-hidden" :style="visible ? 'width: 10%' : 'width: 0%'">
+                                    <div class="absolute inset-0 bg-white/20" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 20px);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-brand-50 border border-brand-200 rounded-xl text-brand-800 text-sm font-medium flex items-start gap-3">
+                        <i class="ph-fill ph-lightbulb text-2xl text-brand-500"></i>
+                        <p>Realita Brutal: Uang HRD Perusahaan lari ke Katering Generik, BUKAN karena makanan mereka lebih enak dari Horu, tapi karena <b>mereka mudah dipesan dalam jumlah besar secara online.</b></p>
+                    </div>
+                </div>
+
+                <!-- Penjelasan Copywriting -->
+                <div>
+                    <h2 class="text-3xl lg:text-4xl font-serif font-bold text-dark mb-6">Uang Anda Diambil Pesaing Setiap Siang.</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Anda memiliki *comfort food* terbaik di Blok M. Antrean di depan kedai Horu dan Penuh Nikmat adalah buktinya. Tapi antrean fisik memiliki batas meja dan kursi.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                        Di gedung-gedung kaca radius 3 km dari Blok M (SCBD, Sudirman), ada ribuan karyawan meeting setiap hari. Mereka butuh ratusan box makanan. Jika Anda tidak menyediakan portal Corporate Booking B2B yang terlihat profesional, uang itu akan terus lari ke Katering lain.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-dark font-semibold">
+                            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="ph-bold ph-check"></i></div>
+                            Tingkatkan volume penjualan tanpa menambah meja/kursi.
+                        </li>
+                        <li class="flex items-center gap-3 text-dark font-semibold">
+                            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="ph-bold ph-check"></i></div>
+                            Sistem booking otomatis 24 jam.
+                        </li>
+                        <li class="flex items-center gap-3 text-dark font-semibold">
+                            <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="ph-bold ph-check"></i></div>
+                            Pencatatan invoice dan payment gateway instan.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. GOOGLE REVIEWS INTEGRATION (MARQUEE) -->
+    <section id="reviews" class="py-16 bg-dark overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
+            <h2 class="text-2xl font-serif font-bold text-white flex items-center justify-center gap-3">
+                <i class="ph-fill ph-google-logo text-[#4285F4]"></i> Terintegrasi Ulasan Otomatis
+            </h2>
+            <p class="text-gray-400 mt-2">Menampilkan *Social Proof* secara real-time untuk meyakinkan klien korporat.</p>
+        </div>
+
+        <div class="relative flex overflow-x-hidden group">
+            <!-- Fade Edges -->
+            <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-dark to-transparent z-10"></div>
+            <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-dark to-transparent z-10"></div>
+
+            <div class="animate-marquee flex space-x-6 whitespace-nowrap group-hover:[animation-play-state:paused]">
+                <!-- Review Card Loop -->
+                <div class="w-80 p-6 glass-dark rounded-2xl border border-white/10 shrink-0">
+                    <div class="flex items-center gap-2 mb-3 text-yellow-400 text-sm"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-gray-300 text-sm font-medium mb-4 whitespace-normal line-clamp-3">"Pesan 120 box Bento Horu untuk meeting BOD di Sudirman. Packaging rapi banget, makanan tetap hangat pas sampe. Keren sekarang Blok M punya sistem ginian!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-xs">AT</div>
+                        <div class="text-left"><p class="text-white text-xs font-bold">Andi T. (HR Manager)</p><p class="text-gray-500 text-[10px]">2 hari lalu via Google</p></div>
+                    </div>
+                </div>
+                <div class="w-80 p-6 glass-dark rounded-2xl border border-white/10 shrink-0">
+                    <div class="flex items-center gap-2 mb-3 text-yellow-400 text-sm"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-gray-300 text-sm font-medium mb-4 whitespace-normal line-clamp-3">"Rukun Yakarta nyediain snack box luar biasa enak. Portal ordernya gampang banget dipake, ga perlu repot chat WA nunggu dibales. Langsung keluar invoice."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs">SK</div>
+                        <div class="text-left"><p class="text-white text-xs font-bold">Siska K.</p><p class="text-gray-500 text-[10px]">1 minggu lalu via Google</p></div>
+                    </div>
+                </div>
+                <div class="w-80 p-6 glass-dark rounded-2xl border border-white/10 shrink-0">
+                    <div class="flex items-center gap-2 mb-3 text-yellow-400 text-sm"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-gray-300 text-sm font-medium mb-4 whitespace-normal line-clamp-3">"Langganan makan siang di Kedai Penuh Nikmat Blok M, seneng banget sekarang mereka bisa deliver partai besar ke kantor SCBD. Tetep otentik rasanya!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs">BR</div>
+                        <div class="text-left"><p class="text-white text-xs font-bold">Bimo R.</p><p class="text-gray-500 text-[10px]">3 minggu lalu via Google</p></div>
+                    </div>
+                </div>
+                 <!-- Duplicate for infinite effect -->
+                <div class="w-80 p-6 glass-dark rounded-2xl border border-white/10 shrink-0">
+                    <div class="flex items-center gap-2 mb-3 text-yellow-400 text-sm"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                    <p class="text-gray-300 text-sm font-medium mb-4 whitespace-normal line-clamp-3">"Pesan 120 box Bento Horu untuk meeting BOD di Sudirman. Packaging rapi banget, makanan tetap hangat pas sampe. Keren sekarang Blok M punya sistem ginian!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-xs">AT</div>
+                        <div class="text-left"><p class="text-white text-xs font-bold">Andi T. (HR Manager)</p><p class="text-gray-500 text-[10px]">2 hari lalu via Google</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. THE SELF-DESTRUCTING OFFER (SCARCITY ENGINE) -->
+    <section class="py-20 bg-brand-600 relative overflow-hidden" x-data="countdownTimer()">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center text-white">
+            <h2 class="text-3xl lg:text-5xl font-serif font-bold mb-6">Waktunya Mengambil Alih Pasar.</h2>
+            <p class="text-brand-100 text-lg mb-10 max-w-2xl mx-auto">Sistem Enterprise ini normalnya bernilai $25,000. Untuk Aliansi Kedai Blok M, kami menawarkan <b>Diskon Implementasi 30%</b> jika Anda mengambil keputusan dalam 48 Jam ke depan.</p>
+            
+            <!-- Countdown Timer -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-12">
+                <div class="bg-dark/40 backdrop-blur-md rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] shadow-2xl border border-white/10">
+                    <div class="text-4xl md:text-6xl font-black font-serif text-white tracking-wider" x-text="hours"></div>
+                    <div class="text-xs md:text-sm text-brand-200 uppercase font-bold mt-2">Jam</div>
+                </div>
+                <div class="text-4xl md:text-6xl font-black text-white/50 self-center mb-6">:</div>
+                <div class="bg-dark/40 backdrop-blur-md rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] shadow-2xl border border-white/10">
+                    <div class="text-4xl md:text-6xl font-black font-serif text-white tracking-wider" x-text="minutes"></div>
+                    <div class="text-xs md:text-sm text-brand-200 uppercase font-bold mt-2">Menit</div>
+                </div>
+                <div class="text-4xl md:text-6xl font-black text-white/50 self-center mb-6">:</div>
+                <div class="bg-dark/40 backdrop-blur-md rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] shadow-2xl border border-white/10">
+                    <div class="text-4xl md:text-6xl font-black font-serif text-white tracking-wider" x-text="seconds"></div>
+                    <div class="text-xs md:text-sm text-brand-200 uppercase font-bold mt-2">Detik</div>
+                </div>
+            </div>
+
+            <button class="px-10 py-5 bg-white text-brand-600 font-black text-xl rounded-full hover:bg-brand-50 transition shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-105 transform duration-300">
+                Klaim Arsitektur Ini Sekarang
+            </button>
+            <p class="text-xs text-brand-200 mt-6"><i class="ph-bold ph-lock-key"></i> Penawaran ini mengunci eksklusivitas sistem untuk Anda. Pesaing di area Blok M tidak akan kami terima.</p>
+        </div>
+
+        <script>
+            function countdownTimer() {
+                return {
+                    time: 172800, // 48 hours in seconds
+                    hours: '48',
+                    minutes: '00',
+                    seconds: '00',
+                    init() {
+                        setInterval(() => {
+                            if (this.time > 0) this.time--;
+                            this.hours = String(Math.floor(this.time / 3600)).padStart(2, '0');
+                            this.minutes = String(Math.floor((this.time % 3600) / 60)).padStart(2, '0');
+                            this.seconds = String(this.time % 60).padStart(2, '0');
+                        }, 1000);
+                    }
+                }
+            }
+        </script>
+    </section>
+
+    <!-- 8. OMNI-QR & MEGA FOOTER -->
+    <footer class="bg-dark pt-20 pb-10 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-16 border-b border-white/10 pb-16">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 bg-brand-500 rounded-lg flex items-center justify-center">
+                            <i class="ph-fill ph-cooking-pot text-2xl"></i>
+                        </div>
+                        <h2 class="font-serif font-bold text-2xl">Aliansi Kedai</h2>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Menyajikan comfort food terbaik di jantung Blok M. Membawa kehangatan dapur rumahan ke gedung-gedung perkantoran Jakarta.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-500 transition"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-500 transition"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-500 transition"><i class="ph-fill ph-whatsapp-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Pemetaan Lokasi Akurat -->
+                <div class="lg:col-span-2">
+                    <h4 class="font-bold text-lg mb-6 tracking-wide">Titik Jemput & Dine-In</h4>
+                    <div class="w-full h-48 bg-gray-800 rounded-xl overflow-hidden border border-white/10 relative">
+                        <!-- Simulated Map / Iframe -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15864.721478148675!2d106.7937326!3d-6.2422791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1681ab9c2fd%3A0xcb1b59f3b55c1db2!2sBlok%20M%20Square!5e0!3m2!1sen!2sid!4v1698240000000!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="filter opacity-80 hover:opacity-100 transition grayscale"></iframe>
+                        <div class="absolute top-2 left-2 bg-dark/80 backdrop-blur px-3 py-1 text-xs rounded-md text-brand-300 font-bold border border-white/10 shadow-lg">Blok M Selatan Area</div>
+                    </div>
+                    <ul class="mt-4 space-y-2 text-sm text-gray-400">
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-map-pin mt-1 text-brand-500"></i> Jl. Melawai Raya, Kebayoran Baru, Jakarta Selatan.</li>
+                        <li class="flex items-start gap-2"><i class="ph-fill ph-clock mt-1 text-brand-500"></i> Buka Setiap Hari: 10:00 - 22:00 WIB (Corporate Pickup from 09:00 WIB)</li>
+                    </ul>
+                </div>
+
+                <!-- Dynamic QR Code System -->
+                <div class="lg:col-span-1 flex flex-col items-center lg:items-end text-center lg:text-right">
+                    <h4 class="font-bold text-lg mb-4 tracking-wide w-full">Scan untuk Pesan Cepat</h4>
+                    <div class="bg-white p-3 rounded-2xl w-36 h-36 mb-4 shadow-[0_0_30px_rgba(200,75,49,0.3)]">
+                        <!-- Placeholder for Dynamic Vanilla JS QR -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/628000000000?text=Halo%20saya%20ingin%20pesan%20Corporate%20Lunch%20Box" alt="Omni-QR" class="w-full h-full object-contain">
+                    </div>
+                    <p class="text-xs text-gray-400 w-full">Letakkan QR ini di meja kasir Anda. Scan langsung membuka Portal Web.</p>
+                </div>
+
+            </div>
+            <div class="text-center text-xs text-gray-600 font-semibold tracking-widest uppercase">
+                &copy; 2023 Enterprise Web Architecture Designed by Titanium God-Tier AI. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- 9. THE "TROJAN HORSE" SALES BOT -->
+    <div x-data="salesBot()" @scroll.window="checkScroll()" class="fixed bottom-6 right-6 z-[100] font-sans">
+        
+        <!-- Chat Trigger Button -->
+        <button @click="open = !open" :class="showTrigger ? 'scale-100 opacity-100' : 'scale-0 opacity-0'" class="w-16 h-16 bg-dark text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-gray-800 transition-all duration-500 relative group transform">
+            <span class="absolute top-0 right-0 w-4 h-4 bg-red-500 border-2 border-dark rounded-full animate-pulse"></span>
+            <i class="ph-fill ph-robot text-3xl group-hover:rotate-12 transition-transform"></i>
+        </button>
+
+        <!-- Chat Window -->
+        <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-10 scale-95" x-transition:enter-end="opacity-100 translate-y-0 scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="opacity-0 translate-y-10 scale-95" class="absolute bottom-20 right-0 w-[350px] bg-white rounded-3xl shadow-[0_10px_50px_rgba(0,0,0,0.2)] border border-gray-100 overflow-hidden" style="display: none;">
+            
+            <div class="bg-dark p-4 flex justify-between items-center text-white">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <img src="https://i.pravatar.cc/100?img=11" alt="Architect" class="w-10 h-10 rounded-full border-2 border-brand-500">
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border border-dark"></div>
+                    </div>
+                    <div>
+                        <p class="font-bold text-sm leading-tight">Titanium Architect</p>
+                        <p class="text-[10px] text-gray-400">High-End B2B Sales</p>
+                    </div>
+                </div>
+                <button @click="open = false" class="text-gray-400 hover:text-white"><i class="ph-bold ph-x text-lg"></i></button>
+            </div>
+
+            <div class="p-5 bg-gray-50 h-64 overflow-y-auto space-y-4 relative">
+                <!-- Message 1 -->
+                <div class="flex gap-2">
+                    <div class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center shrink-0 mt-1"><i class="ph-fill ph-lightning text-xs"></i></div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none text-sm text-gray-700 shadow-sm border border-gray-100">
+                        Halo manajemen <b>Horu, Kedai Penuh Nikmat, & Rukun Yakarta</b>.
+                    </div>
+                </div>
+                <!-- Message 2 -->
+                <div class="flex gap-2" x-show="msg2" x-transition.opacity.duration.500ms>
+                    <div class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center shrink-0 mt-1"><i class="ph-fill ph-lightning text-xs"></i></div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none text-sm text-gray-700 shadow-sm border border-gray-100">
+                        Anda baru saja melihat sekilas prototipe *Corporate Lunch Engine* yang kami bangun khusus untuk kawasan Blok M.
+                    </div>
+                </div>
+                <!-- Message 3 -->
+                <div class="flex gap-2" x-show="msg3" x-transition.opacity.duration.500ms>
+                    <div class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center shrink-0 mt-1"><i class="ph-fill ph-lightning text-xs"></i></div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none text-sm text-gray-700 shadow-sm border border-gray-100 font-semibold text-brand-700">
+                        <strong style="color:#22c55e;">Setup Website: Rp 2.500.000</strong> (dari <s>Rp 5.000.000</s>) &bull; DP Rp 750.000<br><br>Kami siap mengimplementasikan sistem ini hari ini juga untuk Anda. Siap berdiskusi untuk dominasi pesanan korporat? Dibuat oleh <strong>CocoTech</strong> — IT Agency sangat berpengalaman. <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">cocotech.studio</a>
+                    </div>
+                </div>
+                
+                <!-- Typing Indicator -->
+                <div class="flex gap-2" x-show="typing">
+                    <div class="bg-gray-200 px-3 py-2 rounded-2xl rounded-tl-none flex gap-1 items-center">
+                        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></span>
+                        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce animation-delay-200"></span>
+                        <span class="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce animation-delay-400"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-white border-t border-gray-100">
+                <a href="mailto:deal@titanium.com" class="w-full py-3 bg-brand-500 text-white text-sm font-bold rounded-xl hover:bg-brand-600 transition flex justify-center items-center gap-2 shadow-md">
+                    <i class="ph-fill ph-envelope-simple"></i> Jadwalkan Meeting Offline
+                </a>
+            </div>
+        </div>
+
+        <script>
+            function salesBot() {
+                return {
+                    open: false,
+                    showTrigger: false,
+                    triggered: false,
+                    msg2: false,
+                    msg3: false,
+                    typing: false,
+                    checkScroll() {
+                        // Pop up at 30% scroll
+                        let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+                        if (scrollPercent > 30 && !this.triggered) {
+                            this.triggered = true;
+                            this.showTrigger = true;
+                            
+                            // Play sound simulation (Browser policy might block actual sound without interaction, so we just animate)
+                            setTimeout(() => { 
+                                this.open = true; 
+                                this.typing = true;
+                                
+                                setTimeout(() => { this.typing = false; this.msg2 = true; this.typing = true; }, 1500);
+                                setTimeout(() => { this.typing = false; this.msg3 = true; }, 3500);
+                            }, 500);
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
+
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

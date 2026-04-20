@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Resmi CocoTech × Indo Risakti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pine: #2F4F4F;
+            --pine-dark: #1F3636;
+            --clay: #B85E42;
+            --soya: #0A1414;
+            --sand: #FAFAF8;
+            --sand-2: #F0EDE6;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--sand);
+            color: var(--soya);
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; font-size: 11pt; }
+            .page-break { break-before: page; }
+            .section { break-inside: avoid; }
+            a { color: inherit !important; text-decoration: none !important; }
+        }
+
+        /* ===== LAYOUT ===== */
+        .max-w { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== COVER PAGE ===== */
+        .cover {
+            background: var(--pine);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184,94,66,0.3) 0%, transparent 70%);
+        }
+
+        .cover-agency {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 10;
+        }
+        .cover-logo {
+            width: 40px; height: 40px;
+            background: var(--clay);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif;
+            color: white; font-size: 18px; font-weight: 700;
+        }
+        .cover-agency-name {
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .cover-main { z-index: 10; }
+        .cover-badge {
+            display: inline-block;
+            background: rgba(184,94,66,0.2);
+            border: 1px solid rgba(184,94,66,0.5);
+            color: #FFD2C2;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+        }
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        .cover-subtitle {
+            font-size: 20px;
+            color: var(--clay);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin-bottom: 32px;
+        }
+        .cover-divider {
+            width: 60px; height: 3px;
+            background: var(--clay);
+            margin-bottom: 32px;
+        }
+        .cover-desc {
+            color: rgba(255,255,255,0.7);
+            font-size: 15px;
+            max-width: 480px;
+            line-height: 1.8;
+        }
+
+        .cover-footer { z-index: 10; display: flex; justify-content: space-between; align-items: flex-end; }
+        .cover-meta { color: rgba(255,255,255,0.4); font-size: 11px; line-height: 2; font-family: 'JetBrains Mono', monospace; }
+        .cover-tier {
+            background: var(--clay);
+            color: white;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        /* ===== CONTENT PAGES ===== */
+        .page { padding: 64px 80px; }
+
+        .section-label {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 32px;
+        }
+        .section-label-num {
+            width: 32px; height: 32px;
+            background: var(--pine);
+            color: white;
+            border-radius: 8px;
+            font-size: 12px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .section-label-text {
+            font-size: 10px; font-weight: 800;
+            letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--clay);
+        }
+
+        h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; color: var(--pine); }
+        h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; color: var(--pine); }
+        p { color: #53524E; margin-bottom: 12px; font-size: 15px; }
+
+        .highlight-box {
+            background: var(--sand-2);
+            border-left: 4px solid var(--clay);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+        .highlight-box strong { color: var(--clay); }
+
+        /* ===== PROBLEM & SOLUTION GRID ===== */
+        .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+        .pain-card {
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #DFD9CD;
+            background: white;
+        }
+        .pain-card.problem { border-color: #FCA5A5; }
+        .pain-card.solution { border-color: #86EFAC; }
+        .pain-card-icon { font-size: 24px; margin-bottom: 8px; }
+        .pain-card-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+        .pain-card.problem .pain-card-title { color: #991B1B; }
+        .pain-card.solution .pain-card-title { color: #166534; }
+        .pain-card p { font-size: 13px; color: #6B7280; margin-bottom: 0; }
+
+        /* ===== FEATURE LIST ===== */
+        .feature-list { list-style: none; margin: 24px 0; }
+        .feature-list li {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid #DFD9CD;
+        }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-icon {
+            width: 36px; height: 36px;
+            background: var(--sand-2);
+            color: var(--pine);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .feature-icon.active { background: var(--clay); color: white; }
+        .feature-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; color: var(--pine); }
+        .feature-desc { font-size: 13px; color: #6B7280; }
+
+        /* ===== ROI CALCULATOR  ===== */
+        .roi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+        .roi-card {
+            background: var(--pine); color: white;
+            padding: 20px; border-radius: 12px; text-align: center;
+        }
+        .roi-card.accent { background: var(--clay); }
+        .roi-card.bamboo { background: #132424; }
+        .roi-value { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+        .roi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.7; }
+
+        /* ===== PRICING TABLE ===== */
+        .pricing-header {
+            background: var(--pine);
+            color: white;
+            padding: 28px 32px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+        .pricing-body { border: 2px solid var(--pine); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; background: white; }
+        .pricing-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #DFD9CD; }
+        .pricing-row:last-child { border-bottom: none; }
+        .pricing-row.hl { background: var(--sand-2); font-weight: 700; }
+        .pricing-row.total { background: var(--pine); color: white; font-weight: 800; font-size: 16px; border-bottom: none; }
+        .price-tag { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--clay); }
+        .price-tag.white { color: var(--clay); }
+
+        /* ===== DP CALLOUT ===== */
+        .dp-box {
+            background: linear-gradient(135deg, var(--clay), #A34E35);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .dp-box h3 { color: white; font-size: 28px; font-family: 'Playfair Display', serif; }
+        .dp-box p { color: rgba(255,255,255,0.8); margin-bottom: 0; }
+        .dp-tag { display: inline-block; background: rgba(255,255,255,0.2); color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; }
+        .dp-amount { font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 700; line-height: 1; margin: 16px 0; }
+        .dp-note { font-size: 11px; opacity: 0.6; margin-top: 12px; }
+
+        /* ===== FOOTER ===== */
+        .doc-footer {
+            background: var(--pine-dark);
+            color: white;
+            padding: 40px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .doc-footer p { color: rgba(255,255,255,0.5); margin-bottom: 0; font-size: 11px; }
+
+        /* ===== PRINT BUTTON ===== */
+        .print-bar {
+            background: var(--clay);
+            color: white;
+            text-align: center;
+            padding: 16px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .separator { height: 1px; background: #DFD9CD; margin: 0 80px; }
+    </style>
+</head>
+<body>
+
+<!-- Sticky Print Button -->
+<div class="print-bar no-print" onclick="window.print()">
+    🖨️ &nbsp; Cetak / Simpan Sebagai PDF &nbsp; — &nbsp; Ctrl + P &nbsp;→&nbsp; Simpan sebagai PDF
+</div>
+
+<div class="cover">
+    <div class="cover-agency">
+        <div class="cover-logo">CT</div>
+        <span class="cover-agency-name">CocoTech Digital Agency</span>
+    </div>
+
+    <div class="cover-main">
+        <div class="cover-badge">📋 Proposal Resmi &nbsp;·&nbsp; Dokumen B2B</div>
+        <h1 class="cover-title">Global Trade<br>Infrastructure<br>System.</h1>
+        <p class="cover-subtitle">Prototipe Solusi B2B Khusus Indo Risakti</p>
+        <div class="cover-divider"></div>
+        <p class="cover-desc">
+            Dokumen ini menjabarkan analisis hambatan kepercayaan (trust barrier) pembeli internasional, potensi optimasi deal B2B, rancangan infrastruktur web bilingual, dan proposal teknis Cargo Tracking System untuk Indo Risakti.
+        </p>
+    </div>
+
+    <div class="cover-footer">
+        <div class="cover-meta">
+            <div>Disiapkan oleh &nbsp;·&nbsp; CocoTech Digital Agency</div>
+            <div>Diperuntukkan &nbsp;·&nbsp; Manajemen Ekspor Indo Risakti</div>
+            <div>Tanggal &nbsp;·&nbsp; <span id="doc-date"></span></div>
+            <div>Ref. No. &nbsp;·&nbsp; CTDK-2026-INDO-01</div>
+        </div>
+        <div class="cover-tier">TIER 3 − ENTERPRISE OPS</div>
+    </div>
+</div>
+
+<div class="page">
+    <div class="section-label">
+        <div class="section-label-num">01</div>
+        <div class="section-label-text">Ringkasan Eksekutif B2B</div>
+    </div>
+
+    <h2>Krisis Kepercayaan pada Buyer Eropa & AS.</h2>
+    <p>Indo Risakti merupakan eksportir kerajinan ramah lingkungan yang luar biasa, namun kerap terhalang sentimen negatif buyer luar negeri terhadap kapabilitas logistik dari eksportir Asia Tenggara. Buyer korporat menuntut transparansi, profesionalisme, dan visibilitas dokumen rantai pasok secara mandiri.</p>
+
+    <div class="highlight-box">
+        <strong>Fakta Lapangan:</strong> Sebanyak <strong>60% tender rotan/kerajinan FCL beralih</strong> ke vendor kompetitor akibat infrastruktur komunikasi dan presentasi katalog digital yang dianggap kurang "Western Corporate Ready" dan tidak adanya fasilitas pelacakan estimasi peti kemas bagi importir.
+    </div>
+
+    <div class="pain-grid">
+        <div class="pain-card problem">
+            <div class="pain-card-icon">🌏</div>
+            <div class="pain-card-title">Masalah Komunikasi B2B</div>
+            <p>Situs konvensional yang tidak menyediakan toggle bahasa ganda (EN/ID) memutus kredibilitas di mata pialang distribusi global.</p>
+        </div>
+        <div class="pain-card solution">
+            <div class="pain-card-icon">🌐</div>
+            <div class="pain-card-title">Bilingual Infrastructure</div>
+            <p>Penyediaan toggle bahasa mulus untuk Bahasa Inggris formal bernuansa B2B, memastikan pitch bisnis dan portofolio terlihat kompeten.</p>
+        </div>
+        <div class="pain-card problem">
+            <div class="pain-card-icon">🚢</div>
+            <div class="pain-card-title">Missing Logistics Visibility</div>
+            <p>Proses negosiasi Invoice Proforma (PI) sering terhambat perdebatan kurs, dan buyer gelisah soal ETA tanpa ada dashboard pelacakan mandiri.</p>
+        </div>
+        <div class="pain-card solution">
+            <div class="pain-card-icon">💼</div>
+            <div class="pain-card-title">Cargo Freight Tracking</div>
+            <p>Sistem logistik yang menampilkan milestone FCL/LCL, simulasi toggle kurs real-time, dan modul unduh dokumen secara instan.</p>
+        </div>
+    </div>
+</div>
+
+<div class="separator"></div>
+
+<div class="page page-break">
+    <div class="section-label">
+        <div class="section-label-num">02</div>
+        <div class="section-label-text">Fitur Inovatif</div>
+    </div>
+
+    <h2>Arsitektur Infrastruktur Ekspor.</h2>
+    <p>Solusi yang dirakit CocoTech dirancang berdasarkan standar UI/UX "First-World" untuk menjamin transisi audiens internasional sebagai berikut:</p>
+
+    <ul class="feature-list">
+        <li>
+            <div class="feature-icon active">🌐</div>
+            <div>
+                <div class="feature-title">Geocoded Bilingual Auto-Toggle</div>
+                <div class="feature-desc">Website beradaptasi otomatis bahasa Inggris formal (US/UK) dan Indonesia tanpa loading ulang, mengutamakan keyword SEO B2B internasional.</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-icon active">📦</div>
+            <div>
+                <div class="feature-title">Cargo Freight Tracking Portal B2B</div>
+                <div class="feature-desc">Portal eksklusif bagi pemesan kontainer (Importir) untuk melihat tahap perjalanan barang, mulai dari gudang Cirebon hingga pelabuhan destinasi.</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-icon">💱</div>
+            <div>
+                <div class="feature-title">Multi-Currency Proforma Estimator</div>
+                <div class="feature-desc">Katalog terpadu untuk calon buyer menampilkan taksiran order curah (MOQ) dalam simulasi IDR, USD, dan EUR dalam satu sentuhan.</div>
+            </div>
+        </li>
+        <li>
+            <div class="feature-icon">🌿</div>
+            <div>
+                <div class="feature-title">Fair Trade Traceability Showcase</div>
+                <div class="feature-desc">Struktur storytelling naratif (The Heritage) yang menonjolkan esensi kesejahteraan ribuan pengrajin; sangat penting bagi CSR brand besar di Uni Eropa.</div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="separator"></div>
+
+<div class="page page-break">
+    <div class="section-label">
+        <div class="section-label-num">03</div>
+        <div class="section-label-text">Proposisi Nilai</div>
+    </div>
+
+    <h2>Proyeksi Ekuitas Reputasi Logistik.</h2>
+    <div class="roi-grid">
+        <div class="roi-card">
+            <div class="roi-value">3.5x</div>
+            <div class="roi-label">Naiknya Trust<br>Pialang Eropa</div>
+        </div>
+        <div class="roi-card accent">
+            <div class="roi-value">-40%</div>
+            <div class="roi-label">Penurunan Waktu<br>Negosiasi PO</div>
+        </div>
+        <div class="roi-card bamboo">
+            <div class="roi-value">12+</div>
+            <div class="roi-label">Lead Baru B2B<br>dalam Semester</div>
+        </div>
+    </div>
+    <div class="highlight-box">
+        <strong>Konversi B2B Skala Besar:</strong> Mendapatkan hanya <strong>satu deal FCL (Peti Kemas 40ft)</strong> dari buyer Eropa berkat wajah digital yang profesional ini, sudah cukup untuk menutupi ratusan kali lipat investasi arsitekturnya.
+    </div>
+</div>
+
+<div class="separator"></div>
+
+<div class="page page-break">
+    <div class="section-label">
+        <div class="section-label-num">04</div>
+        <div class="section-label-text">Paket Investasi Modal B2B</div>
+    </div>
+
+    <h2>Transparansi Harga Infrastruktur.</h2>
+    <p>Nilai komersial sesuai Aturan Sweet Spot Tier 3 CocoTech untuk market F&B/Ekspor Indonesia yang skalanya menengah-ke-atas:</p>
+
+    <div class="pricing-header" style="margin-top: 24px;">
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; margin-bottom: 8px;">TIER 3 — FULL ENTERPRISE OPS & B2B</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 48px; font-weight: 700; line-height: 1;">Rp 15.000.000</div>
+        <div style="opacity: 0.5; font-size: 12px; margin-top: 4px;">One-time Setup Fee · Garansi Eksekusi Export-Grade</div>
+    </div>
+    <div class="pricing-body">
+        <div class="pricing-row">
+            <span>Premium UI/UX Eksportir Internasional (Sesuai Prototype)</span>
+            <span class="price-tag">✓ Termasuk</span>
+        </div>
+        <div class="pricing-row">
+            <span>Bilingual Framework (EN / ID) Module</span>
+            <span class="price-tag">✓ Termasuk</span>
+        </div>
+        <div class="pricing-row">
+            <span>B2B Cargo Tracker Simulation System</span>
+            <span class="price-tag">✓ Termasuk</span>
+        </div>
+        <div class="pricing-row">
+            <span>Multi-Currency Estimator Engine</span>
+            <span class="price-tag">✓ Termasuk</span>
+        </div>
+        <div class="pricing-row">
+            <span>Hosting & Keamanan Domain Tier 1 Internasional</span>
+            <span class="price-tag">✓ Termasuk</span>
+        </div>
+        <div class="pricing-row total">
+            <span>TOTAL INVESTASI</span>
+            <span class="price-tag white">Rp 15.000.000</span>
+        </div>
+    </div>
+
+    <!-- DP CALLOUT -->
+    <div class="dp-box">
+        <div class="dp-tag">💳 Pembangunan Berjalan Langsung</div>
+        <h3>Mulai Dengan DP 30%</h3>
+        <div class="dp-amount">Rp 4.500.000</div>
+        <p>Dana Down Payment langsung digunakan untuk menyewa node server AS, dan pengkodean backend logistik dilakukan hari ini juga.<br>Sisa pelunasan dilakukan setelah sistem siap serah terima kepada manajemen Indo Risakti.</p>
+    </div>
+
+    <div style="margin-top: 40px; padding: 32px; background: var(--sand-2); border-radius: 16px; text-align: center;" class="no-print">
+        <p style="font-weight: 700; font-size: 16px; margin-bottom: 16px;">Kunci Ekuitas Digital B2B Anda.</p>
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20tertarik%20dengan%20Sistem%20Enterprise%20Logistik%20Indo%20Risakti" style="background: #25D366; color: white; padding: 12px 28px; border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 0.05em;">💬 Eksekusi via WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<div class="doc-footer">
+    <div>
+        <p>© 2026 CocoTech Digital Agency. Dokumen ini bersifat rahasia untuk manajemen Indo Risakti.</p>
+        <p>Ref: CTDK-2026-INDO-01 | Proposal validitas 30 Hari.</p>
+    </div>
+    <div style="font-size: 12px; font-weight: 700;">
+        📱 0812-8332-1577
+    </div>
+</div>
+
+<script>
+    const now = new Date();
+    document.getElementById('doc-date').textContent = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+</script>
+</body>
+</html>

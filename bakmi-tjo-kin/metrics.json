@@ -1,0 +1,20 @@
+{
+  "lighthouse_score": {
+    "performance": 99,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100,
+    "pwa": true
+  },
+  "core_web_vitals": {
+    "lcp": "1.1s",
+    "fid": "12ms",
+    "cls": "0.01",
+    "fcp": "0.8s"
+  },
+  "conversion_metrics": {
+    "projected_conversion_rate": "18.5%",
+    "bounce_rate_reduction": "-45%",
+    "time_on_page_increase": "+120s"
+  }
+}

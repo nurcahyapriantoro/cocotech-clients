@@ -1,0 +1,43 @@
+{
+  "client_name": "Nasi Matah Blok M & Ayam Sambel Melawai",
+  "project_type": "FMCG E-Commerce Engine & National Fulfillment System",
+  "pricing_tiers": [
+    {
+      "tier": "1. Essential E-Commerce Setup",
+      "price_idr": 45000000,
+      "features": [
+        "Website E-Commerce Custom (Tanpa Potongan Platform)",
+        "Integrasi Payment Gateway (VA, QRIS, CC)",
+        "Katalog Produk FMCG (Maks 10 SKU)",
+        "Basic SEO"
+      ]
+    },
+    {
+      "tier": "2. FMCG Scaling System (Rekomendasi)",
+      "price_idr": 85000000,
+      "features": [
+        "Semua fitur Essential",
+        "Integrasi API Ekspedisi Nasional (JNE, Sicepat, Paxel) Live Tracking",
+        "Sistem Cetak Resi Otomatis dari Dapur Melawai",
+        "Modul Tampilan Halal & BPOM Digital Dinamis",
+        "B2B Wholesale Module (Invoice Pajak/PPN Otomatis)"
+      ]
+    },
+    {
+      "tier": "3. National Domination Engine",
+      "price_idr": 150000000,
+      "features": [
+        "Semua fitur FMCG Scaling",
+        "Aplikasi Mobile PWA (Progressive Web App)",
+        "Sistem Loyalty & Referral untuk Reseller",
+        "Integrasi ERP/Gudang Eksternal (Jika buka cabang)",
+        "Garansi Support 1 Tahun 24/7"
+      ]
+    }
+  ],
+  "roi_projection": {
+    "assumptions": "Penjualan 1,000 botol/bulan dengan margin Rp 20,000/botol (yang sebelumnya hilang di Ojol/Kompetitor)",
+    "monthly_profit_increase_idr": 20000000,
+    "payback_period_months": "4.2 Bulan (untuk Tier Rekomendasi)"
+  }
+}

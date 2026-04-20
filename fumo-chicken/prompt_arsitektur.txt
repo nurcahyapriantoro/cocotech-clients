@@ -1,0 +1,28 @@
+# Instruksi Arsitektur UI/UX Fumo B2B Engine
+
+## 1. Tema & Gaya Desain
+- **Vibe:** Premium Urban Street Food B2B, Modern, Aggressive, Professional.
+- **Konsep Visual:** Glassmorphism pada panel dashboard, latar belakang gelap (Dark Mode) untuk memberikan kesan eksklusif dan memunculkan kontras tinggi pada elemen CTA.
+- **Animasi:** Floating abstract shapes (Blob animations) untuk representasi energi "viral", pulse animation pada elemen real-time/live. Scroll-reveal untuk setiap seksi agar terasa seperti presentasi Apple.
+
+## 2. Palet Warna Spesifik (Tailwind Config)
+- **Fumo Red (Primary):** `#E50914` (Melambangkan ayam pedas, energi, call-to-action utama).
+- **Fumo Crimson (Secondary):** `#B91C1C` (Untuk gradien dan hover effect).
+- **Crispy Gold (Accent):** `#FBBF24` (Untuk status premium, highlight harga, dan elemen konversi).
+- **Night Charcoal (Background):** `#0A0A0A` hingga `#171717` (Memberi kesan elegan dan enterprise).
+
+## 3. Tipografi (Google Fonts)
+- **Heading:** `Space Grotesk` (Futuristik, tegas, memberikan kesan teknologi tinggi).
+- **Body/Sans:** `Plus Jakarta Sans` (Bersih, modern, tingkat keterbacaan tinggi untuk data angka dan faktur).
+
+## 4. Stack Teknologi yang Digunakan
+- **HTML5:** Struktur semantik.
+- **Tailwind CSS (via CDN):** Styling cepat, utilitas warna custom, grid sistem, animasi keyframes injeksi.
+- **Alpine.js (via CDN):** Mengelola state reaktif untuk Kalkulator Katering, pilihan paket, toggle PPN, kalkulasi harga live, countdown timer, dan logika Chatbot scroll.
+- **Phosphor Icons / FontAwesome:** Ikon modern yang bersih untuk UI.
+
+## 5. Aturan UX B2B (Conversion Optimization)
+- Slider harga/pax dibuat interaktif agar klien korporat (HRD/Purchasing) bisa langsung melihat estimasi budget.
+- Input Faktur Pajak/NPWP disembunyikan dalam *collapse/accordion* (menggunakan `x-show` Alpine) untuk menjaga UI tetap bersih.
+- Sticky Live Quotation Panel: Panel harga total harus selalu terlihat saat user scroll memilih paket.
+- Chatbot dipicu (trigger) tepat setelah user melewati hero section (30% scroll) untuk memberikan efek "proaktif" namun tidak mengganggu pembacaan hero message.

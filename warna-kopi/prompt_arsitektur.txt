@@ -1,0 +1,35 @@
+UI/UX INSTRUCTIONS & ARCHITECTURE
+----------------------------------
+Brand: Warna Kopi
+Concept: Zen Minimalist x Productivity Hub
+Color Palette:
+- Primary: #2C3E2D (Deep Moss Green - melambangkan hamparan sawah dan pepohonan Ngaglik)
+- Secondary: #E6D5B8 (Warm Beige - elemen kayu dan kehangatan kopi)
+- Accent: #8A5A44 (Earthy Brown - tanah, Budin, dan kopi)
+- Background: #F9F9F6 (Off-white - bersih, lega, meminimalisir distraksi)
+- Text: #1F2937 (Dark Charcoal - kontras tinggi untuk keterbacaan)
+
+Typography:
+- Headings: 'Playfair Display' (Elegan, heritage, berkelas)
+- Body: 'Plus Jakarta Sans' (Modern, sangat terbaca di mobile, tech-savvy)
+
+Tech Stack:
+- HTML5 Semantic & Mobile-First
+- Tailwind CSS (via CDN) with custom config injecting the brand colors & animations
+- Alpine.js (via CDN) for declarative state management
+- Phosphor Icons (via CDN) for modern, sleek iconography
+- Vanilla JS (inline via Alpine) for dynamic interactions
+
+Key Sections (The 8 Pillars of Conversion):
+1. Glassmorphism Navbar: Scroll reactive, fixed top, blur effects.
+2. Emotional Hero Section: Asymmetric blob animations, Earthy tones, brutal pain-point copywriting.
+3. Heritage Bento Grid: Visual storytelling of Gondanglutung nature, Budin, & Choco Mint signature.
+4. Core Engine (The Spectacular Feature): 
+   - Tabbed interface using Alpine.js.
+   - 'Workspace Locator': Portfolio of productive corners.
+   - Interactive 'Live WiFi Speed Test' simulator with progress bars.
+   - Small-group meeting table booking form with calendar/time selection.
+5. Competitor Reality (Data Visual): FOMO bar chart comparison with Jakal mainstream cafes.
+6. Scarcity Offer: 48h Countdown for setup discount with pulsating UI.
+7. Omni-QR Mega Footer: Integration ready setup.
+8. Trojan Horse Sales Bot: Scroll-triggered popup with hyper-specific messaging referencing Budin and Choco Mint.

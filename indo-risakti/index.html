@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Indo Risakti — Premium Eco-Friendly Crafts & Rattan Furniture Export from Indonesia. Fair Trade certified.">
+    <title>Indo Risakti | Sustainable Indonesian Craft Exporter</title>
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pine: { 400:'#416B6B', 500:'#2F4F4F', 600:'#1F3636', 700:'#132424', 900:'#0A1414' },
+                        sand: { 100:'#FAFAF8', 200:'#F0EDE6', 300:'#DFD9CD', 900:'#38332A' },
+                        clay: '#B85E42'
+                    },
+                    fontFamily: {
+                        sans:  ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono:  ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'pan': 'pan 25s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pan: {
+                            '0%':   { transform: 'scale(1.08) translate(0,0)' },
+                            '100%': { transform: 'scale(1.08) translate(-2%,-1%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+
+        function countdownTimer() {
+            return {
+                hours: 47,
+                minutes: 59,
+                seconds: 22,
+                init() {
+                    setInterval(() => {
+                        if (this.seconds > 0) {
+                            this.seconds--;
+                        } else {
+                            if (this.minutes > 0) {
+                                this.minutes--;
+                                this.seconds = 59;
+                            } else {
+                                if (this.hours > 0) {
+                                    this.hours--;
+                                    this.minutes = 59;
+                                    this.seconds = 59;
+                                }
+                            }
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body { background:#FAFAF8; color:#38332A; overflow-x:hidden; }
+        [x-cloak] { display:none !important; }
+
+        /* ---- REVEAL ANIMATIONS ---- */
+        .reveal { opacity:0; transform:translateY(36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+        .reveal.in { opacity:1; transform:translateY(0); }
+        .reveal-l { opacity:0; transform:translateX(-36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+        .reveal-l.in { opacity:1; transform:translateX(0); }
+        .reveal-r { opacity:0; transform:translateX(36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+        .reveal-r.in { opacity:1; transform:translateX(0); }
+
+        .glass { background:rgba(250,250,248,0.85); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
+        
+        .earth-texture {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23a)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        /* ---- SCROLLBAR ---- */
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:#FAFAF8; }
+        ::-webkit-scrollbar-thumb { background:#B85E42; border-radius:4px; }
+    </style>
+</head>
+<body class="font-sans antialiased earth-texture" x-data="{ scrolled: false, lang: 'en' }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+<!-- ============================================================
+     NAVIGATION
+=========================================================== -->
+<nav class="fixed top-0 inset-x-0 z-50 transition-all duration-500 border-b border-white/10"
+     :class="scrolled ? 'glass shadow-md py-3' : 'bg-transparent py-6'">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-pine-600 text-sand-100 flex items-center justify-center font-serif font-bold text-xl rounded shadow-lg">
+                IR
+            </div>
+            <div>
+                <p class="font-serif font-bold text-lg leading-none transition-colors" :class="scrolled ? 'text-sand-900' : 'text-white'">Indo Risakti</p>
+                <p class="text-[9px] font-bold tracking-[.2em] uppercase transition-colors" :class="scrolled ? 'text-clay' : 'text-clay'">Sustainable Harmony</p>
+            </div>
+        </a>
+
+        <!-- Links (Bilingual) -->
+        <div class="hidden lg:flex items-center gap-9 text-xs font-bold tracking-widest uppercase">
+            <a href="#about" class="transition-colors hover:text-clay" :class="scrolled ? 'text-sand-900/70' : 'text-white/80'" x-text="lang==='en' ? 'About Us' : 'Tentang Kami'"></a>
+            <a href="#products" class="transition-colors hover:text-clay" :class="scrolled ? 'text-sand-900/70' : 'text-white/80'" x-text="lang==='en' ? 'Collection' : 'Koleksi'"></a>
+            <a href="#tracking" class="transition-colors hover:text-clay" :class="scrolled ? 'text-sand-900/70' : 'text-white/80'" x-text="lang==='en' ? 'B2B Portal' : 'Portal B2B'"></a>
+        </div>
+
+        <!-- Language Toggle & CTA -->
+        <div class="flex items-center gap-4">
+            <div class="flex bg-black/20 backdrop-blur rounded-full p-1" :class="scrolled ? 'bg-sand-200' : 'bg-white/20'">
+                <button @click="lang='en'" class="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all"
+                        :class="lang==='en' ? 'bg-pine-600 text-white shadow' : (scrolled ? 'text-sand-900/60' : 'text-white/60')">EN</button>
+                <button @click="lang='id'" class="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all"
+                        :class="lang==='id' ? 'bg-pine-600 text-white shadow' : (scrolled ? 'text-sand-900/60' : 'text-white/60')">ID</button>
+            </div>
+            <a href="#contact"
+               class="hidden md:flex items-center gap-2 bg-clay hover:bg-[#A34E35] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:shadow-lg hover:-translate-y-0.5"
+               x-text="lang==='en' ? 'Inquire Now' : 'Hubungi Kami'">
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+=========================================================== -->
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+        <img src="https://picsum.photos/seed/indohero/1600/900"
+             alt="Artisan Weaving" class="w-full h-full object-cover animate-pan"
+             style="filter:brightness(0.5) saturate(1.1);">
+        <div class="absolute inset-0" style="background:linear-gradient(170deg, rgba(31,54,54,0.7) 0%, rgba(10,20,20,0.4) 40%, #0A1414 100%);"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 px-4 py-1.5 rounded-full mb-8 reveal" x-intersect="$el.classList.add('in')">
+            <i class="ph-fill ph-plant text-clay text-sm"></i>
+            <span class="text-white/90 text-[10px] font-bold tracking-[.2em] uppercase" x-text="lang==='en' ? 'Global Eco-Craft Exporter' : 'Eksportir Kerajinan Ramah Lingkungan'"></span>
+        </div>
+
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] mb-6 reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.1s">
+            <em class="block font-normal italic text-clay text-3xl md:text-4xl mb-3" x-text="lang==='en' ? 'Weaving Nature,' : 'Menenun Alam,'"></em>
+            <span x-text="lang==='en' ? 'Crafting Futures.' : 'Merangkai Masa Depan.'"></span>
+        </h1>
+
+        <p class="text-white/70 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.2s"
+           x-text="lang==='en' ? 'Indo Risakti brings authentic Indonesian sustainable craftsmanship to the world. Ethically sourced, fair-trade certified, and meticulously crafted by over 500 local artisans.' : 'Indo Risakti membawa kerajinan autentik Indonesia yang berkelanjutan ke kancah global. Berbasis fair-trade, bahan etis, dan karya tangan dari 500+ pengrajin lokal.'">
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.3s">
+            <a href="#products" class="group flex items-center gap-3 bg-clay hover:bg-[#A34E35] text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm transition-all hover:shadow-[0_0_30px_rgba(184,94,66,.4)] hover:-translate-y-0.5">
+                <span x-text="lang==='en' ? 'View Catalog' : 'Lihat Katalog'"></span>
+                <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform text-base"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     STATS BAR
+=========================================================== -->
+<section id="stats" class="bg-pine-600 text-white py-12 relative z-20 shadow-xl border-y border-pine-500">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
+        <div class="text-center px-4">
+            <p class="font-serif text-4xl font-bold mb-1">20+</p>
+            <p class="text-[10px] font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Export Countries' : 'Negara Ekspor'"></p>
+        </div>
+        <div class="text-center px-4">
+            <p class="font-serif text-4xl font-bold mb-1">500</p>
+            <p class="text-[10px] font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Local Artisans' : 'Pengrajin Lokal'"></p>
+        </div>
+        <div class="text-center px-4">
+            <p class="font-serif text-4xl font-bold mb-1">100%</p>
+            <p class="text-[10px] font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Eco Materials' : 'Bahan Alami'"></p>
+        </div>
+        <div class="text-center px-4">
+            <p class="font-serif text-4xl font-bold mb-1">FSC™</p>
+            <p class="text-[10px] font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Certified Quality' : 'Bersertifikasi'"></p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     TENTANG (ABOUT / FAIR TRADE)
+=========================================================== -->
+<section id="about" class="py-28 bg-sand-100">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+            <!-- Images collage -->
+            <div class="relative reveal-l" x-intersect="$el.classList.add('in')">
+                <div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-2xl">
+                    <img src="https://picsum.photos/seed/indostory/800/1000"
+                         alt="Rattan Crafts" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-pine-900/80 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 text-white max-w-xs">
+                        <i class="ph-fill ph-leaf text-clay text-3xl mb-3 block"></i>
+                        <p class="font-serif italic text-2xl" x-text="lang==='en' ? 'Empowering local communities through global trade.' : 'Memberdayakan komunitas lokal melalui pasar global.'"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text -->
+            <div class="reveal-r" x-intersect="$el.classList.add('in')">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="h-px w-12 bg-clay"></div>
+                    <span class="text-xs font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Our Heritage' : 'Warisan Kami'"></span>
+                </div>
+
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-pine-900 leading-tight mb-6">
+                    <span x-text="lang==='en' ? 'Beyond ' : 'Lebih dari '"></span>
+                    <em class="italic text-clay">Furniture.</em>
+                </h2>
+
+                <p class="text-sand-900/70 leading-relaxed mb-4 text-[16px]" x-text="lang==='en' ? 'Indo Risakti is an award-winning manufacturer and exporter of eco-friendly home decor and rattan furniture based in Indonesia. We bridge the gap between rural craftsmanship and international retail standards.' : 'Indo Risakti adalah produsen dan eksportir perabot ramah lingkungan pemenang penghargaan di Indonesia. Kami menjembatani keahlian tangan tradisional dengan standar retail internasional.'"></p>
+                
+                <p class="text-sand-900/70 leading-relaxed mb-8 text-[16px]" x-text="lang==='en' ? 'Every basket woven and every chair shaped represents a Fair Trade commitment to ensure our artisans receive living wages, safe conditions, and sustainable livelihoods.' : 'Setiap keranjang dan kursi yang dibuat mewakili komitmen Fair Trade (Perdagangan Adil) kami untuk memastikan pengrajin menerima upah layak dan kesejahteraan.'"></p>
+
+                <!-- Values -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3 bg-white p-4 rounded-xl border border-sand-200">
+                        <div class="w-8 h-8 bg-pine-600/10 text-pine-600 rounded-lg flex items-center justify-center text-lg flex-shrink-0"><i class="ph-fill ph-globe-hemisphere-east"></i></div>
+                        <div>
+                            <p class="font-bold text-xs mb-0.5 text-pine-900" x-text="lang==='en' ? 'Global Reach' : 'Jangkauan Global'"></p>
+                            <p class="text-[11px] text-sand-900/60 leading-snug" x-text="lang==='en' ? 'Trusted by US/EU Buyers' : 'Dipercaya Buyer AS/Eropa'"></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-white p-4 rounded-xl border border-sand-200">
+                        <div class="w-8 h-8 bg-clay/10 text-clay rounded-lg flex items-center justify-center text-lg flex-shrink-0"><i class="ph-fill ph-hand-heart"></i></div>
+                        <div>
+                            <p class="font-bold text-xs mb-0.5 text-pine-900" x-text="lang==='en' ? 'Fair Trade' : 'Perdagangan Adil'"></p>
+                            <p class="text-[11px] text-sand-900/60 leading-snug" x-text="lang==='en' ? 'Ethical labor policies' : 'Kebijakan pekerja etis'"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     PRODUK / KOLEKSI
+=========================================================== -->
+<section id="products" class="py-28 bg-pine-900 text-white relative">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 reveal" x-intersect="$el.classList.add('in')">
+            <div>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="h-px w-12 bg-clay"></div>
+                    <span class="text-xs font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Featured Collections' : 'Koleksi Pilihan'"></span>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-white" x-text="lang==='en' ? 'Natural Elements.' : 'Elemen Alam.'"></h2>
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="group cursor-pointer reveal" x-intersect="$el.classList.add('in')">
+                <div class="overflow-hidden rounded-xl mb-4 relative aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/indoprod1/600/800" alt="Furniture" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" x-text="lang==='en' ? 'Rattan Furniture' : 'Perabot Rotan'"></div>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-white mb-1" x-text="lang==='en' ? 'Bali Lounge Chair' : 'Kursi Santai Bali'"></h3>
+                <p class="text-white/50 text-sm" x-text="lang==='en' ? 'Premium handwoven rattan' : 'Rotan anyaman tangan premium'"></p>
+            </div>
+            
+            <div class="group cursor-pointer reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
+                <div class="overflow-hidden rounded-xl mb-4 relative aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/indoprod2/600/800" alt="Basket" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" x-text="lang==='en' ? 'Seagrass Decor' : 'Dekorasi Mendong'"></div>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-white mb-1" x-text="lang==='en' ? 'Kubu Storage Basket 3-Set' : 'Set 3 Keranjang Kubu'"></h3>
+                <p class="text-white/50 text-sm" x-text="lang==='en' ? 'Natural dyed seagrass' : 'Mendong warna alami'"></p>
+            </div>
+
+            <div class="group cursor-pointer reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .2s">
+                <div class="overflow-hidden rounded-xl mb-4 relative aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/indoprod3/600/800" alt="Home Decor" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" x-text="lang==='en' ? 'Home Accents' : 'Aksesoris Ruangan'"></div>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-white mb-1" x-text="lang==='en' ? 'Java Teak Wood Tray' : 'Nampan Kayu Jati Jawa'"></h3>
+                <p class="text-white/50 text-sm" x-text="lang==='en' ? 'Sustainably sourced teak' : 'Kayu jati legal berkelanjutan'"></p>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 bg-pine-600/30 p-8 border border-white/10 rounded-2xl reveal" x-intersect="$el.classList.add('in')">
+            <i class="ph-fill ph-file-pdf text-3xl text-clay mb-3"></i>
+            <h3 class="font-bold text-lg mb-2" x-text="lang==='en' ? 'Request Full Catalog (B2B)' : 'Minta Katalog Penuh (B2B)'"></h3>
+            <p class="text-white/60 text-sm mb-6 max-w-md mx-auto" x-text="lang==='en' ? 'Get wholesale pricing, minimum order quantities (MOQ), and material specifications.' : 'Dapatkan harga grosir, MOQ, dan spesifikasi material lengkap.'"></p>
+            <a href="#" onclick="alert(lang === 'en' ? 'Prototype Action: This will download the official PDF catalog.' : 'Aksi Prototype: Ini akan mengunduh katalog PDF resmi.')" class="inline-flex items-center gap-2 bg-white text-pine-900 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-sand-200 transition-colors">
+                <i class="ph-bold ph-download-simple"></i> <span x-text="lang==='en' ? 'Download PDF' : 'Unduh PDF'"></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     B2B TRACKING SIMULATOR (Fitur Spektakuler)
+=========================================================== -->
+<section id="tracking" class="py-28 bg-sand-200 relative overflow-hidden" x-data="{ 
+    trackingOn: false, 
+    code: 'INDO-RSKT-8849', 
+    currency: 'USD',
+    rate: { USD: 1, EUR: 0.92, IDR: 15600 } 
+}">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+            <!-- Left: Sales Pitch -->
+            <div class="reveal-l" x-intersect="$el.classList.add('in')">
+                <div class="inline-flex items-center gap-2 bg-clay text-white px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-[.2em] mb-6">
+                    <i class="ph-bold ph-ship"></i> B2B Portal Demo
+                </div>
+                <h2 class="font-serif text-4xl font-bold text-pine-900 mb-6 leading-tight" x-text="lang==='en' ? 'Live Cargo Logistics & Pricing System.' : 'Sistem Logistik & Harga Live.'"></h2>
+                
+                <p class="text-pine-900/60 leading-relaxed mb-6 text-[15px]" x-text="lang==='en' ? 'To ensure absolute trust with our international buyers in the US and Europe, we provide a sophisticated B2B portal. Track your containers in real-time and switch wholesale invoice currencies instantly.' : 'Untuk menjamin kepercayaan buyer internasional, kami menyediakan portal B2B. Lacak kontainer secara real-time dan konversi mata uang invoice otomatis.'"></p>
+
+                <!-- Competitor FOMO Alert -->
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl mb-8">
+                    <div class="flex gap-3">
+                        <i class="ph-fill ph-warning-circle text-red-500 text-xl flex-shrink-0"></i>
+                        <div>
+                            <p class="font-bold text-red-900 text-sm mb-1" x-text="lang==='en' ? 'Why Trust Matters' : 'Pentingnya Kepercayaan'"></p>
+                            <p class="text-xs text-red-800/80 leading-relaxed" x-text="lang==='en' ? 'Many Indonesian exporters lose contracts to competitors simply because they lack digital infrastructure to track FCL/LCL shipments, making EU buyers anxious about delivery delays.' : 'Banyak eksportir kehilangan kontrak karena tidak punya sistem digital validasi pengiriman, membuat buyer asing ragu.'"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right: Interactive Widget -->
+            <div class="reveal-r" x-intersect="$el.classList.add('in')">
+                <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border border-sand-300">
+                    <!-- Widget Header Container -->
+                    <div class="bg-pine-900 text-white px-6 py-5 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-white/10 rounded flex items-center justify-center">
+                                <i class="ph-bold ph-package text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-white/50" x-text="lang==='en' ? 'Client Portal' : 'Portal Klien'"></p>
+                                <p class="font-bold text-sm">Dashboard</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Currency Toggle Simulator -->
+                        <div class="bg-white/10 rounded-lg p-1 flex text-[10px] font-bold">
+                            <button @click="currency='USD'" :class="currency==='USD' ? 'bg-clay text-white shadow' : 'text-white/50 hover:text-white'" class="px-3 py-1.5 rounded transition-all">USD</button>
+                            <button @click="currency='EUR'" :class="currency==='EUR' ? 'bg-clay text-white shadow' : 'text-white/50 hover:text-white'" class="px-3 py-1.5 rounded transition-all">EUR</button>
+                        </div>
+                    </div>
+
+                    <div class="p-6">
+                        <!-- Invoice Mockup -->
+                        <div class="border border-sand-200 rounded-xl p-5 mb-6 bg-sand-100">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-pine-900/50 mb-4" x-text="lang==='en' ? 'Active Proforma Invoice' : 'Proforma Invoice Aktif'"></p>
+                            <div class="flex justify-between items-end border-b border-sand-200 pb-4 mb-4">
+                                <div>
+                                    <p class="font-bold text-pine-900">PO-2026-X114</p>
+                                    <p class="text-xs text-pine-900/60">40ft HC Container - DE (Hamburg)</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-mono text-2xl font-bold text-pine-900">
+                                        <span x-text="currency === 'USD' ? '$' : (currency === 'EUR' ? '€' : 'Rp')"></span>
+                                        <span x-text="(18400 * rate[currency]).toLocaleString(lang==='en' ? 'en-US' : 'id-ID')"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button onclick="alert(lang === 'en' ? 'Prototype Action: Proforma Invoice generated.' : 'Aksi Prototype: Proforma Invoice berhasil digenerasi dan diunduh.')" class="w-full bg-pine-900 hover:bg-pine-700 text-white py-3 rounded-lg font-bold text-xs uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
+                                <i class="ph-bold ph-download-simple"></i>
+                                <span x-text="lang==='en' ? 'Download Commercial Invoice' : 'Unduh Invoice Komersial'"></span>
+                            </button>
+                        </div>
+
+                        <!-- Tracking Mockup -->
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-pine-900/50 mb-4" x-text="lang==='en' ? 'Live Freight Tracking' : 'Pelacakan Pengiriman'"></p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex gap-4">
+                                    <div class="w-6 flex flex-col items-center">
+                                        <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-xs"></i></div>
+                                        <div class="w-0.5 h-full bg-green-200 my-1"></div>
+                                    </div>
+                                    <div class="pb-2">
+                                        <p class="font-bold text-pine-900 text-sm">Dispatched from Factory</p>
+                                        <p class="text-[10px] text-pine-900/50">Cirebon, West Java — Oct 12</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="w-6 flex flex-col items-center">
+                                        <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-xs"></i></div>
+                                        <div class="w-0.5 h-full bg-sand-200 my-1"></div>
+                                    </div>
+                                    <div class="pb-2">
+                                        <p class="font-bold text-pine-900 text-sm">Loaded on Vessel</p>
+                                        <p class="text-[10px] text-pine-900/50">Tanjung Priok Port, ID — Oct 15</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="w-6 flex flex-col items-center">
+                                        <div class="w-6 h-6 rounded-full bg-clay text-white flex items-center justify-center shrink-0 animate-pulse"><i class="ph-bold ph-anchor-simple text-xs"></i></div>
+                                    </div>
+                                    <div class="pb-2">
+                                        <p class="font-bold text-clay text-sm">In Transit</p>
+                                        <p class="text-[10px] text-pine-900/50">Indian Ocean — Estimated arrival DE (Nov 18)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONI GLOBAL (B2B Buyers)
+=========================================================== -->
+<section id="testimoni" class="py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
+            <div class="flex justify-center gap-1 mb-4 text-clay text-xl">
+                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-pine-900 mb-4" x-text="lang==='en' ? 'Trusted Worldwide.' : 'Dipercaya Seluruh Dunia.'"></h2>
+            <p class="text-sand-900/60 max-w-xl mx-auto" x-text="lang==='en' ? 'What our international wholesale partners are saying.' : 'Apa kata mitra grosir internasional kami.'"></p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-sand-100 p-8 rounded-2xl reveal" x-intersect="$el.classList.add('in')">
+                <p class="text-pine-900/80 leading-relaxed mb-6">"The capability to track our FCL containers via their dashboard is unprecedented for a manufacturer in Java. Delivery was flawless and the eco-certifications were verified."</p>
+                <div class="flex items-center gap-4">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Buyer" class="w-12 h-12 rounded-full object-cover grayscale">
+                    <div>
+                        <p class="font-bold text-pine-900 text-sm">Matthias R.</p>
+                        <p class="text-[10px] uppercase tracking-widest text-clay font-bold">Furniture Retailer, Germany</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-sand-100 p-8 rounded-2xl reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
+                <p class="text-pine-900/80 leading-relaxed mb-6">"We've been sourcing rattan furniture from Indo Risakti for 3 years. Their fair-trade practices and transparent shipping updates make them a highly reliable partner."</p>
+                <div class="flex items-center gap-4">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Buyer" class="w-12 h-12 rounded-full object-cover grayscale">
+                    <div>
+                        <p class="font-bold text-pine-900 text-sm">Elena V.</p>
+                        <p class="text-[10px] uppercase tracking-widest text-clay font-bold">Boutique Decor, Italy</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-pine-900 text-white p-8 rounded-2xl reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .2s">
+                <p class="text-white/80 leading-relaxed mb-6">"Finally an exporter that understands international corporate standards. The bilingual portal saves us hours of tedious emails for every new container request."</p>
+                <div class="flex items-center gap-4">
+                    <img src="https://i.pravatar.cc/150?img=8" alt="Buyer" class="w-12 h-12 rounded-full object-cover">
+                    <div>
+                        <p class="font-bold text-white text-sm">James W.</p>
+                        <p class="text-[10px] uppercase tracking-widest text-clay font-bold">Wholesale Distributor, USA</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     GALERI VISUAL (Fasilitas & Pabrik)
+=========================================================== -->
+<section id="galeri" class="py-2 bg-white pb-28">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center gap-4 mb-8 reveal" x-intersect="$el.classList.add('in')">
+            <div class="h-px w-12 bg-clay"></div>
+            <span class="text-xs font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Facilities & Infrastructure' : 'Fasilitas & Infrastruktur'"></span>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="rounded-xl overflow-hidden aspect-square reveal" x-intersect="$el.classList.add('in')">
+                <img src="https://picsum.photos/seed/indogal1/600/600" alt="Weaving facility" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-square md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
+                <img src="https://picsum.photos/seed/indogal2/1200/600" alt="Rattan workshop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-square reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .2s">
+                <img src="https://picsum.photos/seed/indogal3/600/600" alt="Products ready for shipping" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-square md:col-span-2 reveal" x-intersect="$el.classList.add('in')">
+                <img src="https://picsum.photos/seed/indogal4/1200/600" alt="Cargo loading" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 filter saturate-50">
+            </div>
+            <div class="rounded-xl overflow-hidden aspect-[2/1] md:aspect-square md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
+                <img src="https://picsum.photos/seed/indogal5/1200/600" alt="Export port" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     FOOTER BUSINESS
+=========================================================== -->
+<footer id="contact" class="bg-pine-900 text-white border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-12">
+        <div>
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center font-serif font-bold text-lg text-sand-100">IR</div>
+                <div>
+                    <p class="font-serif font-bold text-lg">Indo Risakti</p>
+                    <p class="text-[9px] tracking-[.2em] text-clay uppercase">Handicraft Exporter</p>
+                </div>
+            </div>
+            <p class="text-white/50 text-sm leading-relaxed max-w-xs" x-text="lang==='en' ? 'Connecting authentic Indonesian craftsmanship to the global market with sustainable ethics.' : 'Menghubungkan kerajinan autentik Indonesia ke pasar global dengan etika berkelanjutan.'"></p>
+        </div>
+        <div>
+            <p class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-5">Contact HQ</p>
+            <ul class="space-y-4 text-sm text-white/60">
+                <li class="flex gap-3 items-start"><i class="ph-fill ph-map-pin text-clay mt-1"></i> <span x-text="lang==='en' ? 'Jl. Pahlawan No. 45, Cirebon, West Java, Indonesia 45132' : 'Jl. Pahlawan No. 45, Cirebon, Jawa Barat, Indonesia 45132'"></span></li>
+                <li class="flex gap-3 items-center"><i class="ph-fill ph-phone text-clay"></i> +62 231 889 001</li>
+                <li class="flex gap-3 items-center"><i class="ph-fill ph-envelope text-clay"></i> export@indorisakti.com</li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-5">Certifications</p>
+            <div class="flex gap-3 mb-6">
+                <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center" title="FSC Certified"><i class="ph-fill ph-tree text-2xl text-green-400"></i></div>
+                <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center" title="Fair Trade"><i class="ph-fill ph-handshake text-2xl text-blue-400"></i></div>
+            </div>
+            <p class="text-xs text-white/30" x-text="lang==='en' ? 'Available for OEM/ODM manufacturing.' : 'Menerima pembuatan desain OEM/ODM.'"></p>
+        </div>
+    </div>
+    <div class="border-t border-white/10 py-6 text-center">
+        <p class="text-white/30 text-xs">&copy; 2026 Indo Risakti. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- ============================================================
+     PENAWARAN COCOTECH (Sesuai GEMINI.md - Tier 3 Enterprise)
+=========================================================== -->
+<section id="penawaran" class="bg-gradient-to-br from-[#0A1414] via-[#1A1A1A] to-[#0A1414] border-t-4 border-clay text-white">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+
+        <!-- Header -->
+        <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
+            <div class="inline-flex items-center gap-2 bg-clay/20 border border-clay/50 text-clay text-[10px] font-bold uppercase tracking-[.2em] px-4 py-1.5 rounded-full mb-6">
+                <i class="ph-fill ph-shield-check"></i> Ditujukan Eksklusif untuk Manajemen Indo Risakti
+            </div>
+            <p class="text-white/50 text-sm font-bold uppercase tracking-widest mb-3">Dari <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">CocoTech Digital Agency</a></p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold leading-tight mb-6">
+                Website ini<br><em class="italic text-clay">Dibuat Terbatas</em><br>sebagai Prototype Anda.
+            </h2>
+            <p class="text-white/60 max-w-xl mx-auto leading-relaxed">
+                Seluruh fungsi di atas (Bilingual Toggle, B2B Portal, Company Profile) kami rancang spesifik untuk menjawab tantangan Indo Risakti menembus rasa percaya (trust) Buyer Eropa & AS.
+            </p>
+        </div>
+
+        <!-- 3 Proposal Points -->
+        <div class="grid md:grid-cols-3 gap-6 mb-16 reveal" x-intersect="$el.classList.add('in')">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-clay transition-colors">
+                <i class="ph-fill ph-globe text-4xl text-clay mb-4 block"></i>
+                <h3 class="font-bold text-lg mb-2">Bilingual & SEO Global</h3>
+                <p class="text-white/50 text-sm leading-relaxed">Website 100% menggunakan Bahasa Inggris untuk front-end (buyer) & Indonesia untuk Backend (admin).</p>
+            </div>
+            <div class="bg-clay/20 border border-clay/50 rounded-2xl p-6 text-center">
+                <i class="ph-fill ph-ship text-4xl text-clay mb-4 block"></i>
+                <h3 class="font-bold text-lg mb-2">Modul Cargo B2B</h3>
+                <p class="text-white/50 text-sm leading-relaxed">Meningkatkan konversi deal B2B dengan memberikan fasilitas pelacakan kontainer dan konversi mata uang untuk importir.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-clay transition-colors">
+                <i class="ph-fill ph-certificate text-4xl text-clay mb-4 block"></i>
+                <h3 class="font-bold text-lg mb-2">Sertifikasi UX</h3>
+                <p class="text-white/50 text-sm leading-relaxed">Desain UI/UX dengan tata letak ala "Western Corporate" untuk menghilangkan keraguan buyer terhadap eksportir lokal.</p>
+            </div>
+        </div>
+
+        <!-- Pricing + Timer -->
+        <div class="bg-black/30 backdrop-blur border border-white/10 rounded-3xl p-8 md:p-12 reveal" x-intersect="$el.classList.add('in')">
+            <div class="grid lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[.2em] text-clay mb-2">Tier 3 — Full Enterprise Ops</p>
+                    <h3 class="font-serif text-5xl font-bold mb-2">
+                        <s class="text-white/30 text-3xl">Rp 25.000.000</s><br>
+                        Rp 9.500.000
+                    </h3>
+                    <p class="text-white/50 text-sm mb-6">Sistem Skala Korporasi Ekspor · Termasuk 1 tahun arsitektur</p>
+
+                    <!-- DP Box -->
+                    <div class="bg-clay rounded-2xl p-5 mb-6">
+                        <p class="text-[10px] font-bold uppercase tracking-[.2em] text-white/70 mb-1">Skema Down Payment</p>
+                        <p class="font-mono text-3xl font-bold">Rp 2.850.000</p>
+                        <p class="text-sm text-white/80 mt-1">= DP 30% · Sistem langsung dibangun · Langsung Integrasi Server Hari Ini</p>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex-1 text-center p-3 border border-white/10 rounded-xl bg-white/5">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-1">Pengerjaan</p>
+                            <p class="font-bold text-sm">3-4 Minggu</p>
+                        </div>
+                        <div class="flex-1 text-center p-3 border border-white/10 rounded-xl bg-white/5">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-1">Garansi</p>
+                            <p class="font-bold text-sm">3 Bulan Support</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/5 border border-white/10 p-8 rounded-2xl" x-data="countdownTimer()" x-init="init()">
+                    <p class="text-center font-bold mb-6">Ambil Penawaran Prototype Ini.</p>
+                    <!-- Countdown -->
+                    <div class="flex justify-center gap-3 mb-8">
+                        <div class="bg-black/50 text-center p-3 rounded-lg min-w-[70px]">
+                            <p class="font-mono text-2xl font-bold text-clay" x-text="String(hours).padStart(2, '0')"></p><p class="text-[10px] uppercase text-white/40">Jam</p>
+                        </div>
+                        <div class="text-2xl font-bold text-white/20 mt-2">:</div>
+                        <div class="bg-black/50 text-center p-3 rounded-lg min-w-[70px]">
+                            <p class="font-mono text-2xl font-bold text-clay" x-text="String(minutes).padStart(2, '0')"></p><p class="text-[10px] uppercase text-white/40">Mnt</p>
+                        </div>
+                        <div class="text-2xl font-bold text-white/20 mt-2">:</div>
+                        <div class="bg-black/50 text-center p-3 rounded-lg min-w-[70px]">
+                            <p class="font-mono text-2xl font-bold text-clay" x-text="String(seconds).padStart(2, '0')"></p><p class="text-[10px] uppercase text-white/40">Dtk</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20tertarik%20dengan%20sistem%20B2B%20Indo%20Risakti"
+                           target="_blank"
+                           class="flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1DAA55] text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-wide transition-colors">
+                            <i class="ph-fill ph-whatsapp-logo text-lg"></i> Chat CocoTech
+                        </a>
+                        <a href="proposal.html" target="_blank"
+                           class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-wide transition-colors">
+                            <i class="ph-fill ph-file-pdf text-red-400 text-lg"></i> Buka Proposal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trojan Horse Bot -->
+<div x-data="{ open: false, showed: false }"
+     @scroll.window="if(window.pageYOffset > 1000 && !showed) { open = true; showed = true; const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3'); audio.volume = 0.5; audio.play().catch(e=>{}); }"
+     class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    
+    <div x-show="open" x-transition x-cloak class="bg-white rounded-2xl shadow-2xl w-72 mb-4 overflow-hidden border border-sand-200">
+        <div class="bg-pine-900 text-white p-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="relative"><div class="w-9 h-9 bg-clay rounded-full flex items-center justify-center font-bold text-white text-xs">CT</div><div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border border-pine-900"></div></div>
+                <div><p class="font-bold text-white text-sm">CocoTech Agent</p><p class="text-[9px] text-white/40 uppercase tracking-widest">Online sekarang</p></div>
+            </div>
+            <button @click="open=false" class="text-white/40 hover:text-white"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="bg-sand-100 p-5 space-y-3 text-sm">
+            <div class="bg-white rounded-xl rounded-tl-sm p-3 shadow-sm text-pine-900 leading-snug">
+                Halo manajemen Indo Risakti! Keren kan sistem B2B dan bilingualnya?
+            </div>
+            <div class="bg-white rounded-xl rounded-tl-sm p-3 shadow-sm text-pine-900 leading-snug">
+                Kalau ada pertanyaan seputar harga atau modul tracking cargo, langsung ketik di sini ya, ini langsung masuk ke WhatsApp saya! Dibuat oleh <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;text-decoration:underline;">CocoTech</a> — IT Agency sangat berpengalaman di B2B digital Indonesia.
+            </div>
+        </div>
+        <div class="p-3 bg-white border-t border-sand-200 flex gap-2">
+            <input type="text" placeholder="Balas pesan…" class="flex-1 bg-sand-100 border border-sand-200 rounded-full px-4 py-2 text-xs text-pine-900 outline-none focus:border-clay transition-colors">
+            <button class="w-10 h-10 rounded-full bg-clay flex items-center justify-center text-white hover:bg-[#A34E35] transition-colors flex-shrink-0"><i class="ph-fill ph-paper-plane-right"></i></button>
+        </div>
+    </div>
+    <button @click="open=!open" class="w-14 h-14 bg-clay rounded-full flex items-center justify-center text-white shadow-xl hover:bg-[#A34E35] hover:scale-110 active:scale-95 transition-all relative">
+        <span x-show="!open" class="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-white rounded-full"></span>
+        <i class="ph-fill ph-chat-teardrop-dots text-2xl"></i>
+    </button>
+</div>
+
+<!-- Floating PDF PDF -->
+<a href="proposal.html" target="_blank" class="fixed top-24 right-6 z-40 hidden xl:flex flex-col items-center gap-2 bg-white shadow-xl border-2 border-pine-900 p-4 rounded-xl hover:-translate-y-1 transition-all group">
+    <p class="text-[8px] font-bold uppercase tracking-widest text-pine-900/40">📄 Proposal</p>
+    <div class="w-12 h-12 bg-clay group-hover:bg-[#A34E35] text-white rounded-lg flex items-center justify-center transition-colors">
+        <i class="ph-fill ph-file-pdf text-3xl"></i>
+    </div>
+    <p class="text-[9px] font-bold text-clay uppercase">Buka PDF</p>
+</a>
+
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

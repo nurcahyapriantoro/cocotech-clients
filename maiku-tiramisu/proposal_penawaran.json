@@ -1,0 +1,25 @@
+{
+  "client_name": "Maiku Tiramisu",
+  "project_type": "Premium E-Commerce Engine & Real-Time Pre-Order System",
+  "pricing": {
+    "normal_setup_fee": 50000000,
+    "discounted_setup_fee": 35000000,
+    "discount_validity_hours": 48,
+    "monthly_maintenance_and_server": 3500000
+  },
+  "value_based_roi_projection": {
+    "problem": "Kehilangan ~150 calon pembeli harian akibat stok fisik sold out (Walk-in ditolak).",
+    "potential_lost_revenue_per_day": 9750000,
+    "solution_impact": "Sistem web mengamankan 30%-50% dari pelanggan yang ditolak untuk melakukan Pre-Order H-1 via web.",
+    "revenue_recovered_per_day": 3900000,
+    "monthly_additional_revenue": 117000000,
+    "roi_timeframe_days": 9
+  },
+  "deliverables": [
+    "Custom UI/UX Premium Design (No Templates)",
+    "Real-time Inventory Sync Engine",
+    "Pre-Order Calendar System integration",
+    "WhatsApp & Payment Gateway Auto-Checkout",
+    "Zero-Downtime Cloud Hosting setup"
+  ]
+}

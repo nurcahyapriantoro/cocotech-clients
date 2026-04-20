@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fumo Chicken | Enterprise B2B Catering System Prototype</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        fumo: {
+                            red: '#E50914',
+                            crimson: '#B91C1C',
+                            gold: '#FBBF24',
+                            black: '#0A0A0A',
+                            surface: '#171717',
+                            border: '#262626',
+                            text: '#D4D4D4'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom Utilities & Magic Effects */
+        .glass {
+            background: rgba(23, 23, 23, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: linear-gradient(145deg, rgba(38,38,38,0.4) 0%, rgba(23,23,23,0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #FBBF24, #E50914);
+        }
+        .text-gradient-red {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #E50914, #B91C1C);
+        }
+        .noise-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #E50914;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #262626;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-fumo-black text-fumo-text font-sans antialiased selection:bg-fumo-red selection:text-white" x-data="fumoApp()" @scroll.window="handleScroll()" x-init="initApp()">
+
+    <!-- Noise Texture Overlay -->
+    <div class="noise-bg"></div>
+
+    <!-- 1. Ultra-Modern Glassmorphism Navigation -->
+    <nav :class="{'glass shadow-2xl shadow-black/50': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full top-0 z-40 transition-all duration-300 py-4 border-b border-transparent" :class="{'border-white/5': scrolled}">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-fumo-red to-fumo-crimson flex items-center justify-center shadow-lg shadow-fumo-red/20 text-white font-heading font-bold text-xl">
+                    <i class="ph-fill ph-fire"></i>
+                </div>
+                <span class="font-heading font-bold text-2xl tracking-tight text-white">Fumo<span class="text-fumo-red">.</span>B2B</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#kalkulator" class="text-sm font-medium hover:text-white transition-colors">B2B Engine</a>
+                <a href="#realita" class="text-sm font-medium hover:text-white transition-colors">Market Reality</a>
+                <a href="#offer" class="text-sm font-medium text-fumo-gold hover:text-white transition-colors">Special Offer</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button @click="scrollToEngine()" class="hidden md:flex relative group px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 overflow-hidden items-center gap-2">
+                    <div class="absolute inset-0 bg-gradient-to-r from-fumo-red to-fumo-gold opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    <span class="text-sm font-semibold text-white">Coba Prototype</span>
+                    <i class="ph-bold ph-arrow-right text-fumo-red group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Interactive Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+        <!-- Abstract Background Elements -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-fumo-red/20 rounded-full mix-blend-screen filter blur-[128px] animate-blob"></div>
+        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-fumo-gold/10 rounded-full mix-blend-screen filter blur-[128px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-fumo-crimson/20 rounded-full mix-blend-screen filter blur-[128px] animate-blob animation-delay-4000"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-fumo-red/30 bg-fumo-red/5 backdrop-blur-sm">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-fumo-red opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-fumo-red"></span>
+                    </span>
+                    <span class="text-xs font-semibold tracking-wider text-fumo-red uppercase">Blok M's Viral Sensation</span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-heading font-bold leading-[1.1] text-white">
+                    Dari <span class="text-gradient">Hidden Gem</span> TikTok Menjadi Penguasa <br>Katering Korporat.
+                </h1>
+                
+                <p class="text-lg text-fumo-text max-w-xl leading-relaxed">
+                    Viral adalah awal yang fantastis, tapi <b>Corporate Retention</b> adalah kunci cashflow miliar rupiah. Sistem B2B Katering Otomatis ini dirancang khusus untuk memonopoli pesanan massal perkantoran di Jakarta Selatan untuk Fumo Chicken.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button @click="scrollToEngine()" class="px-8 py-4 rounded-xl bg-fumo-red hover:bg-fumo-crimson text-white font-bold transition-all duration-300 shadow-[0_0_40px_rgba(229,9,20,0.3)] hover:shadow-[0_0_60px_rgba(229,9,20,0.5)] flex items-center justify-center gap-3 group">
+                        <i class="ph-bold ph-rocket-launch text-xl group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                        Akses B2B Engine
+                    </button>
+                    <a href="#realita" class="px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all duration-300 flex items-center justify-center gap-3">
+                        Lihat Analisis ROI
+                        <i class="ph-bold ph-chart-line-up text-xl"></i>
+                    </a>
+                </div>
+
+                <div class="pt-8 border-t border-white/10 flex items-center gap-6">
+                    <div class="flex -space-x-3">
+                        <img src="https://i.pravatar.cc/100?img=33" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
+                        <img src="https://i.pravatar.cc/100?img=12" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
+                        <img src="https://i.pravatar.cc/100?img=68" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
+                        <div class="w-10 h-10 rounded-full border-2 border-fumo-black bg-fumo-surface flex items-center justify-center text-xs font-bold">+50</div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="text-white font-semibold">Siap menjadi langganan</p>
+                        <p class="text-fumo-text text-xs">Perkantoran SCBD & Senayan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Visual: Floating App Interface -->
+            <div class="relative z-10 lg:h-[600px] flex items-center justify-center animate-float">
+                <div class="absolute inset-0 bg-gradient-to-br from-fumo-red/20 to-transparent rounded-[2.5rem] transform rotate-3 scale-105 border border-white/5"></div>
+                <div class="glass-card w-full max-w-md rounded-[2rem] p-6 shadow-2xl relative">
+                    <!-- App Mockup Header -->
+                    <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-fumo-gold"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="text-xs font-mono text-fumo-text">Fumo B2B Portal</div>
+                    </div>
+                    <!-- App Mockup Content -->
+                    <div class="space-y-4">
+                        <div class="h-24 rounded-xl border border-white/10 bg-black/50 p-4 flex flex-col justify-between relative overflow-hidden">
+                            <div class="absolute right-0 top-0 w-24 h-24 bg-fumo-red/10 rounded-full blur-xl"></div>
+                            <span class="text-xs text-fumo-text">New Corporate Order</span>
+                            <div class="flex justify-between items-end">
+                                <span class="font-heading font-bold text-2xl text-white">Rp 12.500.000</span>
+                                <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">Paid via Invoice</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-1 h-32 rounded-xl border border-white/10 bg-black/50 p-4 flex flex-col justify-between">
+                                <i class="ph-fill ph-users text-2xl text-fumo-gold"></i>
+                                <div>
+                                    <span class="block text-xs text-fumo-text">Total Pax</span>
+                                    <span class="font-heading font-bold text-xl text-white">350</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 h-32 rounded-xl border border-white/10 bg-black/50 p-4 flex flex-col justify-between">
+                                <i class="ph-fill ph-receipt text-2xl text-fumo-red"></i>
+                                <div>
+                                    <span class="block text-xs text-fumo-text">Faktur Pajak</span>
+                                    <span class="font-heading font-bold text-xl text-white">Auto-Gen</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-12 rounded-xl bg-gradient-to-r from-fumo-red to-fumo-crimson flex items-center justify-center text-sm font-bold text-white shadow-lg">
+                            Processing Order #FMB2B-092
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="border-y border-white/5 bg-fumo-surface/50 py-4 overflow-hidden flex whitespace-nowrap">
+        <div class="animate-marquee flex gap-16 items-center text-sm font-bold text-fumo-text/40 tracking-widest uppercase">
+            <span>Corporate Catering</span> <span>•</span>
+            <span>Automatic Invoicing</span> <span>•</span>
+            <span>Tax Ready</span> <span>•</span>
+            <span>Bulk Order Engine</span> <span>•</span>
+            <span>Blok M HQ</span> <span>•</span>
+            <span>Corporate Catering</span> <span>•</span>
+            <span>Automatic Invoicing</span> <span>•</span>
+            <span>Tax Ready</span> <span>•</span>
+            <span>Bulk Order Engine</span> <span>•</span>
+            <span>Blok M HQ</span> <span>•</span>
+        </div>
+    </div>
+
+    <!-- 3. Deep Company Profile & Heritage (Bento Grid) -->
+    <section class="py-24 relative reveal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mb-4">Senjata Rahasia di Balik <br><span class="text-gradient">Viralnya Fumo Chicken</span></h2>
+                <p class="text-fumo-text max-w-2xl mx-auto">Kami tidak sekadar mendesain web. Kami merangkum identitas, rasa, dan hype dari Blok M menjadi sebuah aset digital kelas enterprise.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+                <!-- Item 1 -->
+                <div class="md:col-span-2 glass-card rounded-3xl p-8 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-fumo-red/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <i class="ph-fill ph-map-pin-line text-4xl text-fumo-red mb-4"></i>
+                        <div>
+                            <h3 class="text-2xl font-heading font-bold text-white mb-2">The Blok M Heritage</h3>
+                            <p class="text-fumo-text text-sm">Lahir di episentrum kultur anak muda Jakarta. Fumo bukan sekadar ayam goreng, ini adalah manifestasi dari 'hidden gem' yang kini siap mendominasi katering korporat level atas.</p>
+                        </div>
+                    </div>
+                    <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4 group-hover:scale-110 transition-transform duration-700">
+                        <i class="ph-fill ph-city text-[200px] text-white"></i>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass-card rounded-3xl p-8 relative overflow-hidden group">
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <i class="ph-fill ph-flask text-4xl text-fumo-gold mb-4"></i>
+                        <div>
+                            <h3 class="text-xl font-heading font-bold text-white mb-2">Secret Spice Algoritma</h3>
+                            <p class="text-fumo-text text-sm">Rasa yang membajak FYP TikTok. Kini bumbu rahasia tersebut disinergikan dengan kode digital yang akan membajak budget HRD perusahaan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="glass-card rounded-3xl p-8 relative overflow-hidden group flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <i class="ph-fill ph-trend-up text-4xl text-green-500"></i>
+                        <span class="px-3 py-1 bg-green-500/10 text-green-400 text-xs font-bold rounded-full border border-green-500/20">Viral Data</span>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-heading font-bold text-white mb-1">10M+</div>
+                        <p class="text-fumo-text text-sm">Views Organik di TikTok</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="md:col-span-2 glass-card rounded-3xl p-8 relative overflow-hidden group border border-fumo-red/30">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="ph-fill ph-briefcase text-3xl text-fumo-red"></i>
+                            <span class="text-fumo-red font-bold text-sm tracking-widest uppercase">The Next Evolution</span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-heading font-bold text-white mb-2">B2B is The Endgame</h3>
+                            <p class="text-fumo-text text-sm max-w-xl">Retail mendatangkan antrean, tetapi B2B mendatangkan stabilitas. Fumo Chicken memiliki kapasitas dapur, kami menyediakan infrastruktur pemesanan massalnya. Dari pesanan meeting direksi hingga makan siang pabrik, semua diotomatisasi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE (CORE ENGINE) -->
+    <section id="kalkulator" class="py-24 relative reveal bg-black">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-fumo-red font-bold tracking-widest uppercase text-sm mb-2 block">Core Infrastructure</span>
+                <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mb-4">Fumo B2B <span class="text-gradient">Catering Engine</span></h2>
+                <p class="text-fumo-text max-w-2xl mx-auto">Sistem cerdas yang menghitung porsi pesanan ratusan pax dalam hitungan detik, lengkap dengan pembuatan faktur pajak otomatis untuk klien korporat Anda.</p>
+            </div>
+
+            <!-- Interactive Alpine.js App -->
+            <div class="glass-card rounded-[2.5rem] p-6 lg:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
+                <!-- Decorative Blur -->
+                <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-fumo-red to-transparent opacity-50"></div>
+                
+                <div class="grid lg:grid-cols-12 gap-12">
+                    
+                    <!-- Left: Input & Config -->
+                    <div class="lg:col-span-7 space-y-10">
+                        
+                        <!-- Guest Calculator -->
+                        <div class="space-y-6">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h3 class="text-xl font-heading font-bold text-white">Estimasi Jumlah Pax</h3>
+                                    <p class="text-sm text-fumo-text">Geser untuk menentukan jumlah porsi (Min. 50 Pax)</p>
+                                </div>
+                                <div class="bg-fumo-surface border border-white/10 px-6 py-3 rounded-2xl flex items-center gap-2">
+                                    <i class="ph-fill ph-users text-fumo-red"></i>
+                                    <span class="text-3xl font-heading font-bold text-white" x-text="engine.guestCount"></span>
+                                </div>
+                            </div>
+                            <input type="range" min="50" max="1000" step="10" x-model="engine.guestCount" class="w-full focus:outline-none">
+                            <div class="flex justify-between text-xs text-fumo-text font-mono">
+                                <span>50 Pax</span>
+                                <span>500 Pax</span>
+                                <span>1000 Pax</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-white/5">
+
+                        <!-- Package Selection -->
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-heading font-bold text-white">Pilih Paket Katering</h3>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <template x-for="pkg in engine.packages" :key="pkg.id">
+                                    <div @click="engine.selectedPkg = pkg.id" 
+                                         class="cursor-pointer rounded-2xl p-5 border transition-all duration-300 relative overflow-hidden group"
+                                         :class="engine.selectedPkg === pkg.id ? 'bg-fumo-red/10 border-fumo-red shadow-[0_0_20px_rgba(229,9,20,0.15)]' : 'bg-fumo-surface border-white/10 hover:border-white/30'">
+                                        <div class="absolute top-3 right-3 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors"
+                                             :class="engine.selectedPkg === pkg.id ? 'border-fumo-red bg-fumo-red/20' : 'border-white/20'">
+                                            <div class="w-2.5 h-2.5 rounded-full bg-fumo-red transition-transform scale-0"
+                                                 :class="engine.selectedPkg === pkg.id ? 'scale-100' : ''"></div>
+                                        </div>
+                                        <h4 class="font-bold text-white mb-1" x-text="pkg.name"></h4>
+                                        <div class="text-fumo-gold font-mono text-sm mb-3">Rp <span x-text="formatRupiah(pkg.price)"></span> / pax</div>
+                                        <ul class="space-y-1.5 text-xs text-fumo-text">
+                                            <template x-for="item in pkg.items">
+                                                <li class="flex items-center gap-2">
+                                                    <i class="ph-bold ph-check text-green-500"></i>
+                                                    <span x-text="item"></span>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <hr class="border-white/5">
+
+                        <!-- Corporate Identity & Tax -->
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between bg-fumo-surface p-5 rounded-2xl border border-white/10">
+                                <div>
+                                    <h4 class="font-bold text-white">Butuh Faktur Pajak?</h4>
+                                    <p class="text-xs text-fumo-text">Sistem akan men-generate e-Faktur otomatis</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" x-model="engine.needTax" class="sr-only peer">
+                                    <div class="w-14 h-7 bg-fumo-black peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-fumo-red border border-white/10"></div>
+                                </label>
+                            </div>
+                            
+                            <div x-show="engine.needTax" x-collapse x-cloak>
+                                <div class="grid gap-4 mt-4 bg-fumo-surface/50 p-5 rounded-2xl border border-white/5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-fumo-text mb-2 uppercase tracking-wider">Nama Perusahaan (PT/CV)</label>
+                                        <input type="text" placeholder="Contoh: PT SCBD Sukses Makmur" class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-fumo-red transition-colors placeholder:text-gray-600">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-fumo-text mb-2 uppercase tracking-wider">Nomor NPWP</label>
+                                        <input type="text" placeholder="00.000.000.0-000.000" class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-fumo-red transition-colors placeholder:text-gray-600">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Dynamic Quotation -->
+                    <div class="lg:col-span-5">
+                        <div class="sticky top-32 bg-[#111111] border border-white/10 rounded-[2rem] p-8 shadow-2xl">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-heading font-bold text-xl text-white">Live Quotation</h3>
+                                <span class="bg-fumo-red/20 text-fumo-red text-xs font-bold px-3 py-1 rounded-full animate-pulse-slow border border-fumo-red/30">Real-time</span>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-fumo-text">Paket Terpilih</span>
+                                    <span class="text-white font-medium" x-text="engine.packages.find(p => p.id === engine.selectedPkg).name"></span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-fumo-text">Volume (Pax)</span>
+                                    <span class="text-white font-medium" x-text="engine.guestCount + ' Orang'"></span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-fumo-text">Harga per Pax</span>
+                                    <span class="text-white font-medium" x-text="'Rp ' + formatRupiah(engine.packages.find(p => p.id === engine.selectedPkg).price)"></span>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-dashed border-white/20 pt-6 space-y-4 mb-8">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-fumo-text">Subtotal</span>
+                                    <span class="text-white font-mono" x-text="'Rp ' + formatRupiah(engine.subtotal)"></span>
+                                </div>
+                                <div class="flex justify-between text-sm" x-show="engine.needTax" x-transition>
+                                    <span class="text-fumo-text">PPN (11%)</span>
+                                    <span class="text-white font-mono" x-text="'Rp ' + formatRupiah(engine.taxAmount)"></span>
+                                </div>
+                            </div>
+
+                            <div class="bg-fumo-surface rounded-xl p-4 flex justify-between items-center border border-white/5 mb-8">
+                                <span class="text-white font-bold">Total Estimasi</span>
+                                <span class="text-2xl font-heading font-bold text-gradient-red" x-text="'Rp ' + formatRupiah(engine.total)"></span>
+                            </div>
+
+                            <button @click="simulateOrder()" class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 relative overflow-hidden group">
+                                <span class="relative z-10" x-text="engine.isProcessing ? 'Memproses...' : 'Generate Surat Penawaran (PDF)'"></span>
+                                <i class="ph-bold ph-file-pdf text-xl relative z-10" x-show="!engine.isProcessing"></i>
+                                <div class="absolute inset-0 bg-fumo-red w-0 group-hover:w-full transition-all duration-500 ease-out z-0"></div>
+                                <span class="absolute z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-white flex items-center gap-2 w-full justify-center" x-show="!engine.isProcessing">
+                                    Generate Surat Penawaran (PDF) <i class="ph-bold ph-file-pdf text-xl"></i>
+                                </span>
+                            </button>
+                            <p class="text-center text-xs text-fumo-text mt-4">Sistem ini siap diintegrasikan dengan domain <i>b2b.fumochicken.com</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. The Stolen Traffic / Competitor Reality Section -->
+    <section id="realita" class="py-24 relative reveal bg-fumo-surface/30">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-fumo-gold/30 bg-fumo-gold/5">
+                        <i class="ph-fill ph-warning-circle text-fumo-gold"></i>
+                        <span class="text-xs font-semibold tracking-wider text-fumo-gold uppercase">Brutal Reality Check</span>
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-5xl font-heading font-bold text-white leading-tight">
+                        Uang Rp 150 Juta per Bulan <br><span class="text-gray-500 line-through">Bocor ke Kompetitor.</span>
+                    </h2>
+                    
+                    <p class="text-fumo-text text-lg">
+                        Saat HRD di SCBD atau Senayan ingin memesan 300 pax makan siang, mereka butuh 3 hal: <b>Kecepatan Quotation, Faktur Pajak Resmi, dan Profesionalitas.</b> 
+                        Jika Fumo masih menggunakan sistem pesanan WhatsApp manual dan transfer pribadi, klien besar akan lari ke kompetitor katering generik meskipun rasa ayam Anda jauh lebih enak.
+                    </p>
+
+                    <!-- CSS Bar Chart -->
+                    <div class="bg-black/50 border border-white/10 rounded-2xl p-6 space-y-6">
+                        <h4 class="text-white font-bold mb-4">Probabilitas Closing Pesanan B2B (>100 Pax)</h4>
+                        
+                        <!-- Bar 1 -->
+                        <div>
+                            <div class="flex justify-between text-xs mb-2">
+                                <span class="text-fumo-text">Via WhatsApp Manual (Tanpa Faktur)</span>
+                                <span class="text-red-500 font-bold">15% Close Rate</span>
+                            </div>
+                            <div class="w-full bg-fumo-surface rounded-full h-3">
+                                <div class="bg-red-500 h-3 rounded-full" style="width: 15%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Bar 2 -->
+                        <div>
+                            <div class="flex justify-between text-xs mb-2">
+                                <span class="text-white font-bold">Via Sistem B2B Fumo (Auto-Invoice)</span>
+                                <span class="text-green-500 font-bold">85% Close Rate</span>
+                            </div>
+                            <div class="w-full bg-fumo-surface rounded-full h-3">
+                                <div class="bg-gradient-to-r from-green-600 to-green-400 h-3 rounded-full relative" style="width: 85%">
+                                    <div class="absolute right-0 top-0 bottom-0 w-4 bg-white/30 rounded-r-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-fumo-red/20 to-transparent rounded-[2rem] blur-2xl"></div>
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Corporate Meeting" class="relative z-10 rounded-[2rem] border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[500px] w-full">
+                    
+                    <!-- Floating Alert -->
+                    <div class="absolute -bottom-6 -left-6 z-20 glass-card p-4 rounded-xl border border-white/10 shadow-xl flex items-center gap-4 animate-float animation-delay-2000">
+                        <div class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                            <i class="ph-bold ph-x text-red-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-fumo-text">Order #091 - PT. ABC</p>
+                            <p class="text-sm font-bold text-white">Dibatalkan - Tidak ada e-Faktur</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. The Self-Destructing Offer (Scarcity Engine) -->
+    <section id="offer" class="py-24 relative reveal border-t border-white/5">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-fumo-red/10 via-black to-black"></div>
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="glass-card rounded-[3rem] p-8 md:p-16 border border-fumo-red/30 text-center relative overflow-hidden shadow-[0_0_100px_rgba(229,9,20,0.15)]">
+                
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-fumo-red/20 blur-[100px] rounded-full"></div>
+
+                <h2 class="text-3xl md:text-5xl font-heading font-bold text-white mb-6 relative z-10">
+                    Eksklusif Untuk <br><span class="text-gradient">Manajemen Fumo Chicken</span>
+                </h2>
+                <p class="text-fumo-text text-lg mb-10 max-w-2xl mx-auto relative z-10">
+                    Kami tahu persis nilai dari brand Anda. Sistem katering enterprise ini bernilai Rp 45.000.000,-. Namun khusus untuk Fumo Chicken, kami memberikan <b>Diskon Setup 30%</b> jika Anda mengunci kontrak dalam:
+                </p>
+
+                <!-- Countdown Timer (Alpine.js) -->
+                <div class="flex justify-center gap-4 md:gap-6 mb-10 relative z-10" x-data="countdownTimer()">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-24 md:w-24 md:h-28 bg-black border border-white/10 rounded-2xl flex items-center justify-center text-4xl md:text-5xl font-heading font-bold text-white shadow-inner mb-2 relative overflow-hidden">
+                            <div class="absolute top-0 w-full h-1/2 bg-white/5 border-b border-white/5"></div>
+                            <span x-text="hours">47</span>
+                        </div>
+                        <span class="text-xs tracking-widest text-fumo-text uppercase font-bold">Jam</span>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-bold text-fumo-red pt-4">:</div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-24 md:w-24 md:h-28 bg-black border border-white/10 rounded-2xl flex items-center justify-center text-4xl md:text-5xl font-heading font-bold text-white shadow-inner mb-2 relative overflow-hidden">
+                            <div class="absolute top-0 w-full h-1/2 bg-white/5 border-b border-white/5"></div>
+                            <span x-text="minutes">59</span>
+                        </div>
+                        <span class="text-xs tracking-widest text-fumo-text uppercase font-bold">Menit</span>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-bold text-fumo-red pt-4">:</div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-24 md:w-24 md:h-28 bg-black border border-white/10 rounded-2xl flex items-center justify-center text-4xl md:text-5xl font-heading font-bold text-fumo-red shadow-inner mb-2 relative overflow-hidden">
+                            <div class="absolute top-0 w-full h-1/2 bg-white/5 border-b border-white/5"></div>
+                            <span x-text="seconds">59</span>
+                        </div>
+                        <span class="text-xs tracking-widest text-fumo-text uppercase font-bold">Detik</span>
+                    </div>
+                </div>
+
+                <a href="#" class="inline-block relative z-10 px-10 py-5 rounded-xl bg-white text-black font-bold text-lg hover:bg-gray-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105">
+                    Klaim Harga Spesial Rp 2.500.000 (DP Rp 750.000) Sekarang
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Omni-QR & Mega Footer -->
+    <footer class="border-t border-white/10 bg-black pt-20 pb-10 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-fumo-red to-fumo-crimson flex items-center justify-center text-white font-heading font-bold text-xl">
+                            <i class="ph-fill ph-fire"></i>
+                        </div>
+                        <span class="font-heading font-bold text-2xl tracking-tight text-white">Fumo<span class="text-fumo-red">.</span>B2B</span>
+                    </div>
+                    <p class="text-fumo-text text-sm max-w-sm">
+                        Prototipe eksklusif yang dirancang oleh Titanium God-Tier Architect. Sistem B2B spesialis F&B yang mendominasi pangsa pasar SCBD dan sekitarnya.
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-fumo-red hover:text-white transition-colors text-fumo-text"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-fumo-red hover:text-white transition-colors text-fumo-text"><i class="ph-fill ph-tiktok-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-fumo-red hover:text-white transition-colors text-fumo-text"><i class="ph-fill ph-whatsapp-logo text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-3">
+                    <h4 class="font-bold text-white mb-6 tracking-wider uppercase text-sm">Operasional</h4>
+                    <ul class="space-y-4 text-sm text-fumo-text">
+                        <li>Senin - Jumat: 10.00 - 22.00</li>
+                        <li>Sabtu - Minggu: 10.00 - 23.00</li>
+                        <li class="pt-4 border-t border-white/10">
+                            <strong>HQ:</strong> Blok M Raya,<br>Jakarta Selatan
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-4 flex flex-col items-start md:items-end">
+                    <h4 class="font-bold text-white mb-6 tracking-wider uppercase text-sm">Scan untuk Presentasi</h4>
+                    <div class="bg-white p-3 rounded-2xl mb-4" id="qr-container">
+                        <!-- Simulated QR Code (Static image for prototype) -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://fumo.b2b-engine.com&color=000000&bgcolor=ffffff" alt="QR Code" class="w-24 h-24 rounded-lg">
+                    </div>
+                    <p class="text-xs text-fumo-text text-right max-w-[200px]">Scan QR code untuk membuka dokumen PDF proposal komprehensif.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-fumo-text">&copy; 2023 Titanium Architect & Fumo Chicken. Highly Confidential Prototype.</p>
+                <div class="text-xs text-fumo-text flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of B2B Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 8. The "Trojan Horse" Sales Bot -->
+    <div x-show="botVisible" 
+         x-transition:enter="transition ease-out duration-500"
+         x-transition:enter-start="opacity-0 translate-y-10"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3" style="display: none;">
+        
+        <!-- Chat Bubble -->
+        <div class="bg-white text-black p-4 rounded-2xl rounded-br-sm shadow-2xl max-w-[280px] border border-gray-200 relative">
+            <div class="absolute -right-2 bottom-0 w-4 h-4 bg-white transform rotate-45 border-r border-b border-gray-200"></div>
+            <p class="text-sm font-medium leading-relaxed relative z-10">
+                Halo manajemen <b>Fumo Chicken</b>! Viral di TikTok luar biasa, tapi sudah siap meraup ratusan juta dari pesanan catering SCBD rutin? <br><br>Kami siap mengimplementasikan sistem ini hari ini.<br><br>Dibuat oleh <strong>CocoTech</strong> — IT Agency sangat berpengalaman di digital Indonesia. <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">cocotech.studio</a>
+            </p>
+        </div>
+
+        <!-- Bot Avatar & Action -->
+        <div class="flex items-center gap-3">
+            <button @click="botVisible = false" class="w-8 h-8 rounded-full bg-black/50 border border-white/10 text-white flex items-center justify-center hover:bg-fumo-red transition-colors backdrop-blur-sm">
+                <i class="ph-bold ph-x text-sm"></i>
+            </button>
+            <a href="https://wa.me/628000000000" target="_blank" class="flex items-center gap-3 bg-gradient-to-r from-fumo-red to-fumo-crimson px-5 py-3 rounded-full text-white font-bold text-sm shadow-[0_0_20px_rgba(229,9,20,0.4)] hover:scale-105 transition-transform">
+                <img src="https://i.pravatar.cc/100?img=11" alt="Sales Architect" class="w-6 h-6 rounded-full border border-white">
+                Chat Architect
+            </a>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        // Reveal Animation on Scroll (Vanilla JS Fallback)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // Alpine.js Main Store
+        function fumoApp() {
+            return {
+                scrolled: false,
+                botVisible: false,
+                handleScroll() {
+                    this.scrolled = window.scrollY > 20;
+                    
+                    // Trigger bot at 30% scroll
+                    let scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight);
+                    if (!this.botVisible && window.scrollY > (scrollHeight * 0.3) - window.innerHeight) {
+                        this.botVisible = true;
+                        // Play sound (Simulated by generic audio API)
+                        try {
+                            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                            const oscillator = audioCtx.createOscillator();
+                            const gainNode = audioCtx.createGain();
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioCtx.destination);
+                            oscillator.type = 'sine';
+                            oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+                            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                            oscillator.start();
+                            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+                            oscillator.stop(audioCtx.currentTime + 0.3);
+                        } catch(e) {}
+                    }
+                },
+                initApp() {
+                    setTimeout(() => reveal(), 100);
+                },
+                scrollToEngine() {
+                    document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+                },
+                
+                // B2B Engine State
+                engine: {
+                    guestCount: 150,
+                    packages: [
+                        { id: 1, name: 'Fumo Standard', price: 35000, items: ['1 Pcs Signature Crispy Chicken', 'Nasi Putih Hangat', 'Sambal Bawang Fumo', 'Es Teh Manis'] },
+                        { id: 2, name: 'Fumo Corporate VIP', price: 55000, items: ['2 Pcs Signature Crispy Chicken', 'Nasi Daun Jeruk', 'Scrambled Egg', 'Sambal Bawang & Cheese Sauce', 'Lemon Tea'] }
+                    ],
+                    selectedPkg: 1,
+                    needTax: false,
+                    isProcessing: false,
+                    
+                    get subtotal() {
+                        const pkg = this.packages.find(p => p.id === this.selectedPkg);
+                        return this.guestCount * pkg.price;
+                    },
+                    get taxAmount() {
+                        return this.needTax ? this.subtotal * 0.11 : 0;
+                    },
+                    get total() {
+                        return this.subtotal + this.taxAmount;
+                    }
+                },
+
+                // Utility
+                formatRupiah(number) {
+                    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                },
+
+                simulateOrder() {
+                    this.engine.isProcessing = true;
+                    setTimeout(() => {
+                        this.engine.isProcessing = false;
+                        alert("Surat Penawaran B2B (PDF) dengan total Rp " + this.formatRupiah(this.engine.total) + " berhasil di-generate. Pada versi live, file akan langsung terunduh atau dikirim ke WhatsApp HRD.");
+                    }, 1500);
+                }
+            }
+        }
+
+        // Alpine.js Countdown Timer
+        function countdownTimer() {
+            return {
+                hours: 47,
+                minutes: 59,
+                seconds: 59,
+                init() {
+                    setInterval(() => {
+                        if(this.seconds > 0) {
+                            this.seconds--;
+                        } else {
+                            this.seconds = 59;
+                            if(this.minutes > 0) {
+                                this.minutes--;
+                            } else {
+                                this.minutes = 59;
+                                if(this.hours > 0) {
+                                    this.hours--;
+                                }
+                            }
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

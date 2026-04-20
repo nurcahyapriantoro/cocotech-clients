@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyuka Ramen - Exclusive Pre-Order & Digital Ecosystem Prototype</title>
+    
+    <!-- Google Fonts: Shippori Mincho (Japanese aesthetic) & Plus Jakarta Sans (Modern UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Alpine.js (CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kyuka: {
+                            red: '#C62828',
+                            darkred: '#8E1D1D',
+                            ink: '#121212',
+                            charcoal: '#2D2D2D',
+                            rice: '#F9F8F6',
+                            gold: '#C5A059'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Shippori Mincho', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Magic Effects -->
+    <style>
+        body {
+            background-color: #F9F8F6;
+            color: #121212;
+            overflow-x: hidden;
+        }
+        
+        .noise-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .glass-nav {
+            background: rgba(249, 248, 246, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glass-dark {
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #C62828, #8E1D1D);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Japanese Vertical Text */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            grid-auto-rows: 250px;
+        }
+        .bento-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        @media (max-width: 768px) {
+            .bento-large { grid-column: span 1; grid-row: span 1; }
+        }
+    </style>
+</head>
+<body class="antialiased relative" x-data="{ scrolled: false, scrolled30: false }" @scroll.window="scrolled = (window.pageYOffset > 50); scrolled30 = (window.pageYOffset > document.body.scrollHeight * 0.3)">
+    
+    <!-- Subtle Noise Texture Overlay -->
+    <div class="noise-bg"></div>
+
+    <!-- 1. ULTRA-MODERN NAVIGATION (GLASSMORPHISM) -->
+    <nav :class="{'py-3 glass-nav shadow-sm': scrolled, 'py-6 bg-transparent': !scrolled}" class="fixed w-full top-0 z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-kyuka-red flex items-center justify-center text-white font-serif font-bold text-xl">
+                    休
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-xl leading-none tracking-tight text-kyuka-ink">Kyuka Ramen</h1>
+                    <span class="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">Digital Prototype</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-kyuka-charcoal">
+                <a href="#heritage" class="hover:text-kyuka-red transition-colors">Filosofi</a>
+                <a href="#preorder" class="hover:text-kyuka-red transition-colors">Pre-Order Engine</a>
+                <a href="#competitor" class="hover:text-kyuka-red transition-colors">Analisis Pasar</a>
+            </div>
+
+            <div>
+                <a href="#offer" class="relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full bg-kyuka-ink px-6 font-medium text-white transition-all hover:bg-kyuka-red focus:outline-none focus:ring-2 focus:ring-kyuka-red focus:ring-offset-2 focus:ring-offset-kyuka-rice">
+                    <span class="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"></span>
+                    <span class="flex items-center gap-2 text-sm">
+                        Klaim Penawaran <i class="ph ph-arrow-right"></i>
+                    </span>
+                    <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-kyuka-red opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-kyuka-red"></span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. INTERACTIVE HERO SECTION -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Abstract Background Blobs -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+            <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-red-100 mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+            <div class="absolute top-[20%] right-[10%] w-[400px] h-[400px] rounded-full bg-orange-100 mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-gray-200 mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-kyuka-red/30 bg-red-50 text-kyuka-red text-xs font-bold tracking-wider uppercase">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-kyuka-red opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-kyuka-red"></span>
+                    </span>
+                    Solusi F&B Blok M Jakarta
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-kyuka-ink">
+                    Ubah <span class="text-gradient">Viralitas</span> Menjadi Mesin Profit Terprediksi.
+                </h1>
+                
+                <p class="text-lg text-gray-600 max-w-xl leading-relaxed">
+                    Kyuka Ramen selalu dipadati pengunjung. Tapi berapa banyak calon pelanggan yang batal antre karena kepanasan di Blok M? Saatnya menangkap 100% pendapatan Anda dengan <strong>Sistem Pre-Order Terenkripsi & Manajemen Leads</strong> eksklusif.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#preorder" class="px-8 py-4 rounded-full bg-kyuka-red text-white font-semibold flex items-center justify-center gap-2 hover:bg-kyuka-darkred transition-all shadow-lg shadow-red-500/30 transform hover:-translate-y-1">
+                        <i class="ph ph-play-circle text-xl"></i> Coba Live Prototype
+                    </a>
+                    <a href="#competitor" class="px-8 py-4 rounded-full bg-white border border-gray-200 text-kyuka-ink font-semibold flex items-center justify-center gap-2 hover:bg-gray-50 transition-all">
+                        <i class="ph ph-chart-line-up text-xl"></i> Lihat Analisis ROI
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
+                    <div class="flex -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User">
+                        <div class="w-10 h-10 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-xs font-bold">+12k</div>
+                    </div>
+                    <p class="text-sm text-gray-500">Antrean potensial yang bisa <b>di-monetisasi</b> bulan ini.</p>
+                </div>
+            </div>
+
+            <!-- Hero Visual: Minimalist Ramen Bowl Representation -->
+            <div class="relative w-full h-[600px] flex justify-center items-center animate-float hidden lg:flex">
+                <!-- Decorative Japanese Text -->
+                <div class="absolute right-0 top-10 vertical-text text-6xl font-serif text-gray-200 select-none z-0">
+                    本物のラーメン
+                </div>
+                
+                <!-- Main Glass Card Prototype View -->
+                <div class="relative z-10 w-[380px] h-[550px] glass-card rounded-3xl p-6 flex flex-col justify-between shadow-2xl border border-white/60">
+                    <!-- App Header -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="w-8 h-8 rounded-full bg-kyuka-red flex items-center justify-center text-white font-serif text-sm">休</div>
+                        <div class="flex gap-1">
+                            <div class="w-2 h-2 rounded-full bg-kyuka-red"></div>
+                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- App Content Simulation -->
+                    <div class="space-y-4 flex-1">
+                        <div class="h-32 rounded-2xl bg-gray-100 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80" class="object-cover w-full h-full opacity-80" alt="Ramen">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                                <span class="text-white font-bold tracking-wide">Tori Paitan Edisi Terbatas</span>
+                            </div>
+                        </div>
+                        <div class="h-4 w-3/4 bg-gray-200 rounded-full"></div>
+                        <div class="h-3 w-1/2 bg-gray-200 rounded-full"></div>
+                        
+                        <div class="mt-6 border border-red-100 bg-red-50 rounded-xl p-4">
+                            <p class="text-xs text-kyuka-red font-bold mb-2 uppercase">Sisa Kuota Hari Ini</p>
+                            <div class="flex items-end gap-2">
+                                <span class="text-3xl font-serif font-bold text-kyuka-ink leading-none">12</span>
+                                <span class="text-sm text-gray-500 mb-1">Mangkuk</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- App Footer -->
+                    <div class="mt-4">
+                        <div class="w-full py-3 bg-kyuka-ink text-white rounded-xl text-center font-semibold text-sm shadow-lg">
+                            Amankan Porsi Saya (Pre-Order)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Floating Notification Elements -->
+                <div class="absolute -left-10 top-32 glass rounded-xl p-3 flex items-center gap-3 shadow-lg animate-fade-in-up" style="animation-delay: 0.5s;">
+                    <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><i class="ph ph-check-circle"></i></div>
+                    <div>
+                        <p class="text-xs font-bold">Pre-order berhasil</p>
+                        <p class="text-[10px] text-gray-500">Budi A. - 2 mnt lalu</p>
+                    </div>
+                </div>
+                
+                <div class="absolute -right-12 bottom-40 glass rounded-xl p-3 flex items-center gap-3 shadow-lg animate-fade-in-up" style="animation-delay: 1s;">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="ph ph-envelope-simple"></i></div>
+                    <div>
+                        <p class="text-xs font-bold">Data Email Masuk</p>
+                        <p class="text-[10px] text-gray-500">Database +1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Divider -->
+    <div class="w-full bg-kyuka-ink py-3 overflow-hidden whitespace-nowrap flex items-center border-y border-gray-800">
+        <div class="animate-marquee inline-block text-kyuka-rice font-mono text-xs tracking-widest uppercase opacity-80">
+            <span class="mx-4">• KYUKA RAMEN DIGITAL TRANSFORMATION</span>
+            <span class="mx-4">• ZERO FOOD WASTE</span>
+            <span class="mx-4">• 100% LEAD CAPTURE</span>
+            <span class="mx-4">• OMAKASE PRE-ORDER</span>
+            <span class="mx-4">• BLOK M LITTLE TOKYO</span>
+            <span class="mx-4">• KYUKA RAMEN DIGITAL TRANSFORMATION</span>
+            <span class="mx-4">• ZERO FOOD WASTE</span>
+            <span class="mx-4">• 100% LEAD CAPTURE</span>
+            <span class="mx-4">• OMAKASE PRE-ORDER</span>
+            <span class="mx-4">• BLOK M LITTLE TOKYO</span>
+        </div>
+    </div>
+
+    <!-- 3. DEEP COMPANY PROFILE & HERITAGE (BENTO GRID) -->
+    <section id="heritage" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-sm font-bold text-kyuka-red uppercase tracking-widest mb-2">Pilar Kualitas</h2>
+                <h3 class="text-4xl font-serif font-bold text-kyuka-ink">Menghormati Tradisi,<br>Menguasai Inovasi.</h3>
+                <p class="mt-4 text-gray-600">Pelanggan Anda datang untuk rasa autentik. Jangan biarkan mereka pergi karena sistem antrean kuno. Kami mendigitalkan pengalaman tanpa menghilangkan esensi Jepang dari Kyuka Ramen.</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Bento Item 1: Large -->
+                <div class="bento-large rounded-3xl overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80" alt="Tonkotsu Broth" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end">
+                        <span class="text-kyuka-red font-bold tracking-widest text-sm mb-2">THE SOUL</span>
+                        <h4 class="text-2xl font-serif text-white font-bold mb-2">Filosofi Kuah 24 Jam</h4>
+                        <p class="text-gray-300 text-sm max-w-md">Pembuatan kuah kaldu memakan waktu. Jika terjadi <i>no-show</i>, bahan baku terbuang. Sistem kami mengunci pembayaran di depan untuk menu rawan basi.</p>
+                    </div>
+                </div>
+
+                <!-- Bento Item 2 -->
+                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 flex flex-col justify-between hover:border-kyuka-red/30 transition-colors">
+                    <i class="ph ph-bowl-food text-4xl text-kyuka-red mb-4"></i>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Artisanal Noodle</h4>
+                        <p class="text-sm text-gray-600">Kapasitas produksi mi terbatas setiap hari. Sistem membatasi pre-order secara otomatis untuk menjaga kualitas eksklusif.</p>
+                    </div>
+                </div>
+
+                <!-- Bento Item 3 -->
+                <div class="bg-kyuka-ink rounded-3xl p-8 text-white flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-8xl text-white/5 font-serif">休</div>
+                    <i class="ph ph-storefront text-4xl text-kyuka-gold mb-4"></i>
+                    <div class="relative z-10">
+                        <h4 class="text-xl font-bold mb-2 text-kyuka-gold">Atmosfer Blok M</h4>
+                        <p class="text-sm text-gray-400">Little Tokyo sangat kompetitif. Pelanggan yang lelah antre akan pindah ke restoran sebelah. Tangkap mereka dengan form <i>Waitlist Digital</i> kami.</p>
+                    </div>
+                </div>
+
+                <!-- Bento Item 4: Wide -->
+                <div class="col-span-1 md:col-span-2 bg-red-50 rounded-3xl p-8 border border-red-100 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <h4 class="text-2xl font-serif font-bold text-kyuka-red mb-3">Database Pelanggan Adalah Emas</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed mb-4">Setiap kali pelanggan makan dan pergi tanpa meninggalkan kontak, Anda kehilangan potensi <i>Customer Lifetime Value</i> (CLV). Arsitektur kami memaksa mereka meninggalkan email/WA untuk mendapatkan info "Secret Menu".</p>
+                        <div class="flex items-center gap-2 text-kyuka-red font-bold text-sm">
+                            Lihat Cara Kerjanya di Bawah <i class="ph ph-arrow-down animate-bounce"></i>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-white p-4 rounded-2xl shadow-sm border border-red-100">
+                        <div class="text-xs text-gray-400 mb-1">Total Subscriber</div>
+                        <div class="text-3xl font-bold text-kyuka-ink mb-2">2,450</div>
+                        <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-kyuka-red w-3/4 h-full"></div>
+                        </div>
+                        <div class="text-[10px] text-green-600 mt-2 font-bold">+12% minggu ini</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. THE SPECTACULAR FEATURE (CORE ENGINE - WAJIB ADA & INTERAKTIF) -->
+    <!-- Alpine.js Application for Limited Edition Pre-Order -->
+    <section id="preorder" class="py-24 bg-kyuka-ink text-kyuka-rice relative overflow-hidden" 
+             x-data="preOrderEngine()">
+        
+        <!-- Abstract Japanese Pattern Background -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#C5A059 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-2xl">
+                    <div class="inline-block px-3 py-1 rounded-full bg-kyuka-red/20 text-kyuka-red border border-kyuka-red/30 text-xs font-bold tracking-wider uppercase mb-4">
+                        Modul Fungsional (Klik & Coba)
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold mb-4">Sistem Pre-Order "Secret Menu"</h2>
+                    <p class="text-gray-400">Simulasikan bagaimana pelanggan Anda memperebutkan menu edisi terbatas, memasukkan data diri mereka, dan membayar di muka. Tidak ada lagi makanan terbuang.</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-400 mb-1">Status Sistem</p>
+                    <div class="flex items-center gap-2 justify-end">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <span class="font-bold text-green-400 tracking-wide uppercase text-sm">LIVE PROTOTYPE</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interaktif UI Container -->
+            <div class="glass-dark rounded-3xl p-2 md:p-8 border border-gray-800 shadow-2xl">
+                
+                <!-- Step Indicators -->
+                <div class="flex items-center justify-center gap-4 mb-10 px-4">
+                    <template x-for="(s, index) in steps" :key="index">
+                        <div class="flex items-center">
+                            <div :class="{'bg-kyuka-red text-white': step >= s.num, 'bg-gray-800 text-gray-500': step < s.num}" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors duration-300">
+                                <span x-text="s.num"></span>
+                            </div>
+                            <span :class="{'text-kyuka-rice': step >= s.num, 'text-gray-500': step < s.num}" class="ml-2 text-xs md:text-sm font-bold uppercase tracking-wide hidden sm:block" x-text="s.title"></span>
+                            <div x-show="index < steps.length - 1" class="w-8 md:w-16 h-px bg-gray-700 mx-4">
+                                <div class="h-full bg-kyuka-red transition-all duration-500" :style="'width: ' + (step > s.num ? '100%' : '0%')"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Step 1: Pilih Menu -->
+                <div x-show="step === 1" x-transition.opacity.duration.500ms class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <template x-for="menu in menus" :key="menu.id">
+                        <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-kyuka-red cursor-pointer transition-all group relative" @click="selectMenu(menu)">
+                            <!-- Sold Out Overlay -->
+                            <div x-show="menu.stock === 0" class="absolute inset-0 bg-black/70 z-10 flex items-center justify-center">
+                                <div class="border-2 border-red-500 text-red-500 font-bold px-4 py-2 transform rotate-12 text-xl tracking-widest">SOLD OUT</div>
+                            </div>
+                            
+                            <div class="h-48 overflow-hidden relative">
+                                <img :src="menu.image" :alt="menu.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute top-3 right-3 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold border border-gray-700">
+                                    Sisa <span x-text="menu.stock" class="text-kyuka-red"></span> porsi
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="text-xs text-kyuka-gold font-bold mb-1 uppercase tracking-widest" x-text="menu.tag"></div>
+                                <h4 class="text-xl font-serif font-bold mb-2" x-text="menu.name"></h4>
+                                <p class="text-gray-400 text-sm mb-4 line-clamp-2" x-text="menu.desc"></p>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-lg" x-text="formatRupiah(menu.price)"></span>
+                                    <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-kyuka-red transition-colors">
+                                        <i class="ph ph-arrow-right text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Step 2: Data Diri (Lead Capture) -->
+                <div x-show="step === 2" x-transition.opacity.duration.500ms style="display: none;">
+                    <div class="max-w-lg mx-auto bg-gray-900 p-8 rounded-2xl border border-gray-800">
+                        <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-800">
+                            <img :src="selectedMenu?.image" class="w-16 h-16 rounded-xl object-cover">
+                            <div>
+                                <h4 class="font-serif font-bold text-lg" x-text="selectedMenu?.name"></h4>
+                                <p class="text-kyuka-red font-bold text-sm" x-text="formatRupiah(selectedMenu?.price)"></p>
+                            </div>
+                        </div>
+                        
+                        <form @submit.prevent="goToStep(3)" class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Nama Lengkap</label>
+                                <input type="text" x-model="formData.name" required class="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-kyuka-red focus:ring-1 focus:ring-kyuka-red transition-colors" placeholder="Taro Tanaka">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">WhatsApp (Untuk Pengingat)</label>
+                                <input type="tel" x-model="formData.phone" required class="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-kyuka-red focus:ring-1 focus:ring-kyuka-red transition-colors" placeholder="0812-XXXX-XXXX">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Pilih Jam Kedatangan</label>
+                                <select x-model="formData.time" required class="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-kyuka-red focus:ring-1 focus:ring-kyuka-red transition-colors appearance-none">
+                                    <option value="" disabled selected>Pilih Jam...</option>
+                                    <option value="17:00">17:00 WIB</option>
+                                    <option value="18:30">18:30 WIB</option>
+                                    <option value="20:00">20:00 WIB</option>
+                                </select>
+                            </div>
+                            
+                            <div class="flex gap-4 pt-4">
+                                <button type="button" @click="step = 1" class="px-6 py-3 rounded-xl border border-gray-700 hover:bg-gray-800 transition-colors font-bold text-sm">Kembali</button>
+                                <button type="submit" class="flex-1 px-6 py-3 rounded-xl bg-kyuka-red hover:bg-kyuka-darkred text-white transition-colors font-bold text-sm flex justify-center items-center gap-2">
+                                    Lanjut Pembayaran <i class="ph ph-lock-key"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Step 3: Konfirmasi & Sukses -->
+                <div x-show="step === 3" x-transition.opacity.duration.500ms style="display: none;" class="text-center py-10">
+                    <div class="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ph ph-check-circle text-6xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-3xl font-serif font-bold mb-2">Pre-Order Dikonfirmasi!</h3>
+                    <p class="text-gray-400 max-w-md mx-auto mb-8">Terima kasih <span x-text="formData.name" class="text-white font-bold"></span>. Tiket digital telah dikirim ke WhatsApp Anda. Kami menantikan kehadiran Anda pada jam <span x-text="formData.time" class="text-white font-bold"></span>.</p>
+                    
+                    <div class="inline-block bg-black/40 border border-gray-800 rounded-2xl p-6 text-left mb-8">
+                        <div class="text-xs text-gray-500 mb-4 font-mono">DEBUG: LEAD DATA CAPTURED IN DATABASE</div>
+                        <pre class="text-xs text-green-400 font-mono overflow-x-auto" x-text="JSON.stringify(formData, null, 2)"></pre>
+                    </div>
+
+                    <div>
+                        <button @click="reset()" class="px-8 py-3 rounded-xl border border-gray-700 hover:bg-gray-800 transition-colors font-bold text-sm">Simulasikan Ulang</button>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                function preOrderEngine() {
+                    return {
+                        step: 1,
+                        steps: [
+                            { num: 1, title: 'Katalog' },
+                            { num: 2, title: 'Data Reservasi' },
+                            { num: 3, title: 'Pembayaran' }
+                        ],
+                        menus: [
+                            { id: 1, name: 'Kuro Truffle Ramen', desc: 'Kaldu ayam hitam dengan black truffle oil asli Italia dan chashu wagyu.', price: 125000, stock: 5, tag: 'Chef Spec', image: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=600&q=80' },
+                            { id: 2, name: 'Hokkaido Uni Mazesoba', desc: 'Dry ramen disajikan dengan sea urchin segar dari Hokkaido dan ikura.', price: 185000, stock: 2, tag: 'Ultra Rare', image: 'https://images.unsplash.com/photo-1623366302587-b25efec27407?auto=format&fit=crop&w=600&q=80' },
+                            { id: 3, name: 'A5 Wagyu Paitan', desc: 'Kuah kental paitan direbus 24 jam dengan topping sirloin A5 Wagyu bakar.', price: 210000, stock: 0, tag: 'Sold Out', image: 'https://images.unsplash.com/photo-1591814468924-caf88d1232e1?auto=format&fit=crop&w=600&q=80' }
+                        ],
+                        selectedMenu: null,
+                        formData: {
+                            name: '',
+                            phone: '',
+                            time: '',
+                            menu_id: null,
+                            amount: 0
+                        },
+                        formatRupiah(number) {
+                            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+                        },
+                        selectMenu(menu) {
+                            if(menu.stock === 0) return;
+                            this.selectedMenu = menu;
+                            this.formData.menu_id = menu.id;
+                            this.formData.amount = menu.price;
+                            this.step = 2;
+                        },
+                        goToStep(num) {
+                            this.step = num;
+                        },
+                        reset() {
+                            this.step = 1;
+                            this.selectedMenu = null;
+                            this.formData = { name: '', phone: '', time: '', menu_id: null, amount: 0 };
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </section>
+
+    <!-- 5. THE STOLEN TRAFFIC / COMPETITOR REALITY SECTION -->
+    <section id="competitor" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="w-16 h-16 bg-red-100 text-kyuka-red rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="ph ph-warning-circle text-3xl"></i>
+                </div>
+                <h2 class="text-4xl font-serif font-bold text-kyuka-ink mb-4">Realita Pahit di Blok M</h2>
+                <p class="text-lg text-gray-600">Viralitas di TikTok/Instagram membawa ribuan traffic ke Blok M. Tapi, apa yang terjadi pada antrean ke-50 yang menyerah karena kepanasan? <strong class="text-kyuka-red">Uang mereka lari ke restoran sebelah.</strong></p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Bar Chart CSS Sederhana -->
+                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-200 shadow-inner">
+                    <h4 class="font-bold text-lg mb-8 text-center">Perbandingan Retensi Pelanggan (Dalam 1 Bulan)</h4>
+                    
+                    <div class="space-y-8">
+                        <!-- Kyuka Saat Ini -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-2">
+                                <span class="text-gray-500">Kyuka Ramen (Tanpa Sistem)</span>
+                                <span class="text-gray-500">20% Terkonversi</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-6 rounded-full overflow-hidden flex">
+                                <div class="bg-gray-400 w-[20%] h-full flex items-center justify-center text-[10px] text-white font-bold">Makan</div>
+                                <div class="bg-red-200 w-[80%] h-full flex items-center justify-center text-[10px] text-red-800 font-bold">80% Batal Antre & Pergi (Hilang)</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Dengan Sistem Ini -->
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-2">
+                                <span class="text-kyuka-red">Kyuka Ramen (Dengan Digital Ecosystem)</span>
+                                <span class="text-kyuka-red">95% Ter-Capture</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-6 rounded-full overflow-hidden flex relative shadow-[0_0_15px_rgba(198,40,40,0.3)]">
+                                <div class="bg-kyuka-red w-[25%] h-full flex items-center justify-center text-[10px] text-white font-bold">Makan (Pre-Order)</div>
+                                <div class="bg-kyuka-darkred w-[70%] h-full flex items-center justify-center text-[10px] text-white font-bold">Masuk Waitlist & Database (Bisa di-Retargeting)</div>
+                                <div class="bg-gray-300 w-[5%] h-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-red-50 border border-red-100 rounded-xl">
+                        <p class="text-sm text-red-800 text-center">Setiap hari Anda kehilangan sekitar <b>Rp 3.000.000 - Rp 5.000.000</b> dari pelanggan yang membatalkan antrean fisik tanpa meninggalkan kontak.<br><br><strong>Setup Website + Sistem Antrean: Rp 5.500.000</strong> (dari <s>Rp 10.000.000</s>) &bull; DP Rp 1.650.000</p>
+                    </div>
+                </div>
+
+                <!-- Edukasi Keras -->
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-kyuka-ink text-white rounded-xl flex items-center justify-center font-bold text-xl">1</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Mereka Pindah ke Pesaing</h4>
+                            <p class="text-gray-600 text-sm">Blok M memiliki puluhan restoran Jepang. Jika pelanggan tidak mengikat komitmen (Pre-Order) dengan Anda, mereka akan masuk ke restoran pertama yang kosong.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-kyuka-ink text-white rounded-xl flex items-center justify-center font-bold text-xl">2</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Food Waste Membunuh Margin</h4>
+                            <p class="text-gray-600 text-sm">Kaldu Tonkotsu dan bahan premium harian yang terbuang karena <i>demand forecasting</i> yang salah secara perlahan menggerus profit bersih Anda.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-kyuka-ink text-white rounded-xl flex items-center justify-center font-bold text-xl">3</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Zero Database = Nol Valuasi Jangka Panjang</h4>
+                            <p class="text-gray-600 text-sm">Ribuan follower IG tidak ada artinya jika algoritma berubah. Email dan Nomor WA pelanggan (First-Party Data) adalah aset nyata bisnis F&B modern.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. THE SELF-DESTRUCTING OFFER (SCARCITY ENGINE) -->
+    <section id="offer" class="py-20 bg-kyuka-red relative overflow-hidden text-white" x-data="countdownTimer()">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 2px, transparent 8px);"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6 text-white drop-shadow-md">Implementasikan Engine Ini. Hari Ini.</h2>
+            <p class="text-red-100 text-lg max-w-2xl mx-auto mb-10">Kami hanya mengambil <b>satu</b> klien F&B di area Blok M untuk menghindari konflik kepentingan. Penawaran setup dengan potongan 30% ini akan hancur dengan sendirinya dalam:</p>
+            
+            <!-- Countdown -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-kyuka-darkred rounded-2xl flex items-center justify-center text-3xl md:text-5xl font-mono font-bold shadow-inner border border-red-400/30">
+                        <span x-text="days"></span>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest mt-2 text-red-200">Hari</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-bold mt-2 md:mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-kyuka-darkred rounded-2xl flex items-center justify-center text-3xl md:text-5xl font-mono font-bold shadow-inner border border-red-400/30">
+                        <span x-text="hours"></span>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest mt-2 text-red-200">Jam</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-bold mt-2 md:mt-4">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-kyuka-darkred rounded-2xl flex items-center justify-center text-3xl md:text-5xl font-mono font-bold shadow-inner border border-red-400/30">
+                        <span x-text="minutes"></span>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest mt-2 text-red-200">Menit</span>
+                </div>
+                <div class="text-3xl md:text-5xl font-bold mt-2 md:mt-4 text-red-300">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-24 md:h-24 bg-kyuka-darkred rounded-2xl flex items-center justify-center text-3xl md:text-5xl font-mono font-bold shadow-inner border border-red-400/30 text-red-300">
+                        <span x-text="seconds"></span>
+                    </div>
+                    <span class="text-xs uppercase tracking-widest mt-2 text-red-200">Detik</span>
+                </div>
+            </div>
+
+            <button class="px-10 py-5 rounded-full bg-white text-kyuka-red font-bold text-xl hover:bg-gray-100 transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] transform hover:scale-105 flex items-center gap-3 mx-auto">
+                Kunci Teritori Blok M <i class="ph ph-lock-key"></i>
+            </button>
+        </div>
+
+        <script>
+            function countdownTimer() {
+                return {
+                    days: '01',
+                    hours: '23',
+                    minutes: '59',
+                    seconds: '59',
+                    endTime: new Date().getTime() + (48 * 60 * 60 * 1000), // 48 hours from now
+                    init() {
+                        setInterval(() => {
+                            let now = new Date().getTime();
+                            let distance = this.endTime - now;
+                            
+                            if (distance < 0) return;
+                            
+                            this.days = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                            this.hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                            this.minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                            this.seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+                        }, 1000);
+                    }
+                }
+            }
+        </script>
+    </section>
+
+    <!-- 7. OMNI-QR & MEGA FOOTER -->
+    <footer class="bg-kyuka-ink text-gray-400 py-16 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-kyuka-red flex items-center justify-center text-white font-serif font-bold text-xl">
+                        休
+                    </div>
+                    <h1 class="font-serif font-bold text-2xl text-white">Kyuka Ramen</h1>
+                </div>
+                <p class="text-sm mb-6 max-w-sm">
+                    Arsitektur digital eksklusif untuk restoran ramen paling fenomenal di Blok M, Little Tokyo Jakarta. Didesain untuk mengubah traffic viral menjadi retensi abadi.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-kyuka-red hover:text-white transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-kyuka-red hover:text-white transition-colors"><i class="ph ph-tiktok-logo text-xl"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Modul Sistem</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-kyuka-red transition-colors">Digital Pre-Order</a></li>
+                    <li><a href="#" class="hover:text-kyuka-red transition-colors">Waitlist Management</a></li>
+                    <li><a href="#" class="hover:text-kyuka-red transition-colors">Loyalty & CRM</a></li>
+                    <li><a href="#" class="hover:text-kyuka-red transition-colors">Analytics Dashboard</a></li>
+                </ul>
+            </div>
+
+            <!-- Dynamic QR Code Container -->
+            <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 text-center flex flex-col items-center justify-center">
+                <p class="text-xs font-bold text-white mb-4 uppercase tracking-widest">Scan to Prototype</p>
+                <!-- Pseudo-QR using CSS grid for aesthetic -->
+                <div class="w-32 h-32 bg-white p-2 rounded-lg grid grid-cols-5 grid-rows-5 gap-1 mb-4">
+                    <!-- Random blocks to simulate QR -->
+                    <div class="bg-black col-span-2 row-span-2 rounded-tl-md"></div>
+                    <div class="bg-white"></div>
+                    <div class="bg-black col-span-2 row-span-2 rounded-tr-md"></div>
+                    
+                    <div class="bg-white"></div>
+                    <div class="bg-black"></div>
+                    <div class="bg-black"></div>
+                    <div class="bg-white"></div>
+                    <div class="bg-white"></div>
+
+                    <div class="bg-black"></div>
+                    <div class="bg-white"></div>
+                    <div class="bg-kyuka-red rounded-sm flex items-center justify-center"><i class="ph ph-bowl-food text-white text-[10px]"></i></div>
+                    <div class="bg-black"></div>
+                    <div class="bg-black"></div>
+
+                    <div class="bg-white"></div>
+                    <div class="bg-black"></div>
+                    <div class="bg-white"></div>
+                    <div class="bg-white"></div>
+                    <div class="bg-black"></div>
+
+                    <div class="bg-black col-span-2 row-span-2 rounded-bl-md"></div>
+                    <div class="bg-white"></div>
+                    <div class="bg-black"></div>
+                    <div class="bg-black rounded-br-md"></div>
+                </div>
+                <p class="text-[10px] text-gray-500">Gunakan kamera HP Anda</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-gray-800 text-center text-xs">
+            &copy; 2023 Digital Architecture for Kyuka Ramen. Confidential Prototype.
+        </div>
+    </footer>
+
+    <!-- 8. THE "TROJAN HORSE" SALES BOT -->
+    <div x-data="{ showBot: false, open: false, messages: [], initBot() {
+            setTimeout(() => { 
+                this.messages.push({ text: 'Halo Manajemen Kyuka Ramen! 👋', type: 'bot' });
+            }, 500);
+            setTimeout(() => { 
+                this.messages.push({ text: 'Melihat antrean di Blok M kemarin, sistem ini bisa menyelamatkan 30% lost-revenue Anda.', type: 'bot' });
+                // Play subtle sound (simulated)
+            }, 1500);
+            setTimeout(() => { 
+                this.messages.push({ text: 'Kami siap implementasi dalam 7 hari. Mau lihat demo backend?', type: 'bot' });
+            setTimeout(() => { this.messages.push({ text: 'Dibuat oleh CocoTech — IT Agency sangat berpengalaman di industri digital Indonesia. Kunjungi cocotech.studio untuk portofolio kami.', type: 'bot' }); }, 5000);
+            }, 3000);
+        }
+    }" 
+    x-init="$watch('scrolled30', value => { if(value && !showBot) { showBot = true; initBot(); open = true; } })"
+    class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        
+        <!-- Chat Window -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 translate-y-4"
+             class="bg-white rounded-2xl shadow-2xl border border-gray-200 w-80 mb-4 overflow-hidden flex flex-col" style="display: none;">
+            
+            <!-- Header -->
+            <div class="bg-kyuka-ink text-white p-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-kyuka-red flex items-center justify-center font-bold text-xs">AI</div>
+                    <div>
+                        <p class="font-bold text-sm leading-none">Titanium Architect</p>
+                        <p class="text-[10px] text-green-400">Online</p>
+                    </div>
+                </div>
+                <button @click="open = false" class="text-gray-400 hover:text-white"><i class="ph ph-x"></i></button>
+            </div>
+            
+            <!-- Body -->
+            <div class="h-64 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-3">
+                <template x-for="(msg, i) in messages" :key="i">
+                    <div class="bg-white border border-gray-200 p-3 rounded-xl rounded-tl-none text-sm shadow-sm max-w-[85%] animate-fade-in-up" x-text="msg.text"></div>
+                </template>
+                <div x-show="messages.length < 3" class="text-gray-400 text-xs italic ml-2 animate-pulse">Mengetik...</div>
+            </div>
+            
+            <!-- Input -->
+            <div class="p-3 bg-white border-t border-gray-100 flex gap-2">
+                <input type="text" placeholder="Balas pesan..." class="flex-1 bg-gray-100 rounded-full px-4 text-sm focus:outline-none focus:ring-1 focus:ring-kyuka-red" readonly>
+                <button class="w-10 h-10 rounded-full bg-kyuka-red text-white flex items-center justify-center shadow-md"><i class="ph ph-paper-plane-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Chat Trigger Button -->
+        <button x-show="showBot" 
+                @click="open = !open" 
+                class="w-16 h-16 bg-kyuka-ink text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-105 transition-transform relative group">
+            <i class="ph ph-chat-teardrop-dots text-3xl"></i>
+            <span x-show="!open" class="absolute -top-2 -right-2 w-6 h-6 bg-kyuka-red rounded-full border-2 border-white text-[10px] font-bold flex items-center justify-center animate-bounce">1</span>
+        </button>
+    </div>
+
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

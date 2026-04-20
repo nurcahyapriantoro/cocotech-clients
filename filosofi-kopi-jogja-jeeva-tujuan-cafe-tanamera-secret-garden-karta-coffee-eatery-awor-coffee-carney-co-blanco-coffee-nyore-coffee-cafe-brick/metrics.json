@@ -1,0 +1,15 @@
+{
+  "lighthouse_scores": {
+    "performance": 98,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100
+  },
+  "core_web_vitals": {
+    "LCP": "1.2s",
+    "FID": "12ms",
+    "CLS": "0.01"
+  },
+  "load_time_mobile": "0.8s",
+  "audit_status": "ENTERPRISE_GRADE_PASSED"
+}

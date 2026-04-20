@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Proposal - Jogja Coffee Collective by CocoTech</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        coffee: {
+                            50: '#F9F6F0',
+                            100: '#F3EFE6',
+                            800: '#5A4424',
+                            900: '#3A2A14',
+                            950: '#231809',
+                        },
+                        gold: '#D4AF37'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @page { size: A4 portrait; margin: 0; }
+        body { background-color: #f1f5f9; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .page-a4 {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        @media print {
+            body { background: white; margin: 0; }
+            .page-a4 { box-shadow: none; margin: 0; width: 100%; min-height: 100vh; page-break-after: always; }
+            .no-print { display: none !important; }
+        }
+        
+        .header-bg {
+            background-color: #231809;
+            background-image: url('https://www.transparenttextures.com/patterns/cartographer.png');
+        }
+        .text-justify-custom { text-align: justify; text-justify: inter-word; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Print Navigation -->
+    <div class="no-print fixed top-6 right-6 z-50 flex gap-4">
+        <button onclick="window.print()" class="bg-gray-900 border border-gray-700 hover:bg-black text-white px-6 py-2.5 rounded-lg shadow-xl font-bold tracking-wider uppercase text-xs flex items-center gap-2 transition-all">
+            <i class="ph-bold ph-printer text-lg"></i> Cetak ke PDF
+        </button>
+    </div>
+
+    <!-- PAGE 1: COVER & EXECUTIVE SUMMARY -->
+    <div class="page-a4 flex flex-col relative overflow-hidden">
+        <!-- Floating Elements Background Cover -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-coffee-100 rounded-full mix-blend-multiply blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute inset-0 border-[10px] border-coffee-950/5 m-4 pointer-events-none"></div>
+
+        <!-- Cover Header -->
+        <header class="header-bg p-12 text-white border-b-4 border-gold">
+            <div class="flex justify-between items-start mb-16">
+                <div>
+                    <h1 class="text-3xl font-serif font-bold text-white tracking-tight">CocoTech <span class="text-gold">Agency</span></h1>
+                    <p class="text-[10px] uppercase tracking-[.3em] font-mono mt-1 text-coffee-300">Enterprise Architect Division</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] uppercase tracking-widest text-coffee-300 font-bold mb-1">Dokumen Resmi B2B</p>
+                    <p class="font-mono text-sm">REF: CT-JOGJA-OMNI-2026</p>
+                    <p class="font-mono text-xs text-coffee-400 mt-1">Tanggal: 10 April 2026</p>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <p class="text-gold font-bold uppercase tracking-widest text-xs mb-4">Proposal Sistem Ekosistem & Infrastruktur Omnichannel</p>
+                <h2 class="text-6xl font-serif font-bold leading-tight mb-2">Jogja Premium<br>Coffee Collective</h2>
+                <p class="text-lg text-white/50 font-light max-w-lg mt-4 leading-relaxed">Menyasar 11 Brand Ikonik (Filosofi Kopi Jogja, Tanamera, Awor, dkk) dalam satu wadah digital.</p>
+            </div>
+        </header>
+
+        <!-- Executive Summary -->
+        <main class="p-12 flex-1 relative z-10 flex flex-col">
+            <div class="mb-10">
+                <h3 class="flex items-center gap-3 text-xl font-bold text-coffee-950 mb-6 uppercase tracking-widest border-b-2 border-coffee-100 pb-2">
+                    <i class="ph-fill ph-target text-gold text-2xl"></i> I. Ringkasan Eksekutif (The Core Problem)
+                </h3>
+                <div class="space-y-4 text-sm text-gray-600 text-justify-custom leading-relaxed">
+                    <p><strong class="text-coffee-900">Estetika Saja Tak Cukup Untuk Bertahan.</strong> Di kawasan Jogja, ribuan turis rutin mengunjungi eksterior fotogenik <em>Cafe Brick, Nyore Coffee,</em> hingga <em>Carney Co</em>. Akan tetapi, keterbatasan fisik ruang dan kurangnya infrastruktur pemesanan digital telah menyebabkan tingginya "Kebocoran Trafik Pembeli". Pelanggan malas mengantre dan sistem tidak mampu merekam <em>email</em> untuk promosi silang produk/merchandise.</p>
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-600 mt-4">
+                        <p class="text-red-900 font-bold text-xs uppercase tracking-widest mb-1">Realita Pasar:</p>
+                        <p class="text-red-800 text-xs leading-relaxed italic">"Setiap wisatawan yang pulang ke Jakarta tanpa masuk dalam *loyalty tier* kedai Anda berarti bisnis telah membuang potensi valuasi *Customer Lifetime Value* seumur hidup ke kompetitor franchise besar (yang sudah melek digital)."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="flex items-center gap-3 text-xl font-bold text-coffee-950 mb-6 uppercase tracking-widest border-b-2 border-coffee-100 pb-2">
+                    <i class="ph-fill ph-strategy text-gold text-2xl"></i> II. Cetak Biru Solusi (Omnichannel)
+                </h3>
+                <p class="text-sm text-gray-600 mb-6 leading-relaxed">CocoTech mengusulkan pembangunan ulang infrastruktur perwajahan (*web app* siap PWA) untuk *Jogja Collective* yang dilengkapi dengan:</p>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-coffee-50 p-5 rounded-xl border border-coffee-200">
+                        <div class="w-10 h-10 bg-coffee-900 text-white rounded-full flex items-center justify-center mb-3"><i class="ph-bold ph-shopping-cart text-xl"></i></div>
+                        <h4 class="font-bold text-coffee-950 text-sm mb-2">Merchandise E-Commerce</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">Sistem Checkout untuk Biji Kopi / Kaos secara daring yang terkirim ke seluruh Nusantara, merebut pasar turis di luar Jogja.</p>
+                    </div>
+                    <div class="bg-coffee-50 p-5 rounded-xl border border-coffee-200">
+                        <div class="w-10 h-10 bg-coffee-900 text-white rounded-full flex items-center justify-center mb-3"><i class="ph-bold ph-identification-card text-xl"></i></div>
+                        <h4 class="font-bold text-coffee-950 text-sm mb-2">Cross-Brand Loyalty Points</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">Poin yang terkumpul saat ngopi di Awor bisa di-scan dan dihabiskan keesokan harinya di Jeeva Cafe. Siklus monopoli 100%.</p>
+                    </div>
+                    <div class="bg-coffee-50 p-5 rounded-xl border border-coffee-200 mt-2">
+                        <div class="w-10 h-10 bg-coffee-900 text-white rounded-full flex items-center justify-center mb-3"><i class="ph-bold ph-timer text-xl"></i></div>
+                        <h4 class="font-bold text-coffee-950 text-sm mb-2">Live Order Ahead / POS</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">Mengikis antrean hingga 60%. Konsumen pesan dari hotel, nomor pemanggilan _real-time_ muncul di HP.</p>
+                    </div>
+                    <div class="bg-coffee-50 p-5 rounded-xl border border-coffee-200 mt-2">
+                        <div class="w-10 h-10 bg-coffee-900 text-white rounded-full flex items-center justify-center mb-3"><i class="ph-bold ph-translate text-xl"></i></div>
+                        <h4 class="font-bold text-coffee-950 text-sm mb-2">Enterprise Bilingual UI</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">Seluruh Web App dilengkapi sistem Bahasa Inggris / Indonesia tanpa jeda muatan layaknya korporasi global.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-auto pt-6 border-t border-gray-200">
+                <p class="text-center text-[10px] text-gray-400 font-mono">Confidential Proposal | Jogja Collective x CocoTech Agency | Halaman 1 dari 2</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- PAGE 2: TIMELINE, PRICING & CLOSING -->
+    <div class="page-a4 flex flex-col relative overflow-hidden">
+        <div class="absolute inset-0 border-[10px] border-coffee-950/5 m-4 pointer-events-none"></div>
+
+        <main class="p-12 flex-1 relative z-10 flex flex-col">
+            
+            <div class="mb-10">
+                <h3 class="flex items-center gap-3 text-xl font-bold text-coffee-950 mb-6 uppercase tracking-widest border-b-2 border-coffee-100 pb-2">
+                    <i class="ph-fill ph-chart-polar text-gold text-2xl"></i> III. Proyeksi Retur (*ROI Justification*)
+                </h3>
+                <p class="text-sm text-gray-600 mb-6 leading-relaxed text-justify-custom">Turis membelanjakan rata-rata Rp 2.000.000+ untuk suvenir/merch saat liburan ke Jogja. Jika 11 kafe Anda mampu menangkap <strong>hanya 5% dari 100.000 turis per bulan</strong> secara komunal lewat ekosistem Omnichannel ini, GMV baru yang tercipta bisa menembus <strong>Rp 5 Miliar / Bulan</strong> murni penjualan dari luar kasir fisik.</p>
+                
+                <div class="grid grid-cols-4 divide-x divide-gray-200 bg-white border border-gray-200 rounded-xl py-6 shadow-sm">
+                    <div class="text-center px-4">
+                        <p class="text-3xl font-bold font-serif text-coffee-900 mb-1">$35K+</p>
+                        <p class="text-[9px] uppercase tracking-widest font-bold text-gray-500">Est. Merch Sales/Bln</p>
+                    </div>
+                    <div class="text-center px-4">
+                        <p class="text-3xl font-bold font-serif text-coffee-900 mb-1">300%</p>
+                        <p class="text-[9px] uppercase tracking-widest font-bold text-gray-500">Lonjakan Retensi Poin</p>
+                    </div>
+                    <div class="text-center px-4">
+                        <p class="text-3xl font-bold font-serif text-coffee-900 mb-1">60%</p>
+                        <p class="text-[9px] uppercase tracking-widest font-bold text-gray-500">Reduksi Antrean Turis</p>
+                    </div>
+                    <div class="text-center px-4">
+                        <p class="text-xl font-bold font-serif text-coffee-900 mb-1 items-center flex justify-center h-9"><i class="ph-fill ph-calendar-check text-green-500 text-2xl"></i></p>
+                        <p class="text-[9px] uppercase tracking-widest font-bold text-gray-500">BEP di Bulan ke-2</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRICING TIERS -->
+            <div class="mb-10">
+                <h3 class="flex items-center gap-3 text-xl font-bold text-coffee-950 mb-6 uppercase tracking-widest border-b-2 border-coffee-100 pb-2">
+                    <i class="ph-fill ph-currency-circle-dollar text-gold text-2xl"></i> IV. Penawaran Operasional Ekosistem
+                </h3>
+                
+                <div class="space-y-4">
+                    <!-- TIER 2 -->
+                    <div class="flex justify-between items-center p-4 border border-gray-200 rounded-xl bg-gray-50 hover:bg-white transition-colors">
+                        <div>
+                            <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mb-1 inline-block font-mono">Tahap 2</span>
+                            <h4 class="font-bold text-coffee-950 text-base">Tier 2: Basic Omnichannel Pro</h4>
+                            <p class="text-xs text-gray-500 mt-1 max-w-sm">Mobile Web Bilingue, E-Commerce Standar, dan Live Queue.</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-serif font-bold text-xl text-gray-700">Rp 8.500.000</p>
+                        </div>
+                    </div>
+
+                    <!-- TIER 3 (HIGHLIGHT FOR COLLECTIVE) -->
+                    <div class="flex flex-col p-6 border-2 border-gold rounded-xl bg-gradient-to-br from-[#1E150D] to-coffee-950 text-white relative shadow-2xl">
+                        <div class="absolute -top-3 right-6 bg-gold text-coffee-950 font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-sm">Highly Recommended for Collective</div>
+                        
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="bg-white/10 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mb-2 inline-block border border-white/20 font-mono">Tahap 3</span>
+                                <h4 class="font-bold text-white text-xl">Tier 3: Full Enterprise Monopoly Ecosystem</h4>
+                                <ul class="mt-3 space-y-2 text-xs text-white/80 font-mono">
+                                    <li class="flex items-center gap-2"><i class="ph-bold ph-check text-gold"></i> Seluruh Fitur Tier 2 (Order Ahead, Bilingual, E-Comm)</li>
+                                    <li class="flex items-center gap-2"><i class="ph-bold ph-check text-gold"></i> Sistem Loyalty Points Terintegrasi Antar 11+ Kafe</li>
+                                    <li class="flex items-center gap-2"><i class="ph-bold ph-check text-gold"></i> Custom WhatsApp Automation Engine</li>
+                                </ul>
+                            </div>
+                            <div class="text-right bg-black/40 p-4 rounded-xl border border-white/10">
+                                <p class="text-[10px] text-coffee-300 font-bold uppercase tracking-widest mb-1">Diskon Eksekusi Aktif</p>
+                                <p class="font-serif font-bold text-3xl lg:text-4xl text-white">Rp 15.000.000 <span class="text-xs font-mono text-white/50 block font-normal mt-1">Nett. (Atau USD $25,000 via Korporat)</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Skema Pembayaran -->
+                        <div class="bg-gold/10 border border-gold/30 rounded-lg p-4 mt-2">
+                            <h5 class="text-gold font-bold text-xs uppercase tracking-widest mb-2 flex items-center gap-2"><i class="ph-fill ph-handshake text-lg"></i> Skema Termin Pembayaran</h5>
+                            <div class="flex gap-8">
+                                <div>
+                                    <p class="text-[10px] font-mono text-white/60 mb-1">Down Payment (30%)</p>
+                                    <p class="font-bold text-white font-serif">Rp 4.500.000</p>
+                                    <p class="text-[9px] text-green-400 mt-1">Kick-off & Prototype Server</p>
+                                </div>
+                                <div class="w-px bg-white/20"></div>
+                                <div>
+                                    <p class="text-[10px] font-mono text-white/60 mb-1">Pelunasan Akhir (70%)</p>
+                                    <p class="font-bold text-white font-serif">Rp 10.500.000</p>
+                                    <p class="text-[9px] text-green-400 mt-1">Setelah Go-Live / Handover Sistem</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="text-sm text-gray-800 font-bold mb-2">Tanda Tangan & Persetujuan</p>
+                <div class="flex justify-between">
+                    <div class="w-64 border-t border-gray-400 mt-16 text-center pt-2">
+                        <p class="text-xs font-bold text-coffee-950">Nur Cahya Priantoro</p>
+                        <p class="text-[10px] text-gray-500">Lead Enterprise Architect - CocoTech</p>
+                    </div>
+                    <div class="w-64 border-t border-gray-400 mt-16 text-center pt-2">
+                        <p class="text-xs font-bold text-coffee-950">Manajemen Jogja Collective</p>
+                        <p class="text-[10px] text-gray-500">Tanda Tangan & Cap Perusahaan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Kontak -->
+            <div class="mt-auto bg-coffee-900 rounded-xl p-6 text-white grid grid-cols-3 gap-6 items-center shadow-lg">
+                <div class="col-span-2">
+                    <h4 class="font-bold font-serif text-lg mb-1">Siap Meroketkan Valuasi Kedai Anda?</h4>
+                    <p class="text-[10px] font-mono text-coffee-300">Hubungi kami hari ini untuk konfirmasi pengaktifan deposit server.</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs font-bold flex items-center justify-end gap-2 mb-1"><i class="ph-fill ph-whatsapp-logo text-green-400 text-lg"></i> +62 812 8332 1577</p>
+                    <p class="text-[10px] font-mono text-coffee-300">nurcahyapriantoro23@gmail.com</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-[10px] text-gray-400 font-mono mt-4">Confidential Proposal | Jogja Collective x CocoTech Agency | Halaman 2 dari 2</p>
+        </main>
+    </div>
+
+</body>
+</html>

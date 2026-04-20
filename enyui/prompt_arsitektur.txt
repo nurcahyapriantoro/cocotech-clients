@@ -1,0 +1,36 @@
+# ARSITEKTUR UI/UX & STACK PANDUAN - "ENYUI"
+
+## 1. Konsep Visual (Japandi Minimalist)
+- **Filosofi:** Penggabungan esensi Wabi-Sabi Jepang (keindahan dalam ketidaksempurnaan alami, elemen batu/air) dan Hygge Skandinavia (kenyamanan, fungsi, kehangatan kayu).
+- **Vibe:** Tenang (Zen), Bersih (Clean), Premium, Eksklusif, Artisan.
+- **Bentuk (Shapes):** Sudut melengkung (rounded-3xl), layout asimetris yang bernafas (banyak negative space), dan elemen abstrak organik (blobs) sebagai background.
+
+## 2. Palet Warna (Tailwind Custom Config)
+- **Wood/Earth Tones:** Cokelat muda ke gelap (Hex: #bc8a5f, #a36d41, #4a3320). Mewakili meja kayu, kursi rotan, dan elemen arsitektur Skandinavia.
+- **Zen/Water Tones:** Hijau sage pudar dan warna elemen air (Hex: #c5d5c5, #728e72, #2b362b). Mewakili kolam air mengalir dan tanaman indoor.
+- **Backgrounds:** Putih gading / Paper (Hex: #fdfbf7). Menghindari putih murni (pure white #FFF) untuk menjaga mata tetap nyaman (eye-soothing).
+- **Ink/Text:** Hitam pekat kecokelatan (Hex: #1a1816) untuk keterbacaan tingkat tinggi tanpa kesan kaku.
+
+## 3. Tipografi
+- **Heading (Google Fonts - Playfair Display):** Digunakan untuk judul utama, hero section, dan nama produk. Memberikan kesan elegan, mahal, dan high-end editorial.
+- **Body Text (Google Fonts - Plus Jakarta Sans):** Digunakan untuk deskripsi panjang, navigasi, dan UI elements. Sangat modern, bersih, dan mudah dibaca (legibility tinggi).
+
+## 4. Tech Stack & Interaktivitas
+- **Styling:** Tailwind CSS (via CDN) dengan injeksi Keyframes kustom untuk animasi floating, marquee, dan pulse-glow.
+- **State Management & Logic:** Alpine.js. WAJIB digunakan untuk:
+  - Navbar scroll detection (Glassmorphism).
+  - Tabbed interaction pada "Katalog Menu" (Filtering).
+  - State Machine pada "Booking Engine" (Multi-step form, kalkulasi harga).
+  - Countdown timer real-time.
+  - Scroll-triggered pop-up bot.
+- **Ikonografi:** Phosphor Icons (Light/Regular weight) untuk konsistensi line-art yang cocok dengan gaya minimalis.
+
+## 5. UI/UX "The 8 Pillars" Conversion Strategy
+1. **Glassmorphism Nav:** Elegan tanpa menghalangi konten visual.
+2. **Hero Interaktif:** Menghantam pain point (traffic pemotretan tanpa beli) langsung di detik pertama.
+3. **Bento Grid Layout:** Bercerita tentang interior (air, kayu, kopi) dalam format visual padat dan modern.
+4. **Booking Engine & Menu:** Fokus utama fungsionalitas. Simulasi aplikasi nyata untuk memicu "Aha Moment" klien.
+5. **Competitor Bar Chart:** Menyerang sisi emosional/logis klien (FOMO uang yang hilang).
+6. **Scarcity Countdown:** Urgensi bertindak.
+7. **Omni-QR Footer:** Integrasi offline-to-online.
+8. **Sales Bot:** Mengganggu atensi (secara sopan) di titik scroll 30% untuk memaksakan CTA meeting.

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arva Indonesia — Premium Heritage Snacks. Gourmet Truffle Tempeh Chips B2B Export Portal.">
+    <title>Arva Indonesia | Premium B2B Export Portal</title>
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arva: {
+                            black: '#0A0A0A',
+                            charcoal: '#171717',
+                            gold: '#D4AF37',
+                            truffle: '#4A3B32',
+                            mala: '#8B0000',
+                            honey: '#FFC30B',
+                            salt: '#FFB6C1',
+                            light: '#F8F8F8'
+                        }
+                    },
+                    fontFamily: {
+                        sans:  ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono:  ['JetBrains Mono', 'monospace']
+                    },
+                    animation: {
+                        'slow-zoom': 'scaleUp 20s ease-in-out infinite alternate',
+                        'pulse-glow': 'glow 3s infinite',
+                    },
+                    keyframes: {
+                        scaleUp: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1)' }
+                        },
+                        glow: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: .5 }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Countdown Timer Logic
+        function countdownTimer() {
+            return {
+                hours: 47,
+                minutes: 59,
+                seconds: 22,
+                init() {
+                    setInterval(() => {
+                        if (this.seconds > 0) {
+                            this.seconds--;
+                        } else {
+                            if (this.minutes > 0) {
+                                this.minutes--;
+                                this.seconds = 59;
+                            } else {
+                                if (this.hours > 0) {
+                                    this.hours--;
+                                    this.minutes = 59;
+                                    this.seconds = 59;
+                                }
+                            }
+                        }
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { background: #0A0A0A; color: #F8F8F8; overflow-x: hidden; }
+        [x-cloak] { display: none !important; }
+
+        /* Reveal Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        /* Glassmorphism */
+        .glass-dark { background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-sans antialiased" x-data="{ scrolled: false, lang: 'en' }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+
+<!-- ============================================================
+     NAVIGATION (BILINGUAL)
+=========================================================== -->
+<nav class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+     :class="scrolled ? 'glass-dark py-4 shadow-2xl' : 'bg-gradient-to-b from-black/80 to-transparent py-8'">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 border border-arva-gold/50 flex flex-col items-center justify-center text-arva-gold font-serif transition-colors group-hover:bg-arva-gold group-hover:text-black">
+                <span class="text-lg font-bold leading-none tracking-tighter">A</span>
+            </div>
+            <div>
+                <p class="font-serif font-bold text-lg text-white">ARVA</p>
+                <p class="text-[8px] font-bold tracking-[.3em] text-arva-gold uppercase">Indonesia</p>
+            </div>
+        </a>
+
+        <!-- Links -->
+        <div class="hidden lg:flex items-center gap-8 text-xs font-bold tracking-widest text-white/60 uppercase">
+            <a href="#about" class="hover:text-arva-gold transition-colors" x-text="lang==='en' ? 'Heritage' : 'Warisan'"></a>
+            <a href="#products" class="hover:text-arva-gold transition-colors" x-text="lang==='en' ? 'Collection' : 'Koleksi'"></a>
+            <a href="#specs" class="hover:text-arva-gold transition-colors" x-text="lang==='en' ? 'Specs' : 'Spesifikasi'"></a>
+            <a href="#b2b" class="hover:text-arva-gold transition-colors flex items-center gap-2"><i class="ph-fill ph-lock-key text-arva-gold"></i> B2B Portal</a>
+        </div>
+
+        <!-- Right Side: Lang Toggle & Login -->
+        <div class="flex items-center gap-4">
+            <div class="flex bg-white/10 p-1 border border-white/20">
+                <button @click="lang='en'" class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors"
+                        :class="lang==='en' ? 'bg-arva-gold text-black' : 'text-white/60 hover:text-white'">EN</button>
+                <button @click="lang='id'" class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors"
+                        :class="lang==='id' ? 'bg-arva-gold text-black' : 'text-white/60 hover:text-white'">ID</button>
+            </div>
+            <a href="#b2b" class="hidden md:block bg-arva-gold hover:bg-yellow-500 text-arva-black px-6 py-2.5 font-bold uppercase tracking-widest text-[10px] transition-all">
+                <span x-text="lang==='en' ? 'Client Login' : 'Login Klien'"></span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================================================
+     HERO SECTION
+=========================================================== -->
+<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <!-- Image BG -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://picsum.photos/seed/arvahero/1920/1080" alt="Gourmet Background" class="w-full h-full object-cover animate-slow-zoom filter grayscale contrast-125 brightness-[0.25]">
+        <div class="absolute inset-0 bg-gradient-to-t from-arva-black via-transparent to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-arva-black via-arva-black/80 to-transparent"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <div class="max-w-3xl reveal" x-intersect="$el.classList.add('in')">
+            <div class="inline-flex flex-col mb-8">
+                <span class="text-xs font-bold tracking-[.4em] text-arva-gold uppercase mb-3">Est. 2013 • Sleman, Yogyakarta</span>
+                <div class="h-px bg-gradient-to-r from-arva-gold to-transparent w-full"></div>
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-6">
+                <span x-text="lang==='en' ? 'The Crisp of ' : 'Renahnya '"></span><em class="text-arva-gold italic" x-text="lang==='en' ? 'Heritage.' : 'Warisan.'"></em><br>
+                <span x-text="lang==='en' ? 'Taste of ' : 'Cita Rasa '"></span><em class="text-white italic" x-text="lang==='en' ? 'Luxury.' : 'Kemewahan.'"></em>
+            </h1>
+            
+            <p class="text-white/60 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-2xl" 
+               x-text="lang==='en' ? 'Elevating traditional Indonesian Tempeh into a world-class gourmet experience. Specially crafted for international fine-food distributors and premium retailers.' : 'Mengangkat Tempe tradisional Indonesia menjadi pengalaman gastronomi kelas dunia. Diformulasikan khusus untuk jaringan ritel premium dan distributor global.'"></p>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="#b2b" class="bg-arva-gold text-arva-black px-8 py-4 uppercase font-bold tracking-widest text-xs hover:bg-white transition-all flex items-center gap-3">
+                    <i class="ph-bold ph-globe-hemisphere-west text-lg"></i> <span x-text="lang==='en' ? 'Global Wholesale Access' : 'Akses Grosir Global'"></span>
+                </a>
+                <a href="#products" class="border border-white/20 text-white hover:border-arva-gold hover:text-arva-gold px-8 py-4 uppercase font-bold tracking-widest text-xs transition-colors">
+                    <span x-text="lang==='en' ? 'Explore Flavors' : 'Jelajahi Rasa'"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     STATS BAR (HIGH DETAIL)
+=========================================================== -->
+<section class="py-12 border-y border-white/10 bg-arva-charcoal/80 relative z-20">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
+        <div class="text-center group">
+            <i class="ph-fill ph-check-badge text-3xl text-arva-gold mb-3 mx-auto transform group-hover:-translate-y-1 transition-transform"></i>
+            <p class="font-serif text-2xl font-bold text-white mb-1">FDA</p>
+            <p class="text-[10px] tracking-[.2em] text-white/40 uppercase font-bold" x-text="lang==='en' ? 'Facility Registered' : 'Fasilitas Terdaftar'"></p>
+        </div>
+        <div class="text-center px-4 group">
+            <i class="ph-fill ph-seal-check text-3xl text-arva-gold mb-3 mx-auto transform group-hover:-translate-y-1 transition-transform"></i>
+            <p class="font-serif text-2xl font-bold text-white mb-1">100%</p>
+            <p class="text-[10px] tracking-[.2em] text-white/40 uppercase font-bold" x-text="lang==='en' ? 'Halal Certified (MUI)' : 'Sertifikasi Halal MUI'"></p>
+        </div>
+        <div class="text-center px-4 group">
+            <i class="ph-fill ph-plant text-3xl text-arva-gold mb-3 mx-auto transform group-hover:-translate-y-1 transition-transform"></i>
+            <p class="font-serif text-2xl font-bold text-white mb-1">Vegan</p>
+            <p class="text-[10px] tracking-[.2em] text-white/40 uppercase font-bold" x-text="lang==='en' ? 'Plant-based Protein' : 'Protein Nabati Alami'"></p>
+        </div>
+        <div class="text-center px-4 group">
+            <i class="ph-fill ph-globe text-3xl text-arva-gold mb-3 mx-auto transform group-hover:-translate-y-1 transition-transform"></i>
+            <p class="font-serif text-2xl font-bold text-white mb-1">14+</p>
+            <p class="text-[10px] tracking-[.2em] text-white/40 uppercase font-bold" x-text="lang==='en' ? 'Export Destinations' : 'Negara Ekspor'"></p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     TENTANG (NARRATIVE TEXT-HEAVY)
+=========================================================== -->
+<section id="about" class="py-32 relative">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+        
+        <!-- Text Column -->
+        <div class="reveal" x-intersect="$el.classList.add('in')">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="h-px bg-arva-gold w-12"></div>
+                <p class="text-arva-gold text-xs font-bold tracking-widest uppercase"><span x-text="lang==='en' ? 'The Arva Philosophy' : 'Filosofi Arva'"></span></p>
+            </div>
+            
+            <h2 class="font-serif text-4xl md:text-5xl font-bold mb-8 text-white leading-tight">
+                <span x-text="lang==='en' ? 'Redefining a humble tradition into a ' : 'Mengubah tradisi sederhana menjadi '"></span>
+                <em class="text-arva-gold italic" x-text="lang==='en' ? 'Global Sensation.' : 'Sensasi Global.'"></em>
+            </h2>
+            
+            <div class="space-y-6 text-white/70 font-light leading-relaxed mb-8">
+                <p x-text="lang==='en' ? 'Since 2013, ARVA Indonesia has been driven by a singular, audacious vision: To elevate the humble Indonesian tempeh from local street food into a highly sought-after gourmet delicacy on the international stage.' : 'Sejak 2013, ARVA Indonesia membawa visi besar: Mengangkat derajat tempe Indonesia, dari camilan jalanan tradisional, menjadi mahakarya gastronomi mewah bernilai tinggi di kancah internasional.'"></p>
+                
+                <p x-text="lang==='en' ? 'Manufactured in our state-of-the-art facility in Sleman, Yogyakarta, we marry timeless fermentation techniques with world-class ingredients. Every slice of ARVA is precision-cut, slow-baked to a perfect crisp, and infused with the rarest selections: authentic Black Truffle oil from Italy, pure Himalayan pink salt, and authentic Sichuan peppercorns.' : 'Dibuat di fasilitas termutakhir kami di Sleman, Yogyakarta, kami mengawinkan teknik fermentasi usia ratusan tahun dengan bahan kualitas dunia. Tempe dipotong presisi, dipanggang lambat, dan dipadukan dengan Truffle hitam Italia, garam Himalaya, hingga lada Sichuan asli.'"></p>
+            </div>
+
+            <!-- Value Props (High Detail Table-like) -->
+            <div class="border border-white/10 bg-arva-charcoal/50 rounded-xl p-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <p class="font-bold text-white text-lg mb-1">Zero Oil Residue</p>
+                        <p class="text-[11px] text-white/50" x-text="lang==='en' ? 'Advanced baking technique ensuring maximum crispness without the greasiness.' : 'Teknik pemanggangan maju menjamin tekstur renyah tanpa residu minyak.'"></p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-white text-lg mb-1">12-Month Shelf Life</p>
+                        <p class="text-[11px] text-white/50" x-text="lang==='en' ? 'Vacuum packed and nitrogen flushed. Perfect for trans-ocean shipping.' : 'Vakum & injeksi nitrogen. Sempurna untuk pengiriman benua.'"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Column -->
+        <div class="relative reveal" x-intersect="$el.classList.add('in')">
+            <div class="relative z-10 w-full aspect-[4/5] overflow-hidden ml-auto rounded border border-white/10 shadow-2xl">
+                <img src="https://picsum.photos/seed/arvafactory2/800/1000" alt="Arva Production" class="w-full h-full object-cover filter sepia-[.3] contrast-125 transition-transform duration-1000 hover:scale-105">
+            </div>
+            <!-- Decorative borders -->
+            <div class="absolute -bottom-6 -left-6 w-full h-full border border-arva-gold/20 z-0 rounded pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-arva-gold/5 blur-3xl z-0 rounded-full"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     PRODUK & INVENTORY
+=========================================================== -->
+<section id="products" class="py-32 bg-arva-charcoal relative border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-20 reveal" x-intersect="$el.classList.add('in')">
+            <i class="ph-fill ph-crown text-4xl text-arva-gold mb-6 block"></i>
+            <h2 class="font-serif text-4xl font-bold text-white mb-4" x-text="lang==='en' ? 'The Premium Collection' : 'Koleksi Premium'"></h2>
+            <p class="text-white/50" x-text="lang==='en' ? 'Elegant flavor profiles crafted explicitly for the international palate.' : 'Profil rasa elegan yang dirancang khusus untuk lidah internasional.'"></p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6">
+            <!-- Truffle -->
+            <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')">
+                <div class="aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/arvaprod11/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Truffle">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
+                    <p class="text-arva-gold text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Signature' : 'Unggulan'"></p>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Truffle</h3>
+                    <p class="text-white/60 text-xs mb-4" x-text="lang==='en' ? 'Infused with real black truffle essence and olive oil.' : 'Perpaduan tempe dengan minyak zaitun dan ekstrak truffle hitam.'"></p>
+                    <button onclick="alert('Action: Open spec sheet.')" class="bg-white/10 hover:bg-arva-gold hover:text-black text-white text-[10px] uppercase font-bold tracking-widest py-2 px-4 transition-colors w-max" x-text="lang==='en' ? 'View Details' : 'Lihat Detail'"></button>
+                </div>
+            </div>
+
+            <!-- Mala -->
+            <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
+                <div class="aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/arvaprod22/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Mala">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
+                    <p class="text-red-500 text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Spicy' : 'Pedas'"></p>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Sichuan Mala</h3>
+                    <p class="text-white/60 text-xs mb-4" x-text="lang==='en' ? 'Authentic numbing spice blend directly from Chengdu.' : 'Rasa pedas kebas autentik langsung dari Chengdu.'"></p>
+                    <button onclick="alert('Action: Open spec sheet.')" class="bg-white/10 hover:bg-arva-gold hover:text-black text-white text-[10px] uppercase font-bold tracking-widest py-2 px-4 transition-colors w-max" x-text="lang==='en' ? 'View Details' : 'Lihat Detail'"></button>
+                </div>
+            </div>
+
+            <!-- Honey Butter -->
+            <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
+                <div class="aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/arvaprod33/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Honey">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
+                    <p class="text-yellow-400 text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Sweet' : 'Manis'"></p>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Honey Butter</h3>
+                    <p class="text-white/60 text-xs mb-4" x-text="lang==='en' ? 'Korean-inspired sweet honey and rich umami butter.' : 'Kombinasi madu manis dan mentega umami khas Korea.'"></p>
+                    <button onclick="alert('Action: Open spec sheet.')" class="bg-white/10 hover:bg-arva-gold hover:text-black text-white text-[10px] uppercase font-bold tracking-widest py-2 px-4 transition-colors w-max" x-text="lang==='en' ? 'View Details' : 'Lihat Detail'"></button>
+                </div>
+            </div>
+
+            <!-- Salt -->
+            <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 300ms">
+                <div class="aspect-[4/5]">
+                    <img src="https://picsum.photos/seed/arvaprod44/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Salt">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
+                    <p class="text-pink-400 text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Classic' : 'Klasik'"></p>
+                    <h3 class="font-serif text-2xl font-bold text-white mb-2">Himalayan Salt</h3>
+                    <p class="text-white/60 text-xs mb-4" x-text="lang==='en' ? 'Pure unrefined pink salt celebrating the natural tempeh taste.' : 'Garam merah muda murni yang mengangkat rasa tempe alami.'"></p>
+                    <button onclick="alert('Action: Open spec sheet.')" class="bg-white/10 hover:bg-arva-gold hover:text-black text-white text-[10px] uppercase font-bold tracking-widest py-2 px-4 transition-colors w-max" x-text="lang==='en' ? 'View Details' : 'Lihat Detail'"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     B2B SPECS (TECHNICAL DATA TABLE) - NEW ADDITION
+=========================================================== -->
+<section id="specs" class="py-24 bg-[#111] border-b border-white/5">
+    <div class="max-w-5xl mx-auto px-6 reveal" x-intersect="$el.classList.add('in')">
+        <h3 class="font-serif text-3xl font-bold text-white mb-8" x-text="lang==='en' ? 'Export Specifications & Packing Data' : 'Data Pengepakan Ekspor'"></h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm text-white/70">
+                <thead>
+                    <tr class="border-b border-white/20 text-white font-bold bg-white/5">
+                        <th class="p-4" x-text="lang==='en' ? 'SKU Parameter' : 'Parameter SKU'"></th>
+                        <th class="p-4">Arva Retail Pouch (100g)</th>
+                        <th class="p-4">Arva Bulk Carton (10kg)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/10">
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="p-4 font-bold text-arva-gold" x-text="lang==='en' ? 'Dimensions (LxWxH)' : 'Dimensi (PxLxT)'"></td>
+                        <td class="p-4">120 x 50 x 200 mm</td>
+                        <td class="p-4">400 x 300 x 400 mm</td>
+                    </tr>
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="p-4 font-bold text-arva-gold" x-text="lang==='en' ? 'Packaging Material' : 'Material Kemasan'"></td>
+                        <td class="p-4">Aluminum Foil Ziplock (Food Grade)</td>
+                        <td class="p-4">Double-Wall Corrugated Box + Inner PE Liner</td>
+                    </tr>
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="p-4 font-bold text-arva-gold" x-text="lang==='en' ? 'Shelf Life' : 'Masa Simpan'"></td>
+                        <td class="p-4">12 Months (Nitrogen Flushed)</td>
+                        <td class="p-4">12 Months</td>
+                    </tr>
+                    <tr class="hover:bg-white/5 transition-colors">
+                        <td class="p-4 font-bold text-arva-gold" x-text="lang==='en' ? 'Pallet Configuration (FCL 20ft)' : 'Isi Palet (FCL 20ft)'"></td>
+                        <td class="p-4">24 pouches/carton. 10 pallets (~30,000 pouches)</td>
+                        <td class="p-4">10 pallets (~500 bulk cartons)</td>
+                    </tr>
+                    <tr class="bg-white/5">
+                        <td class="p-4 font-bold text-white text-center" colspan="3">
+                            <button onclick="alert(lang==='en' ? 'Prototype: Downloading Commercial FOB Spec Sheet PDF.' : 'Prototype: Mengunduh Komersial Ekspor PDF.')" class="inline-flex flex-col items-center justify-center bg-arva-gold text-black/90 font-bold px-6 py-3 hover:bg-white transition-colors uppercase tracking-[.2em] text-[10px] w-[250px] mx-auto rounded">
+                                <i class="ph-bold ph-download-simple text-sm mb-1"></i> <span x-text="lang==='en' ? 'Download Full Logistics PDF' : 'Unduh Dokumen Logistik PDF'"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     B2B DASHBOARD SIMULATOR (WOW FACTOR)
+=========================================================== -->
+<section id="b2b" class="py-32 relative" x-data="{ loggedIn: false, 
+    cart: { truffle: 0, mala: 0, honey: 0 },
+    pricing: { truffle: 175.00, mala: 160.00, honey: 160.00 },
+    getTotal() { return (this.cart.truffle * this.pricing.truffle) + (this.cart.mala * this.pricing.mala) + (this.cart.honey * this.pricing.honey); },
+    getUnits() { return this.cart.truffle + this.cart.mala + this.cart.honey; }
+}">
+    <!-- Background grid -->
+    <div class="absolute inset-0 z-0 opacity-[0.02]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-arva-gold/10 border border-arva-gold/30 text-arva-gold text-[10px] font-bold uppercase tracking-widest rounded-full mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                <i class="ph-fill ph-lock-key"></i> <span x-text="lang==='en' ? 'B2B Extranet Mode' : 'Mode Ekstranet B2B'"></span>
+            </div>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-white mb-4" x-text="lang==='en' ? 'Enterprise Hub.' : 'Portal Distribusi Eksekutif.'"></h2>
+            <p class="text-white/50 max-w-2xl mx-auto" x-text="lang==='en' ? 'Highly encrypted B2B portal for our global partners. Automate your PO, simulate live Free on Board (FOB) pricing, and access our central FDA/Halal compliance documents instantly.' : 'Portal B2B terenkripsi tinggi untuk mitra global kami. Otomatisasi PO, kalkulasi FOB live, dan unduh dokumen legalitas Ekspor secara instan.'"></p>
+        </div>
+
+        <!-- APP FRAME -->
+        <div class="border border-white/10 rounded-2xl bg-[#0F0F0F] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden reveal" x-intersect="$el.classList.add('in')">
+            <!-- App Header -->
+            <div class="bg-black border-b border-white/5 px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80 shadow-[0_0_5px_red]"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80 shadow-[0_0_5px_yellow]"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80 shadow-[0_0_5px_green]"></div>
+                    </div>
+                    <span class="text-white/30 text-xs font-mono ml-2">portal.arva.global</span>
+                </div>
+                <div class="flex items-center gap-2 text-[10px] font-mono text-green-400 font-bold bg-green-900/40 px-2 py-1 rounded">
+                    <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse-glow"></div> AES-256 SECURE
+                </div>
+            </div>
+
+            <!-- LOGIN STATE -->
+            <div x-show="!loggedIn" class="p-16 flex flex-col items-center justify-center min-h-[450px]">
+                <div class="w-20 h-20 border border-arva-gold/30 rounded-full flex items-center justify-center bg-arva-gold/10 mb-6 relative">
+                    <div class="absolute inset-0 rounded-full border border-arva-gold animate-ping opacity-20"></div>
+                    <i class="ph-bold ph-fingerprint text-3xl text-arva-gold"></i>
+                </div>
+                <h3 class="font-serif text-2xl text-white mb-2" x-text="lang==='en' ? 'Distributor Authentication' : 'Masuk Jaringan Distributor'"></h3>
+                <p class="text-white/40 text-sm mb-8 text-center max-w-sm" x-text="lang==='en' ? 'Access restricted to authorized international wholesale partners. Use the demo key below.' : 'Akses tertutup khusus untuk grosir internasional terverifikasi. Gunakan kunci demo di bawah.'"></p>
+                
+                <div class="flex flex-col sm:flex-row gap-2 w-full max-w-md">
+                    <div class="relative flex-1">
+                        <i class="ph-fill ph-key absolute left-4 top-1/2 -translate-y-1/2 text-white/30"></i>
+                        <input type="password" value="********" readonly class="w-full bg-[#1A1A1A] border border-white/20 pl-10 py-4 rounded text-white text-sm focus:outline-none focus:border-arva-gold font-mono cursor-not-allowed">
+                    </div>
+                    <button @click="loggedIn = true" class="bg-arva-gold text-arva-black hover:bg-white rounded px-8 py-4 font-bold uppercase text-xs tracking-widest transition-all">
+                        <span x-text="lang==='en' ? 'Simulate Auth' : 'Mulai Simulasi'"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- DASHBOARD STATE -->
+            <div x-show="loggedIn" x-cloak class="flex flex-col md:flex-row min-h-[500px]">
+                <!-- Sidebar -->
+                <div class="w-full md:w-64 border-r border-white/5 bg-[#141414] p-6 flex flex-col">
+                    <div class="flex items-center gap-4 mb-10 pb-6 border-b border-white/5">
+                        <div class="w-12 h-12 rounded-full border-2 border-arva-gold p-0.5 overflow-hidden">
+                            <img src="https://i.pravatar.cc/150?img=12" class="w-full h-full rounded-full object-cover grayscale">
+                        </div>
+                        <div>
+                            <p class="font-bold text-white text-sm">EuroFoods LLC</p>
+                            <p class="text-[9px] text-green-400 uppercase tracking-widest font-mono">ID: D-E882</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-1 text-[11px] font-bold tracking-wider text-white/50 uppercase flex-1">
+                        <li class="bg-arva-gold/10 text-arva-gold px-4 py-3 rounded flex items-center justify-between"><span class="flex items-center gap-3"><i class="ph-fill ph-calculator text-lg"></i> <span x-text="lang==='en' ? 'FOB Calculator' : 'Kalkulator FOB'"></span></span> <div class="w-1.5 h-1.5 rounded-full bg-arva-gold"></div></li>
+                        <li class="px-4 py-3 hover:text-white hover:bg-white/5 rounded cursor-pointer transition-colors flex items-center gap-3" onclick="alert('Prototype: Menampilkan Dokumen Sertifikat FDA/Halal Ekspor.')"><i class="ph-fill ph-file-text text-lg"></i> <span x-text="lang==='en' ? 'Compliance Docs' : 'Sertifikasi & Legal'"></span></li>
+                        <li class="px-4 py-3 hover:text-white hover:bg-white/5 rounded cursor-pointer transition-colors flex items-center gap-3" onclick="alert('Prototype: Fitur Cek Kontainer Live.')"><i class="ph-fill ph-ship text-lg"></i> <span x-text="lang==='en' ? 'Freight Tracking' : 'Lacak Kontainer'"></span></li>
+                        <li class="px-4 py-3 hover:text-white hover:bg-white/5 rounded cursor-pointer transition-colors flex items-center gap-3 mt-auto text-red-400" @click="loggedIn=false"><i class="ph-bold ph-sign-out text-lg"></i> <span x-text="lang==='en' ? 'Secure Logout' : 'Keluar Aman'"></span></li>
+                    </ul>
+                </div>
+
+                <!-- Main area -->
+                <div class="flex-1 p-6 md:p-10 bg-arva-black">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-white/10 pb-6 mb-8 gap-4">
+                        <div>
+                            <h3 class="font-bold text-2xl text-white mb-2" x-text="lang==='en' ? 'Wholesale Order Draft' : 'Draft Pesanan Grosir'"></h3>
+                            <p class="text-white/40 text-xs" x-text="lang==='en' ? 'Origin Port: Tanjung Priok (ID). Currency: USD (Live Rate).' : 'Pelabuhan Asal: Tanjung Priok. Mata uang: USD.'"></p>
+                        </div>
+                        <div class="bg-[#1A1A1A] border border-white/10 p-4 rounded-xl min-w-[200px]">
+                            <p class="text-[10px] text-white/40 uppercase tracking-widest mb-1" x-text="lang==='en' ? 'FOB Invoice Total' : 'Estimasi Invoice FOB'"></p>
+                            <p class="font-mono text-4xl font-bold text-arva-gold tracking-tight">
+                                $<span x-text="getTotal().toLocaleString('en-US', {minimumFractionDigits: 2})">0.00</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Grid -->
+                    <div class="space-y-4 mb-8">
+                        <!-- Item 1 -->
+                        <div class="flex flex-wrap items-center gap-6 bg-white/5 p-4 border border-white/5 hover:border-arva-gold/30 rounded-xl transition-colors">
+                            <img src="https://picsum.photos/seed/arvaprod11/200/200" class="w-16 h-16 rounded border border-white/10 object-cover grayscale brightness-75">
+                            <div class="flex-1 min-w-[200px]">
+                                <p class="font-bold text-sm text-white md:text-base">Arva Truffle Master Carton</p>
+                                <p class="text-[11px] text-white/40 mt-1" x-text="lang==='en' ? 'Contains 24 Retail Pouches. MOQ: 50 Cartons.' : 'Isi 24 Kantong Retail. Minimal Order 50 Dus.'"></p>
+                            </div>
+                            <div class="text-right pr-4">
+                                <p class="font-mono text-sm text-white/70">$175.00</p>
+                                <p class="text-[9px] uppercase tracking-widest text-white/30" x-text="lang==='en' ? 'Per Carton' : 'Per Kardus'"></p>
+                            </div>
+                            <div class="flex items-center gap-2 bg-black rounded border border-white/10 p-1">
+                                <button @click="if(cart.truffle>0) cart.truffle-=50" class="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white bg-[#1A1A1A] rounded text-lg font-mono">-</button>
+                                <span class="w-12 text-center font-mono text-base text-white font-bold" x-text="cart.truffle">0</span>
+                                <button @click="cart.truffle+=50" class="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white bg-[#1A1A1A] rounded text-lg font-mono">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex flex-wrap items-center gap-6 bg-white/5 p-4 border border-white/5 hover:border-arva-gold/30 rounded-xl transition-colors">
+                            <img src="https://picsum.photos/seed/arvaprod22/200/200" class="w-16 h-16 rounded border border-white/10 object-cover grayscale brightness-75">
+                            <div class="flex-1 min-w-[200px]">
+                                <p class="font-bold text-sm text-white md:text-base">Arva Mala Master Carton</p>
+                                <p class="text-[11px] text-white/40 mt-1" x-text="lang==='en' ? 'Contains 24 Retail Pouches. MOQ: 50 Cartons.' : 'Isi 24 Kantong Retail. Minimal Order 50 Dus.'"></p>
+                            </div>
+                            <div class="text-right pr-4">
+                                <p class="font-mono text-sm text-white/70">$160.00</p>
+                                <p class="text-[9px] uppercase tracking-widest text-white/30" x-text="lang==='en' ? 'Per Carton' : 'Per Kardus'"></p>
+                            </div>
+                            <div class="flex items-center gap-2 bg-black rounded border border-white/10 p-1">
+                                <button @click="if(cart.mala>0) cart.mala-=50" class="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white bg-[#1A1A1A] rounded text-lg font-mono">-</button>
+                                <span class="w-12 text-center font-mono text-base text-white font-bold" x-text="cart.mala">0</span>
+                                <button @click="cart.mala+=50" class="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white bg-[#1A1A1A] rounded text-lg font-mono">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-end border-t border-white/10 pt-6">
+                        <button class="bg-transparent hover:bg-white/5 border border-white/20 text-white px-8 py-4 rounded font-bold text-xs uppercase tracking-widest transition-colors flex justify-center items-center gap-2" onclick="alert(lang==='en' ? 'Saving draft...' : 'Menyimpan draft sementara...')">
+                            <i class="ph-bold ph-floppy-disk"></i> <span x-text="lang==='en' ? 'Save as Draft' : 'Simpan Draft Sementara'"></span>
+                        </button>
+                        <button onclick="alert(lang==='en' ? 'Prototype Action: Proforma Invoice generated and emailed.' : 'Aksi Prototype: Proforma Invoice PO berhasil diterbitkan dan dikirim ke Email.')" class="bg-arva-gold hover:bg-white text-black px-8 py-4 rounded font-bold text-xs uppercase tracking-widest transition-colors flex justify-center items-center shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                             <span x-text="lang==='en' ? 'Submit Order & Generate Proforma Inovice' : 'Ajukan Pesanan & Cetak Invoice'"></span> <i class="ph-bold ph-arrow-right ml-2 text-lg"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONI & BRAND TRUST (GLOBAL B2B Buyers)
+=========================================================== -->
+<section class="py-32 bg-[#F5F5F5] text-arva-charcoal rounded-t-3xl relative -mt-6">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20 reveal" x-intersect="$el.classList.add('in')">
+            <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-black" x-text="lang==='en' ? 'Trusted by Global Retailers.' : 'Dipercaya Berbagai Ritel Global.'"></h2>
+            <p class="text-black/60 max-w-xl mx-auto" x-text="lang==='en' ? 'Currently exporting high-volume orders to the USA, Singapore, Japan, and the European Union.' : 'Mengekspor rutin dalam volume tinggi ke USA, Singapura, Jepang, dan Uni Eropa.'"></p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white border-b-4 border-arva-gold p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all reveal" x-intersect="$el.classList.add('in')">
+                <div class="flex gap-1 text-arva-gold mb-6 text-xl"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-base leading-relaxed mb-8 italic text-black/80 font-serif">"The absolute best gourmet snack we imported from Indonesia. Their B2B portal made document handling (FDA & BL) entirely frictionless for our procurement timeline."</p>
+                <div class="flex items-center gap-4 border-t border-black/10 pt-6">
+                    <img src="https://i.pravatar.cc/150?img=12" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
+                    <div>
+                        <p class="font-bold text-sm text-black">Sarah Jenkins</p>
+                        <p class="text-[10px] uppercase tracking-widest text-[#777] font-bold">Buyer, Premium Grocer USA</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white border-b-4 border-black p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
+                <div class="flex gap-1 text-arva-gold mb-6 text-xl"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-base leading-relaxed mb-8 italic text-black/80 font-serif">"Truffle tempeh is an instant hit in our Singaporean outlets. Arva's packaging robustness and export-readiness are definitively tier 1."</p>
+                <div class="flex items-center gap-4 border-t border-black/10 pt-6">
+                    <img src="https://i.pravatar.cc/150?img=9" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
+                    <div>
+                        <p class="font-bold text-sm text-black">Wei Chen</p>
+                        <p class="text-[10px] uppercase tracking-widest text-[#777] font-bold">Importer, SG Direct</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border-b-4 border-black p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
+                <div class="flex gap-1 text-arva-gold mb-6 text-xl"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-base leading-relaxed mb-8 italic text-black/80 font-serif">"Professionalism at its best. The live FOB Extranet portal saves our procurement team countless hours on email confirmations."</p>
+                <div class="flex items-center gap-4 border-t border-black/10 pt-6">
+                    <img src="https://i.pravatar.cc/150?img=33" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
+                    <div>
+                        <p class="font-bold text-sm text-black">Marc Delaour</p>
+                        <p class="text-[10px] uppercase tracking-widest text-[#777] font-bold">European Retail Group</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     GALERI VISUAL (Fasilitas & Pabrik)
+=========================================================== -->
+<section class="bg-[#F5F5F5] pb-24">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center gap-4 mb-10 reveal" x-intersect="$el.classList.add('in')">
+            <div class="h-px bg-arva-gold w-16"></div>
+            <p class="text-black text-xs font-bold tracking-[.3em] uppercase" x-text="lang==='en' ? 'The Facilities' : 'Fasilitas Kami'"></p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="aspect-square overflow-hidden rounded-xl bg-black reveal" x-intersect="$el.classList.add('in')">
+                <img src="https://picsum.photos/seed/arvagal11/600/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+            </div>
+            <div class="aspect-square overflow-hidden rounded-xl bg-black md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
+                <img src="https://picsum.photos/seed/arvagal22/1200/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+            </div>
+            <div class="aspect-square overflow-hidden rounded-xl bg-black reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
+                <img src="https://picsum.photos/seed/arvagal33/600/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+            </div>
+            <div class="aspect-square overflow-hidden rounded-xl bg-black md:col-span-2 reveal" x-intersect="$el.classList.add('in')">
+                <img src="https://picsum.photos/seed/arvagal44/1200/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000 brightness-75">
+            </div>
+            <div class="aspect-[2/1] md:aspect-square overflow-hidden rounded-xl bg-black md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
+                <img src="https://picsum.photos/seed/arvagal55/1200/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     FOOTER BUSINESS
+=========================================================== -->
+<footer class="bg-arva-black pt-24 pb-10 border-t-8 border-arva-gold">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-16">
+        <div class="md:col-span-2 pr-10">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-12 h-12 border border-arva-gold flex flex-col items-center justify-center text-arva-gold font-serif text-2xl bg-arva-gold/10">A</div>
+                <p class="font-serif font-bold text-2xl text-white tracking-widest">ARVA <span class="text-arva-gold">ID</span></p>
+            </div>
+            <p class="text-white/40 text-sm leading-relaxed max-w-sm mb-8" x-text="lang==='en' ? 'Premium heritage snacks, redefining traditional Indonesian culinary arts for the global stage with uncompromising hygiene and ethical sourcing.' : 'Camilan pusaka premium, mendefinisikan ulang seni kuliner tradisional Indonesia dengan higienitas dan pengadaan material yang tanpa kompromi.'"></p>
+            <div class="flex gap-4">
+                <a href="#" class="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-arva-gold hover:text-black hover:border-arva-gold transition-all"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
+                <a href="#" class="w-12 h-12 border border-white/10 rounded-full flex items-center justify-center text-white/50 hover:bg-arva-gold hover:text-black hover:border-arva-gold transition-all"><i class="ph-fill ph-linkedin-logo text-xl"></i></a>
+            </div>
+        </div>
+        <div>
+            <p class="font-bold text-xs tracking-widest text-white uppercase mb-8 pb-4 border-b border-white/10" x-text="lang==='en' ? 'Headquarters' : 'Kantor Pusat'"></p>
+            <ul class="space-y-5 text-white/50 text-sm">
+                <li class="flex items-start gap-4"><i class="ph-fill ph-map-pin text-arva-gold mt-1 text-xl"></i> <span x-text="lang==='en' ? 'Sleman Industrial Quarter, Yogyakarta, Indonesia 55281' : 'Kawasan Industri Sleman, Yogyakarta, Indonesia 55281'"></span></li>
+                <li class="flex items-center gap-4"><i class="ph-fill ph-phone text-arva-gold text-xl"></i> +62-274-8899-102</li>
+                <li class="flex items-center gap-4"><i class="ph-fill ph-envelope text-arva-gold text-xl"></i> b2b@arvafoods.com</li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold text-xs tracking-widest text-white uppercase mb-8 pb-4 border-b border-white/10" x-text="lang==='en' ? 'Global Accreditations' : 'Akreditasi Global'"></p>
+            <div class="grid grid-cols-2 gap-4 opacity-70">
+                <div class="bg-white/5 p-4 rounded text-center"><i class="ph-fill ph-check-badge text-3xl text-arva-gold mb-2 block"></i><span class="text-[9px] uppercase tracking-widest font-bold">FDA</span></div>
+                <div class="bg-white/5 p-4 rounded text-center"><i class="ph-fill ph-seal-check text-3xl text-arva-gold mb-2 block"></i><span class="text-[9px] uppercase tracking-widest font-bold">Halal</span></div>
+                <div class="bg-white/5 p-4 rounded text-center col-span-2 flex items-center justify-center gap-3"><i class="ph-fill ph-globe text-2xl text-arva-gold"></i><span class="text-[9px] uppercase tracking-widest font-bold">ISO 22000 Certified</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 text-center border-t border-white/10 pt-8 mt-10">
+        <p class="text-white/20 text-xs tracking-widest uppercase">&copy; 2026 Arva Indonesia. Hak Cipta Dilindungi.</p>
+    </div>
+</footer>
+
+<!-- ============================================================
+     PENAWARAN COCOTECH (Sesuai GEMINI.md - Tier 3)
+=========================================================== -->
+<section id="penawaran" class="bg-[#050505] border-t-2 border-white/10 relative z-40">
+    <div class="max-w-6xl mx-auto px-6 py-28 relative">
+        <!-- Glow effects -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-arva-gold/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="text-center mb-16 reveal relative z-10" x-intersect="$el.classList.add('in')">
+            <div class="inline-flex items-center gap-2 border border-arva-gold/30 bg-arva-gold/10 text-arva-gold text-[10px] font-bold uppercase tracking-[.2em] px-5 py-2 rounded-full mb-8 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+                <i class="ph-fill ph-shield-check"></i> Surat Formal: Teruntuk Manajemen Arva Indonesia
+            </div>
+            <p class="text-white/40 text-[11px] font-bold uppercase tracking-[.4em] mb-4">Dikirim Oleh CocoTech Digital Agency</p>
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-8">
+                <span x-text="lang==='en' ? 'This Enterprise System' : 'Sistem Enterprise Ini'"></span><br>
+                <span x-text="lang==='en' ? 'Is Built ' : 'Dibuat '"></span><em class="text-arva-gold italic" x-text="lang==='en' ? '100% Complete' : 'Lengkap 100%'"></em> <br>
+                <span class="inline-flex items-center gap-3 mt-6 bg-arva-charcoal px-6 py-4 border border-white/10 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform -rotate-1 hover:rotate-0 transition-transform"><span class="text-white/50 text-2xl font-light" x-text="lang==='en' ? 'As' : 'Sebagai'"></span> <span x-text="lang==='en' ? 'Your Prototype.' : 'Prototype Anda.'"></span></span>
+            </h2>
+            <p class="text-white/50 max-w-2xl mx-auto leading-relaxed text-base font-light">
+                Sebagai agensi pengembang *platform* khusus korporasi logistik & ekspor B2B, kami menyadari potensi ARVA Indonesia memenangkan hati buyer Whole Foods sangat masif asalkan portal Anda sanggup melayani otomatisasi *Currency & Live Invoice Log* seperti yang disimulasikan di atas.
+            </p>
+        </div>
+
+        <div class="bg-[#111] rounded-3xl p-8 md:p-14 reveal shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/5 relative z-10" x-intersect="$el.classList.add('in')">
+            <div class="grid lg:grid-cols-[1fr_400px] gap-16">
+                
+                <!-- Pricing Specs -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-8 pb-6 border-b border-white/10">
+                            <i class="ph-fill ph-hard-drives text-3xl text-white"></i>
+                            <h3 class="text-white font-bold text-2xl font-serif">Paket Pengembangan <span class="text-arva-gold">Tier 3 (Super-Ops)</span></h3>
+                        </div>
+                        
+                        <ul class="space-y-6 text-[15px] text-white/70 mb-10">
+                            <li class="flex items-start gap-4">
+                                <i class="ph-fill ph-check-circle text-arva-gold text-2xl mt-0.5 shadow-arva-gold glow drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"></i>
+                                <div>
+                                    <strong class="text-white block mb-1">Company Profile Bilingual Premium</strong>
+                                    Fasad depan (*front-end*) mewah yang mengedepankan identitas *Truffle Tempeh* Arva ke pialang Internasional menggunakan animasi setara Apple/Tesla.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="ph-fill ph-check-circle text-arva-gold text-2xl mt-0.5 shadow-arva-gold glow drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"></i>
+                                <div>
+                                    <strong class="text-white block mb-1">Portal Login & FOB Engine B2B Asli</strong>
+                                    Di mana *simulator dummy* di atas ditenagai menggunakan *Database Server* nyata untuk menerbitkan PDF Invoice & mengurai kalkulasi stok.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="ph-fill ph-check-circle text-arva-gold text-2xl mt-0.5 shadow-arva-gold glow drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"></i>
+                                <div>
+                                    <strong class="text-white block mb-1">Infrastruktur Tier 1 (AWS/Vercel)</strong>
+                                    Sistem web Anda dijanjikan nyaris tidak mungkin lumpuh (*uptime 99.9%*) sekalipun diakses kencang dari server Amerika dan Eropa.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-arva-gold text-arva-black rounded-2xl p-8 shadow-[0_15px_30px_rgba(212,175,55,0.2)]">
+                        <div class="flex justify-between items-end mb-2">
+                            <p class="text-[11px] uppercase font-bold tracking-[.3em] font-sans">Total Harga (Setup 1x)</p>
+                            <p class="text-sm font-bold opacity-60 line-through">Rp 25.000.000</p>
+                        </div>
+                        <p class="font-serif text-5xl md:text-[56px] font-bold mb-6 tracking-tight">Rp 15.000.000</p>
+                        
+                        <div class="border-t border-black/10 pt-6">
+                            <p class="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Dimulai dengan DP (Down Payment) 30%</p>
+                            <p class="font-mono text-3xl font-bold bg-white/30 inline-block px-4 py-2 rounded">Rp 4.500.000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timer & CTA -->
+                <div class="flex flex-col justify-center items-center bg-[#080808] border border-white/5 p-12 rounded-2xl shadow-inner relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-arva-gold to-red-600 animate-pulse"></div>
+
+                    <p class="text-white font-bold tracking-widest text-[11px] uppercase mb-8 border border-white/10 px-4 py-1.5 rounded-full"><span class="text-arva-gold">Penawaran Eksklusif</span> Berakhir Dalam:</p>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="flex justify-center gap-4 mb-12 w-full" x-data="countdownTimer()" x-init="init()">
+                        <div class="bg-black border border-white/10 text-center py-5 px-6 rounded-xl flex-1 shadow-2xl">
+                            <p class="font-mono text-4xl font-bold text-white mb-2" x-text="String(hours).padStart(2, '0')"></p><p class="text-[9px] uppercase tracking-widest text-[#555] font-bold">Jam</p>
+                        </div>
+                        <div class="text-4xl font-light text-white/10 mt-3">:</div>
+                        <div class="bg-black border border-white/10 text-center py-5 px-6 rounded-xl flex-1 shadow-2xl">
+                            <p class="font-mono text-4xl font-bold text-white mb-2" x-text="String(minutes).padStart(2, '0')"></p><p class="text-[9px] uppercase tracking-widest text-[#555] font-bold">Mnt</p>
+                        </div>
+                        <div class="text-4xl font-light text-white/10 mt-3">:</div>
+                        <div class="bg-black border border-white/10 text-center py-5 px-6 rounded-xl flex-1 shadow-2xl">
+                            <p class="font-mono text-4xl font-bold text-arva-gold mb-2" x-text="String(seconds).padStart(2, '0')"></p><p class="text-[9px] uppercase tracking-widest text-[#555] font-bold">Dtk</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full space-y-4">
+                        <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20Kami%20dari%20Manajemen%20Arva%20tertarik%20membangun%20infrastruktur%20ini." target="_blank"
+                           class="flex w-full items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1DAA55] text-white py-5 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors shadow-lg">
+                            <i class="ph-fill ph-whatsapp-logo text-2xl"></i> Hubungi Pakar (WhatsApp)
+                        </a>
+                        <a href="proposal.html" target="_blank"
+                           class="flex w-full items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white py-5 rounded-xl font-bold uppercase tracking-widest text-xs transition-colors">
+                            <i class="ph-fill ph-file-pdf text-xl text-red-500"></i> Baca Proposal (PDF / Print)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     Trojan Horse Sales Bot (V2 Matured)
+=========================================================== -->
+<div x-data="{ open: false, showed: false }"
+     @scroll.window="if(window.pageYOffset > 1500 && !showed) { open = true; showed = true; const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3'); audio.volume = 0.5; audio.play().catch(e=>{}); }"
+     class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    
+    <div x-show="open" x-transition x-cloak class="bg-[#111] rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] w-80 mb-4 overflow-hidden border border-white/10">
+        <div class="bg-black p-4 flex justify-between items-center border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <div class="relative"><div class="w-10 h-10 border border-arva-gold bg-arva-gold/10 text-arva-gold rounded-full flex items-center justify-center font-bold text-xs font-serif shadow-[0_0_10px_rgba(212,175,55,0.3)]">CT</div></div>
+                <div><p class="font-bold text-white text-sm">CocoTech Developer</p><p class="text-[9px] text-arva-gold uppercase tracking-widest flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-arva-gold animate-pulse"></span> Online</p></div>
+            </div>
+            <button @click="open=false" class="text-white/40 hover:text-white transition-colors bg-white/5 w-8 h-8 rounded-full flex items-center justify-center"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="p-5 space-y-4 text-[13px] bg-gradient-to-b from-black/20 to-transparent">
+            <div class="bg-arva-charcoal text-white rounded-xl rounded-tl-sm p-4 shadow-sm leading-relaxed border border-white/5">
+                Halo Tim Arva! Desain B2B simulator ini kami kerjakan dengan memadukan *Truffle Premium Feel* + *Enterprise Security*. Gimana menurut Anda?
+            </div>
+            <div class="bg-arva-charcoal text-white rounded-xl rounded-tl-sm p-4 shadow-sm leading-relaxed border border-white/5">
+                Jika investasi DP <strong>Rp 4.500.000</strong> (30% dari Rp 15.000.000) tersebut masuk akal, kita zoom meeting besok. Dibuat oleh <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;text-decoration:underline;">CocoTech</a> — sangat berpengalaman di B2B digital Indonesia 🤝
+            </div>
+        </div>
+        <div class="p-3 bg-black flex gap-2 border-t border-white/10">
+            <input type="text" placeholder="Ketik balasan Anda..." class="flex-1 bg-[#1A1A1A] border border-white/10 rounded-full px-4 py-2 text-xs text-white outline-none focus:border-arva-gold transition-colors font-sans w-full">
+            <button class="bg-arva-gold text-black rounded-full w-10 h-10 flex items-center justify-center hover:bg-white transition-colors flex-shrink-0 shadow-[0_0_10px_rgba(212,175,55,0.4)]"><i class="ph-fill ph-paper-plane-right text-base"></i></button>
+        </div>
+    </div>
+    
+    <!-- Float Button -->
+    <button @click="open=!open" class="w-[60px] h-[60px] bg-arva-gold rounded-full flex items-center justify-center text-black shadow-[0_10px_30px_rgba(212,175,55,0.4)] hover:bg-white hover:scale-110 active:scale-95 transition-all relative group">
+        <span x-show="!open" class="absolute top-0 right-0 w-4 h-4 bg-red-500 border-2 border-black rounded-full shadow-lg"></span>
+        <i class="ph-fill ph-chat-teardrop-dots text-2xl group-hover:-rotate-12 transition-transform"></i>
+    </button>
+</div>
+
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

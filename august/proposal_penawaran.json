@@ -1,0 +1,35 @@
+{
+  "project_name": "August White-Label Enterprise Booking Architecture",
+  "target_client": "Hans Christian & Budi Cahyadi (August)",
+  "pricing": {
+    "tier_1_setup": {
+      "name": "Bespoke System Architecture Setup",
+      "price_usd": 15000,
+      "price_idr": "Rp 235.000.000",
+      "description": "Desain UI/UX eksklusif, pengembangan front-end & back-end, integrasi Payment Gateway multi-currency, setup server."
+    },
+    "tier_2_maintenance": {
+      "name": "Enterprise SLA & Cloud Hosting (Tahunan)",
+      "price_usd": 5000,
+      "price_idr": "Rp 78.000.000",
+      "description": "Dedicated cloud server, prioritas support 24/7, pemeliharaan keamanan transaksi kartu kredit (PCI-DSS compliance support)."
+    },
+    "special_offer": {
+      "discount_percentage": 30,
+      "validity": "48 Hours",
+      "discounted_setup_usd": 10500,
+      "discounted_setup_idr": "Rp 164.500.000"
+    }
+  },
+  "roi_projection": {
+    "problem": "Rata-rata No-Show di Jakarta fine dining = 15-20% tanpa deposit wajib.",
+    "monthly_lost_revenue_estimate": "Rp 40.000.000 - Rp 60.000.000",
+    "solution": "Sistem ini menjamin 100% komitmen kedatangan atau DP hangus masuk ke kas August.",
+    "break_even_point": "3 - 4 Bulan dari penyelamatan pendapatan No-Show.",
+    "added_value": [
+      "Penghapusan biaya komisi aplikasi reservasi pihak ketiga ($0 per table).",
+      "100% akuisisi data tamu untuk marketing VIP berkelanjutan.",
+      "Peningkatan gengsi brand di mata turis asing dengan proses booking yang seamless layaknya restoran Michelin-starred global."
+    ]
+  }
+}

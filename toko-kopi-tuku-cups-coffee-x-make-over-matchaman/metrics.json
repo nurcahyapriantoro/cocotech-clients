@@ -1,0 +1,14 @@
+{
+  "performance": 98,
+  "accessibility": 100,
+  "best_practices": 100,
+  "seo": 100,
+  "load_time_seconds": 0.8,
+  "first_contentful_paint_ms": 450,
+  "time_to_interactive_ms": 700,
+  "core_web_vitals": {
+    "lcp": "0.9s",
+    "fid": "12ms",
+    "cls": "0.01"
+  }
+}

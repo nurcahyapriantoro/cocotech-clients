@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enyui - Ekosistem Ketenangan & Mahakarya Japandi di Palagan KM 14</title>
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="Enyui - Kafe estetik konsep Japandi di Sleman, Yogyakarta. Menyediakan ruang ketenangan, menu artisan, dan layanan reservasi komersial untuk kebutuhan fotografi Anda.">
+    <meta name="keywords" content="Enyui Kafe, Japandi Sleman, Kafe Palagan KM 14, Reservasi Fotografi Kafe, Kopi Artisan Yogyakarta">
+    <meta name="author" content="Titanium God-Tier AI Architect">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js (CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    
+    <!-- Phosphor Icons (CDN) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Configuration & Theming -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // Japandi Palette: Whites, Woods, Subtle Greens, Deep Earth
+                        zen: { 50: '#f6f7f6', 100: '#e3eae3', 200: '#c5d5c5', 300: '#9cb69c', 400: '#728e72', 500: '#5a735a', 900: '#2b362b' },
+                        wood: { 50: '#faf6f3', 100: '#f0e6dc', 200: '#e2ccb8', 300: '#d0ad8d', 400: '#bc8a5f', 500: '#a36d41', 900: '#4a3320' },
+                        paper: '#fdfbf7',
+                        ink: '#1a1816'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'reveal-up': 'revealUp 1s ease-out forwards',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '1', boxShadow: '0 0 15px rgba(188,138,95,0.4)' },
+                            '50%': { opacity: '.7', boxShadow: '0 0 25px rgba(188,138,95,0.7)' },
+                        },
+                        revealUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Overrides */
+        body { background-color: theme('colors.paper'); color: theme('colors.ink'); }
+        ::selection { background-color: theme('colors.wood.200'); color: theme('colors.ink'); }
+        
+        .glass-panel {
+            background: rgba(253, 251, 247, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<body x-data="appData()" class="antialiased overflow-x-hidden" @scroll.window="handleScroll()">
+    <div class="noise-overlay"></div>
+
+    <!-- 1. Navigasi Ultra-Modern (Glassmorphism) -->
+    <nav :class="{ 'glass-panel py-3': scrolled, 'bg-transparent py-6': !scrolled }" 
+         class="fixed w-full top-0 z-50 transition-all duration-500 ease-out border-b border-transparent"
+         :style="scrolled ? 'border-color: rgba(188, 138, 95, 0.1);' : ''">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" @click="window.scrollTo(0,0)">
+                <i class="ph ph-drop text-3xl text-wood-500" :class="{ 'animate-pulse': !scrolled }"></i>
+                <span class="font-serif text-2xl font-bold tracking-wider text-ink">ENYUI</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-10 items-center text-sm font-medium tracking-wide">
+                <a href="#filosofi" class="text-ink/70 hover:text-wood-500 transition-colors duration-300">Filosofi</a>
+                <a href="#katalog" class="text-ink/70 hover:text-wood-500 transition-colors duration-300">Katalog Artisan</a>
+                <a href="#kompetitor" class="text-ink/70 hover:text-wood-500 transition-colors duration-300">Analisis Pasar</a>
+                <a href="#reservasi" class="bg-wood-900 text-paper px-7 py-2.5 rounded-full hover:bg-wood-500 transition-colors duration-300 shadow-md hover:shadow-lg flex items-center gap-2">
+                    <i class="ph ph-camera"></i> Booking Komersial
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="md:hidden flex items-center">
+                <button class="text-ink hover:text-wood-500 focus:outline-none">
+                    <i class="ph ph-list text-3xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section Sangat Interaktif -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Abstract Japandi Elements -->
+        <div class="absolute top-1/4 -left-20 w-[40rem] h-[40rem] bg-wood-100/50 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+        <div class="absolute bottom-1/4 -right-20 w-[35rem] h-[35rem] bg-zen-100/50 rounded-full mix-blend-multiply filter blur-3xl animate-float-delayed"></div>
+        
+        <!-- Subtle Pattern Background -->
+        <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(#4a3320 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full glass-panel text-wood-900 text-xs font-semibold tracking-widest uppercase mb-8 border border-wood-200/50">
+                <span class="w-2 h-2 rounded-full bg-zen-500 animate-pulse"></span>
+                Jl. Palagan KM 14, Sleman • Premium Retails
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
+                Estetika Japandi Anda <br/>
+                <span class="relative inline-block mt-2">
+                    <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-wood-500 to-wood-900">Bukan Sekadar Persinggahan.</span>
+                    <span class="absolute bottom-2 left-0 w-full h-4 bg-wood-100 -z-10 transform -rotate-1"></span>
+                </span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-ink/70 max-w-3xl font-light leading-relaxed mb-12">
+                Pelanggan datang, menikmati interior minimalis dominasi putih & kayu Enyui, berfoto, lalu pergi tanpa transaksi yang sepadan. <strong>Ubah 'pencuri estetika' menjadi klien komersial berbayar tinggi</strong> dengan sistem reservasi pemotretan otomatis.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-5 w-full sm:w-auto">
+                <a href="#reservasi" class="px-8 py-4 bg-wood-900 text-paper rounded-full font-medium hover:bg-wood-500 transition-all duration-300 animate-pulse-glow flex items-center justify-center gap-3 w-full sm:w-auto">
+                    <i class="ph ph-magic-wand text-xl"></i> Coba Live Prototype
+                </a>
+                <a href="#kompetitor" class="px-8 py-4 bg-transparent border border-wood-900 text-wood-900 rounded-full font-medium hover:bg-wood-50 transition-all duration-300 flex items-center justify-center gap-3 w-full sm:w-auto group">
+                    <i class="ph ph-trend-up text-xl group-hover:text-wood-500"></i> Lihat Analisis ROI
+                </a>
+            </div>
+
+            <!-- Stats/Social Proof -->
+            <div class="mt-20 pt-10 border-t border-wood-200/40 w-full grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex flex-col items-center">
+                    <span class="text-3xl font-serif font-bold text-wood-900">300+</span>
+                    <span class="text-xs tracking-wider uppercase text-ink/50 mt-1">Sesi Foto / Bulan</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-3xl font-serif font-bold text-wood-900">100%</span>
+                    <span class="text-xs tracking-wider uppercase text-ink/50 mt-1">Otomatisasi Booking</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-3xl font-serif font-bold text-wood-900">4x</span>
+                    <span class="text-xs tracking-wider uppercase text-ink/50 mt-1">Peningkatan Revenue</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-3xl font-serif font-bold text-wood-900">0</span>
+                    <span class="text-xs tracking-wider uppercase text-ink/50 mt-1">Bentrok Jadwal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Transition -->
+    <div class="w-full bg-wood-900 py-4 overflow-hidden transform -rotate-1 scale-105 my-10">
+        <div class="flex whitespace-nowrap animate-marquee">
+            <template x-for="i in 10">
+                <span class="mx-4 text-paper/80 font-serif text-lg tracking-widest uppercase flex items-center gap-4">
+                    <i class="ph ph-sparkle text-wood-300"></i>
+                    ESENSI MINIMALIS JAPANDI
+                    <i class="ph ph-drop text-wood-300"></i>
+                    HARMONI KOLAM AIR
+                </span>
+            </template>
+        </div>
+    </div>
+
+    <!-- 3. Deep Company Profile & Heritage (Bento Grid) -->
+    <section id="filosofi" class="py-24 bg-paper relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold tracking-widest uppercase text-wood-500 mb-2">Heritage & Filosofi</h2>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-ink">Ketenangan di Palagan KM 14</h3>
+            </div>
+
+            <!-- Bento Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+                
+                <!-- Card 1: Kolam Air Mengalir -->
+                <div class="md:col-span-2 relative rounded-3xl overflow-hidden group">
+                    <div class="absolute inset-0 bg-zen-900/20 group-hover:bg-zen-900/10 transition-colors duration-500 z-10"></div>
+                    <!-- Placeholder High-Res Image (Retina Ready) -->
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600" alt="Interior Minimalis Enyui" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 p-8 z-20 w-full bg-gradient-to-t from-black/80 to-transparent">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="ph ph-waves text-2xl text-paper"></i>
+                            <h4 class="text-2xl font-serif font-bold text-paper">Simfoni Air Mengalir</h4>
+                        </div>
+                        <p class="text-paper/80 font-light max-w-lg text-sm leading-relaxed">
+                            Elemen air pada interior kami bukan sekadar dekorasi, melainkan jangkar ketenangan. Menciptakan white noise alami yang meredam hiruk-pikuk Sleman, memberikan privasi absolut pada setiap percakapan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Enyui Latte Core -->
+                <div class="relative rounded-3xl overflow-hidden group bg-wood-100 p-8 flex flex-col justify-between border border-wood-200">
+                    <div class="flex justify-between items-start">
+                        <i class="ph ph-coffee text-4xl text-wood-900"></i>
+                        <span class="bg-wood-200 text-wood-900 text-xs px-3 py-1 rounded-full font-semibold">Signature</span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-serif font-bold text-ink mb-2">Enyui Latte Artisan</h4>
+                        <p class="text-ink/70 text-sm leading-relaxed font-light">
+                            Setetes mahakarya dari biji kopi premium yang dipanggang presisi, dipadukan susu oat organik. Tekstur velvet yang membelai palet rasa Anda.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Dominasi Putih & Kayu -->
+                <div class="relative rounded-3xl overflow-hidden group bg-zen-50 p-8 flex flex-col justify-between border border-zen-200">
+                    <div class="flex justify-between items-start">
+                        <i class="ph ph-house-line text-4xl text-zen-900"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-serif font-bold text-ink mb-2">Japandi Authenticity</h4>
+                        <p class="text-ink/70 text-sm leading-relaxed font-light">
+                            Peleburan minimalisme Jepang dan fungsionalitas Skandinavia. Dominasi palet putih bersih dan elemen kayu ash yang menyerap cahaya natural secara sempurna.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Ruang Fotografi Komersial -->
+                <div class="md:col-span-2 relative rounded-3xl overflow-hidden group bg-wood-900 text-paper p-8 flex flex-col justify-center items-start">
+                    <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-wood-500 rounded-full filter blur-3xl opacity-30"></div>
+                    <i class="ph ph-camera-plus text-5xl mb-6 text-wood-300"></i>
+                    <h4 class="text-3xl font-serif font-bold mb-4">Spot Pengambilan Gambar Kelas Menengah Atas</h4>
+                    <p class="text-paper/70 max-w-xl font-light leading-relaxed mb-6">
+                        Dari katalog produk fashion hingga pre-wedding estetik, setiap sudut Enyui dihitung berdasarkan jatuhnya cahaya matahari (Golden Hour) untuk menghasilkan tangkapan lensa berkualitas studio.
+                    </p>
+                    <a href="#reservasi" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-wood-300 hover:text-paper transition-colors">
+                        Jadwalkan Sesi Anda <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4A. THE SPECTACULAR FEATURE: Interactive Menu (Katalog Artisan) -->
+    <section id="katalog" class="py-24 bg-wood-50 relative border-t border-wood-100" x-data="menuSystem()">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div>
+                    <h2 class="text-sm font-bold tracking-widest uppercase text-wood-500 mb-2">Eksplorasi Rasa</h2>
+                    <h3 class="text-4xl font-serif font-bold text-ink">Katalog Artisan Enyui</h3>
+                </div>
+                <!-- Tabs -->
+                <div class="flex bg-paper p-1 rounded-full border border-wood-200 shadow-sm">
+                    <template x-for="category in categories" :key="category.id">
+                        <button @click="activeCategory = category.id" 
+                                :class="{'bg-wood-900 text-paper shadow-md': activeCategory === category.id, 'text-ink/60 hover:text-ink': activeCategory !== category.id}"
+                                class="px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300"
+                                x-text="category.name"></button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="item in filteredMenu" :key="item.id">
+                    <div class="bg-paper rounded-2xl p-6 border border-wood-100 shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                        <div class="h-48 rounded-xl bg-wood-100 mb-6 overflow-hidden relative">
+                            <img :src="item.image" :alt="item.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute top-4 right-4 bg-paper/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-wood-900 shadow-sm" x-text="'Rp ' + item.price + 'K'"></div>
+                        </div>
+                        <h4 class="text-xl font-serif font-bold text-ink mb-2" x-text="item.name"></h4>
+                        <p class="text-ink/60 text-sm font-light leading-relaxed mb-6 h-16 line-clamp-3" x-text="item.desc"></p>
+                        <button @click="addToCart(item)" class="w-full py-3 border border-wood-900 text-wood-900 rounded-xl font-medium hover:bg-wood-900 hover:text-paper transition-colors flex justify-center items-center gap-2">
+                            <i class="ph ph-plus-circle"></i> Tambah Pesanan
+                        </button>
+                    </div>
+                </template>
+            </div>
+            
+            <!-- Floating Mini Cart Alert -->
+            <div x-show="showToast" x-transition.opacity class="fixed top-24 right-8 z-50 glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-zen-300">
+                <div class="w-10 h-10 bg-zen-100 rounded-full flex items-center justify-center text-zen-900">
+                    <i class="ph ph-check-circle text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-bold text-ink" x-text="toastMessage"></p>
+                    <p class="text-xs text-ink/60">Disiapkan oleh barista kami.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4B. CORE ENGINE - Interactive Commercial Booking System -->
+    <section id="reservasi" class="py-32 bg-paper relative overflow-hidden" x-data="bookingEngine()">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                
+                <!-- Left: Copywriting & Urgency -->
+                <div>
+                    <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-zen-100 text-zen-900 text-xs font-bold tracking-widest uppercase mb-6">
+                        <i class="ph ph-camera text-base"></i> Sistem Monetisasi
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-ink leading-tight mb-6">
+                        Berhenti Mensubsidi <br/> <span class="text-wood-500">Pencuri Estetika</span> Anda.
+                    </h2>
+                    <p class="text-lg text-ink/70 font-light mb-8 leading-relaxed">
+                        Ubah hiruk-pikuk pemotretan liar yang mengganggu pelanggan reguler menjadi <strong>sesi komersial VIP yang terorganisir, dibayar penuh di muka, dan meningkatkan wibawa brand Enyui.</strong>
+                    </p>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-zen-100 flex items-center justify-center text-zen-500 shrink-0"><i class="ph ph-check"></i></div>
+                            <span class="text-ink/80">Penjadwalan presisi tanpa bentrok jam buka kafe reguler.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-zen-100 flex items-center justify-center text-zen-500 shrink-0"><i class="ph ph-check"></i></div>
+                            <span class="text-ink/80">Pembayaran di muka (Down Payment) terintegrasi otomatis.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-zen-100 flex items-center justify-center text-zen-500 shrink-0"><i class="ph ph-check"></i></div>
+                            <span class="text-ink/80">Sistem whitelist untuk fotografer profesional di Sleman.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right: The Interactive Booking Form -->
+                <div class="glass-panel p-8 md:p-10 rounded-3xl shadow-2xl relative">
+                    <!-- Progress Bar -->
+                    <div class="flex justify-between mb-8 relative">
+                        <div class="absolute top-1/2 left-0 w-full h-1 bg-wood-100 -z-10 transform -translate-y-1/2"></div>
+                        <div class="absolute top-1/2 left-0 h-1 bg-wood-500 -z-10 transform -translate-y-1/2 transition-all duration-500" :style="'width: ' + ((step-1)/3 * 100) + '%'"></div>
+                        
+                        <template x-for="i in 4">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-300"
+                                 :class="step >= i ? 'bg-wood-900 text-paper shadow-lg' : 'bg-paper border-2 border-wood-200 text-wood-300'" x-text="i">
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Step 1: Pilih Spot -->
+                    <div x-show="step === 1" x-transition.opacity>
+                        <h3 class="text-2xl font-serif font-bold mb-6 text-ink">Pilih Area Fotografi</h3>
+                        <div class="space-y-4">
+                            <template x-for="spot in spots" :key="spot.id">
+                                <label class="flex items-center p-4 border rounded-2xl cursor-pointer transition-all duration-300"
+                                       :class="selectedSpot === spot.id ? 'border-wood-500 bg-wood-50 shadow-md' : 'border-gray-200 hover:border-wood-300'">
+                                    <input type="radio" :value="spot.id" x-model="selectedSpot" class="hidden">
+                                    <div class="w-12 h-12 rounded-full bg-paper flex items-center justify-center text-wood-900 mr-4 shadow-sm">
+                                        <i :class="spot.icon" class="text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-ink" x-text="spot.name"></h4>
+                                        <p class="text-xs text-ink/60" x-text="spot.desc"></p>
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center"
+                                         :class="selectedSpot === spot.id ? 'border-wood-500' : 'border-gray-300'">
+                                         <div x-show="selectedSpot === spot.id" class="w-3 h-3 bg-wood-500 rounded-full"></div>
+                                    </div>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Pilih Paket -->
+                    <div x-show="step === 2" x-transition.opacity style="display: none;">
+                        <h3 class="text-2xl font-serif font-bold mb-6 text-ink">Paket Komersial</h3>
+                        <div class="grid grid-cols-1 gap-4">
+                            <template x-for="pkg in packages" :key="pkg.id">
+                                <label class="border rounded-2xl p-5 cursor-pointer transition-all duration-300 relative overflow-hidden"
+                                       :class="selectedPackage === pkg.id ? 'border-wood-500 bg-wood-50 shadow-md' : 'border-gray-200 hover:border-wood-300'">
+                                    <input type="radio" :value="pkg.id" x-model="selectedPackage" class="hidden">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h4 class="font-bold text-ink text-lg" x-text="pkg.name"></h4>
+                                        <span class="font-serif font-bold text-wood-900" x-text="'Rp ' + pkg.price + 'K'"></span>
+                                    </div>
+                                    <p class="text-sm text-ink/60 mb-3" x-text="pkg.duration + ' Jam | ' + pkg.crew + ' Kru'"></p>
+                                    <ul class="text-xs text-ink/50 space-y-1">
+                                        <li x-text="'Termasuk: ' + pkg.includes"></li>
+                                    </ul>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Jadwal -->
+                    <div x-show="step === 3" x-transition.opacity style="display: none;">
+                        <h3 class="text-2xl font-serif font-bold mb-6 text-ink">Waktu Sesi</h3>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-ink mb-2">Pilih Tanggal</label>
+                            <input type="date" x-model="date" class="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:border-wood-500 focus:ring-1 focus:ring-wood-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-ink mb-2">Slot Tersedia</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <template x-for="timeSlot in ['08:00', '10:00', '13:00', '15:00', '17:00']">
+                                    <button type="button" @click="time = timeSlot" 
+                                            class="py-3 rounded-xl border text-sm font-medium transition-colors"
+                                            :class="time === timeSlot ? 'bg-wood-900 text-paper border-wood-900' : 'bg-paper border-gray-200 text-ink hover:border-wood-500'"
+                                            x-text="timeSlot"></button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Konfirmasi -->
+                    <div x-show="step === 4" x-transition.opacity style="display: none;">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-zen-100 text-zen-900 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
+                                <i class="ph ph-check-circle"></i>
+                            </div>
+                            <h3 class="text-2xl font-serif font-bold text-ink">Ringkasan Reservasi</h3>
+                            <p class="text-ink/60 text-sm">Harap periksa kembali detail sesi Anda.</p>
+                        </div>
+                        
+                        <div class="bg-paper p-6 rounded-2xl border border-gray-100 mb-6 space-y-4">
+                            <div class="flex justify-between border-b border-gray-100 pb-3">
+                                <span class="text-sm text-ink/60">Lokasi</span>
+                                <span class="text-sm font-bold text-ink" x-text="getSpotName()"></span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-100 pb-3">
+                                <span class="text-sm text-ink/60">Paket</span>
+                                <span class="text-sm font-bold text-ink" x-text="getPackageName()"></span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-100 pb-3">
+                                <span class="text-sm text-ink/60">Waktu</span>
+                                <span class="text-sm font-bold text-ink" x-text="date + ' | ' + time"></span>
+                            </div>
+                            <div class="flex justify-between pt-2">
+                                <span class="text-lg font-serif font-bold text-ink">Total Pembayaran</span>
+                                <span class="text-xl font-serif font-bold text-wood-900" x-text="'Rp ' + getPrice() + '.000'"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-xl text-xs flex gap-3">
+                            <i class="ph ph-warning-circle text-xl"></i>
+                            <p>Pembayaran DP 50% diwajibkan untuk mengunci slot ini. Bukti pembayaran akan dikirim via WhatsApp otomatis.</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-8 flex justify-between">
+                        <button x-show="step > 1" @click="step--" class="px-6 py-3 border border-gray-300 text-ink rounded-full hover:bg-gray-50 font-medium transition-colors">
+                            Kembali
+                        </button>
+                        <div class="flex-1"></div>
+                        <button x-show="step < 4" @click="nextStep()" class="px-8 py-3 bg-wood-900 text-paper rounded-full hover:bg-wood-500 font-medium transition-colors shadow-md disabled:opacity-50" :disabled="!canProceed()">
+                            Lanjutkan <i class="ph ph-arrow-right ml-2"></i>
+                        </button>
+                        <button x-show="step === 4" @click="simulateCheckout()" class="px-8 py-3 bg-wood-900 text-paper rounded-full hover:bg-wood-500 font-medium transition-all shadow-md animate-pulse-glow flex items-center gap-2">
+                            <i class="ph ph-lock-key"></i> Kunci Jadwal Sekarang
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. The Stolen Traffic / Competitor Reality Section -->
+    <section id="kompetitor" class="py-24 bg-wood-900 text-paper relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <i class="ph ph-chart-polar text-5xl text-wood-300 mb-6"></i>
+                <h2 class="text-4xl font-serif font-bold mb-6">Realita Pasar di Palagan KM 14</h2>
+                <p class="text-paper/70 text-lg font-light">
+                    Setiap hari akhir pekan, puluhan fotografer komersial mencari lokasi di Sleman Utara. Kemana perginya <strong>budget sewa tempat Rp 2.500.000 / sesi</strong> mereka?
+                </p>
+            </div>
+
+            <!-- Bar Chart Component -->
+            <div class="max-w-4xl mx-auto bg-paper/5 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-paper/10">
+                
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <span class="block text-xl font-bold text-white mb-1">Enyui (Saat Ini)</span>
+                            <span class="text-xs text-paper/60 tracking-wider">Tanpa Sistem Reservasi Digital</span>
+                        </div>
+                        <span class="text-2xl font-serif font-bold text-wood-300">15%</span>
+                    </div>
+                    <div class="w-full bg-paper/10 rounded-full h-4 overflow-hidden">
+                        <div class="bg-wood-500 h-4 rounded-full transition-all duration-1000" style="width: 15%;"></div>
+                    </div>
+                    <p class="text-xs text-paper/50 mt-2 text-right">Traffic sekadar numpang foto, order 1 kopi.</p>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-end mb-2">
+                        <div>
+                            <span class="block text-xl font-bold text-white mb-1">Kompetitor di Area Palagan</span>
+                            <span class="text-xs text-paper/60 tracking-wider">Memakai Sistem Digital & Booking Engine</span>
+                        </div>
+                        <span class="text-2xl font-serif font-bold text-zen-300">85%</span>
+                    </div>
+                    <div class="w-full bg-paper/10 rounded-full h-4 overflow-hidden relative">
+                        <div class="bg-zen-400 h-4 rounded-full transition-all duration-1000 relative" style="width: 85%;">
+                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-paper/50 mt-2 text-right">Menyerap budget pre-wedding & komersial secara penuh.</p>
+                </div>
+
+                <div class="mt-12 text-center bg-paper/10 p-6 rounded-2xl border border-paper/20">
+                    <h4 class="text-xl font-serif font-bold mb-2">Potensi Pendapatan yang Hilang: <span class="text-wood-300">Rp 15.000.000 / Bulan</span></h4>
+                    <p class="text-sm text-paper/70 font-light">
+                        Ini bukan tentang desain interior Enyui, ini tentang ketiadaan <strong>gerbang tol digital</strong> yang menangkap uang dari pengunjung Anda.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. The Self-Destructing Offer (Scarcity Engine) -->
+    <section class="py-24 bg-paper relative" x-data="countdownTimer()">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-50 text-red-500 mb-6 animate-pulse">
+                <i class="ph ph-hourglass-high text-3xl"></i>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-ink mb-6">Transformasi Digital Terbatas</h2>
+            <p class="text-lg text-ink/70 mb-10 max-w-2xl mx-auto">
+                Sebagai agensi arsitektur digital High-End, kami hanya menerima 1 klien dari setiap zona kompetisi per kuartal. Kami menawarkan potongan setup eksklusif <strong class="text-wood-900">30%</strong> khusus untuk manajemen Enyui.
+            </p>
+
+            <!-- Countdown Cards -->
+            <div class="flex justify-center gap-4 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-24 md:w-24 md:h-28 bg-wood-900 text-paper rounded-2xl flex items-center justify-center text-4xl md:text-5xl font-serif font-bold shadow-2xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"></div>
+                        <span x-text="hours"></span>
+                    </div>
+                    <span class="mt-3 text-sm font-bold tracking-widest uppercase text-wood-500">Jam</span>
+                </div>
+                <div class="text-4xl md:text-5xl font-bold text-wood-900 mt-4 md:mt-6">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-24 md:w-24 md:h-28 bg-wood-900 text-paper rounded-2xl flex items-center justify-center text-4xl md:text-5xl font-serif font-bold shadow-2xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"></div>
+                        <span x-text="minutes"></span>
+                    </div>
+                    <span class="mt-3 text-sm font-bold tracking-widest uppercase text-wood-500">Menit</span>
+                </div>
+                <div class="text-4xl md:text-5xl font-bold text-wood-900 mt-4 md:mt-6">:</div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-24 md:w-24 md:h-28 bg-wood-900 text-paper rounded-2xl flex items-center justify-center text-4xl md:text-5xl font-serif font-bold shadow-2xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent"></div>
+                        <span x-text="seconds"></span>
+                    </div>
+                    <span class="mt-3 text-sm font-bold tracking-widest uppercase text-wood-500">Detik</span>
+                </div>
+            </div>
+
+            <button @click="alert('Mengalihkan ke WhatsApp Konsultan...')" class="px-10 py-5 bg-wood-900 text-paper text-lg rounded-full hover:bg-wood-500 font-bold transition-all shadow-[0_0_20px_rgba(188,138,95,0.5)] hover:shadow-[0_0_40px_rgba(188,138,95,0.7)] flex items-center justify-center mx-auto gap-3">
+                Setup Website: Rp 5.500.000 (dari <s>Rp 10.000.000</s>) &bull; DP Rp 1.650.000 &bull; Klaim Diskon 30% Sekarang <i class="ph ph-rocket-launch text-2xl"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- 7. Omni-QR & Mega Footer -->
+    <footer class="bg-ink text-paper pt-24 pb-10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-wood-500 to-transparent opacity-30"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 relative z-10">
+            <!-- Brand -->
+            <div class="md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <i class="ph ph-drop text-4xl text-wood-400"></i>
+                    <span class="font-serif text-3xl font-bold tracking-wider">ENYUI</span>
+                </div>
+                <p class="text-paper/60 text-sm leading-relaxed mb-6">
+                    Esensi ketenangan Japandi di Palagan KM 14. Menyajikan ruang kontemplasi, artisan coffee, dan spot komersial eksklusif.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-paper/10 flex items-center justify-center hover:bg-wood-500 transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-paper/10 flex items-center justify-center hover:bg-wood-500 transition-colors"><i class="ph ph-tiktok-logo text-xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h4 class="text-lg font-serif font-bold mb-6 text-wood-300">Navigasi</h4>
+                <ul class="space-y-4 text-sm text-paper/70">
+                    <li><a href="#" class="hover:text-paper transition-colors">Filosofi Enyui</a></li>
+                    <li><a href="#" class="hover:text-paper transition-colors">Katalog Menu</a></li>
+                    <li><a href="#" class="hover:text-paper transition-colors">Reservasi Spot Foto</a></li>
+                    <li><a href="#" class="hover:text-paper transition-colors">Karir Barista</a></li>
+                </ul>
+            </div>
+
+            <!-- Operasional -->
+            <div>
+                <h4 class="text-lg font-serif font-bold mb-6 text-wood-300">Jam Operasional</h4>
+                <ul class="space-y-4 text-sm text-paper/70">
+                    <li class="flex justify-between border-b border-paper/10 pb-2"><span>Senin - Kamis</span> <span>08:00 - 22:00</span></li>
+                    <li class="flex justify-between border-b border-paper/10 pb-2"><span>Jumat - Minggu</span> <span>08:00 - 23:00</span></li>
+                    <li class="flex justify-between text-wood-400 pt-2 font-bold"><span>Sesi Komersial</span> <span>By Appt Only</span></li>
+                </ul>
+            </div>
+
+            <!-- Omni-QR -->
+            <div class="flex flex-col items-center md:items-end">
+                <h4 class="text-lg font-serif font-bold mb-6 text-wood-300 text-center md:text-right">Akses Ekosistem</h4>
+                <div class="bg-white p-2 rounded-xl mb-4 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    <!-- Simulasi QR Code Vector -->
+                    <svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" fill="#ffffff"/>
+                        <!-- QR Mocks -->
+                        <rect x="10" y="10" width="25" height="25" fill="#1a1816"/>
+                        <rect x="15" y="15" width="15" height="15" fill="#ffffff"/>
+                        <rect x="18" y="18" width="9" height="9" fill="#1a1816"/>
+                        
+                        <rect x="65" y="10" width="25" height="25" fill="#1a1816"/>
+                        <rect x="70" y="15" width="15" height="15" fill="#ffffff"/>
+                        <rect x="73" y="18" width="9" height="9" fill="#1a1816"/>
+                        
+                        <rect x="10" y="65" width="25" height="25" fill="#1a1816"/>
+                        <rect x="15" y="70" width="15" height="15" fill="#ffffff"/>
+                        <rect x="18" y="73" width="9" height="9" fill="#1a1816"/>
+                        
+                        <!-- Random dots to mock data -->
+                        <rect x="45" y="10" width="10" height="10" fill="#1a1816"/><rect x="50" y="25" width="10" height="10" fill="#bc8a5f"/><rect x="80" y="45" width="10" height="10" fill="#1a1816"/><rect x="10" y="45" width="10" height="10" fill="#1a1816"/><rect x="25" y="50" width="10" height="10" fill="#bc8a5f"/><rect x="45" y="45" width="10" height="10" fill="#1a1816"/><rect x="60" y="60" width="10" height="10" fill="#1a1816"/><rect x="80" y="80" width="10" height="10" fill="#bc8a5f"/><rect x="45" y="80" width="10" height="10" fill="#1a1816"/><rect x="65" y="40" width="10" height="10" fill="#1a1816"/>
+                    </svg>
+                </div>
+                <span class="text-xs text-paper/50 tracking-widest uppercase">Scan Menu & Booking</span>
+            </div>
+        </div>
+
+        <div class="border-t border-paper/10 pt-8 mt-8 text-center text-xs text-paper/40">
+            &copy; 2024 Enyui. Engineered by Titanium AI Architect. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- 8. The "Trojan Horse" Sales Bot -->
+    <div class="fixed bottom-6 right-6 z-50" x-show="showBot" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 transform translate-y-10" x-transition:enter-end="opacity-100 transform translate-y-0" style="display: none;">
+        
+        <!-- Bot Icon (Closed) -->
+        <button @click="botOpen = !botOpen" class="w-16 h-16 bg-wood-900 text-paper rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform relative group">
+            <span class="absolute top-0 right-0 w-4 h-4 bg-red-500 border-2 border-wood-900 rounded-full animate-ping"></span>
+            <span class="absolute top-0 right-0 w-4 h-4 bg-red-500 border-2 border-wood-900 rounded-full"></span>
+            <i class="ph ph-robot text-3xl"></i>
+        </button>
+
+        <!-- Bot Panel (Open) -->
+        <div x-show="botOpen" x-transition.scale.origin.bottom.right class="absolute bottom-20 right-0 w-[340px] bg-paper border border-gray-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+            <div class="bg-wood-900 text-paper p-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-paper/20 flex items-center justify-center"><i class="ph ph-robot"></i></div>
+                    <div>
+                        <h4 class="font-bold text-sm">Sistem AI Arsitek</h4>
+                        <span class="text-[10px] text-paper/70 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span> Online</span>
+                    </div>
+                </div>
+                <button @click="botOpen = false" class="text-paper/50 hover:text-paper"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="p-5 bg-gray-50 flex-1 space-y-4">
+                <div class="bg-white p-3 rounded-xl rounded-tl-none border border-gray-100 shadow-sm text-sm text-ink/80 leading-relaxed relative">
+                    Halo manajemen <strong class="text-wood-900">Enyui!</strong> 👋<br><br>
+                    Data intelijen kami menunjukkan traffic di Jl. Palagan KM 14 sangat padat akhir pekan ini. Namun sistem reservasi komersial Anda belum aktif.<br><br>
+                    Modul booking di atas <strong>siap di-deploy hari ini</strong> ke server Anda. Ingin kami implementasikan sistem kasir otomatis ini agar Anda tidak kehilangan omset lagi?<br><br>Dibuat oleh <strong>CocoTech</strong> — sangat berpengalaman di digital Indonesia. <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">cocotech.studio</a>
+                    <div class="absolute -left-2 top-0 w-4 h-4 bg-white border-l border-t border-gray-100 transform -rotate-45"></div>
+                </div>
+            </div>
+            <div class="p-4 bg-white border-t border-gray-100">
+                <button @click="alert('Menghubungkan ke Tim Sales AI...')" class="w-full py-3 bg-wood-900 text-paper text-sm font-bold rounded-xl hover:bg-wood-500 transition-colors flex justify-center items-center gap-2">
+                    <i class="ph ph-whatsapp-logo text-lg"></i> Diskusikan Implementasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alpine.js Application Logic -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            // Main App State
+            Alpine.data('appData', () => ({
+                scrolled: false,
+                scrollPercent: 0,
+                botOpen: false,
+                showBot: false,
+                handleScroll() {
+                    this.scrolled = window.scrollY > 50;
+                    
+                    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    this.scrollPercent = (winScroll / height) * 100;
+                    
+                    // Trigger Trojan Horse Bot at 30% scroll
+                    if (this.scrollPercent > 30 && !this.showBot) {
+                        this.showBot = true;
+                        // Auto open after a slight delay
+                        setTimeout(() => {
+                            this.botOpen = true;
+                            // Play notification sound
+                            try {
+                                let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                                audio.volume = 0.2;
+                                audio.play();
+                            } catch(e){}
+                        }, 1000);
+                    }
+                }
+            }));
+
+            // Interactive Menu System
+            Alpine.data('menuSystem', () => ({
+                activeCategory: 'signature',
+                showToast: false,
+                toastMessage: '',
+                categories: [
+                    { id: 'signature', name: 'Signature Coffee' },
+                    { id: 'brunch', name: 'Artisan Brunch' },
+                    { id: 'pastry', name: 'Premium Pastry' }
+                ],
+                items: [
+                    { id: 1, category: 'signature', name: 'Enyui Original Latte', desc: 'Espresso medium-dark roast dengan susu oat organik, disajikan dengan es batu kristal yang perlahan mencair tanpa merusak profil rasa.', price: '45', image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=800' },
+                    { id: 2, category: 'signature', name: 'Matcha Zen Blend', desc: 'Bubuk matcha ceremonial grade langsung dari Uji, Jepang. Dikocok menggunakan chasen bambu tradisional, dipadukan dengan foam susu kedelai.', price: '52', image: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&q=80&w=800' },
+                    { id: 3, category: 'brunch', name: 'Nordic Smoked Salmon Toast', desc: 'Roti sourdough artisan hasil fermentasi alami 48 jam, dilumuri cream cheese herb, ditumpuk dengan salmon asap Norwegia dan capers.', price: '85', image: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&q=80&w=800' },
+                    { id: 4, category: 'brunch', name: 'Truffle Mushroom Omelette', desc: 'Telur omega-3 dikocok lembut ala Prancis, diisi tumisan jamur shimeji, dan disiram minyak truffle asli Italia.', price: '65', image: 'https://images.unsplash.com/photo-1610970881699-44a5587ce529?auto=format&fit=crop&q=80&w=800' },
+                    { id: 5, category: 'pastry', name: 'Hokkaido Cheese Tart', desc: 'Kulit tart renyah dengan isian keju Hokkaido tiga lapis yang lumer di mulut. Dipanggang hingga karamelisasi sempurna.', price: '35', image: 'https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?auto=format&fit=crop&q=80&w=800' },
+                    { id: 6, category: 'pastry', name: 'Yuzu Almond Croissant', desc: 'Tekstur flaky mentega Prancis asli, diinjeksi dengan selai jeruk yuzu Jepang yang menyegarkan, ditaburi almond panggang.', price: '42', image: 'https://images.unsplash.com/photo-1549903072-7e6e0bedb7fb?auto=format&fit=crop&q=80&w=800' }
+                ],
+                get filteredMenu() {
+                    return this.items.filter(item => item.category === this.activeCategory);
+                },
+                addToCart(item) {
+                    this.toastMessage = `${item.name} ditambahkan!`;
+                    this.showToast = true;
+                    setTimeout(() => { this.showToast = false; }, 3000);
+                }
+            }));
+
+            // Commercial Booking Engine
+            Alpine.data('bookingEngine', () => ({
+                step: 1,
+                selectedSpot: '',
+                selectedPackage: '',
+                date: '',
+                time: '',
+                spots: [
+                    { id: 'indoor', name: 'Indoor Minimalist Japandi', desc: 'Dekorasi kayu Ash, dinding putih bersih, cocok untuk Fashion Catalog.', icon: 'ph-house-line' },
+                    { id: 'pond', name: 'Area Kolam Air (Zen Pond)', desc: 'Latar belakang elemen air mengalir dan bebatuan alami. Elegan.', icon: 'ph-waves' },
+                    { id: 'outdoor', name: 'Outdoor Golden Hour', desc: 'Taman minimalis dengan pencahayaan natural matahari sore.', icon: 'ph-sun' }
+                ],
+                packages: [
+                    { id: 'basic', name: 'Product Catalog Lite', price: '750', duration: '2', crew: 'Maks 4', includes: 'Akses 1 Spot, 2 Free Coffee' },
+                    { id: 'pro', name: 'Commercial Campaign', price: '1500', duration: '4', crew: 'Maks 8', includes: 'Akses Bebas, Ruang Ganti Privat, 5 Free Coffee' },
+                    { id: 'prewed', name: 'Exclusive Pre-Wedding', price: '2500', duration: '6', crew: 'Maks 10', includes: 'Sterilisasi Area, Ruang Ganti, Bebas Pesan Menu senilai 500k' }
+                ],
+                canProceed() {
+                    if(this.step === 1) return this.selectedSpot !== '';
+                    if(this.step === 2) return this.selectedPackage !== '';
+                    if(this.step === 3) return this.date !== '' && this.time !== '';
+                    return true;
+                },
+                nextStep() {
+                    if(this.canProceed() && this.step < 4) {
+                        this.step++;
+                    }
+                },
+                getSpotName() {
+                    let spot = this.spots.find(s => s.id === this.selectedSpot);
+                    return spot ? spot.name : '';
+                },
+                getPackageName() {
+                    let pkg = this.packages.find(p => p.id === this.selectedPackage);
+                    return pkg ? pkg.name : '';
+                },
+                getPrice() {
+                    let pkg = this.packages.find(p => p.id === this.selectedPackage);
+                    return pkg ? pkg.price : '0';
+                },
+                simulateCheckout() {
+                    alert('Simulasi: Mengalihkan ke Payment Gateway untuk DP Rp ' + (parseInt(this.getPrice())/2) + '.000...\n\n(Ini adalah demo prototipe. Dalam versi live, akan memotong saldo klien langsung.)');
+                }
+            }));
+
+            // Countdown Timer (48 Hours)
+            Alpine.data('countdownTimer', () => ({
+                time: 48 * 60 * 60, // 48 hours in seconds
+                get hours() { 
+                    let h = Math.floor(this.time / 3600); 
+                    return h < 10 ? '0'+h : h;
+                },
+                get minutes() { 
+                    let m = Math.floor((this.time % 3600) / 60); 
+                    return m < 10 ? '0'+m : m;
+                },
+                get seconds() { 
+                    let s = this.time % 60; 
+                    return s < 10 ? '0'+s : s;
+                },
+                init() {
+                    setInterval(() => {
+                        if(this.time > 0) this.time--;
+                    }, 1000);
+                }
+            }));
+        });
+    </script>
+
+<!-- ============================================================
+     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
+============================================================ -->
+<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
+  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
+    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
+    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
+    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
+  </p>
+  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
+</div>
+
+</body>
+</html>

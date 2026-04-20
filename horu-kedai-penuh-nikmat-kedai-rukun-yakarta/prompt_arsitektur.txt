@@ -1,0 +1,29 @@
+# INSTRUKSI ARSITEKTUR UI/UX & TECH STACK
+
+## TEMA & IDENTITAS VISUAL
+- **Brand Vibe**: Nostalgik, Autentik (Comfort Food), High-Value, B2B Professional, Metropolitan.
+- **Warna Utama**: Terracotta/Brick Red (#C84B31) merepresentasikan bumbu masak/sambal/kehangatan. 
+- **Warna Aksen**: Cream/Off-White (#FDF8F5) untuk background bersih dan Deep Charcoal (#1A1A1A) untuk teks agar elegan.
+- **Tipografi**: Kombinasi 'Playfair Display' untuk Heading (mencerminkan "Heritage" & kelas) dan 'Plus Jakarta Sans' untuk Body (mencerminkan modernitas & readability).
+
+## TEKNOLOGI (THE STACK)
+- **HTML5 Semantic** dengan best practices aksesibilitas (a11y).
+- **Tailwind CSS (via CDN)**: Digunakan untuk styling responsif, konfigurasi warna kustom di dalam `<script>tailwind.config = {...}</script>`, dan implementasi utilitas lanjutan (glassmorphism, grid bento, transform).
+- **Alpine.js (via CDN)**: Wajib untuk engine interaktif! Menangani:
+  1. Window Scroll Event (Navbar state).
+  2. Modul Pemesanan (Tabs, kalkulasi harga real-time, input quantity dengan range slider).
+  3. Intersection Observer (Untuk animasi grafik bar).
+  4. Countdown Timer 48 Jam.
+  5. Floating Sales Bot Logic.
+- **Phosphor Icons**: Ikon modern (duotone, fill, bold) untuk memperkuat UI/UX tanpa membebani load time.
+- **Vanilla CSS (Inline `<style>`)**: Untuk keyframes kompleks seperti animasi `blob`, efek `marquee` tanpa henti, dan `noise texture` overlay.
+
+## STRUKTUR UX & FLOW CONVERSION
+1. **Navigasi Sticky Glass**: Langsung terasa premium, CTA dominan.
+2. **Hero Abstract**: Mata pengguna diarahkan ke Headline provokatif dan tombol "Live Prototype".
+3. **Bento Grid Layout**: Menceritakan kisah 3 entitas (Horu, Penuh Nikmat, Rukun Yakarta) secara padat tanpa scroll panjang.
+4. **Corporate Booking Module**: Jantung dari landing page. Harus berfungsi secara logis. Menggunakan state Alpine untuk menghitung total = (Harga * Pax) - Diskon.
+5. **Data Driven FOMO**: Grafik perbandingan visual untuk membuktikan "Opportunity Loss" kepada klien.
+6. **Social Proof Marquee**: Ulasan Google berjalan untuk meyakinkan korporat.
+7. **Scarcity Engine**: Countdown urgency dengan UI yang megah.
+8. **Mega Footer & Chatbot**: Menyediakan informasi geografis Blok M, dan bot yang dirancang khusus untuk mem-pitch pemilik bisnis.

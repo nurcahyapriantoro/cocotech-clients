@@ -1,0 +1,24 @@
+{
+  "project": "Fumo Chicken - B2B Catering Enterprise Engine",
+  "pricing": {
+    "currency": "IDR",
+    "setup_fee_normal": 45000000,
+    "setup_fee_discounted": 31500000,
+    "discount_percentage": 30,
+    "monthly_maintenance_and_server": 3500000
+  },
+  "roi_projection": {
+    "estimated_b2b_increase": "300%",
+    "time_saved_per_order": "45 Menit",
+    "monthly_revenue_potential_added": "Rp 100.000.000 - Rp 150.000.000 (Asumsi 15-20 pesanan korporat tambahan per bulan)",
+    "payback_period": "Kurang dari 1 Bulan"
+  },
+  "deliverables": [
+    "Custom Landing Page & B2B Dashboard UI",
+    "Interactive Catering Pricing Engine",
+    "Automated PDF Quotation & e-Faktur Ready",
+    "WhatsApp API Integration",
+    "High-Conversion Scarcity Engineering",
+    "1 Year Cloud Hosting & Maintenance"
+  ]
+}

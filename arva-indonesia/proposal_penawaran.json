@@ -1,0 +1,24 @@
+{
+  "project_name": "Arva Global B2B Portal & Ordering System",
+  "pricing": {
+    "tier_1_setup_fee": {
+      "original_price_usd": 15000,
+      "discounted_price_usd": 10500,
+      "description": "Full Enterprise Setup (B2B Catalog, FOB Calculator, Document Vault, ERP Integration)"
+    },
+    "tier_2_monthly_maintenance": {
+      "price_usd": 500,
+      "description": "24/7 Secure Server, AES-256 Encryption, Monthly Backup, SLA 99.9%"
+    }
+  },
+  "roi_analysis": {
+    "current_manual_process_loss_per_month_usd": 8000,
+    "projected_order_increase_percentage": 300,
+    "break_even_point_days": 45,
+    "key_benefits": [
+      "Meniadakan batal order akibat perbedaan zona waktu global.",
+      "Mengurangi biaya admin/CS untuk handle dokumen ekspor berulang.",
+      "Meningkatkan trust level distributor skala kakap (Supermarket USA/Eropa)."
+    ]
+  }
+}
