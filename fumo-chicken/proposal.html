@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Digitalisasi — Fumo Chicken | CocoTech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --red: #E50914; --gold: #FBBF24; --black: #0A0A0A; --surface: #171717; --text: #D4D4D4; --gray: #9CA3AF; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: white; color: #1F2937; font-size: 11pt; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+        @media print { .no-print { display: none !important; } .page-break { page-break-before: always; } .cover { page-break-after: always; } body { font-size: 10pt; } }
+        .cover { background: var(--black); color: white; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 60px 72px; position: relative; overflow: hidden; }
+        .cover::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 80% 20%, rgba(229,9,20,0.2) 0%, transparent 50%); pointer-events: none; }
+        .cover-badge { display: inline-block; background: rgba(229,9,20,0.15); border: 1px solid rgba(229,9,20,0.4); color: var(--red); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+        .cover-title { font-size: 46px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+        .cover-title span { color: var(--gold); }
+        .cover-subtitle { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: rgba(255,255,255,0.55); max-width: 500px; line-height: 1.75; }
+        .cover-meta { display: flex; gap: 36px; flex-wrap: wrap; }
+        .cover-meta-item label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+        .cover-meta-item span { font-size: 14px; font-weight: 600; color: white; }
+        .cocotech-by { font-size: 10px; color: rgba(255,255,255,0.25); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 16px; }
+        .cocotech-by a { color: rgba(255,255,255,0.55); font-weight: 700; text-decoration: none; }
+        .content { max-width: 760px; margin: 0 auto; padding: 60px 40px; }
+        .section { margin-bottom: 52px; }
+        .section-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+        .section-title { font-size: 26px; color: #1F2937; margin-bottom: 16px; }
+        .section-body { color: #6B7280; line-height: 1.85; }
+        .section-divider { border: none; border-top: 1px solid #E5E7EB; margin: 52px 0; }
+        .callout { background: #FFF5F5; border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 18px 24px; margin: 20px 0; }
+        .callout strong { color: var(--red); }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .feature-card { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 12px; padding: 22px; }
+        .feature-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .feature-card p { font-size: 11px; color: #6B7280; line-height: 1.65; }
+        .roi-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        .roi-table th { background: var(--black); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; padding: 12px 16px; }
+        .roi-table th:first-child { border-radius: 8px 0 0 0; } .roi-table th:last-child { border-radius: 0 8px 0 0; text-align: right; }
+        .roi-table td { padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 11px; vertical-align: top; }
+        .roi-table td:last-child { text-align: right; font-weight: 700; color: #1F2937; }
+        .roi-table tr:nth-child(even) td { background: #F9FAFB; }
+        .roi-table .total td { background: #F0FDF4; font-weight: 700; font-size: 12px; border-top: 2px solid var(--black); }
+        .roi-table .total td:last-child { color: #166534; font-size: 14px; }
+        .timeline { margin-top: 24px; position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: #D1D5DB; }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-dot { position: absolute; left: -34px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: white; border: 2px solid var(--red); }
+        .timeline-week { font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+        .timeline-item h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .timeline-item p { font-size: 11px; color: #6B7280; }
+        .pricing-card { background: var(--black); color: white; border-radius: 16px; padding: 40px; position: relative; overflow: hidden; }
+        .pricing-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; top: 0; background: radial-gradient(circle at 90% 90%, rgba(229,9,20,0.2) 0%, transparent 50%); }
+        .pricing-card .badge { display: inline-block; background: rgba(229,9,20,0.15); border: 1px solid rgba(229,9,20,0.4); color: #FCA5A5; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+        .pricing-card h3 { font-size: 22px; margin-bottom: 8px; }
+        .pricing-card .total-price { font-size: 40px; font-weight: 800; color: var(--gold); margin: 12px 0; }
+        .pricing-card .dp { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .pricing-card .dp strong { color: #A7F3D0; font-size: 18px; }
+        .pricing-includes li { list-style: none; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 10px; }
+        .pricing-includes li:last-child { border-bottom: none; }
+        .check { color: #A7F3D0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .contact-card { border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 14px; }
+        .contact-card-label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #6B7280; margin-bottom: 4px; }
+        .contact-card-value { font-size: 13px; font-weight: 700; color: #1F2937; }
+        .contact-card-value a { color: var(--red); text-decoration: none; }
+        .print-bar { background: var(--black); color: white; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .print-btn { background: var(--red); color: white; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; padding: 10px 24px; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="print-bar no-print">
+    <p style="font-size:13px;color:rgba(255,255,255,0.6);">Proposal untuk <strong style="color:white;">Fumo Chicken</strong> — CocoTech Digital Agency</p>
+    <button class="print-btn" onclick="window.print()">🖨️ &nbsp; Cetak / Simpan PDF (Ctrl+P)</button>
+</div>
+<div class="cover">
+    <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:48px;">
+            <span style="font-size:30px;">🔥</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.35);text-transform:uppercase;">Fumo Chicken × CocoTech</span>
+        </div>
+        <div class="cover-badge">Proposal Enterprise — Tier 2: B2B Corporate Engine</div>
+        <h1 class="cover-title">Dari Viral TikTok<br>ke <span>Penguasa Katering</span><br>Korporat SCBD</h1>
+        <p class="cover-subtitle">Infrastruktur B2B Catering Engine yang mengotomatisasi penawaran harga, pembuatan faktur pajak e-Faktur, dan manajemen pesanan massal untuk korporasi — mengubah momentum viral Fumo Chicken menjadi cashflow miliar yang stabil.</p>
+    </div>
+    <div>
+        <div class="cover-meta">
+            <div class="cover-meta-item"><label>Disiapkan Untuk</label><span>Manajemen Fumo Chicken</span></div>
+            <div class="cover-meta-item"><label>Lokasi</label><span>Blok M, Jakarta Selatan</span></div>
+            <div class="cover-meta-item"><label>Tanggal</label><span id="doc-date">—</span></div>
+            <div class="cover-meta-item"><label>Berlaku Hingga</label><span id="valid-date">—</span></div>
+        </div>
+        <div class="cocotech-by">Disusun oleh <a href="https://cocotech.studio" target="_blank">CocoTech</a> — IT Agency Berpengalaman 50+ Klien Digital di Indonesia</div>
+    </div>
+</div>
+<div class="content">
+    <div class="section">
+        <div class="section-label">01 — Executive Summary</div>
+        <h2 class="section-title">Viral Adalah Awal. B2B Corporate Adalah Endgame.</h2>
+        <p class="section-body">Fumo Chicken telah membuktikan bahwa produknya mampu memenangkan hati jutaan orang di TikTok. Namun, viral tanpa sistem B2B yang kuat berarti bergantung pada antrean walk-in yang tidak stabil—bukan kontrak katering korporat senilai ratusan juta secara recurring setiap bulan.</p>
+        <div class="callout"><strong>🔴 Masalah Utama:</strong> HRD perusahaan di SCBD, Senayan, dan Sudirman yang ingin memesan makan siang 200–500 porsi membutuhkan 3 hal: kecepatan penawaran (quotation), faktur pajak resmi, dan sistem pembayaran B2B. Jika Fumo tidak memilikinya, mereka pergi ke katering konvensional meski rasa ayam Fumo objectively lebih unggul.</div>
+        <div class="callout"><strong>🔴 Kehilangan Terencana:</strong> 1 kontrak katering korporat mingguan (300 pax × Rp 45.000 × 4 minggu) = Rp 54.000.000/bulan. Saat ini semua peluang itu bocor ke pesaing hanya karena tidak ada sistem digital B2B yang mumpuni.</div>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;"><strong style="color:#15803D;">✅ Solusi:</strong> Sistem Fumo B2B Catering Engine yang mengotomatisasi seluruh alur: dari penawaran real-time, pilih paket, input NPWP, hingga generate e-Faktur otomatis — semuanya dalam 1 platform yang bisa dipresentasikan langsung ke HRD.</div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">02 — Solusi & Fitur Utama</div>
+        <h2 class="section-title">Fumo B2B Catering Engine</h2>
+        <div class="feature-grid">
+            <div class="feature-card"><h4>🧮 Real-Time Quotation Builder</h4><p>Slider pax (50–1000 orang), pilih paket Standard/VIP, toggle PPN 11%, dan total harga terhitung real-time. HRD bisa generate penawaran dalam 30 detik.</p></div>
+            <div class="feature-card"><h4>🧾 Auto e-Faktur Generator</h4><p>Input nama perusahaan & NPWP, sistem otomatis menyiapkan template e-Faktur resmi. Closing rate B2B naik hingga 85% dibanding sistem WhatsApp manual.</p></div>
+            <div class="feature-card"><h4>📊 Perusahaan Profile & Heritage</h4><p>Website yang merepresentasikan Fumo Chicken sebagai brand F&B kelas enterprise, bukan sekadar kedai viral. Cocok untuk pitch ke procurement perusahaan.</p></div>
+            <div class="feature-card"><h4>🔗 SEO B2B "Katering Korporat"</h4><p>Optimasi untuk kata kunci "katering korporat Jakarta Selatan", "catering SCBD halal", "katering ayam goreng Blok M". Target halaman 1 Google dalam 60 hari.</p></div>
+            <div class="feature-card"><h4>📨 WhatsApp Business Integration</h4><p>Setiap order yang masuk otomatis mengirim notifikasi ke WA Fumo Chicken dengan detail lengkap (perusahaan, jumlah pax, paket, tanggal).</p></div>
+            <div class="feature-card"><h4>🤝 Bilingual Pitch Deck Mode</h4><p>Website bisa diakses dalam bahasa Inggris untuk presentasi ke perusahaan multinasional. Meningkatkan persepsi profesionalisme brand Fumo.</p></div>
+        </div>
+    </div>
+    <hr class="section-divider page-break">
+    <div class="section">
+        <div class="section-label">03 — Proyeksi ROI</div>
+        <h2 class="section-title">Kalkulasi Dampak Bisnis Minimal (Bulan ke-1)</h2>
+        <table class="roi-table">
+            <thead><tr><th>Metrik</th><th>Asumsi Konservatif</th><th>Dampak / Bulan</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Kontrak Katering Baru</strong><br><small style="color:#9CA3AF;">Perusahaan yang sign via B2B portal</small></td><td>2 perusahaan baru × 4× pesan/bulan × Rp 13.500.000</td><td>+ Rp 108.000.000</td></tr>
+                <tr><td><strong>Up-sell Paket VIP</strong><br><small style="color:#9CA3AF;">Sistem nudge dari Standard ke VIP</small></td><td>40% upgrade × Rp 20.000 × 300 pax × 8 pesanan</td><td>+ Rp 19.200.000</td></tr>
+                <tr><td><strong>PPN Add-on Revenue</strong><br><small style="color:#9CA3AF;">Pendapatan PPN yang bisa di-offset</small></td><td>11% dari Rp 108.000.000 subtotal</td><td>+ Rp 11.880.000</td></tr>
+            </tbody>
+            <tfoot><tr class="total"><td colspan="2"><strong>Estimasi Total Dampak (Bulan ke-1, Skenario Konservatif)</strong></td><td>≈ Rp 139.080.000</td></tr></tfoot>
+        </table>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;margin-top:20px;"><strong style="color:#15803D;">💡 Payback Period:</strong> Biaya setup Rp 7.500.000 terbayar lunas hanya dari <strong>1 pesanan 300 pax</strong> senilai Rp 13.500.000 di hari pertama sistem aktif.</div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">04 — Timeline Implementasi</div>
+        <h2 class="section-title">12 Hari Kerja, Siap Pitch ke HRD Perusahaan</h2>
+        <div class="timeline">
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 1–2</div><h4>Discovery & Paket Setup</h4><p>Finalisasi paket katering Standard vs VIP, harga per pax, term pembayaran, dan data legal untuk e-Faktur template.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 3–8</div><h4>Development B2B Engine</h4><p>Produksi website company profile, interactive quotation builder (slider pax + paket), toggle PPN, e-Faktur generator, dan notifikasi WA.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 9–10</div><h4>SEO B2B & Google Business</h4><p>Optimasi keyword katering korporat Jakarta Selatan, setup Google Business Profile, dan listing di direktori katering.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 11–12</div><h4>UAT, Launch & Handover</h4><p>Demo live ke tim Fumo, penyesuaian final, go-live, dan training cara menggunakan dashboard order masuk.</p></div>
+        </div>
+    </div>
+    <hr class="section-divider page-break">
+    <div class="section">
+        <div class="section-label">05 — Struktur Harga</div>
+        <h2 class="section-title">Investasi Tier 2: B2B Corporate Catering Engine</h2>
+        <div class="pricing-card">
+            <div class="badge">Corporate F&B — Penawaran 48 Jam</div>
+            <h3>Paket Fumo B2B Enterprise System</h3>
+            <div class="total-price">Rp 7.500.000</div>
+            <div class="dp">Mulai dengan DP <strong>Rp 2.250.000</strong> (30%) — Pelunasan setelah UAT disetujui</div>
+            <ul class="pricing-includes" style="margin-top:24px;">
+                <li><span class="check">✓</span> Website Company Profile Premium Bilingual (ID/EN)</li>
+                <li><span class="check">✓</span> Interactive B2B Quotation Builder (Real-time)</li>
+                <li><span class="check">✓</span> Auto e-Faktur Generator (Input NPWP + generate PDF)</li>
+                <li><span class="check">✓</span> 2 Paket Katering (Standard & Corporate VIP)</li>
+                <li><span class="check">✓</span> Toggle PPN 11% Otomatis</li>
+                <li><span class="check">✓</span> WhatsApp Business Notification per Order</li>
+                <li><span class="check">✓</span> SEO B2B "Katering Korporat Jakarta Selatan"</li>
+                <li><span class="check">✓</span> Deployment ke domain pilihan</li>
+                <li><span class="check">✓</span> <strong>Garansi Revisi: 2x Gratis dalam 30 Hari</strong></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">06 — Mulai Sekarang</div>
+        <h2 class="section-title">Hubungi CocoTech</h2>
+        <div class="contact-grid">
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">📱</div><div><div class="contact-card-label">WhatsApp</div><div class="contact-card-value"><a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Fumo%20Chicken%20sudah%20baca%20proposal" target="_blank">+62 812-8332-1577</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">📧</div><div><div class="contact-card-label">Email</div><div class="contact-card-value"><a href="mailto:admin@cocotech.studio">admin@cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">🌐</div><div><div class="contact-card-label">Website</div><div class="contact-card-value"><a href="https://cocotech.studio" target="_blank">cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">⏰</div><div><div class="contact-card-label">Response Time</div><div class="contact-card-value">< 2 Jam (Jam Kerja)</div></div></div>
+        </div>
+    </div>
+    <div style="margin-top:60px;padding-top:20px;border-top:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:center;">
+        <p style="font-size:10px;color:#9CA3AF;">© 2026 CocoTech Digital Agency — Dokumen konfidensial untuk Fumo Chicken, Blok M, Jakarta Selatan.</p>
+        <a href="https://cocotech.studio" target="_blank" style="font-size:10px;color:#E50914;font-weight:700;text-decoration:none;">cocotech.studio ↗</a>
+    </div>
+</div>
+<script>
+    const now = new Date();
+    const opt = { day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('doc-date').textContent = now.toLocaleDateString('id-ID', opt);
+    const v = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+    document.getElementById('valid-date').textContent = v.toLocaleDateString('id-ID', opt);
+</script>
+</body>
+</html>

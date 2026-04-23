@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Digitalisasi — Warna Kopi | CocoTech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --moss: #2C3E2D;
+            --beige: #E6D5B8;
+            --earth: #8A5A44;
+            --light: #F9F9F6;
+            --dark: #1F2937;
+            --gray: #6B7280;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: white; color: var(--dark); font-size: 11pt; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        @media print {
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            .cover { page-break-after: always; }
+            body { font-size: 10pt; }
+        }
+
+        /* COVER */
+        .cover { background: var(--moss); color: white; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 60px 72px; position: relative; overflow: hidden; }
+        .cover::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 80%, rgba(138,90,68,0.35) 0%, transparent 60%); pointer-events: none; }
+        .cover-leaf { position: absolute; right: -20px; top: -20px; width: 400px; height: 400px; border-radius: 0 0 0 60%; background: rgba(255,255,255,0.04); }
+        .cover-logo { display: flex; align-items: center; gap: 12px; }
+        .cover-logo-icon { font-size: 36px; }
+        .cover-logo-text { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+        .cover-badge { display: inline-block; background: rgba(230,213,184,0.15); border: 1px solid rgba(230,213,184,0.4); color: var(--beige); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+        .cover-title { font-size: 50px; font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+        .cover-title span { color: var(--beige); font-style: italic; }
+        .cover-subtitle { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; color: rgba(255,255,255,0.65); max-width: 480px; line-height: 1.75; }
+        .cover-meta { display: flex; gap: 40px; }
+        .cover-meta-item label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+        .cover-meta-item span { font-size: 14px; font-weight: 600; color: white; }
+        .cocotech-by { font-size: 10px; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 20px; }
+        .cocotech-by a { color: rgba(255,255,255,0.7); font-weight: 700; text-decoration: none; }
+
+        /* CONTENT */
+        .content { max-width: 760px; margin: 0 auto; padding: 60px 40px; }
+        @media print { .content { padding: 40px 0; } }
+        .section { margin-bottom: 52px; }
+        .section-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--earth); margin-bottom: 8px; }
+        .section-title { font-size: 26px; font-weight: 700; color: var(--dark); margin-bottom: 16px; line-height: 1.3; }
+        .section-body { color: var(--gray); line-height: 1.85; }
+        .section-divider { border: none; border-top: 1px solid #E5E7EB; margin: 52px 0; }
+
+        .callout { background: #FFFBF5; border-left: 4px solid var(--earth); border-radius: 0 8px 8px 0; padding: 18px 24px; margin: 20px 0; }
+        .callout strong { color: var(--earth); }
+
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .feature-card { background: var(--light); border: 1px solid #E5E7EB; border-radius: 12px; padding: 22px; }
+        .feature-card-icon { font-size: 24px; margin-bottom: 10px; }
+        .feature-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .feature-card p { font-size: 11px; color: var(--gray); line-height: 1.65; }
+
+        .roi-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        .roi-table th { background: var(--moss); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; padding: 12px 16px; }
+        .roi-table th:first-child { border-radius: 8px 0 0 0; } .roi-table th:last-child { border-radius: 0 8px 0 0; text-align: right; }
+        .roi-table td { padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 11px; vertical-align: top; }
+        .roi-table td:last-child { text-align: right; font-weight: 700; color: var(--moss); }
+        .roi-table tr:nth-child(even) td { background: var(--light); }
+        .roi-table .total td { background: #F0FDF4; font-weight: 700; font-size: 12px; border-top: 2px solid var(--moss); }
+        .roi-table .total td:last-child { color: #166534; font-size: 14px; }
+
+        .timeline { margin-top: 24px; position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: #D1D5DB; }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-dot { position: absolute; left: -34px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: white; border: 2px solid var(--earth); }
+        .timeline-week { font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--earth); margin-bottom: 4px; }
+        .timeline-item h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .timeline-item p { font-size: 11px; color: var(--gray); }
+
+        .pricing-card { background: var(--moss); color: white; border-radius: 16px; padding: 40px; position: relative; overflow: hidden; }
+        .pricing-card::before { content: ''; position: absolute; bottom: 0; right: 0; width: 250px; height: 250px; background: radial-gradient(circle, rgba(138,90,68,0.4) 0%, transparent 70%); }
+        .pricing-card .badge { display: inline-block; background: rgba(230,213,184,0.2); border: 1px solid rgba(230,213,184,0.4); color: var(--beige); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+        .pricing-card h3 { font-size: 22px; margin-bottom: 8px; }
+        .pricing-card .total-price { font-size: 40px; font-weight: 800; color: var(--beige); margin: 12px 0; }
+        .pricing-card .dp { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .pricing-card .dp strong { color: #A7F3D0; font-size: 18px; }
+        .pricing-includes li { list-style: none; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 10px; }
+        .pricing-includes li:last-child { border-bottom: none; }
+        .check { color: #A7F3D0; font-size: 16px; flex-shrink: 0; }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .contact-card { border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 14px; }
+        .contact-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+        .contact-card-label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+        .contact-card-value { font-size: 13px; font-weight: 700; color: var(--dark); }
+        .contact-card-value a { color: var(--moss); text-decoration: none; }
+
+        .print-bar { background: var(--moss); color: white; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .print-btn { background: var(--earth); color: white; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; padding: 10px 24px; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+        .print-btn:hover { background: #6D4535; }
+    </style>
+</head>
+<body>
+
+<div class="print-bar no-print">
+    <p style="font-size:13px;color:rgba(255,255,255,0.6);">Proposal untuk <strong style="color:white;">Warna Kopi</strong> — CocoTech Digital Agency</p>
+    <button class="print-btn" onclick="window.print()">🖨️ &nbsp; Cetak / Simpan PDF (Ctrl+P)</button>
+</div>
+
+<div class="cover">
+    <div class="cover-leaf"></div>
+    <div class="cover-logo">
+        <span class="cover-logo-icon">☕</span>
+        <span class="cover-logo-text">Warna Kopi × CocoTech</span>
+    </div>
+    <div>
+        <div class="cover-badge">Proposal Eksklusif — UMKM Digital Starter</div>
+        <h1 class="cover-title">WFC Optimizer &<br><span>Reservasi</span><br>Digital Engine</h1>
+        <p class="cover-subtitle">Mengubah hidden gem Gondanglutung menjadi destinasi remote work nomor satu di Jogja Utara — dengan sistem reservasi digital, live WiFi simulator, dan visibilitas online yang mendominasi pencarian lokal.</p>
+    </div>
+    <div>
+        <div class="cover-meta">
+            <div class="cover-meta-item"><label>Disiapkan Untuk</label><span>Manajemen Warna Kopi</span></div>
+            <div class="cover-meta-item"><label>Disiapkan Oleh</label><span>CocoTech Digital Agency</span></div>
+            <div class="cover-meta-item"><label>Tanggal</label><span id="doc-date">—</span></div>
+            <div class="cover-meta-item"><label>Berlaku Hingga</label><span id="valid-date">—</span></div>
+        </div>
+        <div class="cocotech-by">Disusun oleh <a href="https://cocotech.studio" target="_blank">CocoTech</a> — IT Agency Berpengalaman 50+ Klien Digital di Indonesia</div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="section">
+        <div class="section-label">01 — Executive Summary</div>
+        <h2 class="section-title">Potensi Warna Kopi yang Belum Ter-monetisasi Sepenuhnya</h2>
+        <p class="section-body">Warna Kopi memiliki keunggulan kompetitif yang nyata: pemandangan sawah yang damai, harga sangat terjangkau (Rp10.000–30.000), dan fasilitas WiFi yang mendukung kerja jarak jauh. Namun tanpa visibilitas digital yang kuat, potensi ini hanya dinikmati oleh pelanggan yang sudah tahu.</p>
+        <div class="callout"><strong>🔴 Masalah Utama:</strong> Remote worker dan mahasiswa di sekitar Ngaglik/Jalan Kaliurang mencari kafe nyaman setiap hari via Google. Tanpa website dan sistem reservasi, mereka tidak menemukan Warna Kopi dan pergi ke kafe mainstream Jakal yang lebih "terbaca" secara digital.</div>
+        <div class="callout"><strong>🔴 Kehilangan Terukur:</strong> 1 meja untuk 4 orang yang gagal reservasi = kehilangan Rp 120.000–200.000/hari. Dikalikan 30 hari = Rp 3.600.000–6.000.000 pendapatan menguap per bulan karena tidak ada sistem booking digital.</div>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;"><strong style="color:#15803D;">✅ Peluang:</strong> Dengan sistem digital yang tepat, Warna Kopi dapat menangkap traffic yang saat ini "bocor" ke kompetitor Jakal dan membangun komunitas WFC (Work From Cafe) yang loyal di Jogja Utara.</div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="section">
+        <div class="section-label">02 — Solusi & Fitur Utama</div>
+        <h2 class="section-title">WFC Optimizer Engine: Warna Kopi di Era Digital</h2>
+        <div class="feature-grid">
+            <div class="feature-card"><div class="feature-card-icon">📶</div><h4>Live WiFi Speed Simulator</h4><p>Fitur unik yang mengedukasi calon pengunjung tentang kecepatan koneksi Warna Kopi secara interaktif. Transparansi = kepercayaan = konversi kunjungan.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">📅</div><h4>Sistem Reservasi Meja Online</h4><p>Pelanggan dapat booking meja secara digital sebelum datang, dengan konfirmasi otomatis via WA. Tidak ada lagi kekecewaan akibat meja penuh.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">🗺️</div><h4>Local SEO Dominance</h4><p>Optimasi untuk kata kunci "kafe WFC Jogja", "kafe sawah Sleman", "kafe remote work Ngaglik". Target posisi halaman 1 Google dalam 60 hari.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">☕</div><h4>Menu Digital Interaktif</h4><p>Halaman menu dengan foto produk Choco Mint, Budin, dan seluruh minuman. Pelanggan bisa melihat menu sebelum datang — mengurangi waktu keputusan.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">📦</div><h4>Company Profile Premium</h4><p>Website full company profile yang merepresentasikan brand Warna Kopi secara profesional kepada pelanggan baru, mahasiswa, dan komunitas remote worker.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">📊</div><h4>ROI Calculator</h4><p>Widget interaktif yang menghitung potensi pendapatan terselamatkan dari meja yang sebelumnya kosong karena tidak ada sistem reservasi.</p></div>
+        </div>
+    </div>
+
+    <hr class="section-divider page-break">
+
+    <div class="section">
+        <div class="section-label">03 — Proyeksi ROI</div>
+        <h2 class="section-title">Kalkulasi Dampak Bisnis (Bulan ke-1)</h2>
+        <table class="roi-table">
+            <thead><tr><th>Metrik</th><th>Asumsi</th><th>Dampak / Bulan</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Reservasi Digital Baru</strong><br><small style="color:#9CA3AF;">Pelanggan yang sebelumnya tidak tahu tempat ini</small></td><td>~8 reservasi baru/minggu × Rp 80.000 × 4 minggu</td><td>+ Rp 2.560.000</td></tr>
+                <tr><td><strong>Meja Tersisi dari Booking</strong><br><small style="color:#9CA3AF;">Mencegah kehilangan pendapatan no-show</small></td><td>~15 meja/bulan yang dulunya kosong × Rp 200.000/grup</td><td>+ Rp 3.000.000</td></tr>
+                <tr><td><strong>Kunjungan dari SEO</strong><br><small style="color:#9CA3AF;">Traffic organik dari pencarian Google lokal</small></td><td>~20 pengunjung baru/bulan × Rp 25.000 avg</td><td>+ Rp 500.000</td></tr>
+                <tr><td><strong>Peningkatan Repeat Visit</strong><br><small style="color:#9CA3AF;">Database WA untuk reminder & promo</small></td><td>~10% dari 100 pelanggan existing kembali 1x lebih</td><td>+ Rp 250.000</td></tr>
+            </tbody>
+            <tfoot><tr class="total"><td colspan="2"><strong>Estimasi Total Dampak Pendapatan (Bulan ke-1)</strong></td><td>≈ Rp 6.310.000</td></tr></tfoot>
+        </table>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;margin-top:20px;"><strong style="color:#15803D;">💡 Payback Period:</strong> Dengan investasi setup Rp 3.500.000, modal kembali dalam ±17 hari setelah sistem aktif berdasarkan proyeksi konservatif di atas.</div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="section">
+        <div class="section-label">04 — Timeline Implementasi</div>
+        <h2 class="section-title">10 Hari Kerja, Sistem Live</h2>
+        <div class="timeline">
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 1–2</div><h4>Discovery & Brand Gathering</h4><p>Pengumpulan foto Warna Kopi (meja, tampak luar, menu), warna brand, dan informasi operasional (jam buka, kapasitas, WiFi speed riil).</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 3–6</div><h4>Development Website + Booking Engine</h4><p>Produksi website company profile, integrasi sistem reservasi meja, WiFi speed simulator interaktif, dan halaman menu digital.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 7–8</div><h4>SEO Setup & Google Business</h4><p>Optimasi meta tags, Google Business Profile, Google Maps integration, dan struktur konten untuk pencarian "kafe WFC Jogja".</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 9–10</div><h4>UAT, Launch & Handover</h4><p>Review bersama manajemen Warna Kopi, penyesuaian final, go-live di domain pilihan, dan training 1 jam cara mengelola booking masuk.</p></div>
+        </div>
+    </div>
+
+    <hr class="section-divider page-break">
+
+    <div class="section">
+        <div class="section-label">05 — Struktur Harga</div>
+        <h2 class="section-title">Investasi Tier 1: Starter Digital Presence</h2>
+        <div class="pricing-card">
+            <div class="badge">UMKM Special Price — Penawaran 48 Jam</div>
+            <h3>Paket WFC Optimizer Full System</h3>
+            <div class="total-price">Rp 3.500.000</div>
+            <div class="dp">Mulai dengan DP <strong>Rp 1.050.000</strong> (30%) — Pelunasan setelah UAT disetujui</div>
+            <ul class="pricing-includes" style="margin-top:24px;">
+                <li><span class="check">✓</span> Website Company Profile Premium (Mobile-First)</li>
+                <li><span class="check">✓</span> Sistem Reservasi Meja Online dengan Notifikasi WA</li>
+                <li><span class="check">✓</span> Live WiFi Speed Simulator Interaktif</li>
+                <li><span class="check">✓</span> Menu Digital dengan Foto Produk</li>
+                <li><span class="check">✓</span> Local SEO Optimization (Halaman 1 Google)</li>
+                <li><span class="check">✓</span> Google Business Profile Setup</li>
+                <li><span class="check">✓</span> Deployment ke domain / GitHub Pages</li>
+                <li><span class="check">✓</span> Training & Handover Dokumentasi</li>
+                <li><span class="check">✓</span> <strong>Garansi Revisi: 2x Gratis dalam 30 Hari</strong></li>
+            </ul>
+        </div>
+        <div style="margin-top:20px;padding:16px 20px;background:var(--light);border:1px solid #E5E7EB;border-radius:10px;font-size:11px;color:var(--gray);">
+            <strong style="color:var(--dark);">Catatan Pembayaran:</strong> DP 30% di muka, sisa 70% (Rp 2.450.000) setelah demo UAT disetujui sebelum go-live. Menerima transfer BCA/BNI/Mandiri, QRIS.
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="section">
+        <div class="section-label">06 — Mulai Sekarang</div>
+        <h2 class="section-title">Hubungi CocoTech</h2>
+        <p class="section-body">Tim kami siap memulai dalam 24 jam setelah konfirmasi. Penawaran harga spesial UMKM ini berlaku selama 48 jam.</p>
+        <div class="contact-grid">
+            <div class="contact-card"><div class="contact-icon" style="background:#E8F5E9;">📱</div><div><div class="contact-card-label">WhatsApp</div><div class="contact-card-value"><a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Warna%20Kopi%20sudah%20baca%20proposal%20dan%20tertarik" target="_blank">+62 812-8332-1577</a></div></div></div>
+            <div class="contact-card"><div class="contact-icon" style="background:#FFF3E0;">📧</div><div><div class="contact-card-label">Email</div><div class="contact-card-value"><a href="mailto:admin@cocotech.studio">admin@cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div class="contact-icon" style="background:#E3F2FD;">🌐</div><div><div class="contact-card-label">Website</div><div class="contact-card-value"><a href="https://cocotech.studio" target="_blank">cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div class="contact-icon" style="background:#F5F5F5;">⏰</div><div><div class="contact-card-label">Response Time</div><div class="contact-card-value">< 2 Jam (Jam Kerja)</div></div></div>
+        </div>
+    </div>
+
+    <div style="margin-top:60px;padding-top:20px;border-top:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:center;">
+        <p style="font-size:10px;color:#9CA3AF;">© 2026 CocoTech Digital Agency — Dokumen konfidensial untuk Warna Kopi, Gondanglutung, Sleman.</p>
+        <a href="https://cocotech.studio" target="_blank" style="font-size:10px;color:var(--moss);font-weight:700;text-decoration:none;">cocotech.studio ↗</a>
+    </div>
+</div>
+
+<script>
+    const now = new Date();
+    const opt = { day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('doc-date').textContent = now.toLocaleDateString('id-ID', opt);
+    const v = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+    document.getElementById('valid-date').textContent = v.toLocaleDateString('id-ID', opt);
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Digitalisasi — Enyui Japandi Café | CocoTech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --ink: #2D2416; --wood: #BC8A5F; --paper: #FDFBF7; --zen: #6B7C5E; --gray: #6B7280; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: white; color: var(--ink); font-size: 11pt; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        @media print { .no-print { display: none !important; } .page-break { page-break-before: always; } .cover { page-break-after: always; } body { font-size: 10pt; } }
+        .cover { background: var(--ink); color: white; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 60px 72px; position: relative; overflow: hidden; }
+        .cover::before { content: ''; position: absolute; top: 0; right: 0; width: 350px; height: 350px; background: radial-gradient(circle, rgba(188,138,95,0.3) 0%, transparent 65%); pointer-events: none; }
+        .cover-badge { display: inline-block; background: rgba(188,138,95,0.15); border: 1px solid rgba(188,138,95,0.4); color: var(--wood); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+        .cover-title { font-size: 46px; font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+        .cover-title span { color: var(--wood); font-style: italic; }
+        .cover-subtitle { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: rgba(255,255,255,0.6); max-width: 460px; line-height: 1.75; }
+        .cover-meta { display: flex; gap: 36px; flex-wrap: wrap; }
+        .cover-meta-item label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+        .cover-meta-item span { font-size: 14px; font-weight: 600; color: white; }
+        .cocotech-by { font-size: 10px; color: rgba(255,255,255,0.25); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 16px; }
+        .cocotech-by a { color: rgba(255,255,255,0.6); font-weight: 700; text-decoration: none; }
+        .content { max-width: 760px; margin: 0 auto; padding: 60px 40px; }
+        .section { margin-bottom: 52px; }
+        .section-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wood); margin-bottom: 8px; }
+        .section-title { font-size: 26px; color: var(--ink); margin-bottom: 16px; }
+        .section-body { color: var(--gray); line-height: 1.85; }
+        .section-divider { border: none; border-top: 1px solid #E5E7EB; margin: 52px 0; }
+        .callout { background: #FFFDF8; border-left: 4px solid var(--wood); border-radius: 0 8px 8px 0; padding: 18px 24px; margin: 20px 0; }
+        .callout strong { color: var(--wood); }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .feature-card { background: var(--paper); border: 1px solid #E5E7EB; border-radius: 12px; padding: 22px; }
+        .feature-card-icon { font-size: 22px; margin-bottom: 10px; }
+        .feature-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .feature-card p { font-size: 11px; color: var(--gray); line-height: 1.65; }
+        .roi-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        .roi-table th { background: var(--ink); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; padding: 12px 16px; }
+        .roi-table th:first-child { border-radius: 8px 0 0 0; } .roi-table th:last-child { border-radius: 0 8px 0 0; text-align: right; }
+        .roi-table td { padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 11px; vertical-align: top; }
+        .roi-table td:last-child { text-align: right; font-weight: 700; color: var(--ink); }
+        .roi-table tr:nth-child(even) td { background: var(--paper); }
+        .roi-table .total td { background: #F9F5F0; font-weight: 700; font-size: 12px; border-top: 2px solid var(--ink); }
+        .roi-table .total td:last-child { color: #1A5C3A; font-size: 14px; }
+        .timeline { margin-top: 24px; position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: #D1D5DB; }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-dot { position: absolute; left: -34px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: white; border: 2px solid var(--wood); }
+        .timeline-week { font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--wood); margin-bottom: 4px; }
+        .timeline-item h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .timeline-item p { font-size: 11px; color: var(--gray); }
+        .pricing-card { background: var(--ink); color: white; border-radius: 16px; padding: 40px; position: relative; overflow: hidden; }
+        .pricing-card::before { content: ''; position: absolute; bottom: 0; right: 0; width: 220px; height: 220px; background: radial-gradient(circle, rgba(188,138,95,0.3) 0%, transparent 65%); }
+        .pricing-card .badge { display: inline-block; background: rgba(188,138,95,0.2); border: 1px solid rgba(188,138,95,0.4); color: var(--wood); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+        .pricing-card h3 { font-size: 22px; margin-bottom: 8px; }
+        .pricing-card .total-price { font-size: 40px; font-weight: 800; color: var(--wood); margin: 12px 0; }
+        .pricing-card .dp { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .pricing-card .dp strong { color: #A7F3D0; font-size: 18px; }
+        .pricing-includes li { list-style: none; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 10px; }
+        .pricing-includes li:last-child { border-bottom: none; }
+        .check { color: #A7F3D0; font-size: 16px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .contact-card { border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 14px; }
+        .contact-card-label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+        .contact-card-value { font-size: 13px; font-weight: 700; color: var(--ink); }
+        .contact-card-value a { color: var(--zen); text-decoration: none; }
+        .print-bar { background: var(--ink); color: white; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .print-btn { background: var(--wood); color: white; border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; padding: 10px 24px; border-radius: 8px; cursor: pointer; }
+        .print-btn:hover { background: #A07040; }
+    </style>
+</head>
+<body>
+<div class="print-bar no-print">
+    <p style="font-size:13px;color:rgba(255,255,255,0.6);">Proposal untuk <strong style="color:white;">Enyui</strong> — CocoTech Digital Agency</p>
+    <button class="print-btn" onclick="window.print()">🖨️ &nbsp; Cetak / Simpan PDF (Ctrl+P)</button>
+</div>
+<div class="cover">
+    <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:48px;">
+            <span style="font-size:32px;">🍃</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Enyui × CocoTech</span>
+        </div>
+        <div class="cover-badge">Proposal Premium — Tier 2: Conversion Engine</div>
+        <h1 class="cover-title">Commercial Photo<br>Booking Engine &<br><span>Brand Monetization</span><br>System</h1>
+        <p class="cover-subtitle">Mengubah fenomena 'photo hunters' di Enyui Palagan KM 14 menjadi mesin pendapatan B2B melalui sistem reservasi komersial otomatis — melayani brand, fotografer profesional, dan klien corporate event.</p>
+    </div>
+    <div>
+        <div class="cover-meta">
+            <div class="cover-meta-item"><label>Disiapkan Untuk</label><span>Manajemen Enyui</span></div>
+            <div class="cover-meta-item"><label>Lokasi</label><span>Jl. Palagan KM 14, Sleman</span></div>
+            <div class="cover-meta-item"><label>Tanggal</label><span id="doc-date">—</span></div>
+            <div class="cover-meta-item"><label>Berlaku Hingga</label><span id="valid-date">—</span></div>
+        </div>
+        <div class="cocotech-by">Disusun oleh <a href="https://cocotech.studio" target="_blank">CocoTech</a> — IT Agency Berpengalaman 50+ Klien Digital</div>
+    </div>
+</div>
+<div class="content">
+    <div class="section">
+        <div class="section-label">01 — Executive Summary</div>
+        <h2 class="section-title">Dilema Enyui: Viral Secara Estetika, Tapi Belum Termonetisasi Secara Digital</h2>
+        <p class="section-body">Enyui telah membangun reputasi luar biasa sebagai destinasi estetika Japandi premium di Palagan. Interior putih bersih, elemen kolam air mengalir, dan pencahayaan natural menjadikannya incaran fotografer fashion, pre-wedding, dan konten kreator setiap hari.</p>
+        <div class="callout"><strong>🔴 Masalah Utama:</strong> Puluhan pengunjung datang setiap hari, memesan 1 kopi, menduduki area berjam-jam untuk pemotretan, dan pergi. Revenue per tamu tidak sebanding dengan nilai komersial ruang yang mereka gunakan.</div>
+        <div class="callout"><strong>🔴 Kehilangan Terukur:</strong> Fotografer profesional yang membutuhkan lokasi pre-wedding/fashion catalog di Sleman rela membayar Rp 750.000–2.500.000 per sesi di studio dengan fasilitas serupa. Tanpa sistem reservasi, Enyui tidak pernah mendapatkan uang tersebut.</div>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;"><strong style="color:#15803D;">✅ Peluang:</strong> Dengan sistem Commercial Booking Engine, Enyui bisa mentransformasikan 'pencuri estetika' menjadi klien berbayar yang membooking slot senilai jutaan rupiah per sesi.</div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">02 — Solusi & Fitur Utama</div>
+        <h2 class="section-title">Commercial Photography Booking Engine</h2>
+        <div class="feature-grid">
+            <div class="feature-card"><div class="feature-card-icon">📸</div><h4>Interactive Spot Selector</h4><p>Sistem multi-step booking: pilih area foto (Indoor, Zen Pond, atau Outdoor Golden Hour), pilih paket, jadwalkan dengan real-time slot availability.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">💳</div><h4>Pembayaran DP Otomatis</h4><p>Integrasi payment gateway untuk DP 50% di muka. Sistem mengunci slot secara otomatis setelah pembayaran, mengeliminasi double-booking.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">☕</div><h4>Menu Artisan Digital</h4><p>Katalog menu interaktif (Signature Coffee, Artisan Brunch, Premium Pastry) dengan foto produk dan sistem keranjang belanja untuk up-selling saat booking.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">🌐</div><h4>Bilingual Company Profile</h4><p>Website premium berbahasa Indonesia & English. Merepresentasikan Enyui sebagai destinasi kaliber internasional yang layak ditampilkan di media luar negeri.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">📊</div><h4>ROI Calculator</h4><p>Widget interaktif yang menghitung potensi pendapatan komersial berdasarkan jumlah sesi yang tersedia per minggu.</p></div>
+            <div class="feature-card"><div class="feature-card-icon">🔍</div><h4>Local SEO Optimization</h4><p>Target kata kunci "studio foto Sleman", "lokasi foto Jogja", "spot foto indah Palagan" agar fotografer yang mencari di Google langsung menemukan Enyui.</p></div>
+        </div>
+    </div>
+    <hr class="section-divider page-break">
+    <div class="section">
+        <div class="section-label">03 — Proyeksi ROI</div>
+        <h2 class="section-title">Kalkulasi Dampak Bisnis (Bulan ke-1)</h2>
+        <table class="roi-table">
+            <thead><tr><th>Metrik</th><th>Asumsi</th><th>Dampak / Bulan</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Sesi Komersial Baru</strong><br><small style="color:#9CA3AF;">Fotografer & brand yang book via sistem</small></td><td>~6 sesi/bulan × Rp 1.200.000 avg</td><td>+ Rp 7.200.000</td></tr>
+                <tr><td><strong>Pre-Wedding Package</strong><br><small style="color:#9CA3AF;">Paket Exclusive 6 jam senilai Rp 2.500.000</small></td><td>~2 sesi/bulan</td><td>+ Rp 5.000.000</td></tr>
+                <tr><td><strong>F&B Up-selling</strong><br><small style="color:#9CA3AF;">Menu yang ditambahkan saat proses booking</small></td><td>~80% komisi dari 8 sesi × Rp 300.000</td><td>+ Rp 1.920.000</td></tr>
+                <tr><td><strong>SEO Traffic Organik</strong><br><small style="color:#9CA3AF;">Walk-in baru dari hasil pencarian Google</small></td><td>~15 kunjungan baru × Rp 80.000 avg</td><td>+ Rp 1.200.000</td></tr>
+            </tbody>
+            <tfoot><tr class="total"><td colspan="2"><strong>Estimasi Total Dampak Pendapatan (Bulan ke-1)</strong></td><td>≈ Rp 15.320.000</td></tr></tfoot>
+        </table>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;margin-top:20px;"><strong style="color:#15803D;">💡 Payback Period:</strong> Dengan investasi Rp 5.500.000, modal kembali hanya dari <strong>1 sesi pre-wedding booking</strong> dan 2–3 sesi commercial pemotretan brand dalam bulan pertama.</div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">04 — Timeline Implementasi</div>
+        <h2 class="section-title">14 Hari Kerja, Sistem Live & Aktif Menerima Pembayaran</h2>
+        <div class="timeline">
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 1–3</div><h4>Discovery & Content Gathering</h4><p>Pengumpulan foto sudut-sudut Enyui (indoor, pond, outdoor), menu artisan, logo, dan paket komersial yang ingin ditawarkan.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 4–9</div><h4>Development Website + Booking Engine</h4><p>Produksi halaman company profile, sistem booking multi-step interaktif, integrasi payment gateway untuk DP, dan katalog menu digital.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 10–12</div><h4>SEO & Google Business Setup</h4><p>Optimasi keyword fotografer Sleman/Jogja, Google Business Profile, dan konten halaman untuk menarik traffic organik.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 13–14</div><h4>UAT, Launch & Handover</h4><p>Review bersama tim Enyui, penyesuaian final, go-live, dan pelatihan cara mengelola booking masuk via dashboard sederhana.</p></div>
+        </div>
+    </div>
+    <hr class="section-divider page-break">
+    <div class="section">
+        <div class="section-label">05 — Struktur Harga</div>
+        <h2 class="section-title">Investasi Tier 2: Conversion Engine</h2>
+        <div class="pricing-card">
+            <div class="badge">Commercial Location — Penawaran 48 Jam</div>
+            <h3>Paket Commercial Photography Booking System</h3>
+            <div class="total-price">Rp 5.500.000</div>
+            <div class="dp">Mulai dengan DP <strong>Rp 1.650.000</strong> (30%) — Pelunasan setelah UAT disetujui</div>
+            <ul class="pricing-includes" style="margin-top:24px;">
+                <li><span class="check">✓</span> Website Company Profile Premium Bilingual (ID/EN)</li>
+                <li><span class="check">✓</span> Interactive Commercial Photo Booking System (4-Step)</li>
+                <li><span class="check">✓</span> 3 Spot Photography + 3 Paket (Basic, PRO, Pre-Wedding)</li>
+                <li><span class="check">✓</span> Integrasi Payment Gateway untuk DP Otomatis</li>
+                <li><span class="check">✓</span> Katalog Menu Digital Interaktif (Signature, Brunch, Pastry)</li>
+                <li><span class="check">✓</span> Local SEO Setup (target fotografer & pre-wedding Jogja)</li>
+                <li><span class="check">✓</span> Google Business Profile Optimization</li>
+                <li><span class="check">✓</span> Deployment ke domain pilihan / GitHub Pages</li>
+                <li><span class="check">✓</span> <strong>Garansi Revisi: 2x Gratis dalam 30 Hari</strong></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">06 — Mulai Sekarang</div>
+        <h2 class="section-title">Hubungi CocoTech</h2>
+        <p class="section-body">Tim kami siap memulai dalam 24 jam. Penawaran diskon 30% berlaku 48 jam sejak dokumen ini disampaikan.</p>
+        <div class="contact-grid">
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">📱</div><div><div class="contact-card-label">WhatsApp</div><div class="contact-card-value"><a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Enyui%20sudah%20baca%20proposal%20dan%20tertarik" target="_blank">+62 812-8332-1577</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">📧</div><div><div class="contact-card-label">Email</div><div class="contact-card-value"><a href="mailto:admin@cocotech.studio">admin@cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">🌐</div><div><div class="contact-card-label">Website</div><div class="contact-card-value"><a href="https://cocotech.studio" target="_blank">cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">⏰</div><div><div class="contact-card-label">Response Time</div><div class="contact-card-value">< 2 Jam (Jam Kerja)</div></div></div>
+        </div>
+    </div>
+    <div style="margin-top:60px;padding-top:20px;border-top:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:center;">
+        <p style="font-size:10px;color:#9CA3AF;">© 2026 CocoTech Digital Agency — Dokumen konfidensial untuk Enyui, Palagan KM 14, Sleman.</p>
+        <a href="https://cocotech.studio" target="_blank" style="font-size:10px;color:var(--zen);font-weight:700;text-decoration:none;">cocotech.studio ↗</a>
+    </div>
+</div>
+<script>
+    const now = new Date();
+    const opt = { day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('doc-date').textContent = now.toLocaleDateString('id-ID', opt);
+    const v = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+    document.getElementById('valid-date').textContent = v.toLocaleDateString('id-ID', opt);
+</script>
+</body>
+</html>

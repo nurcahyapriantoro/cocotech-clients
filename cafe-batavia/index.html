@@ -172,7 +172,7 @@
         <!-- Background Elements -->
         <div class="absolute inset-0 z-0">
             <!-- Simulated High-Res Background Image -->
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542315124-2c0b82b9a149?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity"></div>
+            <div class="absolute inset-0 bg-[url('https://picsum.photos/seed/cafebatavia-hero/2000/900')] bg-cover bg-center bg-no-repeat opacity-20 mix-blend-luminosity"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-batavia-dark/90 via-batavia-dark/80 to-batavia-dark"></div>
             
             <!-- Animated Blobs -->
@@ -294,7 +294,7 @@
 
                 <!-- Modul 1: Virtual Tour 360 -->
                 <div x-show="activeTab === 'tour'" x-transition.opacity.duration.500ms class="glass-card rounded-2xl border border-batavia-gold/30 overflow-hidden relative min-h-[500px]">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+                    <div class="absolute inset-0 bg-[url('https://picsum.photos/seed/cafebatavia-colonial/1600/800')] bg-cover bg-center opacity-40"></div>
                     
                     <!-- Overlay Grid to simulate 360 structure -->
                     <div class="absolute inset-0 bg-gradient-to-t from-batavia-dark via-transparent to-transparent pointer-events-none"></div>
@@ -694,10 +694,10 @@
                 lang: 'id',
                 searchQuery: '',
                 items: [
-                    { id: 1, name: "Bitterballen Batavia", price: "Rp 85.000", tags: ["Appetizer", "Dutch"], img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=200&auto=format&fit=crop", desc: { id: "Bola-bola daging renyah bergaya Belanda klasik, disajikan dengan mustard.", en: "Classic Dutch crispy meat croquettes served with premium mustard."} },
-                    { id: 2, name: "Rijsttafel Heritage", price: "Rp 350.000", tags: ["Main Course", "Signature"], img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=200&auto=format&fit=crop", desc: { id: "Penyajian gaya kolonial dengan 12 macam lauk Nusantara premium.", en: "Colonial-style feast featuring 12 varieties of premium Indonesian side dishes."} },
-                    { id: 3, name: "Sate Maranggi Wagyu", price: "Rp 210.000", tags: ["Main Course", "Local"], img: "https://images.unsplash.com/photo-1555507036-ab1f40ce88f4?q=80&w=200&auto=format&fit=crop", desc: { id: "Daging sapi Wagyu pilihan dibakar dengan bumbu kecap manis khas Purwakarta.", en: "Premium Wagyu beef skewers grilled with sweet soy sauce from Purwakarta."} },
-                    { id: 4, name: "Poffertjes", price: "Rp 75.000", tags: ["Dessert", "Dutch"], img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=200&auto=format&fit=crop", desc: { id: "Panekuk mini tradisional Belanda dengan taburan gula halus dan mentega.", en: "Traditional mini Dutch fluffy pancakes with powdered sugar and butter."} }
+                    { id: 1, name: "Bitterballen Batavia", price: "Rp 85.000", tags: ["Appetizer", "Dutch"], img: "https://picsum.photos/seed/cafebat-m1/200/200", desc: { id: "Bola-bola daging renyah bergaya Belanda klasik, disajikan dengan mustard.", en: "Classic Dutch crispy meat croquettes served with premium mustard."} },
+                    { id: 2, name: "Rijsttafel Heritage", price: "Rp 350.000", tags: ["Main Course", "Signature"], img: "https://picsum.photos/seed/cafebat-m2/200/200", desc: { id: "Penyajian gaya kolonial dengan 12 macam lauk Nusantara premium.", en: "Colonial-style feast featuring 12 varieties of premium Indonesian side dishes."} },
+                    { id: 3, name: "Sate Maranggi Wagyu", price: "Rp 210.000", tags: ["Main Course", "Local"], img: "https://picsum.photos/seed/cafebat-m3/200/200", desc: { id: "Daging sapi Wagyu pilihan dibakar dengan bumbu kecap manis khas Purwakarta.", en: "Premium Wagyu beef skewers grilled with sweet soy sauce from Purwakarta."} },
+                    { id: 4, name: "Poffertjes", price: "Rp 75.000", tags: ["Dessert", "Dutch"], img: "https://picsum.photos/seed/cafebat-m4/200/200", desc: { id: "Panekuk mini tradisional Belanda dengan taburan gula halus dan mentega.", en: "Traditional mini Dutch fluffy pancakes with powdered sugar and butter."} }
                 ],
                 get filteredMenu() {
                     if (this.searchQuery === '') return this.items;
@@ -735,6 +735,18 @@
 <!-- ============================================================
      COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
 ============================================================ -->
+<!-- Sticky WhatsApp CTA -->
+<a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20ingin%20diskusi%20Cafe%20Batavia%20-%20Sistem%20Heritage%20Reservation%20Engine" target="_blank"
+   style="position:fixed;bottom:24px;left:24px;z-index:9999;display:flex;align-items:center;gap:10px;background:#25D366;color:white;padding:12px 20px;border-radius:9999px;box-shadow:0 4px 20px rgba(37,211,102,0.5);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;text-decoration:none;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <i class="ph-fill ph-whatsapp-logo" style="font-size:22px;"></i>
+    <span>Hubungi CocoTech</span>
+</a>
+<!-- Floating PDF Proposal Widget -->
+<a href="proposal.html" target="_blank"
+   style="position:fixed;top:90px;right:16px;z-index:9999;display:flex;flex-direction:column;align-items:center;gap:4px;background:#2C1810;border:1px solid rgba(212,175,55,0.3);box-shadow:0 4px 16px rgba(0,0,0,0.4);border-radius:12px;padding:10px 12px;text-decoration:none;">
+    <i class="ph-fill ph-file-pdf" style="font-size:28px;color:#EF4444;"></i>
+    <span style="font-size:9px;font-weight:700;color:#D4D4D4;text-transform:uppercase;letter-spacing:0.05em;text-align:center;line-height:1.3;">Buka<br>Dokumen</span>
+</a>
 <div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
   <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
     Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;

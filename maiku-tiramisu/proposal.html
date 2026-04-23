@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Digitalisasi — Maiku Tiramisu | CocoTech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --cocoa: #3E2723; --gold: #D4AF37; --cream: #FDF1D7; --gray: #6B7280; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: white; color: #1F2937; font-size: 11pt; line-height: 1.6; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        @media print { .no-print { display: none !important; } .page-break { page-break-before: always; } .cover { page-break-after: always; } body { font-size: 10pt; } }
+        .cover { background: var(--cocoa); color: white; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 60px 72px; position: relative; overflow: hidden; }
+        .cover::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 65%); pointer-events: none; }
+        .cover-badge { display: inline-block; background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.4); color: var(--gold); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+        .cover-title { font-size: 46px; font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
+        .cover-title span { color: var(--gold); }
+        .cover-subtitle { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: rgba(255,255,255,0.55); max-width: 480px; line-height: 1.75; }
+        .cover-meta { display: flex; gap: 36px; flex-wrap: wrap; }
+        .cover-meta-item label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+        .cover-meta-item span { font-size: 14px; font-weight: 600; color: white; }
+        .cocotech-by { font-size: 10px; color: rgba(255,255,255,0.25); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 16px; }
+        .cocotech-by a { color: rgba(255,255,255,0.55); font-weight: 700; text-decoration: none; }
+        .content { max-width: 760px; margin: 0 auto; padding: 60px 40px; }
+        .section { margin-bottom: 52px; }
+        .section-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #92400E; margin-bottom: 8px; }
+        .section-title { font-size: 26px; color: #1F2937; margin-bottom: 16px; }
+        .section-body { color: var(--gray); line-height: 1.85; }
+        .section-divider { border: none; border-top: 1px solid #E5E7EB; margin: 52px 0; }
+        .callout { background: #FFFBEB; border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0; padding: 18px 24px; margin: 20px 0; }
+        .callout strong { color: #92400E; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .feature-card { background: #FFFBF5; border: 1px solid #E5E7EB; border-radius: 12px; padding: 22px; }
+        .feature-card h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .feature-card p { font-size: 11px; color: var(--gray); line-height: 1.65; }
+        .roi-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+        .roi-table th { background: var(--cocoa); color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; padding: 12px 16px; }
+        .roi-table th:first-child { border-radius: 8px 0 0 0; } .roi-table th:last-child { border-radius: 0 8px 0 0; text-align: right; }
+        .roi-table td { padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 11px; vertical-align: top; }
+        .roi-table td:last-child { text-align: right; font-weight: 700; color: #1F2937; }
+        .roi-table tr:nth-child(even) td { background: #FFFBF5; }
+        .roi-table .total td { background: #F0FDF4; font-weight: 700; font-size: 12px; border-top: 2px solid var(--cocoa); }
+        .roi-table .total td:last-child { color: #166534; font-size: 14px; }
+        .timeline { margin-top: 24px; position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: #D1D5DB; }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-dot { position: absolute; left: -34px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: white; border: 2px solid var(--gold); }
+        .timeline-week { font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #92400E; margin-bottom: 4px; }
+        .timeline-item h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+        .timeline-item p { font-size: 11px; color: var(--gray); }
+        .pricing-card { background: var(--cocoa); color: white; border-radius: 16px; padding: 40px; position: relative; overflow: hidden; }
+        .pricing-card::before { content: ''; position: absolute; bottom: 0; right: 0; width: 280px; height: 280px; background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 65%); }
+        .pricing-card .badge { display: inline-block; background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.4); color: var(--gold); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+        .pricing-card h3 { font-size: 22px; margin-bottom: 8px; }
+        .pricing-card .total-price { font-size: 40px; font-weight: 800; color: var(--gold); margin: 12px 0; }
+        .pricing-card .dp { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .pricing-card .dp strong { color: #A7F3D0; font-size: 18px; }
+        .pricing-includes li { list-style: none; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 10px; }
+        .pricing-includes li:last-child { border-bottom: none; }
+        .check { color: #A7F3D0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+        .contact-card { border: 1px solid #E5E7EB; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 14px; }
+        .contact-card-label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+        .contact-card-value { font-size: 13px; font-weight: 700; color: #1F2937; }
+        .contact-card-value a { color: var(--cocoa); text-decoration: none; }
+        .print-bar { background: var(--cocoa); color: white; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .print-btn { background: var(--gold); color: var(--cocoa); border: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; padding: 10px 24px; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<div class="print-bar no-print">
+    <p style="font-size:13px;color:rgba(255,255,255,0.6);">Proposal untuk <strong style="color:white;">Maiku Tiramisu Blok M</strong> — CocoTech Digital Agency</p>
+    <button class="print-btn" onclick="window.print()">🖨️ &nbsp; Cetak / Simpan PDF (Ctrl+P)</button>
+</div>
+<div class="cover">
+    <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:48px;">
+            <span style="font-size:30px;">🍰</span>
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.35);text-transform:uppercase;">Maiku Tiramisu × CocoTech</span>
+        </div>
+        <div class="cover-badge">Proposal Premium — Tier 2: Scarcity Pre-Order Engine</div>
+        <h1 class="cover-title">Live Pre-Order &<br><span>Real-Time Stock</span><br>Management System</h1>
+        <p class="cover-subtitle">Mengamankan setiap rupiah yang selama ini bocor karena kehabisan stok — dengan sistem Pre-Order H-1, manajemen stok real-time, dan "Sold Out Overlay" yang mengonversi penolakan menjadi pesanan terjadwal.</p>
+    </div>
+    <div>
+        <div class="cover-meta">
+            <div class="cover-meta-item"><label>Disiapkan Untuk</label><span>Manajemen Maiku Tiramisu</span></div>
+            <div class="cover-meta-item"><label>Lokasi</label><span>Blok M, Jakarta Selatan</span></div>
+            <div class="cover-meta-item"><label>Tanggal</label><span id="doc-date">—</span></div>
+            <div class="cover-meta-item"><label>Berlaku Hingga</label><span id="valid-date">—</span></div>
+        </div>
+        <div class="cocotech-by">Disusun oleh <a href="https://cocotech.studio" target="_blank">CocoTech</a> — IT Agency Berpengalaman 50+ Klien Digital di Indonesia</div>
+    </div>
+</div>
+<div class="content">
+    <div class="section">
+        <div class="section-label">01 — Executive Summary</div>
+        <h2 class="section-title">Maiku Tiramisu: Produk Viral yang Kehilangan Jutaan Karena Sistem Manual</h2>
+        <p class="section-body">Maiku Tiramisu sudah membuktikan produk mereka viral dan diminati banyak orang di Blok M. Namun tanpa sistem digital yang mengelola stok dan pre-order, setiap hari ada lebih dari 150 orang yang kecewa karena kehabisan produk — dan uang mereka beralih ke toko dessert sebelah.</p>
+        <div class="callout"><strong>🔴 Masalah Utama:</strong> Sistem produksi berdasarkan estimasi kasar menyebabkan over-produksi (waste) atau under-produksi (lost sales). Tidak ada cara bagi pelanggan loyal untuk memesan di muka dan memastikan produk tersedia saat mereka datang.</div>
+        <div class="callout"><strong>🔴 Kehilangan Terukur:</strong> 150 penolakan/hari × Rp 65.000 rata-rata belanja = Rp 9.750.000 hilang setiap hari. Per bulan = Rp 292.500.000 potensi revenue yang tidak pernah tertangkap.</div>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;"><strong style="color:#15803D;">✅ Solusi:</strong> Sistem Pre-Order H-1 yang memungkinkan pelanggan memesan dan membayar lunas hari ini untuk diambil besok. Produksi berdasarkan data pesanan konkret — zero waste, zero lost sales.</div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">02 — Solusi & Fitur Utama</div>
+        <h2 class="section-title">Live Scarcity Pre-Order Engine</h2>
+        <div class="feature-grid">
+            <div class="feature-card"><h4>📦 Real-Time Stock Dashboard</h4><p>Stok tiap varian (Signature, Pistachio, Matcha) bisa diperbarui langsung dari HP. Badge status otomatis berubah: Tersedia → Sisa 3 Box → SOLD OUT.</p></div>
+            <div class="feature-card"><h4>⏰ Pre-Order H-1 System</h4><p>Tombol "PO Untuk Besok" aktif otomatis saat produk habis hari ini. Pelanggan bayar lunas via QRIS, produksi Maiku berdasarkan data pesanan riil.</p></div>
+            <div class="feature-card"><h4>🛒 Shopping Cart & Checkout</h4><p>Keranjang belanja digital yang interaktif, perhitungan total otomatis, dan checkout via WhatsApp / Payment Gateway terintegrasi langsung di website.</p></div>
+            <div class="feature-card"><h4>😱 FOMO Scarcity Triggers</h4><p>Badge "Sisa 3 Box (Hampir Habis!)" dengan animasi pulse otomatis muncul saat stok < 5. Psikologi kelangkaan mendorong keputusan beli lebih cepat.</p></div>
+            <div class="feature-card"><h4>📱 WhatsApp Order Notification</h4><p>Setiap pesanan masuk otomatis mengirim notifikasi ke WA tim produksi Maiku dengan detail lengkap. Tidak ada pesanan yang terlewat.</p></div>
+            <div class="feature-card"><h4>📊 Sales Analytics Dashboard</h4><p>Laporan harian produk terlaris, jam puncak pemesanan, dan proyeksi produksi untuk hari berikutnya. Data-driven production planning.</p></div>
+        </div>
+    </div>
+    <hr class="section-divider page-break">
+    <div class="section">
+        <div class="section-label">03 — Proyeksi ROI</div>
+        <h2 class="section-title">Kalkulasi Dampak Bisnis (Bulan ke-1)</h2>
+        <table class="roi-table">
+            <thead><tr><th>Metrik</th><th>Asumsi</th><th>Dampak / Bulan</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Pre-Order Tesrkunci (H-1)</strong><br><small style="color:#9CA3AF;">Dari 150 penolakan/hari, 30% berkonversi ke PO</small></td><td>~45 PO/hari × Rp 65.000 × 30 hari</td><td>+ Rp 87.750.000</td></tr>
+                <tr><td><strong>Eliminasi Food Waste</strong><br><small style="color:#9CA3AF;">Produksi berdasarkan data pesanan nyata</small></td><td>Asumsi penghematan 15% HPP per hari</td><td>+ Rp 15.000.000</td></tr>
+                <tr><td><strong>Customer Retention</strong><br><small style="color:#9CA3AF;">Pelanggan yang complain stok habis sekarang repurchase</small></td><td>~50 pelanggan kembali × Rp 130.000 avg</td><td>+ Rp 6.500.000</td></tr>
+            </tbody>
+            <tfoot><tr class="total"><td colspan="2"><strong>Estimasi Total Dampak Pendapatan (Bulan ke-1)</strong></td><td>≈ Rp 109.250.000</td></tr></tfoot>
+        </table>
+        <div class="callout" style="background:#F0FDF4;border-left-color:#16A34A;margin-top:20px;"><strong style="color:#15803D;">💡 Payback Period:</strong> Investasi Rp 7.500.000 tertutup hanya dalam <strong>21 jam operasional</strong> jika 30% dari 150 penolakan harian berkonversi menjadi Pre-Order.</div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">04 — Timeline Implementasi</div>
+        <h2 class="section-title">10 Hari Kerja, Sistem Pre-Order Live & Aktif</h2>
+        <div class="timeline">
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 1–2</div><h4>Discovery & Content</h4><p>Pengumpulan foto produk Maiku (Signature, Pistachio, Matcha), harga terbaru, kebijakan pre-order, dan kapasitas produksi harian.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 3–7</div><h4>Development Platform E-Commerce</h4><p>Produksi website + sistem stok real-time + Pre-Order H-1 engine + shopping cart + notifikasi WA + checkout QRIS/Gateway.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 8–9</div><h4>Training & UAT</h4><p>Training tim Maiku cara update stok dari HP, atur kapasitas PO harian, dan lihat laporan pesanan masuk.</p></div>
+            <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-week">Hari 10</div><h4>Go-Live & Announcement</h4><p>Sistem live, Maiku bisa langsung announce di Instagram/TikTok bahwa sekarang tersedia Pre-Order H-1 online.</p></div>
+        </div>
+    </div>
+    <hr class="section-divider page-break">
+    <div class="section">
+        <div class="section-label">05 — Struktur Harga</div>
+        <h2 class="section-title">Investasi Tier 2: Scarcity Pre-Order Engine</h2>
+        <div class="pricing-card">
+            <div class="badge">Dessert Brand — Penawaran 48 Jam</div>
+            <h3>Paket Live Pre-Order & Stock Management System</h3>
+            <div class="total-price">Rp 7.500.000</div>
+            <div class="dp">Mulai dengan DP <strong>Rp 2.250.000</strong> (30%) — Pelunasan setelah UAT disetujui</div>
+            <ul class="pricing-includes" style="margin-top:24px;">
+                <li><span class="check">✓</span> Website Company Profile Premium (Mobile-First)</li>
+                <li><span class="check">✓</span> Real-Time Stock Dashboard (Update via HP)</li>
+                <li><span class="check">✓</span> Pre-Order H-1 Engine (3 Varian Produk)</li>
+                <li><span class="check">✓</span> Shopping Cart + Checkout QRIS/Gateway</li>
+                <li><span class="check">✓</span> FOMO Scarcity Badges Otomatis</li>
+                <li><span class="check">✓</span> WhatsApp Order Notification per Pesanan</li>
+                <li><span class="check">✓</span> Sales Analytics Dashboard Sederhana</li>
+                <li><span class="check">✓</span> Deployment ke domain pilihan</li>
+                <li><span class="check">✓</span> <strong>Garansi Revisi: 2x Gratis dalam 30 Hari</strong></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="section-divider">
+    <div class="section">
+        <div class="section-label">06 — Mulai Sekarang</div>
+        <h2 class="section-title">Hubungi CocoTech</h2>
+        <div class="contact-grid">
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">📱</div><div><div class="contact-card-label">WhatsApp</div><div class="contact-card-value"><a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Maiku%20Tiramisu%20sudah%20baca%20proposal" target="_blank">+62 812-8332-1577</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">📧</div><div><div class="contact-card-label">Email</div><div class="contact-card-value"><a href="mailto:admin@cocotech.studio">admin@cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">🌐</div><div><div class="contact-card-label">Website</div><div class="contact-card-value"><a href="https://cocotech.studio" target="_blank">cocotech.studio</a></div></div></div>
+            <div class="contact-card"><div style="font-size:24px;margin-right:4px;">⏰</div><div><div class="contact-card-label">Response Time</div><div class="contact-card-value">< 2 Jam (Jam Kerja)</div></div></div>
+        </div>
+    </div>
+    <div style="margin-top:60px;padding-top:20px;border-top:1px solid #E5E7EB;display:flex;justify-content:space-between;align-items:center;">
+        <p style="font-size:10px;color:#9CA3AF;">© 2026 CocoTech Digital Agency — Dokumen konfidensial untuk Maiku Tiramisu, Blok M, Jakarta Selatan.</p>
+        <a href="https://cocotech.studio" target="_blank" style="font-size:10px;color:#92400E;font-weight:700;text-decoration:none;">cocotech.studio ↗</a>
+    </div>
+</div>
+<script>
+    const now = new Date();
+    const opt = { day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('doc-date').textContent = now.toLocaleDateString('id-ID', opt);
+    const v = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+    document.getElementById('valid-date').textContent = v.toLocaleDateString('id-ID', opt);
+</script>
+</body>
+</html>
