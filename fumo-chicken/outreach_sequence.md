@@ -1,4 +1,4 @@
-# 3-Step WhatsApp Follow-Up: Fumo Chicken B2B Domination
+﻿# 3-Step WhatsApp Follow-Up: Fumo Chicken B2B Domination
 
 ### HARI 1: The "Bleeding Money" Hook
 *Kirim setelah mengirimkan link prototype*
@@ -8,7 +8,7 @@ Saya perhatikan Fumo luar biasa viral di TikTok Blok M. Antreannya gila-gilaan! 
 
 Saat ini, tiap kali HRD kantor besar mau pesan 300 pax untuk event, mereka butuh **Faktur Pajak** dan **Quotation Cepat**. Tanpa sistem otomatis, uang puluhan juta ini bocor ke kompetitor.
 
-Saya sudah membangun *Custom B2B Engine* eksklusif untuk Fumo. Kalkulator porsi dan generator e-Faktur otomatis. Coba mainkan sistemnya di sini: [Link Prototype]
+Saya sudah membangun *Custom B2B Engine* eksklusif untuk Fumo. Kalkulator porsi dan generator e-Faktur otomatis. Coba mainkan sistemnya di sini: https://nurcahyapriantoro.github.io/cocotech-clients/fumo-chicken/
 
 Beri tahu saya jika Anda ingin melihat bagaimana sistem ini bisa melipatgandakan revenue Fumo tanpa harus bergantung pada FYP TikTok.
 

@@ -1,4 +1,4 @@
-# 3-Step High-Ticket WhatsApp Follow-Up Strategy untuk ESA (Aditya & Jessica)
+﻿# 3-Step High-Ticket WhatsApp Follow-Up Strategy untuk ESA (Aditya & Jessica)
 
 ## HARI 1: The Vision & Prototype Reveal (Soft Hook)
 **Tujuan:** Membuat mereka melihat masa depan restoran mereka secara digital dan menstimulasi ego/kebanggaan atas brand yang mereka bangun.
@@ -6,7 +6,7 @@
 **Pesan WhatsApp:**
 "Halo Pak Aditya & Ibu Jessica, selamat atas pendirian Esa. Saya sangat terkesan dengan visi 'New Jakarta Cuisine' yang membawa teknik ex-Marina Bay Sands & Relae ke ibukota. 
 
-Saya tahu restoran sekelas Esa tidak butuh website standar; Anda butuh *Booking & Prestige Engine* yang mengeliminasi tamu no-show dan mengotomatisasi waitlist VIP. Saya mengambil inisiatif membangun *Live Digital Prototype* eksklusif untuk Esa: [Link Prototype]
+Saya tahu restoran sekelas Esa tidak butuh website standar; Anda butuh *Booking & Prestige Engine* yang mengeliminasi tamu no-show dan mengotomatisasi waitlist VIP. Saya mengambil inisiatif membangun *Live Digital Prototype* eksklusif untuk Esa: https://nurcahyapriantoro.github.io/cocotech-clients/esa/
 
 Silakan lihat bagaimana narasi Chef dan kemewahan bahan lokal Esa diterjemahkan secara digital. Jika visi kita sejalan, beri tahu saya. Saya buka jendela diskusi singkat minggu ini."
 

@@ -1,4 +1,4 @@
-# WhatsApp Outreach Sequence (High-Ticket B2B)
+﻿# WhatsApp Outreach Sequence (High-Ticket B2B)
 **Target**: Jean-Georges Vongerichten, Cedric, atau General Manager Vong Kitchen Jakarta.
 
 ### Hari 1: The Disruption (Menyoroti Celah Kualitas)
@@ -6,7 +6,7 @@
 
 Saya adalah Arsitek Digital Spesialis F&B Elite. Saya telah membangun **purwarupa private khusus** untuk Vong Kitchen yang mencakup *Corporate Booking Engine*, *Interactive Wine Pairing*, dan *VIP Valet System*. 
 
-Anda bisa melihat bagaimana mesin pencetak revenue ini bekerja di sini: [Link Prototype] 
+Anda bisa melihat bagaimana mesin pencetak revenue ini bekerja di sini: https://nurcahyapriantoro.github.io/cocotech-clients/vong-kitchen/ 
 Beri tahu saya jika Anda punya waktu 5 menit esok hari untuk saya jelaskan ROI-nya."
 
 ### Hari 3: The Value Drop (Logika Finansial & FOMO)

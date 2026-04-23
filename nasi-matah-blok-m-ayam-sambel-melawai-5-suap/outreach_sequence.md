@@ -1,4 +1,4 @@
-# 3-Step WhatsApp Follow-Up Sequence
+﻿# 3-Step WhatsApp Follow-Up Sequence
 **Target:** Manajemen Nasi Matah Blok M, Ayam Sambel Melawai, 5 Suap
 
 ## Hari 1: The "Trojan Horse" Prototype Drop
@@ -8,7 +8,7 @@
 
 Saya baru saja merancang arsitektur E-Commerce FMCG khusus untuk Nasi Matah & Sambal Anda (lengkap dengan integrasi label Halal, BPOM, dan resi ekspedisi otomatis JNE/Sicepat). 
 
-Bapak/Ibu bisa klik prototipenya di sini, cobalah fitur 'Tambah ke Keranjang Ekspedisi' untuk melihat seberapa mulus sistem ini beroperasi: [Link_Prototype]
+Bapak/Ibu bisa klik prototipenya di sini, cobalah fitur 'Tambah ke Keranjang Ekspedisi' untuk melihat seberapa mulus sistem ini beroperasi: https://nurcahyapriantoro.github.io/cocotech-clients/nasi-matah-blok-m-ayam-sambel-melawai-5-suap/
 
 Jika tertarik menjadikan sambal Anda produk Nasional hari ini, mari kita jadwalkan zoom 15 menit."
 
@@ -30,6 +30,6 @@ Apakah Anda ingin melihat simulasi perhitungan ROI jika kita mulai menjual 1.000
 
 Ini pesan terakhir saya terkait infrastruktur E-Commerce Nasional untuk Nasi Matah Blok M. Saya memiliki kebijakan ketat: hanya memegang **1 klien F&B pedas/sambal per distrik** untuk menghindari konflik kepentingan algoritma SEO dan sistem logistik.
 
-Slot untuk area Blok M/Kebayoran Baru masih kosong. Prototipe [Link_Prototype] yang saya buat beserta diskon setup 30% akan expired dalam 48 jam ke depan. Jika lewat dari itu, saya akan menawarkan arsitektur ini kepada kompetitor Anda di area yang sama.
+Slot untuk area Blok M/Kebayoran Baru masih kosong. Prototipe https://nurcahyapriantoro.github.io/cocotech-clients/nasi-matah-blok-m-ayam-sambel-melawai-5-suap/ yang saya buat beserta diskon setup 30% akan expired dalam 48 jam ke depan. Jika lewat dari itu, saya akan menawarkan arsitektur ini kepada kompetitor Anda di area yang sama.
 
 Balas 'LOCK' jika Bapak/Ibu ingin mengamankan slot ini sekarang."

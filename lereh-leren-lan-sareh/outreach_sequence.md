@@ -1,4 +1,4 @@
-# WhatsApp Follow-Up Sequence: Lereh Leren lan Sareh
+﻿# WhatsApp Follow-Up Sequence: Lereh Leren lan Sareh
 
 *Tujuan: Membangun urgensi, mengedukasi tentang kebocoran revenue, dan menutup penjualan.*
 
@@ -14,7 +14,7 @@ Namun, saya menemukan fakta menyedihkan: **Banyak turis tersesat dan berbelok ke
 
 Saya tidak sekadar menebak. Saya sudah merancang prototipe *LIVE* sistem canggih (lengkap dengan simulasi cuaca Merapi real-time dan Jurnal Wisata) khusus untuk Anda. 
 
-Cek di sini sebelum prototipe ini expired dalam 48 jam: [Link Prototype]
+Cek di sini sebelum prototipe ini expired dalam 48 jam: https://nurcahyapriantoro.github.io/cocotech-clients/lereh-leren-lan-sareh/
 
 Beri tahu saya jika Anda punya waktu 10 menit besok untuk membahas bagaimana ini bisa menaikkan omset akhir pekan Anda hingga 40%."
 
@@ -40,7 +40,7 @@ Potongan setup 30% yang saya tawarkan di web tersebut akan hangus besok siang. K
 
 "Halo [Nama Owner], saya paham Anda pasti sangat sibuk mengelola operasional Lereh Leren lan Sareh.
 
-Ini pesan terakhir dari saya mengenai sistem digitalisasi tersebut. Link prototipe [Link Prototype] akan saya takedown sore ini.
+Ini pesan terakhir dari saya mengenai sistem digitalisasi tersebut. Link prototipe https://nurcahyapriantoro.github.io/cocotech-clients/lereh-leren-lan-sareh/ akan saya takedown sore ini.
 
 Sebagai pengusaha, mari bicara angka (ROI). Investasi untuk sistem ini setara dengan menjual tambahan ~2 cangkir kopi tubruk sehari selama setahun. Namun, dengan *Booking Engine* dan *Digital Journal*, Anda bukan mengundang peminum kopi eceran, melainkan rombongan keluarga & turis yang bill-nya bisa ratusan ribu per meja, *locked in* sebelum mereka sampai di Kaliurang.
 

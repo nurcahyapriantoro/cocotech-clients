@@ -1,4 +1,4 @@
-# The "Elite Black Card" Outreach Sequence (WhatsApp)
+﻿# The "Elite Black Card" Outreach Sequence (WhatsApp)
 *Target: Owner / F&B Director / GM of the targeted establishments.*
 
 ### Day 1: The Trojan Prototype (High Curiosity, Low Friction)
@@ -9,7 +9,7 @@
 Kami baru saja menyelesaikan analisis kebocoran revenue meja VIP di area titik premium Jakarta. Kami membangun sebuah *custom engine* (Portal Member Terenkripsi & Minimum Spend Automator) yang didesain *khusus* berdasarkan DNA The World's 50 Best Discovery milik [Nama Brand/Grup].
 
 Saya tidak akan menebak-nebak, silakan tes interaktif prototype-nya di sini (berlaku 48 jam):
-[Link_Prototype]
+https://nurcahyapriantoro.github.io/cocotech-clients/a-a-bar-bistecca-cork-screw-duck-down-bar-koda-loewy-modernhaus-pantja-the-cocktail-club-the-st-regis-bar-union/
 
 Jika antarmuka ini merepresentasikan kualitas [Nama Brand], mari jadwalkan Zoom 15 menit minggu ini."
 

@@ -1,4 +1,4 @@
-# High-End Outreach Sequence: Enyui (Japandi Sleman)
+﻿# High-End Outreach Sequence: Enyui (Japandi Sleman)
 
 ## Day 1: The "Japandi Masterpiece" Approach (Compliment + Gap Analysis)
 **Subject / Intent:** Membangun koneksi berbasis apresiasi estetika dan menyoroti kebocoran revenue.
@@ -11,7 +11,7 @@
 > 
 > Saya telah membangun *Live Prototype* sistem *Commercial Booking Engine* khusus untuk Enyui. Sistem ini akan mengunci DP otomatis untuk setiap sesi pemotretan tanpa mengganggu kafe reguler Anda.
 > 
-> Coba tekan tombol booking di sini: [Link Prototype] 
+> Coba tekan tombol booking di sini: https://nurcahyapriantoro.github.io/cocotech-clients/enyui/ 
 > Bagaimana menurut Anda?"
 
 ## Day 3: The Stolen Traffic (Logical/ROI Approach)
@@ -23,7 +23,7 @@
 > 
 > Enyui mensubsidi estetika mereka secara gratis, sementara brand lain dibayar Rp 1.500.000 per sesi foto 4 jam. 
 > 
-> Sistem yang saya buat di [Link Prototype] bukan sekadar website, melainkan 'Gerbang Tol' digital. Jika Enyui hanya mendapat 4 sesi komersial berbayar per bulan, investasi sistem ini sudah ROI (Balik Modal) di bulan pertama.
+> Sistem yang saya buat di https://nurcahyapriantoro.github.io/cocotech-clients/enyui/ bukan sekadar website, melainkan 'Gerbang Tol' digital. Jika Enyui hanya mendapat 4 sesi komersial berbayar per bulan, investasi sistem ini sudah ROI (Balik Modal) di bulan pertama.
 > 
 > Kapan Anda ada waktu 10 menit untuk saya demokan langsung dashboard kasirnya?"
 

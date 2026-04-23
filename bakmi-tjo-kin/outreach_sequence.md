@@ -1,4 +1,4 @@
-# Ultimate WhatsApp Outreach Sequence: Bakmi Tjo Kin Blok M
+﻿# Ultimate WhatsApp Outreach Sequence: Bakmi Tjo Kin Blok M
 
 ## HARI 1: The Teaser & The Vision (Dikirim Pagi Hari pk 09:30)
 **Subject:** Antrean Melawai & Potongan Margin Ojol 25% 🍜
@@ -7,7 +7,7 @@ Halo Tim Manajemen Bakmi Tjo Kin! 👋 Saya perhatikan rencana strategis ekspans
 
 Sebagai Tech Architect, saya telah membangun **Live Prototype Sistem Enterprise Khusus** untuk Tjo Kin: Sistem *Live Waitlist* terintegrasi WhatsApp & *Direct Delivery* (0% Komisi) yang akan membuat brand kalian beroperasi 10x lebih efisien di Blok M.
 
-Silakan coba interaksi prototipenya langsung dari HP Anda di sini: [Link Prototype]
+Silakan coba interaksi prototipenya langsung dari HP Anda di sini: https://nurcahyapriantoro.github.io/cocotech-clients/bakmi-tjo-kin/
 
 Beri tahu saya kapan ada waktu luang 10 menit minggu ini untuk membahas hitungan ROI kasarnya.
 
@@ -27,11 +27,11 @@ Jangan biarkan omzet puluhan juta menguap ke kompetitor. Mari kita integrasikan 
 ---
 
 ## HARI 7: The Self-Destructing Offer (Dikirim Siang Hari pk 13:00)
-**Subject:** ⏳ [TERAKHIR] Subsidi Setup Sistem Digital Rp 20 Juta
+**Subject:** ⏳ [TERAKHIR] Subsidi Setup Sistem Digital Rp 5.500.000
 
 Halo tim Bakmi Tjo Kin. Ini follow-up terakhir dari saya.
 
-Sistem Enterprise ini (Waitlist Engine + Smart Menu 0% Komisi + CRM Database) normalnya memakan investasi Rp 45 Juta. Namun, saya memberikan subsidi khusus menjadi hanya **Rp 25 Juta**, berlaku jika kita deal dalam 48 jam ke depan.
+Sistem Enterprise ini (Waitlist Engine + Smart Menu 0% Komisi + CRM Database) normalnya memakan investasi Rp 5.500.000. Namun, saya memberikan subsidi khusus menjadi hanya **Rp 5.500.000**, berlaku jika kita deal dalam 48 jam ke depan.
 
 Jika lewat dari waktu tersebut, saya mohon maaf harus menawarkan framework eksklusif ini ke brand kedai mi artisan kompetitor yang berlokasi di radius 1km dari Anda di Jakarta Selatan. Saya sangat berharap Tjo Kin yang mengamankan teknologi ini lebih dulu.
 

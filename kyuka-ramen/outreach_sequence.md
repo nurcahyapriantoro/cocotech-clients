@@ -1,4 +1,4 @@
-# 3-Step WhatsApp Outreach Sequence untuk Kyuka Ramen
+﻿# 3-Step WhatsApp Outreach Sequence untuk Kyuka Ramen
 
 **Target:** Manajemen Internal / Owner Kyuka Ramen (Blok M)
 **Goal:** Book meeting untuk demo live prototype & closing retainer.
@@ -16,7 +16,7 @@ Di era viralitas TikTok ini, membiarkan pelanggan pergi tanpa menangkap data mer
 
 Saya sudah membangun *Digital Pre-Order & Waitlist Ecosystem* khusus untuk Kyuka Ramen agar 100% traffic ter-capture dan dibayar di muka (Zero Food Waste). 
 
-Cek live prototype-nya di sini (hanya bisa diakses via link ini): [Link Prototype]
+Cek live prototype-nya di sini (hanya bisa diakses via link ini): https://nurcahyapriantoro.github.io/cocotech-clients/kyuka-ramen/
 
 Boleh saya telepon 5 menit besok jam 10 pagi untuk menjelaskan bagaimana ini bisa menambah Rp 30-50 juta/bulan ke margin kalian tanpa menambah kursi?"
 
