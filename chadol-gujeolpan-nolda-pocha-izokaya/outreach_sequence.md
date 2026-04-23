@@ -1,4 +1,4 @@
-# WhatsApp Outreach Sequence (High-Pressure & Value-Driven)
+﻿# WhatsApp Outreach Sequence (High-Pressure & Value-Driven)
 **Target**: Manajemen / Owner Chadol Gujeolpan, Nolda Pocha, Izokaya Blok M
 
 ---
@@ -50,3 +50,6 @@ Sistem ini bukan sekadar website, tapi *mesin uang otomatis* yang beroperasi 24/
 Jika Anda siap mengamankan dominasi nightlife kuliner di Blok M dan berhenti kehilangan tamu VIP, balas pesan ini dengan kata **'AMANKAN SLOT'** dan kita proses hari ini juga. 
 
 Terima kasih atas waktu Anda, sukses terus untuk Chadol, Nolda, dan Izokaya! 🚀"
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/chadol-gujeolpan-nolda-pocha-izokaya/

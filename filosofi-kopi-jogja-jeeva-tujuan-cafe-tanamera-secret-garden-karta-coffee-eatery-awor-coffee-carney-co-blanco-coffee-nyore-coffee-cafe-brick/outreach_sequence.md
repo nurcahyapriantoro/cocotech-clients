@@ -1,4 +1,4 @@
-# 3-Step WhatsApp Follow Up Sequence (Jogja Coffee Collective)
+﻿# 3-Step WhatsApp Follow Up Sequence (Jogja Coffee Collective)
 
 ## Hari 1: The "Bleeding Neck" Compliment (Fokus: Estetika vs Konversi)
 **Subject:** Arsitektur Keren, Tapi Ada Kebocoran Traffic?
@@ -30,3 +30,6 @@ Berapa lama waktu yang Anda punya hari ini atau besok untuk ngopi virtual (Zoom 
 Kami hanya menerima 1 klien F&B skala besar di Jogja untuk kuartal ini agar fokus implementasi maksimal. Saat ini ada tawaran dari grup F&B lain di area Gejayan, tapi kami merasa identitas brand kalian (Karta, Carney, Secret Garden) jauh lebih potensial merajai sistem loyalti terpusat.
 
 Jika kalian ingin mengklaim diskon setup 30% dan mengamankan arsitektur digital ini, balas pesan ini dengan 'AMANKAN'. Jika tidak, kami akan menawarkan slot ini ke kompetitor. Pilihan di tangan Anda."
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/filosofi-kopi-jogja-jeeva-tujuan-cafe-tanamera-secret-garden-karta-coffee-eatery-awor-coffee-carney-co-blanco-coffee-nyore-coffee-cafe-brick/

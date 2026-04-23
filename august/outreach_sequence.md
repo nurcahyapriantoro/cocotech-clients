@@ -1,4 +1,4 @@
-# Outreach Sequence: August (Franco-Asian Fine Dining)
+﻿# Outreach Sequence: August (Franco-Asian Fine Dining)
 
 ### 📌 Konteks
 **Target:** Hans Christian (Chef/Co-Founder) & Budi Cahyadi (Co-Founder)
@@ -48,3 +48,6 @@ Saat ini ada 2 restoran *fine dining* di Senopati yang juga sedang meninjau sist
 Jika kita bisa deal minggu ini, saya berikan potongan *setup VIP 30%* untuk arsitektur ini. Penawaran ini otomatis *void* dalam 48 jam dan saya akan *move on* ke antrean berikutnya.
 
 Balas 'LOCK' jika Anda ingin mengamankan slot ini sekarang. Let's elevate August to the true global standard."
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/august/

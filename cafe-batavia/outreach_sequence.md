@@ -1,4 +1,4 @@
-# WhatsApp Outreach Sequence: Cafe Batavia
+﻿# WhatsApp Outreach Sequence: Cafe Batavia
 
 ## Hari 1: The Teaser & The Truth (Kirim pukul 10:30 WIB)
 **Subject:** 🏛️ Warisan Pinangsia vs Era Digital - Private Prototype untuk Manajemen Cafe Batavia
@@ -58,3 +58,6 @@ Terima kasih atas dedikasi Anda merawat salah satu peninggalan paling berharga d
 
 Salam sukses,
 [Nama Anda]
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/cafe-batavia/

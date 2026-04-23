@@ -18,7 +18,7 @@ Jika antarmuka ini merepresentasikan kualitas [Nama Brand], mari jadwalkan Zoom 
 ### Day 3: The Competitor Reality (Brutal Logic & FOMO)
 **Subject (Mental Hook):** Kehilangan Spontaneous VIP
 
-"Halo [Nama],
+"Halo Manajemen,
 
 Melanjutkan pesan sebelumnya, data kami menunjukkan bahwa tanpa sistem Pre-Booking Digital instan, venue tier-1 berpotensi kehilangan 35% *spontaneous VIP spenders*. Tamu tidak mau menunggu konfirmasi manual via telepon di malam sibuk. 
 
@@ -31,7 +31,7 @@ Jika [Nama Brand] siap mengamankan ekosistem reservasi ini dari kompetitor, kaba
 ### Day 7: The Scarcity Ultimatum (The Takeaway)
 **Subject (Mental Hook):** Slot Kuartal Ditutup
 
-"Selamat siang [Nama],
+"Selamat siang Manajemen,
 
 Ini akan jadi pesan terakhir saya terkait implementasi *The Elite Engine*. 
 Sesuai standar operasional kami, Titanium Architect hanya mengeksekusi 1 infrastruktur digital kompleks untuk industri F&B Premium per kuartalnya demi menjaga eksklusivitas *source code*. 

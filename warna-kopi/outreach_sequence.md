@@ -1,4 +1,4 @@
-# Hari 1: The Hook & Value Drop
+﻿# Hari 1: The Hook & Value Drop
 Halo Manajemen Warna Kopi! 👋 Saya perhatikan kafe Anda di Gondanglutung punya potensi *hidden gem* yang luar biasa. Kombinasi view sawah, Budin, dan Choco Mint-nya juara. Tapi sayang banget, banyak remote worker di Jogja Utara malah lari ke kafe mainstream di Jalan Kaliurang cuma karena mereka nggak tahu seberapa kencang WiFi & nyamannya *workspace* di Warna Kopi. Saya sudah buatkan *live prototype* sistem website + reservasi WFC khusus untuk Warna Kopi. Mau saya kirimkan linknya? Cuma butuh 2 menit untuk lihat simulasi ROI-nya.
 
 # Hari 3: The Proof & FOMO
@@ -6,3 +6,6 @@ Halo lagi! Melanjutkan pesan kemarin, saya coba bandingkan *search volume* "kafe
 
 # Hari 7: The Break-Up (Professional)
 Selamat pagi! Sepertinya Warna Kopi sedang sangat sibuk operasional, saya paham sepenuhnya. Ini *follow up* terakhir dari saya. Jika saat ini ekspansi *digital booking* & penarikan massal *remote worker* belum jadi prioritas, tidak apa-apa. Link *prototype* akan saya cabut besok. Namun jika suatu saat butuh sistem otomasi yang mendatangkan ROI 45% dalam 3 bulan, pintu saya selalu terbuka. Sukses terus untuk Warna Kopi!
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/warna-kopi/

@@ -1,4 +1,4 @@
-# 3-Step WhatsApp Follow-Up Sequence
+﻿# 3-Step WhatsApp Follow-Up Sequence
 *(Target: Manajemen Tuku, Matchaman, Cups Coffee X Make Over)*
 
 ## Hari 1: The Disruption Opening (Membangkitkan Rasa Penasaran Ekstrem)
@@ -34,3 +34,6 @@ Bisa kita jadwalkan *Google Meet* 15 menit besok jam 14:00 atau lusa jam 10:00 u
 Subsidi setup 30% yang saya sertakan di dalam proposal akan otomatis kedaluwarsa pada tengah malam nanti. Mengingat arsitektur ini dibuat 100% kustom untuk narasi Tuku x Matchaman, sistem ini akan langsung mendisrupsi cara konsumen berinteraksi dengan brand kalian secara eksponensial.
 
 Apakah kalian siap mengamankan *roadmap* digital ini, atau saya harus mengarsipkan arsitektur ini? Balas 'SIAP' dan saya akan kirimkan kontraknya."
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/toko-kopi-tuku-cups-coffee-x-make-over-matchaman/

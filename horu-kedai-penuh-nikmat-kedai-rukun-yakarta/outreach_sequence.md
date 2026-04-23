@@ -1,4 +1,4 @@
-# OUTREACH SEQUENCE WA (3-STEP FOLLOW UP)
+﻿# OUTREACH SEQUENCE WA (3-STEP FOLLOW UP)
 **Target:** Manajemen / Pemilik Aliansi Kedai Blok M (Horu, Kedai Penuh Nikmat, Rukun Yakarta)
 **Objektif:** Closing kontrak $25k untuk implementasi Enterprise Web & Corporate Lunch Engine.
 
@@ -13,7 +13,7 @@ Sebagai penikmat setia masakan di kedai Anda, saya menyadari ada antrean luar bi
 
 Saat ini, HRD kesulitan memesan partai besar karena tidak ada sistem online khusus dari pihak kedai. Sebagai bentuk inisiatif, tim saya telah membangun *Live Prototype* mesin pemesanan korporat (Corporate Lunch Engine) khusus dengan brand identitas kedai Anda.
 
-Silakan cek prototipe ini langsung: [Link Preview]
+Silakan cek prototipe ini langsung: https://nurcahyapriantoro.github.io/cocotech-clients/horu-kedai-penuh-nikmat-kedai-rukun-yakarta/
 Sistem ini memungkinkan HRD memesan 150 box Bento Horu hanya dalam 3 klik. Kapan Anda ada waktu luang 10 menit minggu ini untuk saya demokan langsung di kedai?"
 
 ---

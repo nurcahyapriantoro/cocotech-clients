@@ -1,4 +1,4 @@
-# 3-Step WhatsApp Outreach Sequence untuk Maiku Tiramisu
+﻿# 3-Step WhatsApp Outreach Sequence untuk Maiku Tiramisu
 
 ## HARI 1: The "Bleeding Neck" Hook & Prototype Drop
 **Tujuan:** Menarik perhatian manajemen dengan masalah nyata (kebocoran stok di Blok M) dan memberikan solusi visual instan tanpa basa-basi.
@@ -37,3 +37,6 @@
 > Biaya *setup website* dan sistem ini jauh, jauh di bawah angka tersebut. ROI tercapai di minggu pertama.
 > 
 > Prototipe ( [Link_Website] ) akan saya *take down* besok siang jika memang belum masuk prioritas bisnis kalian. Jika berubah pikiran, balas pesan ini dengan 'SIAP SETUP'. Terima kasih dan sukses terus untuk viralnya Maiku!"
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/maiku-tiramisu/

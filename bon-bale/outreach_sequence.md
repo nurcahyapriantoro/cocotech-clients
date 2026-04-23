@@ -1,4 +1,4 @@
-# WhatsApp Outreach Sequence - Bon Bale (Turi, Sleman)
+﻿# WhatsApp Outreach Sequence - Bon Bale (Turi, Sleman)
 
 **Target Audiens:** Pemilik / Manajemen Bon Bale Ekowisata
 
@@ -47,3 +47,6 @@ Sebagai komitmen saya untuk memajukan ekowisata lokal di Turi Sleman, jika kita 
 Setelah waktu ini habis, slot tim engineer kami akan kami berikan ke kafe kompetitor di area Sleman yang sudah masuk daftar antrean kami.
 
 Balas 'YA' jika Anda ingin mengamankan diskon ini dan mentransformasi operasional Bon Bale hari ini juga."
+
+---
+**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/bon-bale/
