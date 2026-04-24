@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id" x-data="app()" @scroll.window="onScroll">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Jalangkote & Lumpia Lasinrang ASLI | Legendaris Sejak 1982 — Makassar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{lasinrang:{red:'#B91C1C',gold:'#D97706',cream:'#FEF9F0',dark:'#1a0a0a',charcoal:'#2d1a1a'}},fontFamily:{sans:['"Plus Jakarta Sans"','sans-serif'],serif:['Merriweather','serif']}}}}
+</script>
+<style>
+body{background:#1a0a0a;color:#FEF9F0;overflow-x:hidden}
+.reveal{opacity:0;transform:translateY(28px);transition:all .9s cubic-bezier(.5,0,0,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.glass{background:rgba(45,26,26,.7);backdrop-filter:blur(12px);border:1px solid rgba(185,28,28,.15)}
+.badge-seal{display:inline-flex;align-items:center;gap:8px;background:rgba(185,28,28,.15);border:1px solid rgba(185,28,28,.4);color:#FCA5A5;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:6px 16px;border-radius:100px}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#1a0a0a}::-webkit-scrollbar-thumb{background:#B91C1C;border-radius:3px}
+</style>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="antialiased font-sans">
+
+<!-- NAV -->
+<nav :class="scrolled?'bg-lasinrang-dark/95 shadow-lg backdrop-blur-md':'bg-transparent'" class="fixed w-full top-0 z-50 transition-all duration-500 border-b border-transparent" :class="scrolled?'!border-red-900/30':''">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center py-4">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 bg-lasinrang-red rounded-full flex items-center justify-center"><i class="ph-fill ph-star text-white text-sm"></i></div>
+      <span class="font-serif text-lg font-bold text-white">Lasinrang <span class="text-red-400">ASLI</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm text-white/70 font-medium">
+      <a href="#produk" class="hover:text-red-400 transition">Produk</a>
+      <a href="#keunggulan" class="hover:text-red-400 transition">Keunggulan</a>
+      <a href="#pesan" class="hover:text-red-400 transition">Pesan</a>
+    </div>
+    <a href="#pesan" class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 bg-lasinrang-red text-white text-sm font-bold rounded hover:bg-red-700 transition">
+      <i class="ph-fill ph-shopping-cart"></i> Pesan Sekarang
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+  <div class="absolute inset-0 bg-[url('https://picsum.photos/seed/makassar-food/1400/900')] bg-cover bg-center opacity-20"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-lasinrang-dark/80 via-lasinrang-dark/60 to-lasinrang-dark"></div>
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-red-900/20 rounded-full blur-3xl"></div>
+  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+    <div class="badge-seal mb-6 mx-auto"><i class="ph-fill ph-seal-check text-base"></i>Legendaris Sejak 1982 · Makassar</div>
+    <h1 class="font-serif text-5xl md:text-7xl font-bold leading-[1.1] mb-6">
+      Jalangkote & Lumpia<br><span class="text-lasinrang-red">Lasinrang ASLI</span>
+    </h1>
+    <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-10">
+      Lebih dari <strong class="text-white">40 tahun</strong> menjaga resep autentik khas Sulawesi. Satu-satunya yang <em class="text-red-300">asli</em> dari Kawasan Lasinrang, Makassar.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#produk" class="px-8 py-4 bg-lasinrang-red text-white font-bold text-sm uppercase tracking-widest hover:bg-red-700 transition shadow-[0_0_30px_rgba(185,28,28,.4)]">Lihat Produk Kami</a>
+      <a href="https://wa.me/628124483719?text=Halo%20Lasinrang%20ASLI%2C%20saya%20ingin%20pesan" target="_blank" class="px-8 py-4 bg-transparent border border-red-700/50 text-white font-bold text-sm uppercase tracking-widest hover:bg-red-900/30 transition">Pesan via WhatsApp</a>
+    </div>
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-6 max-w-lg mx-auto mt-16">
+      <div class="text-center"><div class="text-3xl font-bold text-lasinrang-red">40+</div><div class="text-xs text-white/50 uppercase tracking-wider mt-1">Tahun Berdiri</div></div>
+      <div class="text-center"><div class="text-3xl font-bold text-lasinrang-red">4.8★</div><div class="text-xs text-white/50 uppercase tracking-wider mt-1">Rating Google</div></div>
+      <div class="text-center"><div class="text-3xl font-bold text-lasinrang-red">100%</div><div class="text-xs text-white/50 uppercase tracking-wider mt-1">Resep Asli</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TENTANG -->
+<section class="py-24 relative z-10">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <span class="text-lasinrang-red text-xs font-bold uppercase tracking-[.2em] block mb-3">Warisan Kuliner Sulawesi</span>
+      <h2 class="font-serif text-3xl md:text-5xl font-bold mb-6 leading-[1.2]">Resep yang Tak Pernah Berubah Sejak 1982</h2>
+      <p class="text-white/70 text-lg leading-relaxed mb-6">Jalangkote Lasinrang lahir dari dapur sederhana di kawasan Lasinrang, Makassar. Selama lebih dari 40 tahun, kami menjaga setiap detail resep — isian sayur segar, bihun pilihan, dan daging berkualitas — persis seperti yang pertama kali dibuat oleh nenek pendiri kami.</p>
+      <p class="text-white/70 leading-relaxed mb-8">Hari ini, puluhan merek meniru nama kami. Tapi hanya satu yang asli. Lasinrang ASLI adalah garansi keaslian rasa yang tidak bisa dipalsukan.</p>
+      <div class="flex items-center gap-4 p-4 glass rounded-xl">
+        <div class="w-12 h-12 bg-red-900/40 rounded-full flex items-center justify-center text-red-400"><i class="ph-fill ph-certificate text-2xl"></i></div>
+        <div><div class="text-sm font-bold text-white">Sertifikasi Halal MUI</div><div class="text-xs text-white/50">No. Sertifikat: 12310002681022</div></div>
+      </div>
+    </div>
+    <div class="reveal delay-150 grid grid-cols-2 gap-4">
+      <img src="https://picsum.photos/seed/jalangkote1/400/300" class="rounded-xl object-cover w-full h-48 col-span-2" alt="Jalangkote Lasinrang">
+      <img src="https://picsum.photos/seed/jalangkote2/300/280" class="rounded-xl object-cover w-full h-40" alt="Proses pembuatan">
+      <img src="https://picsum.photos/seed/lumpia-makassar/300/280" class="rounded-xl object-cover w-full h-40" alt="Lumpia asli">
+    </div>
+  </div>
+</section>
+
+<!-- PRODUK -->
+<section id="produk" class="py-24 bg-lasinrang-charcoal/30 border-y border-red-900/20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="text-center mb-16 reveal">
+      <span class="text-lasinrang-red text-xs font-bold uppercase tracking-[.2em] block mb-3">Menu Andalan</span>
+      <h2 class="font-serif text-3xl md:text-5xl font-bold">Produk Unggulan Kami</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass rounded-2xl overflow-hidden group hover:border-red-700/50 transition reveal">
+        <img src="https://picsum.photos/seed/jalangkote-fresh/500/300" class="w-full h-52 object-cover group-hover:scale-105 transition duration-700" alt="Jalangkote Segar">
+        <div class="p-6">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider mb-2">Andalan Utama</div>
+          <h3 class="font-serif text-xl font-bold mb-3">Jalangkote Segar</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Pastri gurih khas Sulawesi dengan isian sayur, bihun, telur puyuh, dan daging cincang. Digoreng fresh setiap pagi. Tersedia isi regular & spesial.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-bold text-lasinrang-red">Rp 3.000/pcs</span>
+            <a href="https://wa.me/628124483719?text=Saya%20ingin%20pesan%20Jalangkote%20Segar" target="_blank" onclick="alert('Menghubungi WhatsApp Lasinrang ASLI...')" class="text-sm font-bold text-red-400 hover:text-white transition">Pesan →</a>
+          </div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden group hover:border-red-700/50 transition reveal delay-100">
+        <img src="https://picsum.photos/seed/lumpia-asli/500/300" class="w-full h-52 object-cover group-hover:scale-105 transition duration-700" alt="Lumpia Lasinrang">
+        <div class="p-6">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider mb-2">Khas Sulawesi</div>
+          <h3 class="font-serif text-xl font-bold mb-3">Lumpia Lasinrang</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Lumpia roll otentik dengan isian sayur rebung, wortel, bihun, dan daging ayam. Tekstur kulit renyah, isian lembut dan gurih khas Makassar.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-bold text-lasinrang-red">Rp 5.000/pcs</span>
+            <a href="https://wa.me/628124483719?text=Saya%20ingin%20pesan%20Lumpia%20Lasinrang" target="_blank" onclick="alert('Menghubungi WhatsApp Lasinrang ASLI...')" class="text-sm font-bold text-red-400 hover:text-white transition">Pesan →</a>
+          </div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl overflow-hidden group hover:border-red-700/50 transition reveal delay-200">
+        <img src="https://picsum.photos/seed/frozen-pack/500/300" class="w-full h-52 object-cover group-hover:scale-105 transition duration-700" alt="Paket Frozen">
+        <div class="p-6">
+          <div class="text-xs text-lasinrang-gold font-bold uppercase tracking-wider mb-2">✈ Bisa Dikirim</div>
+          <h3 class="font-serif text-xl font-bold mb-3">Paket Frozen (Vakum)</h3>
+          <p class="text-white/60 text-sm leading-relaxed mb-4">Tersedia dalam kemasan vakum frozen untuk pengiriman ke seluruh Indonesia via kargo udara. Isi 20 pcs per paket. Tahan hingga 3 bulan di freezer.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-bold text-lasinrang-red">Rp 120.000/pak</span>
+            <a href="https://wa.me/628124483719?text=Saya%20ingin%20pesan%20Paket%20Frozen" target="_blank" onclick="alert('Menghubungi WhatsApp Lasinrang ASLI...')" class="text-sm font-bold text-red-400 hover:text-white transition">Pesan →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEASLIAN / BRAND PROTECTION -->
+<section id="keunggulan" class="py-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="text-center mb-16 reveal">
+      <span class="text-lasinrang-red text-xs font-bold uppercase tracking-[.2em] block mb-3">Hati-Hati Peniru</span>
+      <h2 class="font-serif text-3xl md:text-5xl font-bold">Kenapa Harus Pilih yang <span class="text-lasinrang-red">ASLI</span>?</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="space-y-6 reveal">
+        <div class="glass rounded-xl p-6 flex gap-4">
+          <div class="w-12 h-12 bg-red-900/40 rounded-full flex-shrink-0 flex items-center justify-center text-red-400"><i class="ph-fill ph-shield-check text-2xl"></i></div>
+          <div><h4 class="font-bold mb-1">Sertifikasi Resmi & Terdaftar</h4><p class="text-white/60 text-sm">Kami adalah satu-satunya yang memiliki dokumen hak merek dagang atas nama "Lasinrang ASLI" dan sertifikasi halal resmi dari MUI Sulawesi Selatan.</p></div>
+        </div>
+        <div class="glass rounded-xl p-6 flex gap-4">
+          <div class="w-12 h-12 bg-red-900/40 rounded-full flex-shrink-0 flex items-center justify-center text-red-400"><i class="ph-fill ph-cooking-pot text-2xl"></i></div>
+          <div><h4 class="font-bold mb-1">Resep Turun-Temurun, Tidak Difranchise</h4><p class="text-white/60 text-sm">Kami tidak menjual franchise. Setiap produk dibuat di dapur pusat kami di Kawasan Lasinrang dengan pengawasan langsung generasi penerus keluarga pendiri.</p></div>
+        </div>
+        <div class="glass rounded-xl p-6 flex gap-4">
+          <div class="w-12 h-12 bg-red-900/40 rounded-full flex-shrink-0 flex items-center justify-center text-red-400"><i class="ph-fill ph-truck text-2xl"></i></div>
+          <div><h4 class="font-bold mb-1">Pengiriman Kargo Udara ke Seluruh Indonesia</h4><p class="text-white/60 text-sm">Produk frozen vakum kami dikirim via kargo udara dengan packaging isothermal. Tiba dalam kondisi beku sempurna hingga Sabang–Merauke.</p></div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-8 reveal delay-150">
+        <h3 class="font-serif text-2xl font-bold mb-6 text-center">Testimoni Pelanggan</h3>
+        <div class="space-y-5">
+          <div class="flex gap-4">
+            <img src="https://i.pravatar.cc/48?img=11" class="w-12 h-12 rounded-full flex-shrink-0" alt="Reviewer">
+            <div><div class="flex gap-1 mb-1">★★★★★</div><p class="text-white/70 text-sm italic">"Sudah langganan 15 tahun. Beli yang lain pernah, tapi rasanya beda banget. Lasinrang ASLI memang tidak ada tandingannya."</p><div class="text-xs text-white/40 mt-1">— Ibu Rahmawati, Makassar</div></div>
+          </div>
+          <div class="flex gap-4">
+            <img src="https://i.pravatar.cc/48?img=22" class="w-12 h-12 rounded-full flex-shrink-0" alt="Reviewer">
+            <div><div class="flex gap-1 mb-1 text-lasinrang-gold">★★★★★</div><p class="text-white/70 text-sm italic">"Order frozen 5 pak dikirim ke Jakarta. Sampai masih beku, dan rasanya persis seperti waktu saya beli langsung di Makassar dulu!"</p><div class="text-xs text-white/40 mt-1">— Bpk. Syarifuddin, Jakarta Selatan</div></div>
+          </div>
+          <div class="flex gap-4">
+            <img src="https://i.pravatar.cc/48?img=33" class="w-12 h-12 rounded-full flex-shrink-0" alt="Reviewer">
+            <div><div class="flex gap-1 mb-1 text-lasinrang-gold">★★★★★</div><p class="text-white/70 text-sm italic">"Ini adalah jalangkote dengan cita rasa paling otentik. Saya rekomendasikan ke semua teman perantau asal Makassar."</p><div class="text-xs text-white/40 mt-1">— Nur Aisyah, Surabaya</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARA PESAN -->
+<section id="pesan" class="py-24 bg-lasinrang-charcoal/30 border-y border-red-900/20">
+  <div class="max-w-5xl mx-auto px-6 md:px-12 text-center reveal">
+    <span class="text-lasinrang-red text-xs font-bold uppercase tracking-[.2em] block mb-3">Pemesanan</span>
+    <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Cara Pesan Mudah & Cepat</h2>
+    <p class="text-white/60 mb-12">Tersedia pengiriman ke seluruh Indonesia. Minimum order 5 pak untuk pengiriman luar Makassar.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-12">
+      <div class="glass rounded-xl p-6 text-center">
+        <div class="w-12 h-12 bg-lasinrang-red rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-lg">1</div>
+        <h4 class="font-bold mb-2">Hubungi via WhatsApp</h4>
+        <p class="text-white/60 text-sm">Kirim pesan ke nomor WhatsApp kami dengan menyebutkan produk, jumlah, dan alamat pengiriman.</p>
+      </div>
+      <div class="glass rounded-xl p-6 text-center">
+        <div class="w-12 h-12 bg-lasinrang-red rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-lg">2</div>
+        <h4 class="font-bold mb-2">Konfirmasi & Bayar DP</h4>
+        <p class="text-white/60 text-sm">Tim kami mengirimkan rincian harga dan ongkir. DP 50% via transfer untuk konfirmasi order.</p>
+      </div>
+      <div class="glass rounded-xl p-6 text-center">
+        <div class="w-12 h-12 bg-lasinrang-red rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-lg">3</div>
+        <h4 class="font-bold mb-2">Produk Dikirim</h4>
+        <p class="text-white/60 text-sm">Produk dikemas vakum dan dikirim via kargo udara. Estimasi tiba 1–2 hari kerja.</p>
+      </div>
+    </div>
+    <a href="https://wa.me/628124483719?text=Halo%20Lasinrang%20ASLI%2C%20saya%20ingin%20pesan%20produk%20frozen" target="_blank" class="inline-flex items-center gap-3 px-10 py-5 bg-lasinrang-red text-white font-bold text-sm uppercase tracking-widest hover:bg-red-700 transition shadow-[0_0_40px_rgba(185,28,28,.4)]">
+      <i class="ph-fill ph-whatsapp-logo text-xl"></i> Pesan Sekarang via WhatsApp
+    </a>
+    <p class="text-white/40 text-sm mt-4">+62 812-4483-719 &nbsp;|&nbsp; Kawasan Lasinrang, Makassar</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-lasinrang-dark border-t border-red-900/20 py-12">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 text-center">
+    <div class="font-serif text-2xl font-bold mb-2">Jalangkote & Lumpia <span class="text-lasinrang-red">Lasinrang ASLI</span></div>
+    <p class="text-white/40 text-sm mb-6">Kawasan Lasinrang, Makassar, Sulawesi Selatan &nbsp;·&nbsp; Berdiri sejak 1982</p>
+    <p class="text-white/30 text-xs">&copy; 2026 Lasinrang ASLI. Purwarupa dibuat oleh <a href="https://cocotech.studio" class="text-red-400 font-bold" target="_blank">CocoTech</a> &mdash; IT Agency terpercaya Indonesia.</p>
+  </div>
+</footer>
+
+<!-- WA Sticky -->
+<a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Lasinrang%20ASLI%20tertarik%20dengan%20proposal" target="_blank"
+   style="position:fixed;bottom:24px;left:24px;z-index:9999;display:flex;align-items:center;gap:10px;background:#25D366;color:white;padding:12px 20px;border-radius:9999px;box-shadow:0 4px 20px rgba(37,211,102,.5);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;text-decoration:none;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <i class="ph-fill ph-whatsapp-logo" style="font-size:22px;"></i><span>Hubungi CocoTech</span>
+</a>
+<!-- PDF Widget -->
+<a href="proposal.html" target="_blank"
+   style="position:fixed;top:90px;right:16px;z-index:9999;display:flex;flex-direction:column;align-items:center;gap:4px;background:#1a0a0a;border:1px solid rgba(185,28,28,.4);box-shadow:0 4px 16px rgba(0,0,0,.4);border-radius:12px;padding:10px 12px;text-decoration:none;">
+  <i class="ph-fill ph-file-pdf" style="font-size:28px;color:#EF4444;"></i>
+  <span style="font-size:9px;font-weight:700;color:#D4D4D4;text-transform:uppercase;letter-spacing:.05em;text-align:center;line-height:1.3;">Buka<br>Dokumen</span>
+</a>
+
+<script>
+function app(){return{scrolled:false,onScroll(){this.scrolled=window.scrollY>50;document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('active')})}}}
+setTimeout(()=>window.dispatchEvent(new Event('scroll')),100);
+</script>
+</body>
+</html>
