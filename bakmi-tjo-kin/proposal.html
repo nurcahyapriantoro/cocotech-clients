@@ -3,157 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposal Infrastruktur Digital - Bakmi Tjo Kin</title>
+    <title>Strategic Proposal - Bakmi Tjo Kin</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#C62828',
+                            darkred: '#8E0000',
+                            cream: '#FDFBF7',
+                            dark: '#1A1A1A',
+                            gold: '#D4AF37',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         @media print {
-            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background-color: white !important; }
             .page-break { page-break-before: always; }
             .no-print { display: none; }
+            .page-container { box-shadow: none !important; margin: 0 !important; padding: 15mm !important; min-height: 297mm; }
         }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; color: #0F172A; }
-        .font-serif { font-family: 'Merriweather', serif; }
-        .page-container { max-width: 210mm; min-height: 297mm; margin: 0 auto; background: white; padding: 12mm 16mm; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); margin-top: 2rem; margin-bottom: 2rem; }
+        body { background-color: #E2E8F0; color: #1A1A1A; }
+        .page-container { 
+            max-width: 210mm; min-height: 297mm; 
+            margin: 2rem auto; background: white; 
+            padding: 20mm; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow: hidden;
+        }
+        
+        /* Decorative Patterns */
+        .pattern-dots { background-image: radial-gradient(#C62828 1px, transparent 1px); background-size: 15px 15px; opacity: 0.1; }
+        .border-retro { border: 2px solid #1A1A1A; box-shadow: 4px 4px 0px #1A1A1A; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased font-sans selection:bg-brand-red selection:text-white">
 
-    <!-- Print Button (No Print) -->
-    <div class="fixed bottom-6 right-6 no-print">
-        <button onclick="window.print()" class="bg-[#1E293B] hover:bg-black text-white px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2 transition-all">
-            <i class="ph-bold ph-printer"></i> Simpan sebagai PDF
+    <!-- Floating Print Action -->
+    <div class="fixed bottom-8 right-8 z-50 no-print flex gap-4">
+        <a href="index.html" class="bg-white border-2 border-brand-dark px-6 py-3 rounded-full font-bold shadow-[4px_4px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#1A1A1A] transition-all flex items-center gap-2">
+            <i class="ph-bold ph-arrow-left"></i> Kembali ke Web
+        </a>
+        <button onclick="window.print()" class="bg-brand-red text-white border-2 border-brand-dark px-6 py-3 rounded-full font-bold shadow-[4px_4px_0px_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#1A1A1A] transition-all flex items-center gap-2">
+            <i class="ph-bold ph-printer"></i> Simpan PDF
         </button>
     </div>
 
-    <!-- COVER PAGE -->
-    <div class="page-container relative overflow-hidden flex flex-col justify-between">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-red-600 rounded-bl-full opacity-10 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-yellow-600 rounded-tr-full opacity-10 blur-3xl"></div>
+    <!-- PAGE 1: COVER -->
+    <div class="page-container flex flex-col justify-between border-t-[16px] border-brand-red">
+        <div class="absolute top-0 right-0 w-full h-full pattern-dots pointer-events-none"></div>
         
-        <div>
-            <div class="flex items-center gap-2 mb-20">
-                <div class="w-8 h-8 bg-[#1E293B] rounded flex items-center justify-center text-white font-bold">C</div>
-                <span class="font-bold text-[#1E293B] tracking-wider text-sm uppercase">CocoTech Studio</span>
+        <div class="relative z-10">
+            <div class="flex justify-between items-start mb-24">
+                <div>
+                    <div class="w-12 h-12 bg-brand-dark rounded-xl flex items-center justify-center text-white font-bold text-xl mb-2 border-retro">C</div>
+                    <span class="font-bold text-brand-dark tracking-widest text-xs uppercase">CocoTech Studio</span>
+                </div>
+                <div class="text-right">
+                    <p class="text-brand-red font-bold tracking-widest text-xs uppercase mb-1">Confidential B2B Deck</p>
+                    <p class="text-xs text-gray-500" id="current-date">April 2026</p>
+                </div>
             </div>
             
-            <p class="text-red-700 font-bold tracking-widest text-sm uppercase mb-4">Strategic Digital Infrastructure Proposal</p>
-            <h1 class="font-serif text-5xl font-extrabold leading-tight mb-6">
-                Mengakhiri Era <br>Antrean Melelahkan di<br>
-                <span class="text-red-700">Bakmi Tjo Kin.</span>
-            </h1>
-            <p class="text-lg text-gray-600 max-w-lg leading-relaxed">
-                Rancangan sistem "Virtual Waiting List" terintegrasi untuk cabang Cihapit, Braga, dan Blok M guna memaksimalkan retensi pelanggan dan efisiensi operasional.
-            </p>
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-red text-brand-red font-bold text-xs mb-8 uppercase tracking-widest bg-brand-cream border-retro">
+                    <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+                    Digital Infrastructure Transformation
+                </div>
+                
+                <h1 class="font-serif text-6xl font-black leading-[1.1] mb-8 text-brand-dark">
+                    Mengakhiri Era <br>Antrean Melelahkan <br>
+                    <span class="text-brand-red italic">di Bakmi Tjo Kin.</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 leading-relaxed font-medium mb-12 border-l-4 border-brand-gold pl-6">
+                    Membangun "Smart Virtual Queue Engine" terintegrasi untuk cabang Cihapit, Braga, dan Blok M. Memaksimalkan retensi pelanggan, meningkatkan efisiensi staf, dan meledakkan profit operasional tanpa kerumitan antrean fisik.
+                </p>
+            </div>
         </div>
 
-        <div class="border-t border-gray-200 pt-8 mt-12 flex justify-between items-end">
+        <div class="relative z-10 grid grid-cols-2 gap-8 border-t-2 border-gray-100 pt-8 mt-12">
             <div>
-                <p class="text-sm text-gray-500 mb-1">Disiapkan Eksklusif Untuk:</p>
-                <p class="font-bold text-lg">Manajemen Bakmi Tjo Kin</p>
-                <p class="text-sm text-gray-600">Bandung & Jakarta</p>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Disiapkan Secara Eksklusif Untuk:</p>
+                <p class="font-bold text-xl text-brand-dark">Manajemen Bakmi Tjo Kin</p>
+                <p class="text-sm text-gray-600">Headquarters (Bandung) & Cabang (Jakarta)</p>
             </div>
-            <div class="text-right">
-                <p class="text-sm text-gray-500 mb-1">Tanggal Eksekusi Dokumen:</p>
-                <p class="font-bold text-lg" id="current-date">April 2026</p>
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Architectural Engineering By:</p>
+                <p class="font-bold text-xl text-brand-dark">CocoTech Studio</p>
+                <p class="text-sm text-gray-600">Enterprise Web Solutions</p>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 2: THE PROBLEM & SOLUTION -->
-    <div class="page-container page-break">
-        <h2 class="text-sm font-bold text-red-700 uppercase tracking-widest mb-2 border-b-2 border-red-700 inline-block pb-1">Executive Summary</h2>
+    <!-- PAGE 2: THE PROBLEM (THE HIDDEN LEAK) -->
+    <div class="page-container page-break flex flex-col">
+        <h2 class="text-xs font-black text-brand-red uppercase tracking-widest mb-1 border-b-2 border-brand-red inline-block pb-1 self-start">The Executive Summary</h2>
         
-        <div class="mt-8">
-            <h3 class="font-serif text-3xl font-bold mb-6">The Hidden Leak: Kebocoran Pendapatan di Balik "Waiting List"</h3>
-            <p class="text-gray-700 leading-relaxed mb-6">
-                Melihat antrean panjang di Cihapit atau Braga membuktikan bahwa Bakmi Tjo Kin memiliki produk yang sangat dicintai. Namun, dalam psikologi konsumen modern, antrean panjang juga merupakan <strong>pisau bermata dua</strong>.
-            </p>
+        <div class="mt-12 flex-1">
+            <h3 class="font-serif text-4xl font-bold mb-8 leading-tight">The Hidden Leak:<br>Kebocoran Profit di Balik Kesuksesan "Waiting List"</h3>
             
-            <div class="grid grid-cols-2 gap-6 mb-10">
-                <div class="bg-red-50 border border-red-100 p-6 rounded-xl border-l-4 border-l-red-600">
-                    <h4 class="font-bold text-red-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-warning-circle"></i> Friction Point</h4>
-                    <p class="text-sm text-gray-700">Banyak calon pelanggan memutar balik kendaraan saat melihat antrean mengular, memilih opsi kompetitor karena mereka tidak memiliki kepastian waktu tunggu.</p>
+            <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                Melihat antrean panjang yang mengular di depan cabang Cihapit atau Blok M adalah bukti tak terbantahkan bahwa produk Bakmi Tjo Kin sangat dicintai pasar. Namun, dalam psikologi konsumen modern yang serba instan, <strong>antrean panjang secara fisik adalah sebuah "pisau bermata dua".</strong>
+            </p>
+
+            <div class="space-y-6 mb-12">
+                <div class="bg-brand-cream border-retro p-6 rounded-xl relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-red-100 rounded-bl-full -z-10 group-hover:scale-150 transition-transform"></div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-full bg-red-100 text-brand-red flex items-center justify-center shrink-0 border border-red-200">
+                            <i class="ph-bold ph-trend-down text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2 text-brand-dark">The Walk-Away Rate (Hilangnya Potensi Sales)</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Tahukah Anda berapa banyak calon pelanggan yang memutar balik kendaraannya saat melihat antrean padat di akhir pekan? Mereka berpindah ke kompetitor karena tidak memiliki visibilitas mengenai <em>berapa lama mereka harus menunggu</em>. Setiap pelanggan yang pergi adalah hilangnya rata-rata Rp 150.000,- pendapatan meja.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl border-l-4 border-l-gray-600">
-                    <h4 class="font-bold text-gray-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-clock"></i> Inefisiensi Staf</h4>
-                    <p class="text-sm text-gray-700">Staf kewalahan mencatat nomor antrean secara manual dan melayani *Direct Message* Instagram yang terus-menerus menanyakan "Apakah masih antre?".</p>
+
+                <div class="bg-white border border-gray-200 p-6 rounded-xl relative overflow-hidden group">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-gray-100 rounded-bl-full -z-10 group-hover:scale-150 transition-transform"></div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center shrink-0 border border-gray-200">
+                            <i class="ph-bold ph-hourglass-high text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2 text-brand-dark">Inefisiensi Front-Desk & Ketergantungan DM Instagram</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Staf Anda membuang terlalu banyak energi untuk mencatat antrean secara manual dan membalas pertanyaan repetitif di <em>Direct Message</em> (DM) Instagram ("Kak, Cihapit antre nggak?"). Ini menyebabkan <em>bottleneck</em> operasional di jam sibuk.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <h3 class="font-serif text-3xl font-bold mb-6">The Blueprint Solution</h3>
-            <p class="text-gray-700 leading-relaxed mb-6">
-                CocoTech Studio menawarkan <strong>Smart Virtual Queue Engine</strong>. Sebuah *web-app* terpusat yang didesain secara khusus untuk identitas klasik Bakmi Tjo Kin, mengubah sistem antrean menjadi aset digital.
-            </p>
-
-            <div class="space-y-4">
-                <div class="flex gap-4">
-                    <div class="w-12 h-12 bg-[#1E293B] text-white rounded-lg flex items-center justify-center shrink-0"><i class="ph-bold ph-ticket text-xl"></i></div>
-                    <div>
-                        <h4 class="font-bold text-lg">Multi-Branch Virtual Queue</h4>
-                        <p class="text-gray-600 text-sm">Pelanggan dapat mengecek estimasi meja kosong untuk Cihapit, Braga, atau Blok M secara *real-time* dan mem-*booking* antrean langsung dari HP mereka tanpa harus berdiri di lokasi.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="w-12 h-12 bg-[#1E293B] text-white rounded-lg flex items-center justify-center shrink-0"><i class="ph-bold ph-book-open text-xl"></i></div>
-                    <div>
-                        <h4 class="font-bold text-lg">Smart Catalog & Pre-Order</h4>
-                        <p class="text-gray-600 text-sm">Sembari menunggu, pelanggan dapat menelusuri katalog menu interaktif secara langsung, yang akan meningkatkan *average order value* berkat visual produk yang elegan dan memancing selera.</p>
-                    </div>
-                </div>
+            <div class="bg-brand-dark text-white p-8 rounded-2xl border-retro relative">
+                <i class="ph-fill ph-quotes text-5xl text-white/10 absolute top-4 left-4"></i>
+                <p class="text-xl font-serif italic text-center relative z-10 leading-relaxed text-brand-cream">
+                    "Tantangan terbesar F&B sukses bukanlah mendatangkan pelanggan, melainkan <strong>memastikan tidak ada pelanggan yang pergi karena lelah menunggu.</strong>"
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 3: PRICING & TIMELINE -->
-    <div class="page-container page-break">
-        <h2 class="text-sm font-bold text-red-700 uppercase tracking-widest mb-2 border-b-2 border-red-700 inline-block pb-1">Investment Tiers</h2>
+    <!-- PAGE 3: THE BLUEPRINT SOLUTION -->
+    <div class="page-container page-break flex flex-col">
+        <h2 class="text-xs font-black text-brand-red uppercase tracking-widest mb-1 border-b-2 border-brand-red inline-block pb-1 self-start">The Master Plan</h2>
         
-        <div class="mt-8 grid grid-cols-2 gap-6">
-            <!-- Tier 1 -->
-            <div class="border border-gray-200 rounded-2xl p-6 relative overflow-hidden">
-                <h3 class="font-serif text-xl font-bold mb-2">Starter Engine</h3>
-                <p class="text-sm text-gray-500 mb-4">Cocok untuk digitalisasi awal katalog.</p>
-                <div class="text-3xl font-extrabold mb-6">Rp 3.500.000</div>
-                <ul class="space-y-3 text-sm text-gray-700 mb-8">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> Single Page Application Website</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> Desain Visual "Retro-Classic" Kustom</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> Smart Catalog Menu Interaktif</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> Tombol CTA ke WhatsApp</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> Revisi 3x</li>
-                </ul>
+        <div class="mt-12 flex-1">
+            <h3 class="font-serif text-4xl font-bold mb-6 leading-tight">Smart Virtual Queue Engine <br><span class="text-brand-red text-2xl">By CocoTech Studio</span></h3>
+            
+            <p class="text-gray-700 leading-relaxed mb-10 text-lg">
+                Solusinya bukanlah memperluas kedai, melainkan <strong>mendownload antrean fisik ke ranah digital.</strong> Kami merancang Infrastruktur Web khusus untuk Bakmi Tjo Kin yang menyelesaikan masalah antrean sekaligus meningkatkan nilai merek (brand equity).
+            </p>
+
+            <div class="grid grid-cols-2 gap-8 mb-12">
+                <!-- Feature 1 -->
+                <div>
+                    <div class="w-14 h-14 bg-brand-red text-white rounded-xl flex items-center justify-center mb-4 border-retro shadow-none">
+                        <i class="ph-bold ph-users-three text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Multi-Branch Live Queue</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Satu portal website yang terhubung langsung ke 3 cabang (Cihapit, Braga, Blok M). Pelanggan dapat mengecek estimasi antrean secara <em>real-time</em> dari rumah.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-gold"></i> Mengurangi kerumunan fisik</li>
+                        <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-gold"></i> Kepastian waktu tunggu bagi pelanggan</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 2 -->
+                <div>
+                    <div class="w-14 h-14 bg-brand-dark text-white rounded-xl flex items-center justify-center mb-4 border-retro shadow-none">
+                        <i class="ph-bold ph-book-open-text text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Smart Interactive Catalog</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Alih-alih mencari menu di highlight IG, pelanggan yang sedang menunggu antrean dapat menelusuri menu secara interaktif, memicu selera, dan merencanakan pesanan mereka.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-gold"></i> Filter pintar (Asin, Manis, Sides)</li>
+                        <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-gold"></i> Upselling otomatis lewat visual</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 3 -->
+                <div>
+                    <div class="w-14 h-14 bg-brand-gold text-brand-dark rounded-xl flex items-center justify-center mb-4 border-retro shadow-none">
+                        <i class="ph-bold ph-whatsapp text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Headless WhatsApp Integration</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Tidak ada <em>backend</em> yang rumit untuk dipelajari staf Anda. Website merakit pesanan antrean dan mengirimkannya langsung ke WhatsApp Admin sebagai struk digital yang rapi.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-red"></i> Zero learning curve untuk staf</li>
+                        <li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-red"></i> Memangkas waktu balas DM</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 4 -->
+                <div>
+                    <div class="w-14 h-14 border-2 border-brand-dark bg-white text-brand-dark rounded-xl flex items-center justify-center mb-4 border-retro shadow-none">
+                        <i class="ph-bold ph-fire text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Live Social Proof Engine</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Fitur pop-up simulasi di sudut layar (Contoh: <em>"2 menit yang lalu, Budi memesan meja di Cihapit"</em>) untuk memicu <em>Fear of Missing Out (FOMO)</em> dan membuktikan hype Tjo Kin.</p>
+                </div>
             </div>
 
-            <!-- Tier 2 -->
-            <div class="bg-[#1E293B] text-white rounded-2xl p-6 relative overflow-hidden border-2 border-red-600 shadow-xl shadow-red-900/20 transform scale-105">
-                <div class="absolute top-4 right-4 bg-red-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Recommended</div>
-                <h3 class="font-serif text-xl font-bold mb-2">Virtual Queue Engine</h3>
-                <p class="text-sm text-gray-300 mb-4">Solusi antrean otomatis untuk 3 Cabang.</p>
-                <div class="text-3xl font-extrabold mb-6">Rp 7.500.000</div>
-                <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-red-500 mt-0.5"></i> Semua Fitur Starter Engine</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-red-500 mt-0.5"></i> <strong>Multi-Branch Virtual Waiting List</strong></li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-red-500 mt-0.5"></i> WhatsApp Checkout / Queue Parsing</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-red-500 mt-0.5"></i> Live Social Proof Animations</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check text-red-500 mt-0.5"></i> Revisi 5x & Prioritas Support</li>
-                </ul>
+            <!-- Proyeksi ROI -->
+            <div class="bg-gray-50 p-8 rounded-2xl border-l-8 border-brand-gold">
+                <h4 class="font-serif font-bold text-2xl mb-4">Proyeksi Return on Investment (ROI)</h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                    Dengan menyelamatkan hanya <strong>3 meja per hari (rata-rata bill Rp 150.000)</strong> yang sebelumnya pergi karena malas antre, Bakmi Tjo Kin dapat memulihkan pendapatan sebesar <strong>Rp 13.500.000,- per bulan</strong>. Infrastruktur ini akan melunasi biaya pengembangannya sendiri dalam waktu kurang dari 1 bulan.
+                </p>
             </div>
         </div>
+    </div>
 
-        <div class="mt-12 bg-gray-50 border border-gray-200 rounded-xl p-6">
-            <h3 class="font-bold mb-4 flex items-center gap-2"><i class="ph-bold ph-shield-check text-green-600"></i> The Risk-Reversal Guarantee</h3>
-            <p class="text-sm text-gray-600">Sistem pembayaran menggunakan metode Termin (50% Down Payment, 50% setelah website dirilis). Kami memberikan garansi *Bug-Free* selama 30 hari pasca-rilis untuk memastikan *Virtual Queue* berjalan mulus di cabang Anda.</p>
-        </div>
+    <!-- PAGE 4: INVESTMENT & TERMS -->
+    <div class="page-container page-break flex flex-col">
+        <h2 class="text-xs font-black text-brand-red uppercase tracking-widest mb-1 border-b-2 border-brand-red inline-block pb-1 self-start">The Investment Tiers</h2>
+        
+        <div class="mt-12 flex-1">
+            <h3 class="font-serif text-3xl font-bold mb-8">Pilih Arsitektur Skala Anda</h3>
+            
+            <div class="grid grid-cols-2 gap-8 mb-12">
+                <!-- Tier 1 -->
+                <div class="border-2 border-gray-200 rounded-2xl p-8 bg-white flex flex-col">
+                    <h4 class="font-bold text-xl mb-2">Starter Engine</h4>
+                    <p class="text-sm text-gray-500 mb-6">Cocok untuk digitalisasi katalog & branding dasar.</p>
+                    
+                    <div class="text-4xl font-black text-brand-dark mb-2">Rp 3.5<span class="text-xl text-gray-500 font-bold">jt</span></div>
+                    <p class="text-xs text-gray-400 mb-8 pb-8 border-b border-gray-100">One-time investment. No hidden fees.</p>
+                    
+                    <ul class="space-y-4 text-sm text-gray-600 flex-1">
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Single Page Application (Web)</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> UI/UX "Retro-Classic" Kustom</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Smart Catalog Menu Interaktif</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Tombol CTA standar ke WhatsApp</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-green-500 text-lg"></i> Revisi Maksimal 3x</li>
+                        <li class="flex items-start gap-3 text-gray-300"><i class="ph-bold ph-x text-gray-300 text-lg"></i> <strike>Virtual Queue Multi-Branch</strike></li>
+                    </ul>
+                </div>
 
-        <div class="mt-12 text-center border-t border-gray-200 pt-8">
-            <h3 class="font-bold text-xl mb-4">Siap Mengakhiri Antrean Melelahkan?</h3>
-            <p class="text-sm text-gray-500 mb-6">Hubungi kami untuk menyetujui proposal ini dan memulai pengerjaan.</p>
-            <a href="https://wa.me/6281283321577" class="inline-flex items-center gap-2 bg-red-700 text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-red-800 transition-colors">
-                <i class="ph-bold ph-whatsapp text-xl"></i> Diskusikan via WhatsApp
-            </a>
-            <div class="mt-6 text-xs text-gray-400">
-                <p>CocoTech Studio | Email: admin@cocotech.studio | WA: +62 812-8332-1577</p>
+                <!-- Tier 2 -->
+                <div class="bg-brand-dark text-white rounded-2xl p-8 border-retro relative transform scale-105 flex flex-col shadow-2xl">
+                    <div class="absolute -top-4 right-6 bg-brand-gold text-brand-dark text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest border-retro">
+                        Revolusioner
+                    </div>
+                    
+                    <h4 class="font-bold text-xl mb-2 text-brand-cream">Virtual Queue Engine</h4>
+                    <p class="text-sm text-gray-400 mb-6">Infrastruktur antrean otomatis untuk seluruh cabang.</p>
+                    
+                    <div class="text-4xl font-black text-brand-gold mb-2">Rp 7.5<span class="text-xl text-gray-400 font-bold">jt</span></div>
+                    <p class="text-xs text-gray-500 mb-8 pb-8 border-b border-gray-700">Recommended for High-Traffic F&B.</p>
+                    
+                    <ul class="space-y-4 text-sm text-gray-300 flex-1 font-medium">
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-gold text-lg"></i> Semua Fitur Starter Engine</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-gold text-lg"></i> <span class="text-white">Multi-Branch Virtual Waiting List (Cihapit, Braga, Blok M)</span></li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-gold text-lg"></i> WhatsApp Queue Parsing & Routing</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-gold text-lg"></i> Live Social Proof Animations (FOMO)</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-gold text-lg"></i> SEO Local Foundation</li>
+                        <li class="flex items-start gap-3"><i class="ph-bold ph-check text-brand-gold text-lg"></i> Revisi Maksimal 5x</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- The Guarantee -->
+            <div class="mb-12 border border-gray-200 rounded-xl p-8 relative overflow-hidden bg-white">
+                <div class="flex items-center gap-4 mb-4 relative z-10">
+                    <i class="ph-fill ph-shield-check text-4xl text-green-600"></i>
+                    <h4 class="font-bold text-xl">The Risk-Reversal Guarantee</h4>
+                </div>
+                <p class="text-sm text-gray-600 leading-relaxed relative z-10 max-w-2xl">
+                    Kami menghapus risiko dari pundak Anda. Pembayaran menggunakan skema Termin <strong>(50% Deposit, 50% Saat Rilis)</strong>. Selain itu, kami memberikan garansi perbaikan <em>Bug-Free</em> selama 30 hari pasca-rilis untuk memastikan sistem Virtual Queue berjalan tanpa hambatan operasional di seluruh cabang Anda.
+                </p>
+                <i class="ph-bold ph-handshake text-[120px] absolute -bottom-6 -right-6 text-gray-50 opacity-50 z-0"></i>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center bg-brand-cream border-t-4 border-brand-red p-10 rounded-2xl border-retro">
+                <h3 class="font-serif font-bold text-2xl mb-3">Siap Mengakhiri Antrean Panjang?</h3>
+                <p class="text-sm text-gray-600 mb-8 max-w-md mx-auto">Kami hanya melayani 2 klien F&B per bulan untuk menjaga kualitas eksekusi. Konfirmasi slot Anda hari ini.</p>
+                
+                <a href="https://wa.me/6281283321577?text=Halo%20CocoTech,%20saya%20dari%20Manajemen%20Bakmi%20Tjo%20Kin.%20Saya%20tertarik%20dengan%20proposal%20Virtual%20Queue-nya." class="inline-flex items-center gap-3 bg-brand-red text-white px-8 py-4 rounded-full font-bold border-retro hover:bg-brand-darkred transition-colors text-lg">
+                    <i class="ph-bold ph-whatsapp text-2xl"></i> Chat CocoTech Studio
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-12 flex justify-between items-center text-xs text-gray-400 font-bold uppercase tracking-widest border-t border-gray-100 pt-6">
+                <div>CocoTech Studio Digital Infrastructure</div>
+                <div>+62 812-8332-1577</div>
             </div>
         </div>
     </div>
