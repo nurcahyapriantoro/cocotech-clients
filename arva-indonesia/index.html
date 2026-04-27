@@ -806,5 +806,34 @@
   <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
 </div>
 
+
+    <!-- Google Translate Universal Engine -->
+    <div id="google_translate_element" style="display:none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'id', includedLanguages: 'id,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
+        }
+        function triggerGTranslate(lang) {
+            var selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+    <style>
+        body { top: 0 !important; }
+        .skiptranslate { display: none !important; }
+    </style>
+
+
+    <!-- Floating Universal Language Switcher -->
+    <div class="fixed bottom-6 left-6 z-[999] flex items-center bg-white/90 backdrop-blur-sm border border-gray-200 rounded-full shadow-xl p-1 font-sans text-xs font-bold no-print text-gray-800" x-data="{ uniLang: 'id' }" x-init="$watch('uniLang', val => triggerGTranslate(val))">
+        <button @click="uniLang = 'id'" :class="uniLang === 'id' ? 'bg-gray-900 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'" class="px-4 py-2 rounded-full transition-all">ID</button>
+        <button @click="uniLang = 'en'" :class="uniLang === 'en' ? 'bg-gray-900 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'" class="px-4 py-2 rounded-full transition-all">EN</button>
+    </div>
+
 </body>
 </html>

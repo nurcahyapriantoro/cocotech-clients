@@ -131,7 +131,7 @@
             window.open('https://wa.me/6281283321577?text=' + text, '_blank');
             this.cart = []; this.cartOpen = false; this.customerName = ''; this.customerAddress = '';
         }
-    }" 
+    }, init() { $watch(\'lang\', val => triggerGTranslate(val)); }" 
     :class="{'mitra-mode': persona === 'mitra'}"
     @scroll.window="scrolled = (window.pageYOffset > 50)" 
     class="antialiased selection:bg-brand-500 selection:text-white relative transition-colors duration-700">
@@ -526,5 +526,27 @@
     <script>
         VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
     </script>
+
+    <!-- Google Translate Universal Engine -->
+    <div id="google_translate_element" style="display:none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'id', includedLanguages: 'id,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
+        }
+        function triggerGTranslate(lang) {
+            var selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+    <style>
+        body { top: 0 !important; }
+        .skiptranslate { display: none !important; }
+    </style>
+
 </body>
 </html>
