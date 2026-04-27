@@ -1,1086 +1,437 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bakmi Tjo Kin — Kedai Bakmi Artisan Premium di Melawai Blok M. Menyajikan mi lembut, bakso, dan pangsit goreng dengan resep rahasia autentik sejak 1977.">
-    <title>Bakmi Tjo Kin | Kedai Bakmi Artisan Melawai, Blok M Jakarta</title>
-
-    <!-- Premium Fonts -->
+    <title>Bakmi Tjo Kin - The Authentic Noodle Bar</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Nikmati kelezatan Bakmi Tjo Kin yang legendaris. Kini hadir dengan Virtual Waiting List untuk cabang Cihapit, Braga, dan Blok M.">
+    <meta name="theme-color" content="#C62828">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind & Alpine & Phosphor Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        vermilion: { 400:'#E5534B', 500:'#C0392B', 600:'#9B2C2C', 700:'#7B1C1C', 900:'#4A0E0E' },
-                        ink:       { 100:'#F4F3F0', 200:'#E8E5DF', 300:'#D4CFC6', 900:'#1A1815' },
-                        gold:      '#C49A3C',
-                        steam:     'rgba(255,255,255,0.06)'
-                    },
                     fontFamily: {
-                        sans:  ['Plus Jakarta Sans', 'sans-serif'],
-                        serif: ['Libre Baskerville', 'serif'],
-                        mono:  ['JetBrains Mono', 'monospace']
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    colors: {
+                        vintage: {
+                            bg: '#FDFBF7',
+                            red: '#C62828',
+                            dark: '#1A1A1A',
+                            gold: '#D4AF37',
+                            border: '#E8E3D5'
+                        }
                     },
                     animation: {
-                        'pan': 'pan 25s ease-in-out infinite alternate',
-                        'steam1': 'steam1 3s ease-in-out infinite',
-                        'steam2': 'steam2 3.5s ease-in-out infinite 0.5s',
-                        'marquee': 'marquee 30s linear infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'toast': 'toastSlide 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards',
                     },
                     keyframes: {
-                        pan: {
-                            '0%':   { transform: 'scale(1.08) translate(0,0)' },
-                            '100%': { transform: 'scale(1.08) translate(-2%,-1%)' }
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         },
-                        steam1: {
-                            '0%,100%': { transform:'translateY(0) scaleX(1)', opacity:'0.6' },
-                            '50%':     { transform:'translateY(-18px) scaleX(1.3)', opacity:'0.1' }
-                        },
-                        steam2: {
-                            '0%,100%': { transform:'translateY(0) scaleX(1)', opacity:'0.5' },
-                            '50%':     { transform:'translateY(-22px) scaleX(0.8)', opacity:'0.05' }
-                        },
-                        marquee: {
-                            '0%':   { transform:'translateX(0)' },
-                            '100%': { transform:'translateX(-50%)' }
+                        toastSlide: {
+                            '0%': { transform: 'translateY(100%)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
                         }
                     }
                 }
             }
         }
     </script>
-
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <style>
-        * { box-sizing: border-box; }
-        body { background:#F4F3F0; color:#1A1815; overflow-x:hidden; }
-        [x-cloak] { display:none !important; }
-
-        /* ---- REVEAL ANIMATIONS ---- */
-        .reveal { opacity:0; transform:translateY(36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
-        .reveal.in { opacity:1; transform:translateY(0); }
-        .reveal-l { opacity:0; transform:translateX(-36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
-        .reveal-l.in { opacity:1; transform:translateX(0); }
-        .reveal-r { opacity:0; transform:translateX(36px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
-        .reveal-r.in { opacity:1; transform:translateX(0); }
-
-        /* ---- GLASS NAV ---- */
-        .glass { background:rgba(244,243,240,0.82); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
-
-        /* ---- TEXTURE ---- */
-        .paper {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        body { background-color: #FDFBF7; color: #1A1A1A; overflow-x: hidden; }
+        .glass-panel {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid #E8E3D5;
+        }
+        .retro-shadow {
+            box-shadow: 4px 4px 0px 0px #1A1A1A;
+            transition: all 0.2s ease;
+        }
+        .retro-shadow:hover {
+            box-shadow: 6px 6px 0px 0px #1A1A1A;
+            transform: translate(-2px, -2px);
+        }
+        .retro-shadow:active {
+            box-shadow: 0px 0px 0px 0px #1A1A1A;
+            transform: translate(4px, 4px);
+        }
+        
+        /* Noise Texture */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* ---- MENU CARD ---- */
-        .menu-card { cursor:pointer; }
-        .menu-card img { transition: transform .7s cubic-bezier(.16,1,.3,1); }
-        .menu-card:hover img { transform: scale(1.06); }
-
-        /* ---- STAMP ---- */
-        .stamp {
-            width:100px; height:100px;
-            border:4px solid currentColor;
-            border-radius:50%;
-            display:flex; flex-direction:column;
-            align-items:center; justify-content:center;
-            transform:rotate(-12deg);
-            font-family:'Libre Baskerville',serif;
-            text-transform:uppercase;
-        }
-
-        /* ---- NOODLE DIVIDER ---- */
-        .divider-wave::after {
-            content:'';
-            display:block;
-            height:3px;
-            background: repeating-linear-gradient(90deg, #C0392B 0, #C0392B 12px, transparent 12px, transparent 20px);
-        }
-
-        /* ---- SCROLLBAR ---- */
-        ::-webkit-scrollbar { width:8px; }
-        ::-webkit-scrollbar-track { background:#1A1815; }
-        ::-webkit-scrollbar-thumb { background:#C0392B; border-radius:4px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb { background: #C62828; border-radius: 5px; }
+        
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="font-sans antialiased paper" x-data="site()">
+<body x-data="tjoKinApp()" class="antialiased font-sans" x-init="initApp()">
+    <div class="noise-overlay"></div>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
-<nav class="fixed top-0 inset-x-0 z-50 transition-all duration-500"
-     :class="scrolled ? 'glass shadow-md py-3' : 'bg-transparent py-6'">
-    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    <!-- Floating Proposal Widget -->
+    <a href="proposal.html" class="fixed top-6 right-6 z-50 glass-panel px-5 py-3 rounded-full flex items-center gap-3 retro-shadow cursor-pointer bg-white group">
+        <div class="w-8 h-8 rounded-full bg-vintage-red flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
+            <i class="ph-bold ph-file-pdf"></i>
+        </div>
+        <span class="font-bold text-sm">Buka Proposal B2B</span>
+    </a>
 
-        <!-- Logo -->
-        <a href="#hero" class="flex items-center gap-3 group">
-            <div class="w-10 h-10 bg-vermilion-600 text-white flex items-center justify-center font-serif font-bold text-xl rounded shadow-lg">
-                <span>祥</span>
+    <!-- Social Proof Engine -->
+    <div class="fixed bottom-6 left-6 z-50 flex flex-col gap-3 pointer-events-none">
+        <template x-for="toast in activeToasts" :key="toast.id">
+            <div class="glass-panel px-5 py-4 rounded-xl flex items-center gap-4 retro-shadow bg-white animate-toast border-l-4 border-l-vintage-red max-w-sm">
+                <div class="w-10 h-10 rounded-full bg-vintage-red/10 flex items-center justify-center text-vintage-red shrink-0">
+                    <i class="ph-fill ph-bell-ringing text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-bold" x-text="toast.title"></p>
+                    <p class="text-xs text-gray-600 mt-1" x-text="toast.desc"></p>
+                </div>
             </div>
+        </template>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-0 transition-all duration-300" :class="{'glass-panel py-3': scrolled, 'py-6': !scrolled}" @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="font-serif font-bold text-2xl tracking-tighter text-vintage-red">
+                TJO KIN.
+            </div>
+            <div class="hidden md:flex gap-8 font-semibold text-sm">
+                <a href="#menu" class="hover:text-vintage-red transition-colors">Menu Nostalgia</a>
+                <a href="#locations" class="hover:text-vintage-red transition-colors">Cabang Kami</a>
+                <a href="#virtual-queue" class="hover:text-vintage-red transition-colors">Virtual Queue</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden min-h-screen flex items-center">
+        <!-- Decor elements -->
+        <div class="absolute top-20 right-10 opacity-10 animate-spin-slow">
+            <i class="ph-fill ph-bowl-food text-9xl text-vintage-red"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             <div>
-                <p class="font-serif font-bold text-lg leading-none transition-colors" :class="scrolled ? 'text-ink-900' : 'text-white'">Bakmi Tjo Kin</p>
-                <p class="text-[9px] font-bold tracking-[.2em] uppercase transition-colors" :class="scrolled ? 'text-vermilion-600' : 'text-vermilion-400'">Since 1977 · Authentic Noodle</p>
-            </div>
-        </a>
-
-        <!-- Links -->
-        <div class="hidden lg:flex items-center gap-9 text-xs font-bold tracking-widest uppercase">
-            <template x-for="item in navItems" :key="item.href">
-                <a :href="item.href" class="transition-colors hover:text-vermilion-500"
-                   :class="scrolled ? 'text-ink-900/70' : 'text-white/80'"
-                   x-text="item.label"></a>
-            </template>
-        </div>
-
-        <!-- CTA -->
-        <div class="flex items-center gap-3">
-            <a href="https://goo.gl/maps/bakmiTjoKin" target="_blank"
-               class="hidden md:flex items-center gap-2 bg-vermilion-600 hover:bg-vermilion-700 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:shadow-lg hover:-translate-y-0.5">
-                <i class="ph-bold ph-map-pin text-base"></i>
-                Temukan Kami
-            </a>
-            <!-- Mobile Menu Toggle -->
-            <button class="lg:hidden text-white" :class="scrolled ? '!text-ink-900' : ''" @click="menu=!menu">
-                <i class="ph-bold ph-list text-2xl"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div x-show="menu" x-transition x-cloak class="lg:hidden glass border-t border-white/10 px-6 pt-4 pb-6 mt-3 space-y-4">
-        <template x-for="item in navItems" :key="item.href">
-            <a :href="item.href" @click="menu=false" class="block text-sm font-bold tracking-wider text-ink-900 hover:text-vermilion-600" x-text="item.label"></a>
-        </template>
-    </div>
-</nav>
-
-
-<!-- ============================================================
-     HERO
-============================================================ -->
-<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-    <!-- Background -->
-    <div class="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop"
-             alt="Semangkuk Bakmi Artisan" class="w-full h-full object-cover animate-pan"
-             style="filter:brightness(0.45) saturate(1.1);">
-        <div class="absolute inset-0" style="background:linear-gradient(170deg, rgba(74,14,14,0.6) 0%, rgba(10,8,8,0.3) 40%, rgba(10,8,8,0.85) 85%, #1A1815 100%);"></div>
-    </div>
-
-    <!-- Steam decorative elements -->
-    <div class="absolute bottom-[30%] left-[35%] w-4 h-16 bg-white/10 rounded-full blur-sm animate-steam1 pointer-events-none"></div>
-    <div class="absolute bottom-[30%] left-[37%] w-3 h-12 bg-white/10 rounded-full blur-sm animate-steam2 pointer-events-none"></div>
-
-    <!-- Content -->
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 px-4 py-1.5 rounded-full mb-8 reveal" x-intersect="$el.classList.add('in')">
-            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-            <span class="text-white/90 text-xs font-bold tracking-[.2em] uppercase">Melawai · Blok M · Jakarta Selatan</span>
-        </div>
-
-        <h1 class="font-serif text-5xl md:text-7xl lg:text-5xl lg:text-5xl lg:text-5xl lg:text-8xl font-bold text-white leading-[1.05] mb-6 reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.1s">
-            <em class="block font-normal italic text-vermilion-400 text-3xl md:text-4xl mb-3">Semangkuk</em>
-            Kenangan<br>Tak Pudar.
-        </h1>
-
-        <p class="text-white/70 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.2s">
-            Bakmi Tjo Kin mewarisi tradisi meracik mi kering artisan menggunakan <strong class="text-white font-semibold">resep rahasia 3 generasi</strong> — kuah kaldu sapi pekat, toping bakso homemade, dan pangsit goreng yang legendaris.
-        </p>
-
-        <div class="flex flex-wrap gap-4 justify-center reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.3s">
-            <a href="#menu" class="group flex items-center gap-3 bg-vermilion-600 hover:bg-vermilion-700 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm transition-all hover:shadow-[0_0_30px_rgba(192,57,43,.4)] hover:-translate-y-0.5">
-                Lihat Menu
-                <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform text-base"></i>
-            </a>
-            <a href="#cerita" class="flex items-center gap-3 border border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm transition-all">
-                <i class="ph-bold ph-book-open "></i>
-                Kisah Kami
-            </a>
-        </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-10 inset-x-0 flex justify-center">
-        <div class="flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors cursor-pointer" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">
-            <span class="text-[10px] font-bold tracking-[.3em] uppercase">Gulir</span>
-            <div class="w-px h-12 bg-gradient-to-b from-white/40 to-transparent"></div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     STATS BAR
-============================================================ -->
-<section id="stats" class="bg-vermilion-700 text-white py-10">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
-        <template x-for="s in stats" :key="s.label">
-            <div class="text-center px-4">
-                <p class="font-serif text-4xl font-bold mb-1" x-text="s.value"></p>
-                <p class="text-[10px] font-bold uppercase tracking-[.2em] text-vermilion-300" x-text="s.label"></p>
-            </div>
-        </template>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     MARQUEE TICKER
-============================================================ -->
-<div class="bg-ink-900 text-white py-3 overflow-hidden">
-    <div class="whitespace-nowrap animate-marquee inline-block text-xs font-bold uppercase tracking-[.15em] text-white/40">
-        <template x-for="i in 10">
-            <span class="inline-block mx-8">
-                ✦ Bakmi Kering &nbsp;✦ Pangsit Goreng &nbsp;✦ Bakso Spesial &nbsp;✦ Ayam Char Siu &nbsp;✦ Wonton Soup &nbsp;✦ Mi Yamin &nbsp;✦ Nasi Campur
-            </span>
-        </template>
-    </div>
-</div>
-
-
-<!-- ============================================================
-     CERITA KAMI (About / Heritage)
-============================================================ -->
-<section id="cerita" class="py-28 bg-ink-100">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-20 items-center">
-
-            <!-- Images collage -->
-            <div class="relative reveal-l" x-intersect="$el.classList.add('in')">
-                <div class="relative rounded-2xl overflow-hidden aspect-[4/5]">
-                    <img src="https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop"
-                         alt="Dapur Bakmi Tjo Kin" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-ink-900/60 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <p class="text-xs font-bold tracking-widest uppercase text-vermilion-400 mb-1">Dapur Kami</p>
-                        <p class="font-serif italic text-2xl">Tak ada rahasia, hanya cinta.</p>
-                    </div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-vintage-red text-vintage-red font-bold text-sm mb-6 bg-white retro-shadow">
+                    <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-vintage-red opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-vintage-red"></span>
+                    </span>
+                    Kini Hadir di 3 Lokasi
                 </div>
-
-                <!-- Floating badge -->
-                <div class="absolute -top-6 -right-6 bg-vermilion-600 text-white p-5 rounded-2xl shadow-2xl hidden md:block">
-                    <div class="stamp text-white w-20 h-20 text-center" style="border-color:rgba(255,255,255,.5)">
-                        <span class="text-[9px] leading-tight">Sejak</span>
-                        <span class="font-bold text-2xl leading-none">1977</span>
-                    </div>
-                </div>
-
-                <!-- Small secondary image -->
-                <div class="absolute -bottom-8 -right-8 hidden md:block w-44 h-44 rounded-xl overflow-hidden border-4 border-ink-100 shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop"
-                         alt="Pembuatan Mi" class="w-full h-full object-cover">
-                </div>
-            </div>
-
-            <!-- Text -->
-            <div class="reveal-r" x-intersect="$el.classList.add('in')">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="h-px w-12 bg-vermilion-600"></div>
-                    <span class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-600">Warisan & Kisah</span>
-                </div>
-
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink-900 leading-tight mb-6">
-                    Tiga Generasi,<br>Satu<em class="italic text-vermilion-600"> Mangkuk.</em>
-                </h2>
-
-                <p class="text-ink-900/70 leading-relaxed mb-4 text-[15px]">
-                    Bermula dari sebuah gerobak kecil di sudut Pasar Melawai pada tahun <strong>1977</strong>, Tjo Kin — seorang perantau asal Bangka — membawa serta resep mi kering warisan nenek moyangnya. Kuah kaldu sapinya direbus selama 8 jam, tanpa penyedap instan, hanya mengandalkan kesabaran dan cincangan rempah pilihan.
+                <h1 class="font-serif text-5xl md:text-7xl font-bold leading-tight mb-6">
+                    Mangkuk Klasik,<br>
+                    <span class="text-vintage-red">Kenangan Otentik.</span>
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
+                    Lebih dari sekadar bakmi. Bakmi Tjo Kin menyajikan warisan resep turun-temurun dengan nuansa nostalgia di setiap suapannya.
                 </p>
-
-                <p class="text-ink-900/70 leading-relaxed mb-8 text-[15px]">
-                    Kini, di bawah tangan generasi ketiga, Bakmi Tjo Kin tetap menjaga esensi itu — sambil membuka pintu lebih lebar bagi pelanggan di kawasan Blok M yang semakin dinamis. <strong class="text-ink-900">Rating 4.5 bintang</strong> dari ribuan ulasan adalah bukti bahwa tradisi yang dijaga dengan jujur tidak pernah gagal.
-                </p>
-
-                <!-- Values -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <template x-for="val in values" :key="val.title">
-                        <div class="flex items-start gap-3 bg-white p-4 rounded-xl border border-ink-200">
-                            <div class="w-8 h-8 bg-vermilion-600/10 text-vermilion-600 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
-                                <span x-text="val.icon"></span>
-                            </div>
-                            <div>
-                                <p class="font-bold text-xs mb-0.5 text-ink-900" x-text="val.title"></p>
-                                <p class="text-[11px] text-ink-900/60 leading-snug" x-text="val.desc"></p>
-                            </div>
-                        </div>
-                    </template>
+                <div class="flex flex-wrap gap-4">
+                    <button @click="scrollTo('virtual-queue')" class="px-8 py-4 bg-vintage-red text-white font-bold rounded-lg retro-shadow flex items-center gap-2">
+                        Ambil Antrean Virtual <i class="ph-bold ph-ticket"></i>
+                    </button>
+                    <button @click="scrollTo('menu')" class="px-8 py-4 bg-white border-2 border-vintage-dark text-vintage-dark font-bold rounded-lg retro-shadow">
+                        Lihat Menu
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     MENU UNGGULAN
-============================================================ -->
-<section id="menu" class="py-28 bg-ink-900 text-white">
-    <div class="max-w-7xl mx-auto px-6">
-
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 reveal" x-intersect="$el.classList.add('in')">
-            <div>
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="h-px w-12 bg-vermilion-500"></div>
-                    <span class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-400">Menu Pilihan</span>
-                </div>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-white">Meracik yang Terbaik.</h2>
-            </div>
-            <p class="text-white/50 text-sm max-w-xs mt-4 md:mt-0 leading-relaxed">Setiap hidangan menggunakan bahan segar pilihan, diproses di dapur kami sendiri setiap pagi.</p>
-        </div>
-
-        <!-- Menu Grid -->
-        <div class="grid md:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8">
-            <template x-for="item in menuItems" :key="item.name">
-                <div class="menu-card group rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/10 transition-colors"
-                     x-intersect="$el.classList.add('in')" class="reveal">
-                    <div class="relative overflow-hidden aspect-[4/3]">
-                        <img :src="item.img" :alt="item.name" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-ink-900/90 to-transparent"></div>
-                        <div class="absolute top-3 left-3">
-                            <span x-show="item.tag" class="bg-vermilion-600 text-white text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded" x-text="item.tag"></span>
-                        </div>
-                        <div class="absolute bottom-4 left-5 right-5">
-                            <p class="font-serif text-xl font-bold text-white" x-text="item.name"></p>
-                            <p class="text-white/60 text-xs mt-1" x-text="item.desc"></p>
-                        </div>
-                    </div>
-                    <div class="p-5 flex justify-between items-center">
+            
+            <div class="relative">
+                <div class="w-full aspect-square rounded-2xl overflow-hidden border-4 border-vintage-dark retro-shadow relative" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                    <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?q=80&w=1000&auto=format&fit=crop" alt="Bakmi Tjo Kin" class="w-full h-full object-cover">
+                    <div class="absolute bottom-6 left-6 right-6 glass-panel p-4 rounded-xl flex justify-between items-center text-white bg-vintage-dark/80 backdrop-blur-md border-white/10">
                         <div>
-                            <span class="text-[10px] text-white/40 uppercase tracking-widest">Harga mulai</span>
-                            <p class="font-mono font-bold text-lg text-white" x-text="item.price"></p>
+                            <p class="font-bold">Rating Google</p>
+                            <div class="flex text-vintage-gold text-sm mt-1">
+                                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+                                <span class="text-white ml-2">4.8 (2K+ Reviews)</span>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-1 text-yellow-400">
-                            <i class="ph-fill ph-star text-sm"></i>
-                            <span class="text-xs font-bold text-white/70" x-text="item.rating"></span>
+                        <div class="w-12 h-12 rounded-full bg-vintage-red flex items-center justify-center">
+                            <i class="ph-fill ph-heart text-xl"></i>
                         </div>
                     </div>
                 </div>
-            </template>
-        </div>
-
-        <!-- Full Menu CTA -->
-        <div class="text-center mt-12 reveal" x-intersect="$el.classList.add('in')">
-            <p class="text-white/40 text-sm mb-6">Dan masih banyak pilihan lainnya yang menanti&hellip;</p>
-            <a href="https://wa.me/6281299388410?text=Halo%20Bakmi%20Tjo%20Kin%2C%20boleh%20minta%20menu%20lengkap%3F" target="_blank"
-               class="inline-flex items-center gap-3 border border-white/20 hover:border-vermilion-500 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm transition-all hover:bg-vermilion-600/20">
-                <i class="ph-fill ph-whatsapp-logo text-[#25D366] text-xl"></i>
-                Minta Menu Lengkap via WhatsApp
-            </a>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     KEUNGGULAN / WHY US
-============================================================ -->
-<section id="keunggulan" class="py-28 bg-ink-100">
-    <div class="max-w-7xl mx-auto px-6">
-
-        <div class="text-center max-w-2xl mx-auto mb-16 reveal" x-intersect="$el.classList.add('in')">
-            <div class="flex items-center justify-center gap-4 mb-4">
-                <div class="h-px w-12 bg-vermilion-600"></div>
-                <span class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-600">Mengapa Kami Beda</span>
-                <div class="h-px w-12 bg-vermilion-600"></div>
             </div>
-            <h2 class="font-serif text-4xl md:text-5xl font-bold text-ink-900 leading-tight">Dibuat dengan Protokol, Bukan Hanya Tradisi.</h2>
         </div>
+    </section>
 
-        <div class="grid md:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6">
-            <template x-for="(feat, idx) in features" :key="feat.title">
-                <div class="bg-white p-8 rounded-2xl border border-ink-200 hover:border-vermilion-400 hover:shadow-xl transition-all group reveal"
-                     x-intersect="$el.classList.add('in')" :style="`transition-delay:${idx * .08}s`">
-                    <div class="w-12 h-12 bg-vermilion-600/10 group-hover:bg-vermilion-600 text-vermilion-600 group-hover:text-white rounded-xl flex items-center justify-center text-2xl mb-5 transition-colors" x-text="feat.icon"></div>
-                    <h3 class="font-bold text-ink-900 mb-2 text-lg group-hover:text-vermilion-600 transition-colors" x-text="feat.title"></h3>
-                    <p class="text-sm text-ink-900/60 leading-relaxed" x-text="feat.desc"></p>
-                </div>
-            </template>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     SMART QUEUE SYSTEM (Fitur Spektakuler)
-============================================================ -->
-<section id="antri" class="py-28 bg-ink-900 text-white relative overflow-hidden" x-data="queueSim()">
-    <!-- BG Effects -->
-    <div class="absolute -right-40 top-20 w-[500px] h-[500px] rounded-full bg-vermilion-700/20 blur-[100px] pointer-events-none"></div>
-    <div class="absolute -left-40 bottom-20 w-[400px] h-[400px] rounded-full bg-gold/10 blur-[100px] pointer-events-none"></div>
-
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-20 items-center">
-
-            <!-- Left: Feature details -->
-            <div class="reveal-l" x-intersect="$el.classList.add('in')">
-                <div class="inline-flex items-center gap-2 bg-vermilion-600/20 border border-vermilion-600/40 text-vermilion-400 px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-[.2em] mb-6">
-                    <i class="ph-bold ph-rocket-launch "></i> Fitur Canggih Eksklusif
-                </div>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">Smart Virtual<br>Waitlist System.</h2>
-                <p class="text-white/60 leading-relaxed mb-10 text-[15px]">
-                    Sistem antrean digital cerdas yang memungkinkan pelanggan mendaftar secara online, memantau posisi antrian real-time dari genggaman tangan, lalu menerima notifikasi WhatsApp otomatis saat meja dengan kuah hangat sudah menunggu mereka.
-                </p>
-
-                <div class="space-y-4 mb-10">
-                    <template x-for="benefit in benefits" :key="benefit.text">
-                        <div class="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                            <div class="w-8 h-8 rounded bg-vermilion-600/20 text-vermilion-400 flex items-center justify-center flex-shrink-0 text-sm font-bold"
-                                 x-text="benefit.icon"></div>
+    <!-- Branch Locations & Real-time Status -->
+    <section id="locations" class="py-20 px-6 bg-vintage-dark text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl font-bold mb-4">Pilih Cabang Terdekat</h2>
+                <p class="text-gray-400">Status antrean di-update secara real-time untuk kenyamanan Anda.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <template x-for="branch in branches" :key="branch.id">
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors cursor-pointer group" @click="selectBranch(branch.id)">
+                        <div class="flex justify-between items-start mb-6">
                             <div>
-                                <p class="font-bold text-sm mb-0.5" x-text="benefit.title"></p>
-                                <p class="text-xs text-white/50 leading-relaxed" x-text="benefit.text"></p>
+                                <h3 class="font-serif text-2xl font-bold text-vintage-red" x-text="branch.name"></h3>
+                                <p class="text-sm text-gray-400 mt-1" x-text="branch.address"></p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="ph-fill ph-map-pin text-xl"></i>
                             </div>
                         </div>
-                    </template>
-                </div>
-            </div>
-
-            <!-- Right: Interactive Widget -->
-            <div class="reveal-r" x-intersect="$el.classList.add('in')">
-                <div class="bg-white rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,.5)]">
-                    <!-- App Bar -->
-                    <div class="flex items-center justify-between bg-ink-100 px-6 py-4 border-b border-ink-200">
-                        <div class="flex items-center gap-2">
-                            <div class="w-5 h-5 bg-vermilion-600 rounded flex items-center justify-center">
-                                <i class="ph-bold ph-ticket text-[10px] text-white"></i>
+                        
+                        <div class="bg-black/30 rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-gray-300">Estimasi Antrean</span>
+                                <span class="text-xs font-bold px-2 py-1 rounded bg-vintage-red/20 text-vintage-red" x-text="branch.status"></span>
                             </div>
-                            <span class="font-bold text-ink-900 text-sm">Waitlist Bakmi Tjo Kin</span>
-                        </div>
-                        <div class="flex gap-1.5">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                            <div class="flex items-end gap-2">
+                                <span class="text-3xl font-bold" x-text="branch.queueCount"></span>
+                                <span class="text-gray-400 mb-1">Meja Menunggu</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="p-8">
-                        <!-- State: FORM -->
-                        <div x-show="state==='form'">
-                            <!-- Live Counter -->
-                            <div class="text-center mb-7 bg-ink-900 rounded-2xl p-5">
-                                <p class="text-[10px] font-bold uppercase tracking-[.2em] text-white/40 mb-2">Sedang Dilayani</p>
-                                <div class="font-mono text-5xl font-bold text-vermilion-400 leading-none" x-text="serving"></div>
-                                <p class="text-[11px] text-white/40 mt-2 flex items-center justify-center gap-1">
-                                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block"></span>
-                                    <span x-text="queue + ' dalam antrean'"></span>
-                                </p>
-                            </div>
-
-                            <!-- Form Fields -->
-                            <div class="space-y-4 mb-6">
-                                <div>
-                                    <label class="text-[10px] font-bold uppercase tracking-widest text-ink-900/50 block mb-1.5">Nama Pemesan</label>
-                                    <input x-model="name" type="text" placeholder="Contoh: Budi Santoso"
-                                           class="w-full bg-ink-100 border-2 border-ink-200 focus:border-vermilion-500 rounded-xl px-4 py-3 text-ink-900 text-sm outline-none transition-colors font-medium">
-                                </div>
-                                <div>
-                                    <label class="text-[10px] font-bold uppercase tracking-widest text-ink-900/50 block mb-1.5">Jumlah Tamu</label>
-                                    <div class="flex gap-2">
-                                        <template x-for="n in [1,2,3,4,5,6]">
-                                            <button @click="guests=n"
-                                                    :class="guests===n ? 'bg-vermilion-600 text-white border-vermilion-600' : 'bg-ink-100 border-ink-200 text-ink-900'"
-                                                    class="flex-1 border-2 rounded-lg py-2.5 text-sm font-bold transition-colors"
-                                                    x-text="n+'+'"></button>
-                                        </template>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button @click="submitQueue()" :disabled="!name.trim()"
-                                    class="w-full bg-vermilion-600 hover:bg-vermilion-700 disabled:opacity-40 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold uppercase tracking-wider text-sm transition-all flex items-center justify-center gap-2">
-                                <i class="ph-bold ph-ticket "></i>
-                                Ambil Nomor Antrean
-                            </button>
-                        </div>
-
-                        <!-- State: TICKET -->
-                        <div x-show="state==='ticket'" x-cloak x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
-                            <div class="text-center mb-4">
-                                <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded-full text-xs font-bold mb-4">
-                                    <i class="ph-fill ph-check-circle "></i> Antrean Berhasil
-                                </div>
-                            </div>
-
-                            <!-- Physical Ticket Design -->
-                            <div class="border-2 border-dashed border-ink-300 rounded-2xl p-6 text-center bg-ink-100 relative mb-6">
-                                <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-2 border-ink-200"></div>
-                                <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full border-2 border-ink-200"></div>
-
-                                <p class="text-[10px] font-bold tracking-[.25em] uppercase text-ink-900/40 mb-3">Nomor Antrean Anda</p>
-                                <div class="font-mono text-7xl font-bold text-vermilion-600 leading-none mb-3" x-text="myNumber"></div>
-                                <p class="text-xs text-ink-900/60 mb-5">
-                                    Halo, <strong x-text="name"></strong>! (<span x-text="guests"></span> tamu)<br>
-                                    Estimasi tunggu: ~<span x-text="waiting * 5" class="font-bold text-ink-900"></span> menit
-                                </p>
-                                <div class="bg-ink-200/50 rounded-xl p-3 flex items-start gap-3 text-left">
-                                    <i class="ph-fill ph-whatsapp-logo text-[#25D366] text-2xl flex-shrink-0"></i>
-                                    <p class="text-[11px] text-ink-900/70 leading-snug">Notifikasi WhatsApp akan dikirim otomatis 5 menit sebelum giliran Anda tiba. Silakan berjalan-jalan di kawasan M-Bloc!</p>
-                                </div>
-                            </div>
-
-                            <button @click="state='form'; name=''; guests=2; myNumber=''; waiting=0"
-                                    class="w-full border-2 border-ink-200 hover:border-vermilion-500 text-ink-900 py-3 rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2">
-                                <i class="ph-bold ph-arrow-counter-clockwise "></i>
-                                Simulasi Ulang
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     TESTIMONI
-============================================================ -->
-<section id="ulasan" class="py-28 bg-ink-100">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
-            <div class="flex items-center justify-center gap-4 mb-4">
-                <div class="h-px w-12 bg-vermilion-600"></div>
-                <span class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-600">Suara Pelanggan</span>
-                <div class="h-px w-12 bg-vermilion-600"></div>
-            </div>
-            <h2 class="font-serif text-4xl font-bold text-ink-900">Ribuan Pelanggan, Satu Nada.</h2>
-            <div class="flex items-center justify-center gap-1 mt-4">
-                <template x-for="i in 5">
-                    <i class="ph-fill ph-star text-yellow-400 text-xl"></i>
                 </template>
-                <span class="font-bold text-ink-900 ml-2 text-sm">4.5 / 5.0</span>
-                <span class="text-ink-900/40 text-sm ml-1">· 1.200+ ulasan di Google</span>
             </div>
         </div>
+    </section>
 
-        <div class="grid md:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6">
-            <template x-for="(t, i) in testimonials" :key="i">
-                <div class="bg-white p-7 rounded-2xl border border-ink-200 hover:shadow-lg transition-shadow reveal"
-                     x-intersect="$el.classList.add('in')" :style="`transition-delay:${i*.1}s`">
-                    <div class="flex gap-0.5 mb-4">
-                        <template x-for="s in t.stars"><i class="ph-fill ph-star text-yellow-400 text-sm"></i></template>
-                    </div>
-                    <p class="text-ink-900/80 leading-relaxed text-sm italic mb-5" x-text="`"${t.text}"`"></p>
-                    <div class="flex items-center gap-3 border-t border-ink-100 pt-4">
-                        <div class="w-9 h-9 rounded-full bg-vermilion-600/10 text-vermilion-600 flex items-center justify-center font-bold text-sm" x-text="t.name[0]"></div>
-                        <div>
-                            <p class="font-bold text-sm text-ink-900" x-text="t.name"></p>
-                            <p class="text-[10px] text-ink-900/40" x-text="t.date"></p>
-                        </div>
-                        <div class="ml-auto">
-                            <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="Google" class="w-5 h-5 opacity-30">
-                        </div>
-                    </div>
-                </div>
-            </template>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     GALERI ATMOSFER
-============================================================ -->
-<section id="galeri" class="py-8 bg-ink-900 overflow-hidden">
-    <div class="flex gap-4 w-[200%] animate-marquee" style="animation-duration:40s;">
-        <template x-for="img in galleryImages.concat(galleryImages)" :key="img+Math.random()">
-            <div class="flex-shrink-0 w-64 h-48 rounded-2xl overflow-hidden">
-                <img :src="img" alt="Suasana Bakmi Tjo Kin" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
-            </div>
-        </template>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     LOKASI & KONTAK
-============================================================ -->
-<section id="kontak" class="py-28 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-start">
-
-            <div class="reveal-l" x-intersect="$el.classList.add('in')">
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="h-px w-12 bg-vermilion-600"></div>
-                    <span class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-600">Temukan Kami</span>
-                </div>
-                <h2 class="font-serif text-4xl font-bold text-ink-900 mb-8">Kunjungi Kami<br>Hari Ini.</h2>
-
-                <div class="space-y-5">
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 bg-vermilion-600/10 text-vermilion-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ph-fill ph-map-pin text-lg"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-ink-900 mb-1">Alamat</p>
-                            <p class="text-ink-900/60 text-sm leading-relaxed">Kawasan Melawai, Blok M,<br>Jakarta Selatan, DKI Jakarta</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 bg-vermilion-600/10 text-vermilion-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ph-fill ph-clock text-lg"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-ink-900 mb-1">Jam Operasional</p>
-                            <p class="text-ink-900/60 text-sm">Senin – Minggu: 10.00 – 21.00 WIB</p>
-                            <p class="text-xs text-vermilion-600 font-bold mt-0.5">Antrean biasanya penuh mulai pukul 12.00 & 18.00</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 bg-[#25D366]/10 text-[#25D366] rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ph-fill ph-whatsapp-logo text-lg"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-ink-900 mb-1">WhatsApp</p>
-                            <a href="https://wa.me/6281299388410" target="_blank" class="text-[#25D366] font-bold text-sm hover:underline">+62 812-9938-8410</a>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ph-fill ph-instagram-logo text-lg"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-ink-900 mb-1">Instagram</p>
-                            <a href="https://instagram.com/bakmietjokin" target="_blank" class="text-pink-600 font-bold text-sm hover:underline">@bakmietjokin</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Map placeholder -->
-                <div class="mt-8 rounded-2xl overflow-hidden border-2 border-ink-200 h-48 bg-ink-100 flex items-center justify-center relative">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.285!2d106.796!3d-6.244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTQnMzguNCJTIDEwNsKwNDcnNDUuNiJF!5e0!3m2!1sid!2sid!4v1234567890"
-                        class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-
-            <!-- Quick Reservation Form -->
-            <div class="bg-ink-900 text-white p-8 md:p-10 rounded-3xl reveal-r" x-intersect="$el.classList.add('in')">
-                <p class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-400 mb-2">Hubungi Kami</p>
-                <h3 class="font-serif text-3xl font-bold mb-2">Ada yang Bisa<br>Kami Bantu?</h3>
-                <p class="text-white/50 text-sm mb-8">Untuk pemesanan massal, katering kantor, atau pertanyaan umum.</p>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-1.5">Nama Lengkap</label>
-                        <input type="text" placeholder="Nama Anda" class="w-full bg-white/10 border border-white/20 focus:border-vermilion-500 rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors placeholder-white/30">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-1.5">Nomor WhatsApp</label>
-                        <input type="tel" placeholder="08xxx" class="w-full bg-white/10 border border-white/20 focus:border-vermilion-500 rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors placeholder-white/30">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-1.5">Keperluan</label>
-                        <select class="w-full bg-white/10 border border-white/20 focus:border-vermilion-500 rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors appearance-none">
-                            <option value="" class="bg-ink-900">Pilih keperluan</option>
-                            <option class="bg-ink-900">Pemesanan Katering Kantor</option>
-                            <option class="bg-ink-900">Reservasi Group (10+ Pax)</option>
-                            <option class="bg-ink-900">Pertanyaan Menu</option>
-                            <option class="bg-ink-900">Lainnya</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-1.5">Pesan</label>
-                        <textarea rows="3" placeholder="Ceritakan kebutuhan Anda…" class="w-full bg-white/10 border border-white/20 focus:border-vermilion-500 rounded-xl px-4 py-3 text-white text-sm outline-none transition-colors placeholder-white/30 resize-none"></textarea>
-                    </div>
-                    <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Bakmi%20Tjo%20Kin%20ingin%20diskusi%20Smart%20Queue%20System" target="_blank"
-                       class="flex items-center justify-center gap-3 w-full bg-[#25D366] hover:bg-[#1DAA55] text-white py-4 rounded-xl font-bold uppercase tracking-wider text-sm transition-colors">
-                        <i class="ph-fill ph-whatsapp-logo text-lg"></i>
-                        Hubungi CocoTech via WhatsApp
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer class="bg-ink-900 text-white border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-12">
-        <div>
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-9 h-9 bg-vermilion-600 rounded flex items-center justify-center font-serif font-bold text-lg">祥</div>
+    <!-- Virtual Queue Engine (The Killer Feature) -->
+    <section id="virtual-queue" class="py-24 px-6 relative border-b border-vintage-border">
+        <div class="max-w-4xl mx-auto glass-panel p-8 md:p-12 rounded-3xl retro-shadow relative bg-white overflow-hidden">
+            <!-- decorative background -->
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-vintage-red/5 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <p class="font-serif font-bold">Bakmi Tjo Kin</p>
-                    <p class="text-[9px] tracking-[.2em] text-vermilion-400 uppercase">Since 1977</p>
+                    <div class="w-14 h-14 rounded-2xl bg-vintage-red text-white flex items-center justify-center mb-6 retro-shadow">
+                        <i class="ph-bold ph-ticket text-2xl"></i>
+                    </div>
+                    <h2 class="font-serif text-4xl font-bold mb-4">Virtual Waiting List</h2>
+                    <p class="text-gray-600 mb-6">Jangan habiskan waktu berdiri di luar kedai. Pesan tempat duduk Anda dari mana saja, dan kami akan memanggil saat meja siap.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-sm font-semibold">
+                            <i class="ph-fill ph-check-circle text-vintage-red text-xl"></i> Pantau nomor antrean live
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-semibold">
+                            <i class="ph-fill ph-check-circle text-vintage-red text-xl"></i> Notifikasi via WhatsApp
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-semibold">
+                            <i class="ph-fill ph-check-circle text-vintage-red text-xl"></i> Pre-order menu otomatis
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-vintage-bg p-6 rounded-2xl border border-vintage-border">
+                    <form @submit.prevent="submitQueue" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Pilih Cabang</label>
+                            <select x-model="booking.branch" class="w-full px-4 py-3 rounded-lg border-2 border-vintage-dark bg-white focus:outline-none focus:ring-2 focus:ring-vintage-red font-semibold">
+                                <template x-for="b in branches">
+                                    <option :value="b.id" x-text="b.name"></option>
+                                </template>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Jumlah Orang (Pax)</label>
+                            <div class="flex items-center gap-4">
+                                <button type="button" @click="if(booking.pax > 1) booking.pax--" class="w-12 h-12 rounded-lg border-2 border-vintage-dark flex items-center justify-center font-bold retro-shadow bg-white hover:bg-gray-50">-</button>
+                                <div class="flex-1 text-center font-bold text-xl" x-text="booking.pax"></div>
+                                <button type="button" @click="if(booking.pax < 10) booking.pax++" class="w-12 h-12 rounded-lg border-2 border-vintage-dark flex items-center justify-center font-bold retro-shadow bg-white hover:bg-gray-50">+</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Nama Pemesan</label>
+                            <input type="text" x-model="booking.name" required class="w-full px-4 py-3 rounded-lg border-2 border-vintage-dark bg-white focus:outline-none focus:ring-2 focus:ring-vintage-red font-semibold" placeholder="Budi Santoso">
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-vintage-red text-white font-bold rounded-lg retro-shadow mt-4 hover:bg-red-800 transition-colors">
+                            Ambil Nomor Antrean (WhatsApp)
+                        </button>
+                    </form>
                 </div>
             </div>
-            <p class="text-white/40 text-sm leading-relaxed">Mewarisi tradisi mi kering artisan 3 generasi, dihidangkan dengan hati untuk pelanggan setia Blok M dan sekitarnya.</p>
         </div>
-        <div>
-            <p class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-5">Navigasi</p>
-            <ul class="space-y-3">
-                <template x-for="item in navItems"><li><a :href="item.href" class="text-sm text-white/60 hover:text-white transition-colors" x-text="item.label"></a></li></template>
-            </ul>
-        </div>
-        <div>
-            <p class="text-xs font-bold uppercase tracking-[.2em] text-white/40 mb-5">Ikuti Kami</p>
-            <a href="https://instagram.com/bakmietjokin" target="_blank" class="flex items-center gap-3 text-sm text-white/60 hover:text-white transition-colors mb-3">
-                <i class="ph-fill ph-instagram-logo text-xl text-pink-400"></i> @bakmietjokin
-            </a>
-            <a href="https://wa.me/6281299388410" target="_blank" class="flex items-center gap-3 text-sm text-white/60 hover:text-white transition-colors">
-                <i class="ph-fill ph-whatsapp-logo text-xl text-[#25D366]"></i> +62 812-9938-8410
-            </a>
-        </div>
-    </div>
-    <div class="border-t border-white/10 py-6 max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3">
-        <p class="text-white/30 text-xs">&copy; 2026 Bakmi Tjo Kin. Hak Cipta Dilindungi.</p>
-        <p class="text-white/20 text-xs">Website ini adalah purwarupa dari <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">CocoTech</a> &mdash; IT Agency terpercaya Indonesia.</p>
-    </div>
-</footer>
+    </section>
 
-
-<!-- ============================================================
-     PENAWARAN COCOTECH (PALING BAWAH — AFTER FOOTER)
-============================================================ -->
-<section id="penawaran" class="bg-gradient-to-br from-ink-900 via-vermilion-900 to-ink-900 border-t-4 border-vermilion-600 text-white" x-data="countdownTimer()">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-
-        <!-- Header -->
-        <div class="text-center mb-16 reveal" x-intersect="$el.classList.add('in')">
-            <div class="inline-flex items-center gap-2 bg-vermilion-600/30 border border-vermilion-600/50 text-vermilion-300 text-[10px] font-bold uppercase tracking-[.2em] px-4 py-1.5 rounded-full mb-6">
-                <i class="ph-fill ph-shield-check "></i> Ditujukan Eksklusif untuk Manajemen Bakmi Tjo Kin
-            </div>
-            <p class="text-white/50 text-sm font-bold uppercase tracking-widest mb-3">Dari <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">CocoTech Digital Agency</a></p>
-            <h2 class="font-serif text-4xl md:text-4xl md:text-4xl md:text-4xl md:text-6xl font-bold leading-tight mb-6">
-                Website ini<br><em class="italic text-vermilion-400">Dibuat Gratis</em><br>untuk Anda.
-            </h2>
-            <p class="text-white/60 max-w-xl mx-auto leading-relaxed">
-                Seluruh desain, fitur Smart Queue, dan seluruh halaman ini kami rancang khusus untuk Bakmi Tjo Kin — tanpa biaya di muka. Kami hanya meminta percakapan 10 menit untuk menunjukkan potensinya. Tim <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;text-decoration:underline;">CocoTech</a> sangat berpengalaman menangani 50+ klien digital — dari UMKM hingga fine dining Asia's 50 Best. Tim CocoTech sangat berpengalaman menangani 50+ klien digital dari UMKM hingga fine dining Asia's 50 Best. Kunjungi <a href="https://cocotech.studio" target="_blank" style="color:inherit;font-weight:bold;text-decoration:underline;">cocotech.studio</a> untuk portofolio kami.
-            </p>
-        </div>
-
-        <!-- 3 Proposal Points -->
-        <div class="grid md:grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 mb-16 reveal" x-intersect="$el.classList.add('in')">
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-vermilion-500 transition-colors">
-                <div class="text-4xl mb-4">🎫</div>
-                <h3 class="font-bold text-lg mb-2">Smart Queue Live</h3>
-                <p class="text-white/50 text-sm leading-relaxed">Sistem antrean digital yang menghilangkan kemacetan fisik di depan toko dan mengumpulkan database nomor WA pelanggan.</p>
-            </div>
-            <div class="bg-vermilion-600/20 border border-vermilion-500/50 rounded-2xl p-6 text-center">
-                <div class="text-4xl mb-4">📱</div>
-                <h3 class="font-bold text-lg mb-2">Company Profile Premium</h3>
-                <p class="text-white/50 text-sm leading-relaxed">Website ini (yang sedang Anda baca) menjadi identitas digital resmi Bakmi Tjo Kin yang bisa ditemukan di Google.</p>
-            </div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-vermilion-500 transition-colors">
-                <div class="text-4xl mb-4">📣</div>
-                <h3 class="font-bold text-lg mb-2">WhatsApp Broadcast CRM</h3>
-                <p class="text-white/50 text-sm leading-relaxed">Database dari sistem antrean dipakai untuk kampanye promosi bulanan melalui broadcast WA otomatis.</p>
-            </div>
-        </div>
-
-        <!-- Pricing + Timer -->
-        <div class="bg-black/30 backdrop-blur border border-white/10 rounded-3xl p-8 md:p-12 reveal" x-intersect="$el.classList.add('in')">
-            <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <!-- Smart Menu Directory -->
+    <section id="menu" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                 <div>
-                    <p class="text-xs font-bold uppercase tracking-[.2em] text-vermilion-400 mb-2">Tier 2 — Advanced Ops System</p>
-                    <h3 class="font-serif text-5xl font-bold mb-2">
-                        <s class="text-white/30 text-3xl">Rp 10.000.000</s><br>
-                        Rp 5.500.000
-                    </h3>
-                    <p class="text-white/50 text-sm mb-6">One-time setup · Termasuk 1 tahun hosting & support</p>
-
-                    <!-- DP Box -->
-                    <div class="bg-vermilion-600 rounded-2xl p-5 mb-6">
-                        <p class="text-[10px] font-bold uppercase tracking-[.2em] text-white/70 mb-1">Skema Down Payment</p>
-                        <p class="font-mono text-3xl font-bold">Rp 1.650.000</p>
-                        <p class="text-sm text-white/80 mt-1">= DP 30% &middot; Sistem langsung dibangun setelah DP diterima</p>
-                    </div>
-
-                    <div class="flex flex-wrap gap-3">
-                        <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20tertarik%20dengan%20proposal%20Bakmi%20Tjo%20Kin"
-                           target="_blank"
-                           class="flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1DAA55] text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-wide transition-colors">
-                            <i class="ph-fill ph-whatsapp-logo "></i> Chat CocoTech
-                        </a>
-                        <a href="proposal.html" target="_blank"
-                           class="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-wide transition-colors">
-                            <i class="ph-fill ph-file-pdf text-red-400"></i> Buka Proposal
-                        </a>
-                    </div>
+                    <h2 class="font-serif text-4xl font-bold mb-4">Menu Nostalgia</h2>
+                    <p class="text-gray-600">Jelajahi sajian klasik kami, dibuat fresh setiap hari.</p>
                 </div>
-
-                <!-- Countdown Timer -->
-                <div class="text-center">
-                    <p class="text-[10px] font-bold uppercase tracking-[.3em] text-white/40 mb-4">Penawaran Khusus Berlaku</p>
-                    <div class="flex justify-center items-center gap-3">
-                        <div class="bg-white/10 border border-white/10 rounded-2xl p-5 w-24 text-center">
-                            <div class="font-mono text-4xl font-bold" x-text="hours"></div>
-                            <div class="text-[9px] text-white/40 uppercase tracking-widest mt-1 font-bold">Jam</div>
-                        </div>
-                        <div class="text-3xl text-white/30 font-bold">:</div>
-                        <div class="bg-white/10 border border-white/10 rounded-2xl p-5 w-24 text-center">
-                            <div class="font-mono text-4xl font-bold" x-text="mins"></div>
-                            <div class="text-[9px] text-white/40 uppercase tracking-widest mt-1 font-bold">Menit</div>
-                        </div>
-                        <div class="text-3xl text-white/30 font-bold">:</div>
-                        <div class="bg-vermilion-600 border border-vermilion-500 rounded-2xl p-5 w-24 text-center shadow-[0_0_30px_rgba(192,57,43,.4)]">
-                            <div class="font-mono text-4xl font-bold" x-text="secs"></div>
-                            <div class="text-[9px] text-white/80 uppercase tracking-widest mt-1 font-bold">Detik</div>
-                        </div>
-                    </div>
-                    <p class="text-white/30 text-xs mt-4">Penawaran ini tidak diperpanjang.</p>
-
-                    <!-- Testimonial closing -->
-                    <div class="mt-8 bg-white/5 rounded-xl p-5 text-left border border-white/10">
-                        <p class="text-sm italic text-white/70 leading-relaxed">"Sebelumnya antrean selalu berantakan setiap akhir pekan. Dengan sistem digital, staf kami bisa fokus memasak bukan mengatur antrean."</p>
-                        <p class="text-xs font-bold text-vermilion-400 mt-3">— Klien CocoTech, Restoran F&B Jakarta Selatan</p>
-                    </div>
+                
+                <!-- Filters -->
+                <div class="flex gap-2 bg-white p-1 border-2 border-vintage-dark rounded-xl retro-shadow overflow-x-auto">
+                    <template x-for="cat in categories" :key="cat.id">
+                        <button @click="activeCategory = cat.id" 
+                                class="px-5 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors"
+                                :class="activeCategory === cat.id ? 'bg-vintage-red text-white' : 'hover:bg-gray-100'">
+                            <span x-text="cat.label"></span>
+                        </button>
+                    </template>
                 </div>
             </div>
-        </div>
 
-        <p class="text-center text-white/20 text-xs mt-8">CocoTech Digital · 081283321577 · nurcahyapriantoro23@gmail.com</p>
-    </div>
-</section>
-
-
-<!-- Floating Chat Bot -->
-<div x-data="chatBot()" @scroll.window="check()" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-    <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 scale-95" x-transition:enter-end="opacity-100 translate-y-0 scale-100" class="bg-white border-2 border-ink-900 rounded-2xl shadow-2xl w-80 mb-4 overflow-hidden">
-        <div class="bg-ink-900 px-5 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="relative"><div class="w-9 h-9 bg-vermilion-600 rounded-full flex items-center justify-center font-bold text-white text-xs">CT</div><div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border border-ink-900"></div></div>
-                <div><p class="font-bold text-white text-sm">CocoTech Agent</p><p class="text-[9px] text-white/40 uppercase tracking-widest">Online sekarang</p></div>
-            </div>
-            <button @click="open=false" class="text-white/40 hover:text-white"><i class="ph-bold ph-x "></i></button>
-        </div>
-        <div class="bg-ink-100 p-5 space-y-3 text-sm">
-            <div class="bg-white rounded-xl rounded-tl-sm p-3 shadow-sm text-ink-900 leading-snug">
-                Halo Manajemen <strong>Bakmi Tjo Kin</strong>! 👋 Sistem demo ini kami buat khusus untuk Anda.
-            </div>
-            <div x-show="msg2" x-transition class="bg-white rounded-xl rounded-tl-sm p-3 shadow-sm text-ink-900 leading-snug">
-                Bagaimana kesan pertama sistem <em>Smart Queue</em>-nya? Saya siap jelaskan harga &amp; cara kerjanya — cukup balas di sini! 🤝
-            </div>
-            <div x-show="msg2" x-transition class="bg-white rounded-xl rounded-tl-sm p-3 shadow-sm text-ink-900 leading-snug" style="margin-top:8px;">
-                <p class="text-xs font-bold text-vermilion-600 mb-1">CocoTech — Sangat Berpengalaman</p>Sistem ini dibuat oleh <strong>CocoTech</strong>, IT Agency yang sangat berpengalaman menangani 50+ klien digital dari UMKM hingga Asia's 50 Best. Lihat portofolio: <a href="https://cocotech.studio" target="_blank" class="font-bold underline text-vermilion-600">cocotech.studio</a>
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="item in filteredMenu" :key="item.id">
+                    <div class="bg-white rounded-2xl border-2 border-vintage-dark overflow-hidden retro-shadow group" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+                        <div class="h-48 bg-gray-200 relative overflow-hidden">
+                            <!-- Placeholder for images, in real life use actual menu pictures -->
+                            <img :src="item.image" :alt="item.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-white px-3 py-1 rounded-full font-bold text-sm border-2 border-vintage-dark retro-shadow">
+                                <span x-text="formatPrice(item.price)"></span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-vintage-red transition-colors" x-text="item.name"></h3>
+                            <p class="text-gray-600 text-sm mb-4 line-clamp-2" x-text="item.desc"></p>
+                            <button @click="addToCart(item)" class="w-full py-3 border-2 border-vintage-dark rounded-lg font-bold text-sm hover:bg-vintage-red hover:text-white hover:border-vintage-red transition-all">
+                                Tambah Pesanan
+                            </button>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
-        <div class="p-3 bg-white border-t border-ink-100 flex gap-2">
-            <input type="text" placeholder="Balas pesan…" class="flex-1 bg-ink-100 border border-ink-200 rounded-full px-4 py-2 text-xs text-ink-900 outline-none focus:border-vermilion-500 transition-colors">
-            <button class="w-10 h-10 rounded-full bg-vermilion-600 flex items-center justify-center text-white hover:bg-vermilion-700 transition-colors flex-shrink-0"><i class="ph-fill ph-paper-plane-right "></i></button>
+    </section>
+
+    <!-- Simple Footer -->
+    <footer class="bg-vintage-dark text-white py-12 px-6 border-t-8 border-vintage-red">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="font-serif font-bold text-2xl tracking-tighter">TJO KIN.</div>
+            <div class="text-sm text-gray-400 text-center md:text-right">
+                <p>Jl. Cihapit No. 18 | Jl. Braga No. 85 | Blok M, Jakarta</p>
+                <p class="mt-2 text-xs">System Infrastructure Demo by <span class="text-vintage-gold font-bold">CocoTech Studio</span></p>
+            </div>
         </div>
-    </div>
-    <button @click="open=!open" class="w-14 h-14 bg-vermilion-600 rounded-full flex items-center justify-center text-white shadow-xl hover:bg-vermilion-700 hover:scale-110 active:scale-95 transition-all relative">
-        <span class="absolute top-0 right-0 w-3 h-3 bg-yellow-400 border-2 border-white rounded-full" x-show="!triggered"></span>
-        <i class="ph-fill ph-chat-teardrop-dots text-2xl"></i>
-    </button>
-</div>
+    </footer>
 
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('tjoKinApp', () => ({
+                scrolled: false,
+                activeCategory: 'all',
+                
+                booking: {
+                    branch: 'cihapit',
+                    pax: 2,
+                    name: ''
+                },
+                
+                branches: [
+                    { id: 'cihapit', name: 'Cihapit (Pusat)', address: 'Jl. Cihapit No. 18, Bandung', status: 'Sangat Ramai', queueCount: 14 },
+                    { id: 'braga', name: 'Braga', address: 'Jl. Braga No. 85-87, Bandung', status: 'Ramai Lancar', queueCount: 5 },
+                    { id: 'blokm', name: 'Blok M (Jakarta)', address: 'Melawai, Kebayoran Baru', status: 'Waiting List', queueCount: 9 }
+                ],
+                
+                categories: [
+                    { id: 'all', label: 'Semua Menu' },
+                    { id: 'manis', label: 'Bakmi Manis' },
+                    { id: 'asin', label: 'Bakmi Asin' },
+                    { id: 'side', label: 'Side Dish' }
+                ],
+                
+                menu: [
+                    { id: 1, category: 'manis', name: 'Bakmi Manis Ayam Cincang', price: 35000, desc: 'Mie khas Tjo Kin dengan balutan kecap manis spesial, disajikan dengan ayam cincang gurih.', image: 'https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=600&auto=format&fit=crop' },
+                    { id: 2, category: 'asin', name: 'Bakmi Asin Ayam Jamur', price: 38000, desc: 'Cita rasa gurih asin yang otentik, disajikan dengan topping ayam jamur melimpah.', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?q=80&w=600&auto=format&fit=crop' },
+                    { id: 3, category: 'manis', name: 'Bakmi Manis Special', price: 45000, desc: 'Porsi besar dengan ekstra topping ayam, baso goreng, dan pangsit rebus.', image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600&auto=format&fit=crop' },
+                    { id: 4, category: 'side', name: 'Swekiau Kuah (5 pcs)', price: 25000, desc: 'Pangsit udang dan ayam rebus dengan kuah kaldu sapi yang gurih hangat.', image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?q=80&w=600&auto=format&fit=crop' },
+                    { id: 5, category: 'side', name: 'Baso Goreng Tjo Kin', price: 20000, desc: 'Baso goreng garing di luar, kenyal di dalam. Pendamping sempurna untuk bakmi.', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=600&auto=format&fit=crop' }
+                ],
+                
+                activeToasts: [],
+                toastQueue: [
+                    { title: 'Reservasi Baru!', desc: 'Andi baru saja mem-booking meja untuk 4 pax di Cihapit.' },
+                    { title: 'Update Antrean', desc: 'Antrean Blok M saat ini: 9 meja.' },
+                    { title: 'Pesanan Masuk', desc: 'Seseorang baru saja memesan 5 porsi Bakmi Manis via GoFood Braga.' },
+                    { title: 'Meja Tersedia', desc: 'Meja no. 4 di cabang Cihapit baru saja kosong.' }
+                ],
 
-<!-- PDF Proposal Widget -->
-<a href="proposal.html" target="_blank" class="fixed top-24 right-6 z-40 hidden xl:flex flex-col items-center gap-2 bg-white shadow-xl border-2 border-ink-900 p-4 rounded-xl hover:-translate-y-1 transition-all group">
-    <p class="text-[8px] font-bold uppercase tracking-widest text-ink-900/40">📄 Proposal</p>
-    <div class="w-12 h-12 bg-vermilion-600 group-hover:bg-vermilion-700 text-white rounded-lg flex items-center justify-center transition-colors">
-        <i class="ph-fill ph-file-pdf text-3xl"></i>
-    </div>
-    <p class="text-[9px] font-bold text-vermilion-600 uppercase">Buka PDF</p>
-</a>
+                get filteredMenu() {
+                    if (this.activeCategory === 'all') return this.menu;
+                    return this.menu.filter(m => m.category === this.activeCategory);
+                },
 
+                formatPrice(price) {
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(price);
+                },
 
-<!-- ============================================================
-     SCRIPTS
-============================================================ -->
-<script>
-function site() {
-    return {
-        scrolled: false, menu: false,
-        navItems: [
-            { href: '#cerita', label: 'Kisah Kami' },
-            { href: '#menu',   label: 'Menu' },
-            { href: '#keunggulan', label: 'Keunggulan' },
-            { href: '#antri',  label: 'Sistem Antrean' },
-            { href: '#ulasan', label: 'Ulasan' },
-            { href: '#kontak', label: 'Kontak' },
-        ],
-        stats: [
-            { value: '1977', label: 'Tahun Berdiri' },
-            { value: '3 Gen', label: 'Generasi Resep' },
-            { value: '4.5 ★', label: 'Rating Google' },
-            { value: '1200+', label: 'Ulasan Nyata' },
-        ],
-        values: [
-            { icon: '🍜', title: 'Resep Autentik', desc: 'Mi ditempuh 3 generasi, tidak berubah.' },
-            { icon: '🌿', title: 'Bahan Segar', desc: 'Bakso & kaldu diproses tiap pagi.' },
-            { icon: '🏆', title: 'Rating Tertinggi', desc: '4.5 bintang di Google Maps Blok M.' },
-            { icon: '💬', title: 'Pelayanan Hangat', desc: 'Keramahan seperti makan di rumah sendiri.' },
-        ],
-        menuItems: [
-            { name: 'Bakmi Kering Spesial', desc: 'Mi kering dengan topping ayam charr siu & bakso homemade', img: 'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop', price: 'Rp 28.000', rating: '4.9', tag: 'Best Seller' },
-            { name: 'Wonton Soup', desc: 'Pangsit isi udang dalam kuah kaldu jahe yang pekat & ringan', img: 'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop', price: 'Rp 22.000', rating: '4.7', tag: '' },
-            { name: 'Mi Yamin', desc: 'Mi kuah bumbu hitam khas Tionghoa dengan taburan bawang goreng', img: 'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop', price: 'Rp 25.000', rating: '4.8', tag: 'Favorit' },
-            { name: 'Bakso Tjo Kin', desc: 'Bakso sapi super kenyal dengan isian kuning telur, disajikan dalam kuah bening', img: 'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop', price: 'Rp 30.000', rating: '4.8', tag: '' },
-            { name: 'Pangsit Goreng', desc: 'Kulit pangsit krispy dengan isian ayam & udang, saus kecap pedas', img: 'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop', price: 'Rp 18.000', rating: '4.6', tag: 'Snack' },
-            { name: 'Nasi Campur', desc: 'Nasi putih dengan lauk komplit: ayam bakar, babi panggang, sayur, dan sambal', img: 'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop', price: 'Rp 35.000', rating: '4.7', tag: '' },
-        ],
-        features: [
-            { icon: '⏱️', title: 'Kaldu 8 Jam', desc: 'Kaldu sapi dididihkan minimal 8 jam untuk menghasilkan rasa yang kaya dan autentik.' },
-            { icon: '🥩', title: 'Bakso Homemade', desc: 'Bakso dicetak setiap pagi dari daging sapi segar, tanpa bahan pengawet.' },
-            { icon: '🚫', title: 'Tanpa MSG Berlebih', desc: 'Rasa kuat datang dari kualitas kaldu dan rempah, bukan vetsin instan.' },
-            { icon: '♻️', title: 'Kemasan Ramah Lingkungan', desc: 'Wadah takeaway dari bahan daur ulang sejak 2022.' },
-            { icon: '🌟', title: 'Konsistensi Rasa', desc: 'Resep dikunci dan hanya dieksekusi oleh juru masak terlatih.' },
-            { icon: '🛵', title: 'Pesan via GoFood/GrabFood', desc: 'Tersedia di platform delivery utama dengan rating tertinggi di area Blok M.' },
-        ],
-        testimonials: [
-            { name: 'Rezky A.', date: '2 minggu lalu', stars: 5, text: 'Bakminya masih konsisten enak sejak zaman SMA saya makan di sini. Kuahnya bening tapi nendang banget.' },
-            { name: 'Melissa P.', date: '1 bulan lalu', stars: 5, text: 'Pangsit gorengnya beda dari yang lain, tidak berminyak dan isinya penuh. Harganya pun masih sangat masuk akal.' },
-            { name: 'Danie W.', date: '3 minggu lalu', stars: 4, text: 'Tempatnya memang penuh tapi worth it banget. Semoga ada sistem antrean online biar tidak nunggu lama di luar.' },
-            { name: 'Hendra T.', date: '5 hari lalu', stars: 5, text: 'Mie yamin-nya juara! Sudah bawa keluarga besar ke sini 3x dan tidak pernah kecewa.' },
-            { name: 'Sari L.', date: '1 minggu lalu', stars: 5, text: 'Saya sudah langganan sejak kecil, sekarang giliran anak saya yang ketagihan. Warisan kuliner yang harus dijaga!' },
-            { name: 'Bagas K.', date: '2 bulan lalu', stars: 4, text: 'Bakso Tjo Kin memang legend. Teksturnya kenyal sempurna, satu porsi tidak pernah cukup untuk saya.' },
-        ],
-        galleryImages: [
-            'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop',
-        ],
-        init() {
-            window.addEventListener('scroll', () => { this.scrolled = window.scrollY > 40; }, { passive: true });
-        }
-    }
-}
+                scrollTo(id) {
+                    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                },
+                
+                selectBranch(id) {
+                    this.booking.branch = id;
+                    this.scrollTo('virtual-queue');
+                },
 
-function queueSim() {
-    return {
-        state: 'form', name: '', guests: 2,
-        serving: 'A-047', queue: 14, myNumber: '', waiting: 0,
-        benefits: [
-            { icon: '🎫', title: 'Tiket Digital Real-Time', text: 'Pelanggan mendapat nomor antrean dengan estimasi waktu masuk yang akurat.' },
-            { icon: '📲', title: 'Notifikasi WhatsApp Otomatis', text: 'Pengingat dikirim 5 menit sebelum giliran tanpa perlu staf mengangkat telepon.' },
-            { icon: '📊', title: 'Rekap Data Harian', text: 'Lihat pola antrean, jam puncak, dan jumlah tamu rata-rata dari dashboard admin.' },
-        ],
-        submitQueue() {
-            if (!this.name.trim()) return;
-            const last = parseInt(this.serving.split('-')[1]) + this.queue;
-            this.myNumber = 'A-' + String(last + 1).padStart(3,'0');
-            this.waiting  = this.queue + 1;
-            this.state    = 'ticket';
-        }
-    }
-}
+                submitQueue() {
+                    if(!this.booking.name) return;
+                    
+                    const branchObj = this.branches.find(b => b.id === this.booking.branch);
+                    
+                    // Format message to WhatsApp (Headless Cart/Queue Logic)
+                    const text = `*VIRTUAL WAITING LIST - TJO KIN*%0A%0AHi Admin Tjo Kin, saya ingin mengambil nomor antrean virtual.%0A%0A*Cabang:* ${branchObj.name}%0A*Atas Nama:* ${this.booking.name}%0A*Jumlah:* ${this.booking.pax} Pax%0A%0ATolong info nomor antrean saya. Terima kasih!`;
+                    
+                    // Redirect to CocoTech bot for demo purposes
+                    window.open(`https://wa.me/6281283321577?text=${text}`, '_blank');
+                },
+                
+                addToCart(item) {
+                    this.fireToast('Pesanan Ditambahkan', `${item.name} berhasil ditambahkan ke keranjang pre-order.`);
+                },
 
-function countdownTimer() {
-    return {
-        hours:'47', mins:'59', secs:'59',
-        init() {
-            let t = 47*3600 + 59*60 + 59;
-            setInterval(() => {
-                if (t <= 0) return;
-                t--;
-                this.hours = String(Math.floor(t/3600)).padStart(2,'0');
-                this.mins  = String(Math.floor((t%3600)/60)).padStart(2,'0');
-                this.secs  = String(t%60).padStart(2,'0');
-            }, 1000);
-        }
-    }
-}
+                fireToast(title, desc) {
+                    const id = Date.now();
+                    this.activeToasts.push({ id, title, desc });
+                    setTimeout(() => {
+                        this.activeToasts = this.activeToasts.filter(t => t.id !== id);
+                    }, 5000);
+                },
 
-function chatBot() {
-    return {
-        open: false, triggered: false, msg2: false,
-        check() {
-            if (this.triggered) return;
-            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-            if (pct > 30) {
-                this.triggered = true;
-                setTimeout(() => {
-                    this.open = true;
-                    // Soft notification beep
-                    try {
-                        const ac = new (window.AudioContext || window.webkitAudioContext)();
-                        const osc = ac.createOscillator(), gn = ac.createGain();
-                        osc.connect(gn); gn.connect(ac.destination);
-                        osc.type = 'sine';
-                        osc.frequency.setValueAtTime(900, ac.currentTime);
-                        osc.frequency.exponentialRampToValueAtTime(1300, ac.currentTime + .1);
-                        gn.gain.setValueAtTime(0, ac.currentTime);
-                        gn.gain.linearRampToValueAtTime(.08, ac.currentTime + .05);
-                        gn.gain.exponentialRampToValueAtTime(.001, ac.currentTime + .5);
-                        osc.start(); osc.stop(ac.currentTime + .5);
-                    } catch(e){}
-                    setTimeout(() => { this.msg2 = true; }, 1800);
-                }, 800);
-            }
-        }
-    }
-}
-</script>
-
-<!-- Sticky WhatsApp CTA -->
-<a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20ingin%20diskusi%20Bakmi%20Tjo%20Kin%20-%20Smart%20Queue%20System" target="_blank"
-   style="position:fixed;bottom:24px;left:24px;z-index:9999;display:flex;align-items:center;gap:10px;background:#25D366;color:white;padding:12px 20px;border-radius:9999px;box-shadow:0 4px 20px rgba(37,211,102,0.5);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;text-decoration:none;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-    <i class="ph-fill ph-whatsapp-logo" style="font-size:22px;"></i>
-    <span>Hubungi CocoTech</span>
-</a>
-<!-- Floating PDF Proposal Widget -->
-<a href="proposal.html" target="_blank"
-   style="position:fixed;top:90px;right:16px;z-index:9999;display:flex;flex-direction:column;align-items:center;gap:4px;background:#1A1815;border:1px solid rgba(196,154,60,0.3);box-shadow:0 4px 16px rgba(0,0,0,0.4);border-radius:12px;padding:10px 12px;text-decoration:none;">
-    <i class="ph-fill ph-file-pdf" style="font-size:28px;color:#EF4444;"></i>
-    <span style="font-size:9px;font-weight:700;color:#D4D4D4;text-transform:uppercase;letter-spacing:0.05em;text-align:center;line-height:1.3;">Buka<br>Dokumen</span>
-</a>
-
-<!-- ============================================================
-     COCOTECH ATTRIBUTION — Dibuat oleh CocoTech
-============================================================ -->
-<div id="cocotech-credit" style="background:linear-gradient(135deg,#0a0a0a 0%,#111 100%);border-top:1px solid rgba(255,255,255,0.08);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter','Plus Jakarta Sans',sans-serif;position:relative;z-index:100;">
-  <p style="color:rgba(255,255,255,0.4);font-size:11px;margin:0;line-height:1.4;">
-    Purwarupa website ini dibuat dengan sepenuh hati oleh&nbsp;
-    <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.85);font-weight:700;text-decoration:underline;text-underline-offset:2px;">CocoTech</a>
-    &nbsp;&mdash;&nbsp;IT Agency terpercaya Indonesia &bull; Berpengalaman 50+ klien digital
-  </p>
-  <a href="https://cocotech.studio" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.3);font-size:10px;text-decoration:none;font-weight:600;letter-spacing:0.08em;white-space:nowrap;padding-left:16px;">cocotech.studio&nbsp;&#8599;</a>
-</div>
-
-
-    <!-- Google Translate Universal Engine -->
-    <div id="google_translate_element" style="display:none;"></div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'id', includedLanguages: 'id,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
-        }
-        function triggerGTranslate(lang) {
-            var selectField = document.querySelector(".goog-te-combo");
-            if (selectField) {
-                selectField.value = lang;
-                selectField.dispatchEvent(new Event('change'));
-            }
-        }
+                initApp() {
+                    // Start Social Proof Engine
+                    setInterval(() => {
+                        if(Math.random() > 0.4) {
+                            const randomToast = this.toastQueue[Math.floor(Math.random() * this.toastQueue.length)];
+                            this.fireToast(randomToast.title, randomToast.desc);
+                        }
+                    }, 12000); // Fire every 12 seconds randomly
+                }
+            }));
+        });
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    
-    <style>
-        body { top: 0 !important; }
-        .skiptranslate { display: none !important; }
-    </style>
-
-
-    <!-- Floating Universal Language Switcher -->
-    <div class="fixed bottom-6 left-6 z-[999] flex items-center bg-white/90 backdrop-blur-sm border border-gray-200 rounded-full shadow-xl p-1 font-sans text-xs font-bold no-print text-gray-800" x-data="{ uniLang: 'id' }" x-init="$watch('uniLang', val => triggerGTranslate(val))">
-        <button @click="uniLang = 'id'" :class="uniLang === 'id' ? 'bg-gray-900 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'" class="px-4 py-2 rounded-full transition-all">ID</button>
-        <button @click="uniLang = 'en'" :class="uniLang === 'en' ? 'bg-gray-900 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'" class="px-4 py-2 rounded-full transition-all">EN</button>
-    </div>
-
 </body>
 </html>

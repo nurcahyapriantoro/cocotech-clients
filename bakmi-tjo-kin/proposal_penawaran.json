@@ -1,41 +1,45 @@
 {
-  "client_name": "Bakmi Tjo Kin (Manajemen Ekspansi Blok M)",
-  "pricing_strategy": "Value-Based ROI Pricing",
-  "packages": {
-    "enterprise_core_setup": {
-      "name": "Digital Operational Framework (One-Time Setup)",
-      "normal_price": "Rp 45.000.000",
-      "scarcity_offer_48h": "Rp 25.000.000",
-      "deliverables": [
-        "Premium Custom UI/UX Web-App (Heritage Theme)",
-        "Modul Live Waitlist Terintegrasi WhatsApp Notifier",
-        "Smart Direct Menu (Bebas Komisi Pihak Ketiga)",
-        "Modul CRM & Loyalty Points Database",
-        "Training Karyawan Cabang Blok M & SOP Panduan"
+  "client_name": "Bakmi Tjo Kin",
+  "industry": "F&B / Restaurant",
+  "target_audience": "Anak muda, keluarga, penikmat kuliner otentik",
+  "pain_points": [
+    "Antrean panjang dan tidak terstruktur (Waiting List)",
+    "Hanya bisa dihubungi via Instagram DM (Slow Response)",
+    "Menu tersebar, tidak ada katalog terpusat"
+  ],
+  "proposed_features": [
+    "Multi-Branch Virtual Waiting List (Cihapit, Braga, Blok M)",
+    "Smart Catalog Menu Interaktif dengan Filter",
+    "Live Social Proof Toast Notifications"
+  ],
+  "tiering": {
+    "tier_1": {
+      "name": "Starter Engine",
+      "price_idr": 3500000,
+      "features": [
+        "Single Page Application Website",
+        "Desain Visual Retro-Classic Kustom",
+        "Smart Catalog Menu Interaktif",
+        "Tombol CTA ke WhatsApp",
+        "Revisi 3x"
       ]
     },
-    "monthly_maintenance": {
-      "name": "Cloud Hosting & Maintenance",
-      "fee": "Rp 1.500.000 / bulan",
-      "deliverables": [
-        "Dedicated Enterprise Cloud Server",
-        "Daily Database Backup (Customer Data)",
-        "Bug Fixing & Minor Adjustments",
-        "WhatsApp API Quota (2.000 pesan/bulan)"
+    "tier_2": {
+      "name": "Virtual Queue Engine",
+      "price_idr": 7500000,
+      "recommended": true,
+      "features": [
+        "Semua Fitur Starter Engine",
+        "Multi-Branch Virtual Waiting List",
+        "WhatsApp Checkout / Queue Parsing",
+        "Live Social Proof Animations",
+        "Revisi 5x & Prioritas Support"
       ]
     }
   },
-  "roi_financial_projection": {
-    "assumptions": {
-      "average_order_value_per_table": "Rp 60.000",
-      "walkaway_customers_saved_per_day": 10,
-      "ojol_orders_converted_to_direct_per_day": 15
-    },
-    "monthly_value_generated": {
-      "revenue_from_saved_walkaways": "Rp 18.000.000 / bulan (Terselamatkan oleh Live Waitlist)",
-      "profit_margin_saved_from_ojol_fees": "Rp 6.750.000 / bulan (Asumsi hemat 25% komisi dari 15 order/hari)"
-    },
-    "total_monthly_financial_impact": "Rp 24.750.000",
-    "payback_period": "Estimasi Balik Modal Setup dalam 1.1 Bulan"
+  "agency_contact": {
+    "name": "CocoTech Studio",
+    "whatsapp": "+6281283321577",
+    "email": "admin@cocotech.studio"
   }
 }

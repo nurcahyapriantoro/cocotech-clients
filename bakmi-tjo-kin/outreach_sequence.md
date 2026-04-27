@@ -1,38 +1,47 @@
-﻿# Ultimate WhatsApp Outreach Sequence: Bakmi Tjo Kin Blok M
+# Outreach Sequence: Bakmi Tjo Kin (Instagram DM)
 
-## HARI 1: The Teaser & The Vision (Dikirim Pagi Hari pk 09:30)
-**Subject:** Antrean Melawai & Potongan Margin Ojol 25% 🍜
-
-Halo Tim Manajemen Bakmi Tjo Kin! 👋 Saya perhatikan rencana strategis ekspansi kalian ke kawasan Blok M / Melawai. Selamat! Kawasan itu sangat tinggi *foot-traffic* nya, tapi *pain point* utamanya satu: Pelanggan benci antre fisik di trotoar panas, dan margin delivery kalian dihisap oleh komisi Ojol hingga 25%.
-
-Sebagai Tech Architect, saya telah membangun **Live Prototype Sistem Enterprise Khusus** untuk Tjo Kin: Sistem *Live Waitlist* terintegrasi WhatsApp & *Direct Delivery* (0% Komisi) yang akan membuat brand kalian beroperasi 10x lebih efisien di Blok M.
-
-Silakan coba interaksi prototipenya langsung dari HP Anda di sini: https://nurcahyapriantoro.github.io/cocotech-clients/bakmi-tjo-kin/
-
-Beri tahu saya kapan ada waktu luang 10 menit minggu ini untuk membahas hitungan ROI kasarnya.
+Karena Bakmi Tjo Kin sangat bergantung pada Instagram untuk berinteraksi dengan pelanggan, *sequence* ini didesain khusus untuk dikirim via **Direct Message (DM) Instagram**. Bahasa dibuat kasual namun tetap profesional (*B2B casual*).
 
 ---
 
-## HARI 3: The Stolen Traffic (FOMO Engine) (Dikirim Sore Hari pk 16:00)
-**Subject:** Data Kompetitor F&B di Melawai 📊
+## Hari 1: The Prototype Drop (Offer/Promise Lead)
+**Tujuan:** Mendapatkan balasan pertama dengan memberikan *value* gratis di muka.
 
-Halo lagi tim Tjo Kin. Sudah sempat mencoba simulasi *waitlist* di prototipe kemarin?
+**Pesan DM:**
+Halo Kak/Tim Bakmi Tjo Kin! 👋 
+Kami dari CocoTech Studio suka banget sama *vibes* dan rasanya Bakmi Tjo Kin (terutama yang di Cihapit!). Tapi kami perhatiin antreannya sering membludak ya Kak pas *weekend*?
 
-Saya baru saja menarik data *behavior* pelanggan F&B di area Melawai. Fakta mengejutkannya: **30% pelanggan potensial memilih putar balik** saat melihat sistem antrean manual (tulis kertas) yang tidak memberikan kepastian waktu. Mereka lari ke resto kompetitor di M Bloc atau Mahakam.
+Kebetulan kami agensi *digital infrastructure*, dan kami iseng buatin **Virtual Waiting List & Smart Menu** khusus buat Tjo Kin. Jadi pelanggan bisa *booking* antrean dari HP buat cabang Cihapit, Braga, atau Blok M tanpa harus nunggu berdiri di luar.
 
-Dengan fitur *Live Waitlist* yang saya rancang, pelanggan Tjo Kin bisa ambil nomor antrean dari HP, lalu jalan-jalan di sekitar Blok M sambil menunggu notifikasi otomatis. Anda menyelamatkan jutaan rupiah dari *walkaway customers* setiap harinya. 
+Desainnya udah kami cocokin sama *vibes* retro-nya Tjo Kin. Boleh minta izin buat kirim *link preview*-nya ke sini Kak? 🍜
 
-Jangan biarkan omzet puluhan juta menguap ke kompetitor. Mari kita integrasikan sistem ini ke operasional Anda.
+*(Tunggu balasan "Boleh" sebelum mengirim link `index.html`)*
 
 ---
 
-## HARI 7: The Self-Destructing Offer (Dikirim Siang Hari pk 13:00)
-**Subject:** ⏳ [TERAKHIR] Subsidi Setup Sistem Digital Rp 5.500.000
+## Hari 3: The FOMO Follow-up (Problem-Solution Lead)
+**Tujuan:** Mengingatkan kembali jika DM pertama belum dibalas atau hanya di-*read*.
 
-Halo tim Bakmi Tjo Kin. Ini follow-up terakhir dari saya.
+**Pesan DM:**
+Halo Kak! Maaf *follow up* lagi nih 🙏
 
-Sistem Enterprise ini (Waitlist Engine + Smart Menu 0% Komisi + CRM Database) normalnya memakan investasi Rp 5.500.000. Namun, saya memberikan subsidi khusus menjadi hanya **Rp 5.500.000**, berlaku jika kita deal dalam 48 jam ke depan.
+Cuma mau ngabarin kalau *prototype* Virtual Queue-nya masih *live* ya. Sayang banget kalau tiap *weekend* banyak pelanggan yang putar balik karena nggak ada kepastian antrean di cabang Cihapit atau Blok M.
 
-Jika lewat dari waktu tersebut, saya mohon maaf harus menawarkan framework eksklusif ini ke brand kedai mi artisan kompetitor yang berlokasi di radius 1km dari Anda di Jakarta Selatan. Saya sangat berharap Tjo Kin yang mengamankan teknologi ini lebih dulu.
+Kalau Kakak cek link ini: [Link GitHub Pages Tjo Kin], sistem ini bisa bantu admin *handle* antrean otomatis langsung ke WA loh.
 
-Balas pesan ini dengan "SIAP ZOOM" jika kalian ingin mendominasi pasar F&B Melawai sekarang.
+Kabari aja ya Kak kalau mau lihat proposal lengkapnya. Semangat terus jualannya! 🔥
+
+---
+
+## Hari 7: The Takeaway / Scarcity
+**Tujuan:** Menarik penawaran untuk menciptakan urgensi terakhir.
+
+**Pesan DM:**
+Halo Tim Bakmi Tjo Kin, 
+Sepertinya Kakak lagi super sibuk *handle* orderan nih ya, *no worries*! 😄
+
+Karena kami butuh alokasi server untuk *client* F&B lain di area Bandung, *link preview* Virtual Queue Tjo Kin mungkin akan kami *take-down* besok ya Kak. 
+
+Kalau di masa depan Tjo Kin butuh sistem antrean digital biar pelanggan makin nyaman, *feel free* buat DM kami lagi atau kontak WA kami di **0812-8332-1577**.
+
+Sukses terus Bakmi Tjo Kin, *can't wait for the next bowl*! 🥢
