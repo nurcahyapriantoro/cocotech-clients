@@ -1,0 +1,19 @@
+{
+    "clientName": "MYNADA",
+    "pricingTier": "Tier 3: Enterprise Ops & B2B Portal",
+    "pricingName": "The Fashion E-Commerce & Reseller Engine",
+    "estimatedPrice": "Rp 16.500.000",
+    "featuresGenerated": [
+        "Headless WhatsApp Cart (Fashion Checkout Flow)",
+        "Interactive Size Calculator (Alpine.js)",
+        "Dual-Persona Engine (Retail & Reseller)",
+        "Process Transparency (Textile & Craftsmanship)",
+        "Digital Lookbook Catalog"
+    ],
+    "identifiedPainPoints": [
+        "Penjualan masih mengandalkan door-to-door atau chat WA manual yang menghambat skalabilitas omzet di atas Rp 18 Juta.",
+        "Pelanggan sering bingung dengan ukuran baju, memakan waktu admin untuk edukasi ukuran.",
+        "Proses rekrutmen dropshipper dan reseller yang belum tersistematisasi secara digital."
+    ],
+    "timestamp": "2026-04-24T16:00:00.000Z"
+}

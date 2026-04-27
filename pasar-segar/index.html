@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasar Segar (PasGer) Makassar - Epicenter of Lifestyle</title>
+    <meta name="description" content="Pusat kuliner malam, gaya hidup, dan komunitas kreatif terbesar di Makassar.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pasger: { 50: '#fffbf0', 100: '#fef0c7', 500: '#f59e0b', 600: '#d97706', 900: '#78350f' },
+                        surface: '#FAFAFA',
+                        dark: '#111827',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'floating': '0 20px 40px -20px rgba(0,0,0,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FAFAFA; color: #111827; transition: background-color 0.5s, color 0.5s; }
+        .dark-mode { background-color: #0f172a; color: #f8fafc; }
+        
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .dark-mode .glass-nav { background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        
+        .card-premium { background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .dark-mode .card-premium { background: #1e293b; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F1F5F9; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+        .dark-mode ::-webkit-scrollbar-track { background: #0f172a; }
+        .dark-mode ::-webkit-scrollbar-thumb { background: #334155; }
+        
+        .bg-pattern { background-color: #111827; background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 24px 24px; }
+        
+        @keyframes slideInUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .toast-enter { animation: slideInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* Easter Egg Glitch */
+        .glitch { animation: glitch-anim 0.2s linear infinite; }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) } 100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body x-data="{ 
+        lang: 'id', 
+        scrolled: false, 
+        botOpen: false,
+        persona: 'visitor', /* visitor or sponsor */
+        secretClicks: 0,
+        vvipOpen: false,
+        vvipCode: '',
+        vvipError: false,
+        
+        /* Headless Cart System */
+        cartOpen: false,
+        cart: [],
+        addToCart(item, price) {
+            let existing = this.cart.find(i => i.name === item);
+            if(existing) { existing.qty++; } else { this.cart.push({name: item, price: price, qty: 1}); }
+            this.cartOpen = true;
+        },
+        removeFromCart(item) {
+            let existing = this.cart.find(i => i.name === item);
+            if(existing && existing.qty > 1) { existing.qty--; } else { this.cart = this.cart.filter(i => i.name !== item); }
+            if(this.cart.length === 0) this.cartOpen = false;
+        },
+        get cartTotal() { return this.cart.reduce((total, item) => total + (item.price * item.qty), 0); },
+        checkout() {
+            if(this.cart.length === 0) return;
+            let text = `*INVOICE PASGER VIP BOOKING*%0A%0A`;
+            text += `Terima kasih telah melakukan reservasi meja VIP di Pasar Segar. Berikut rincian pesanan Anda:%0A%0A`;
+            this.cart.forEach(item => { text += `- *${item.name}* (x${item.qty}) : Rp ${new Intl.NumberFormat('id-ID').format(item.price * item.qty)}%0A`; });
+            text += `%0A--------------------------------%0A`;
+            text += `*TOTAL TAGIHAN : Rp ${new Intl.NumberFormat('id-ID').format(this.cartTotal)}*%0A`;
+            text += `--------------------------------%0A%0A`;
+            text += `Mohon panduan ketersediaan meja dan tautan pembayaran QRIS/VA.`;
+            window.open('https://wa.me/6281283321577?text=' + text, '_blank');
+            this.cart = []; this.cartOpen = false;
+        }
+    }" 
+    :class="{'dark-mode': persona === 'sponsor'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased selection:bg-pasger-500 selection:text-white transition-colors duration-500">
+
+    <!-- THE VVIP BACKDOOR (Invisible Lead Gen) -->
+    <div x-show="vvipOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center" style="display: none;">
+        <div class="max-w-md w-full p-8 border border-slate-800 bg-black rounded-2xl shadow-[0_0_50px_rgba(245,158,11,0.1)] text-center relative overflow-hidden" @click.away="vvipOpen = false">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pasger-500 to-transparent"></div>
+            <i class="ph-fill ph-fingerprint text-4xl md:text-6xl text-slate-700 mb-6"></i>
+            <h3 class="text-2xl font-serif text-white mb-2 tracking-widest uppercase">Wholesale Portal</h3>
+            <p class="text-slate-500 text-sm mb-8">Access restricted to verified institutional investors and mass-procurement directors.</p>
+            
+            <input type="password" x-model="vvipCode" @keyup.enter="if(vvipCode==='0000') { window.location.href='proposal.html'; } else { vvipError = true; setTimeout(()=>vvipError=false, 1000); vvipCode=''; }" class="w-full bg-slate-900 border-b-2 border-slate-700 focus:border-pasger-500 outline-none text-center text-3xl tracking-[1em] py-4 text-white font-mono mb-4 transition-colors" placeholder="••••" maxlength="4">
+            
+            <div x-show="vvipError" x-transition class="text-red-500 text-xs font-bold uppercase tracking-widest glitch">Access Denied. Invalid Clearance.</div>
+            <div x-show="!vvipError" class="text-slate-600 text-xs uppercase tracking-widest">Awaiting Decryption...</div>
+            
+            <button @click="vvipOpen = false" class="absolute top-4 right-4 text-slate-600 hover:text-white"><i class="ph-bold ph-x"></i></button>
+        </div>
+    </div>
+
+    <!-- COCOTECH WIDGET: Floating Proposal (Only visible in Sponsor Persona) -->
+    <a href="proposal.html" target="_blank" x-show="persona === 'sponsor'" x-transition class="fixed top-24 right-6 z-50 flex items-center gap-3 bg-white text-dark px-4 py-3 rounded-2xl shadow-floating hover:shadow-premium transition-all duration-300 border border-slate-200 group no-print" style="display: none;">
+        <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-dark group-hover:text-pasger-500 transition-colors">
+            <i class="ph-bold ph-folder-lock text-xl"></i>
+        </div>
+        <div>
+            <div class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">CocoTech Agency</div>
+            <div class="font-bold text-xs text-slate-800" x-text="lang === 'id' ? 'Buka Proposal B2B' : 'View B2B Deck'"></div>
+        </div>
+    </a>
+
+    <!-- HEADLESS WHATSAPP CART WIDGET -->
+    <button @click="cartOpen = !cartOpen" x-show="cart.length > 0 && persona === 'visitor'" x-transition class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-pasger-500 text-white rounded-full shadow-floating flex items-center justify-center hover:scale-105 transition-transform" style="display: none;">
+        <i class="ph-fill ph-shopping-cart text-2xl"></i>
+        <span class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center border-2 border-white" x-text="cart.reduce((a, b) => a + b.qty, 0)"></span>
+    </button>
+
+    <!-- Cart Modal -->
+    <div x-show="cartOpen && persona === 'visitor'" x-transition class="fixed bottom-24 right-6 z-50 w-80 bg-white rounded-2xl shadow-premium border border-slate-200 overflow-hidden" style="display: none;">
+        <div class="bg-dark text-white p-4 flex justify-between items-center">
+            <div class="font-bold text-sm flex items-center gap-2"><i class="ph-bold ph-receipt"></i> VIP Booking Cart</div>
+            <button @click="cartOpen = false" class="text-slate-400 hover:text-white"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="p-4 max-h-60 overflow-y-auto">
+            <template x-for="item in cart" :key="item.name">
+                <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100 last:border-0 last:pb-0 last:mb-0">
+                    <div>
+                        <div class="font-bold text-sm text-dark" x-text="item.name"></div>
+                        <div class="text-xs text-slate-500">Rp <span x-text="new Intl.NumberFormat('id-ID').format(item.price)"></span></div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-slate-50 rounded-lg px-2 py-1 border border-slate-200">
+                        <button @click="removeFromCart(item.name)" class="text-slate-400 hover:text-dark font-bold">-</button>
+                        <span class="text-xs font-bold text-dark w-4 text-center" x-text="item.qty"></span>
+                        <button @click="addToCart(item.name, item.price)" class="text-slate-400 hover:text-dark font-bold">+</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="p-4 bg-slate-50 border-t border-slate-200">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Total Estimasi</span>
+                <span class="font-bold text-lg text-dark">Rp <span x-text="new Intl.NumberFormat('id-ID').format(cartTotal)"></span></span>
+            </div>
+            <button @click="checkout()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors shadow-lg shadow-green-500/30 flex items-center justify-center gap-2 text-sm">
+                <i class="ph-bold ph-whatsapp-logo text-lg"></i> Checkout via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav :class="{'glass-nav py-3': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <div class="flex items-center gap-3 cursor-pointer group" @click="secretClicks++; if(secretClicks >= 3) { vvipOpen = true; secretClicks = 0; }">
+                <div class="w-10 h-10 bg-dark rounded-xl flex items-center justify-center text-pasger-500 shadow-md group-hover:scale-105 transition-transform" :class="{'bg-pasger-500 text-dark': persona === 'sponsor'}">
+                    <i class="ph-fill ph-storefront text-xl"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight" :class="{'text-dark': scrolled && persona === 'visitor', 'text-white': persona === 'sponsor'}">PAS<span class="text-pasger-500">GER.</span></span>
+            </div>
+            
+            <!-- DYNAMIC CONTEXT SHIFTING (Dual-Persona Toggle) -->
+            <div class="flex items-center p-1 bg-slate-200/50 backdrop-blur-md rounded-xl border border-slate-300/50" :class="{'bg-slate-800/50 border-slate-700': persona === 'sponsor'}">
+                <button @click="persona = 'visitor'" class="px-5 py-2 rounded-lg text-xs font-bold transition-all uppercase tracking-widest" :class="persona === 'visitor' ? 'bg-white text-dark shadow-sm' : 'text-slate-500 hover:text-slate-700'">Visitor B2C</button>
+                <button @click="persona = 'sponsor'" class="px-5 py-2 rounded-lg text-xs font-bold transition-all uppercase tracking-widest" :class="persona === 'sponsor' ? 'bg-pasger-500 text-dark shadow-sm' : 'text-slate-500 hover:text-slate-700'">Sponsor B2B</button>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Professional 3D Hero Section -->
+    <header class="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-slate-100 transition-colors duration-500" :class="{'bg-white': persona === 'visitor', 'bg-dark border-slate-800': persona === 'sponsor'}">
+        
+        <!-- Backgrounds -->
+        <div x-show="persona === 'visitor'" class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03] grayscale"></div>
+        <div x-show="persona === 'sponsor'" class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-[0.05] grayscale"></div>
+        
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/3 transition-colors duration-500" :class="{'bg-pasger-100/60': persona === 'visitor', 'bg-blue-500/20': persona === 'sponsor'}"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+            <!-- DYNAMIC HERO TEXT -->
+            <div class="space-y-8">
+                <!-- Visitor Badge -->
+                <div x-show="persona === 'visitor'" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pasger-50 border border-pasger-200 text-pasger-600 text-xs font-bold uppercase tracking-widest">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pasger-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-pasger-500"></span></span>
+                    <span x-text="lang === 'id' ? 'Sentra Kuliner Terbesar Makassar' : 'Makassar\'s Largest Culinary Center'"></span>
+                </div>
+                <!-- Sponsor Badge -->
+                <div x-show="persona === 'sponsor'" style="display: none;" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest">
+                    <i class="ph-bold ph-chart-line-up"></i> B2B Corporate Activation
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight">
+                    <!-- Visitor Text -->
+                    <template x-if="persona === 'visitor'">
+                        <span>
+                            <span class="font-serif italic font-medium text-slate-500 text-4xl lg:text-5xl" x-text="lang === 'id' ? 'Selamat datang di' : 'Welcome to'"></span><br>
+                            <span class="text-dark" x-text="lang === 'id' ? 'Detak Jantung' : 'The Heartbeat'"></span><br>
+                            <span class="text-pasger-500" x-text="lang === 'id' ? 'Kota Makassar.' : 'of Makassar.'"></span>
+                        </span>
+                    </template>
+                    <!-- Sponsor Text -->
+                    <template x-if="persona === 'sponsor'">
+                        <span>
+                            <span class="text-white" x-text="lang === 'id' ? 'Monetisasi' : 'Monetize'"></span><br>
+                            <span class="text-blue-400" x-text="lang === 'id' ? 'Ribuan Mata.' : 'Thousands of Eyes.'"></span>
+                        </span>
+                    </template>
+                </h1>
+                
+                <p class="text-lg font-medium leading-relaxed" :class="persona === 'visitor' ? 'text-slate-600' : 'text-slate-400'">
+                    <template x-if="persona === 'visitor'"><span>Lebih dari sekadar pasar malam. PasGer adalah ruang komunal di mana 225+ tenant legendaris dan ribuan milenial merayakan gaya hidup setiap malamnya.</span></template>
+                    <template x-if="persona === 'sponsor'"><span>Pasar Segar mendatangkan 5.000+ milenial organik setiap hari. Jangan biarkan traffic masif ini menguap. Amankan ruang iklan korporat Anda sekarang.</span></template>
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-4 border-t" :class="persona === 'visitor' ? 'border-slate-100' : 'border-slate-800'">
+                    <template x-if="persona === 'visitor'">
+                        <div class="flex gap-4">
+                            <button onclick="document.getElementById('directory').scrollIntoView({behavior: 'smooth'})" class="bg-dark text-white px-8 py-4 rounded-xl font-bold text-sm transition-transform hover:-translate-y-1 shadow-lg shadow-slate-900/20 flex items-center gap-2">
+                                <i class="ph-bold ph-map-pin-line text-lg text-pasger-500"></i> Jelajahi Tenant
+                            </button>
+                            <button onclick="document.getElementById('vip').scrollIntoView({behavior: 'smooth'})" class="bg-white border-2 border-slate-200 text-slate-700 hover:border-pasger-500 hover:text-pasger-600 px-8 py-4 rounded-xl font-bold text-sm transition-all flex items-center gap-2">
+                                <i class="ph-bold ph-crown text-lg"></i> Booking VIP
+                            </button>
+                        </div>
+                    </template>
+                    <template x-if="persona === 'sponsor'">
+                        <button onclick="document.getElementById('b2b-bid').scrollIntoView({behavior: 'smooth'})" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-widest transition-transform hover:-translate-y-1 shadow-lg shadow-blue-600/20 flex items-center gap-2">
+                            <i class="ph-bold ph-handshake text-lg"></i> Ajukan Bidding Sponsor
+                        </button>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- DYNAMIC 3D CARDS -->
+            <div class="relative h-[500px] hidden lg:block">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    
+                    <!-- Visitor Image Card -->
+                    <div x-show="persona === 'visitor'" x-transition.opacity.duration.500ms class="w-full max-w-md bg-white p-4 rounded-3xl shadow-premium z-10 border border-slate-100" data-tilt data-tilt-max="4" data-tilt-speed="400">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop" alt="Pasar Segar Vibe" class="w-full h-64 object-cover rounded-2xl mb-6">
+                        <div class="flex justify-between items-end px-2">
+                            <div>
+                                <div class="font-extrabold text-2xl text-dark mb-1">Pasar Segar (PasGer)</div>
+                                <div class="text-sm font-semibold text-slate-500 flex items-center gap-1"><i class="ph-fill ph-map-pin text-pasger-500"></i> Panakkukang, Makassar</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sponsor Graph Card -->
+                    <div x-show="persona === 'sponsor'" x-transition.opacity.duration.500ms class="w-full max-w-md bg-slate-900 p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10 border border-slate-700" data-tilt data-tilt-max="4" style="display: none;">
+                        <h4 class="text-white font-bold mb-6 font-serif">Daily Traffic (Q1 2026)</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs mb-2 font-bold text-slate-400"><span>Weekdays</span><span class="text-white">3,200/day</span></div>
+                                <div class="w-full bg-slate-800 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-2 font-bold text-slate-400"><span>Weekends</span><span class="text-white">6,500/day</span></div>
+                                <div class="w-full bg-slate-800 rounded-full h-2"><div class="bg-pasger-500 h-2 rounded-full" style="width: 95%"></div></div>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-400 font-bold flex gap-2">
+                            <i class="ph-bold ph-trend-up text-lg"></i> +12% MoM Visitor Growth. Prime for Activation.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Floating Stat 1 -->
+                <div class="absolute top-10 right-0 p-5 rounded-2xl shadow-floating z-20 flex items-center gap-4 transition-colors duration-500" :class="persona === 'visitor' ? 'glass-nav' : 'bg-slate-800 border border-slate-700'" data-tilt data-tilt-max="10">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center" :class="persona === 'visitor' ? 'bg-pasger-50 text-pasger-600' : 'bg-blue-500/20 text-blue-400'">
+                        <i class="ph-fill ph-users-three text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-extrabold text-2xl leading-none mb-1" :class="persona === 'visitor' ? 'text-dark' : 'text-white'">5,000+</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest" :class="persona === 'visitor' ? 'text-slate-500' : 'text-slate-400'">Daily Visitors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- B2C SECTION: Interactive Smart Directory -->
+    <section id="directory" x-show="persona === 'visitor'" class="py-24 bg-surface relative" x-data="{ 
+        search: '', category: 'all',
+        tenants: [
+            { name: 'Sate Taichan Goreng', cat: 'Makan Malam', rating: 4.8, block: 'Blok A-12', img: 'https://images.unsplash.com/photo-1555126634-323283e090fa?w=300&h=200&fit=crop' },
+            { name: 'Kopi Kenangan', cat: 'Minuman', rating: 4.9, block: 'Blok Utama', img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop' },
+            { name: 'Coto Makassar Daeng', cat: 'Tradisional', rating: 4.9, block: 'Blok B-01', img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=300&h=200&fit=crop' },
+            { name: 'Ayam Geprek Juara', cat: 'Makan Malam', rating: 4.5, block: 'Blok A-15', img: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300&h=200&fit=crop' }
+        ],
+        get filtered() { return this.tenants.filter(t => (this.category === 'all' || t.cat === this.category) && t.name.toLowerCase().includes(this.search.toLowerCase())); }
+    }">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="text-xs font-bold text-pasger-600 uppercase tracking-widest mb-3 border border-pasger-200 bg-pasger-50 inline-block px-3 py-1 rounded-full">Interactive Directory</div>
+                <h2 class="text-4xl font-extrabold text-dark mb-4 font-serif">Temukan Selera Anda.</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-lg">Direktori digital real-time untuk memetakan 225+ tenant PasGer tanpa harus berkeliling.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto mb-12">
+                <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row gap-2">
+                    <div class="relative flex-1">
+                        <i class="ph-bold ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                        <input type="text" x-model="search" class="w-full bg-transparent border-none py-3 pl-12 pr-4 text-dark focus:outline-none focus:ring-0 font-medium" placeholder="Cari sate, coto, es kopi...">
+                    </div>
+                    <div class="h-px w-full md:w-px md:h-auto bg-slate-200"></div>
+                    <div class="flex gap-1 overflow-x-auto p-1 hide-scrollbar md:w-auto w-full">
+                        <button @click="category = 'all'" :class="category === 'all' ? 'bg-dark text-white' : 'bg-transparent text-slate-600 hover:bg-slate-100'" class="px-4 py-2 rounded-xl text-sm font-bold transition-colors whitespace-nowrap">Semua</button>
+                        <button @click="category = 'Makan Malam'" :class="category === 'Makan Malam' ? 'bg-dark text-white' : 'bg-transparent text-slate-600 hover:bg-slate-100'" class="px-4 py-2 rounded-xl text-sm font-bold transition-colors whitespace-nowrap">Makan Malam</button>
+                        <button @click="category = 'Tradisional'" :class="category === 'Tradisional' ? 'bg-dark text-white' : 'bg-transparent text-slate-600 hover:bg-slate-100'" class="px-4 py-2 rounded-xl text-sm font-bold transition-colors whitespace-nowrap">Tradisional</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <template x-for="tenant in filtered" :key="tenant.name">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-premium overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+                        <div class="h-32 overflow-hidden relative">
+                            <img :src="tenant.img" :alt="tenant.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-5">
+                            <span class="text-[9px] font-bold px-2 py-1 bg-slate-100 text-slate-600 rounded-md uppercase tracking-wider mb-2 inline-block" x-text="tenant.cat"></span>
+                            <h4 class="font-bold text-dark mb-1 group-hover:text-pasger-600 transition-colors" x-text="tenant.name"></h4>
+                            <div class="text-xs text-slate-500 font-medium">Lokasi: <span x-text="tenant.block" class="text-dark font-bold"></span></div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- B2C SECTION: Headless WhatsApp Cart (VIP Booking) -->
+    <section id="vip" x-show="persona === 'visitor'" class="py-24 bg-white relative border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="text-xs font-bold text-pasger-600 uppercase tracking-widest mb-4">Zero-Friction Reservation</div>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-dark leading-tight font-serif italic">Nongkrong VIP.<br><span class="text-pasger-500 not-italic sans-serif font-extrabold">Tanpa Ribet.</span></h2>
+                <p class="text-slate-600 text-lg mb-8 leading-relaxed">Hindari antrean panjang di akhir pekan. Pesan meja VIP atau Sofa Utama langsung dari sini. Pilih paket F&B Anda, klik tombol tambah, dan selesaikan pesanan via WhatsApp tanpa perlu repot mengetik manual.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Package 1 -->
+                <div class="bg-surface p-6 rounded-2xl border border-slate-200 flex justify-between items-center group hover:border-pasger-500 transition-colors">
+                    <div>
+                        <div class="font-bold text-lg text-dark mb-1">Paket Sofa Utama (Max 6 Org)</div>
+                        <div class="text-sm text-slate-500 mb-2">Termasuk F&B Voucher Rp 300rb & Parkir VIP</div>
+                        <div class="font-bold text-pasger-600 font-serif text-xl">Rp 500.000</div>
+                    </div>
+                    <button @click="addToCart('Sofa Utama (6 Org)', 500000)" class="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-dark hover:bg-dark hover:text-white hover:border-dark transition-colors shadow-sm">
+                        <i class="ph-bold ph-plus text-xl"></i>
+                    </button>
+                </div>
+                <!-- Package 2 -->
+                <div class="bg-surface p-6 rounded-2xl border border-slate-200 flex justify-between items-center group hover:border-pasger-500 transition-colors">
+                    <div>
+                        <div class="font-bold text-lg text-dark mb-1">Meja Balkon (Max 4 Org)</div>
+                        <div class="text-sm text-slate-500 mb-2">Termasuk F&B Voucher Rp 150rb</div>
+                        <div class="font-bold text-pasger-600 font-serif text-xl">Rp 250.000</div>
+                    </div>
+                    <button @click="addToCart('Meja Balkon (4 Org)', 250000)" class="w-12 h-12 bg-white border border-slate-200 rounded-xl flex items-center justify-center text-dark hover:bg-dark hover:text-white hover:border-dark transition-colors shadow-sm">
+                        <i class="ph-bold ph-plus text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B2B SECTION: Sponsorship Bidding Engine -->
+    <section id="b2b-bid" x-show="persona === 'sponsor'" style="display: none;" class="py-24 bg-dark text-white relative border-t border-slate-800" x-data="{ 
+        step: 1, brandName: '', packageType: '', budget: '',
+        submitLead() {
+            let msg = `[B2B INQUIRY]\nHalo Manajemen PasGer, kami dari *${this.brandName}* tertarik aktivasi offline.\n- Target Area: *${this.packageType}*\n- Est Budget: *${this.budget}*\nMohon kirimkan Rate Card & Proposal resmi.`;
+            window.open('https://wa.me/6281283321577?text=' + encodeURIComponent(msg), '_blank');
+            this.step = 4;
+        }
+    }">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-white leading-tight font-serif">Sponsorship <span class="text-blue-400">Bidding.</span></h2>
+                <p class="text-slate-400 text-lg mb-8 leading-relaxed">Amankan spot aktivasi offline brand Anda di pusat traffic tertinggi Makassar sebelum direbut oleh kompetitor. Data pengajuan terenkripsi penuh.</p>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center justify-between p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-blue-400"><i class="ph-fill ph-speaker-hifi text-2xl"></i></div>
+                            <div>
+                                <div class="font-bold text-white text-lg">Main Stage Naming Rights</div>
+                                <div class="text-sm text-slate-400">Exposure: 5,000+ views/night</div>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-lg text-xs font-bold border border-emerald-500/20">Available Q3</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-slate-900 p-8 rounded-3xl shadow-2xl relative border border-slate-700" data-tilt data-tilt-max="2" data-tilt-glare data-tilt-max-glare="0.05">
+                <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+                    <h3 class="text-2xl font-bold text-white">Live Bidding Form</h3>
+                    <div class="text-xs font-bold text-slate-500">Step <span x-text="step < 4 ? step : 3"></span>/3</div>
+                </div>
+                
+                <div x-show="step === 1" x-transition.in.opacity.duration.300ms>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Mewakili Brand Apa?</label>
+                    <input type="text" x-model="brandName" class="w-full bg-black border border-slate-700 rounded-xl py-4 px-4 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none mb-6">
+                    <button @click="if(brandName) step = 2" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors" :class="!brandName ? 'opacity-50' : ''">Lanjut</button>
+                </div>
+                
+                <div x-show="step === 2" x-transition.in.opacity.duration.300ms style="display: none;">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Pilih Area Aktivasi</label>
+                    <select x-model="packageType" class="w-full bg-black border border-slate-700 rounded-xl py-4 px-4 text-white focus:border-blue-500 outline-none mb-6">
+                        <option value="" disabled selected>Pilih area...</option>
+                        <option value="Main Stage">Main Stage Naming Rights</option>
+                        <option value="Festival Area">Festival Ground Booth</option>
+                    </select>
+                    <div class="flex gap-3">
+                        <button @click="step = 1" class="px-6 py-4 bg-slate-800 text-slate-400 font-bold rounded-xl hover:text-white">Kembali</button>
+                        <button @click="if(packageType) step = 3" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700" :class="!packageType ? 'opacity-50' : ''">Lanjut</button>
+                    </div>
+                </div>
+                
+                <div x-show="step === 3" x-transition.in.opacity.duration.300ms style="display: none;">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Estimasi Budget (IDR)</label>
+                    <select x-model="budget" class="w-full bg-black border border-slate-700 rounded-xl py-4 px-4 text-white focus:border-blue-500 outline-none mb-6">
+                        <option value="" disabled selected>Pilih rentang...</option>
+                        <option value="Rp 25Jt - 50Jt">Rp 25 Juta - 50 Juta</option>
+                        <option value="Diatas Rp 50Jt">Diatas Rp 50 Juta</option>
+                    </select>
+                    <div class="flex gap-3">
+                        <button @click="step = 2" class="px-6 py-4 bg-slate-800 text-slate-400 font-bold rounded-xl hover:text-white">Kembali</button>
+                        <button @click="if(budget) submitLead()" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)]" :class="!budget ? 'opacity-50' : ''">Ajukan ke Komite</button>
+                    </div>
+                </div>
+
+                <div x-show="step === 4" x-transition class="text-center py-8" style="display: none;">
+                    <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-400"><i class="ph-bold ph-check text-4xl"></i></div>
+                    <h4 class="text-2xl font-bold text-white mb-2">Transmisi Aman!</h4>
+                    <p class="text-slate-500 text-sm">Dialihkan ke WhatsApp Direktur Komersial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Mega-Footer -->
+    <footer class="border-t pt-16 pb-8 transition-colors duration-500" :class="persona === 'visitor' ? 'bg-white border-slate-200' : 'bg-dark border-slate-800'">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 border-b pb-12" :class="persona === 'visitor' ? 'border-slate-100' : 'border-slate-800'">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" :class="persona === 'visitor' ? 'bg-dark text-pasger-500' : 'bg-blue-600 text-white'">
+                        <i class="ph-fill ph-storefront text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-bold tracking-tight" :class="persona === 'visitor' ? 'text-dark' : 'text-white'">PASGER.</span>
+                        <span class="text-[9px] tracking-widest uppercase font-bold" :class="persona === 'visitor' ? 'text-pasger-500' : 'text-blue-400'">Makassar Lifestyle Hub</span>
+                    </div>
+                </div>
+                <p class="text-sm leading-relaxed max-w-sm" :class="persona === 'visitor' ? 'text-slate-500' : 'text-slate-400'">Inkubator UMKM kuliner terkemuka dan destinasi lifestyle ikonik di Indonesia Timur sejak 2018.</p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-6 font-serif tracking-wide" :class="persona === 'visitor' ? 'text-dark' : 'text-white'">Kunjungi Kami</h4>
+                <ul class="space-y-3 text-sm" :class="persona === 'visitor' ? 'text-slate-500' : 'text-slate-400'">
+                    <li class="flex items-start gap-2"><i class="ph-fill ph-map-pin mt-1" :class="persona === 'visitor' ? 'text-pasger-500' : 'text-blue-500'"></i> <span>Jl. Boulevard Panakkukang<br>Makassar, Sulawesi Selatan</span></li>
+                    <li class="flex items-center gap-2"><i class="ph-fill ph-clock" :class="persona === 'visitor' ? 'text-pasger-500' : 'text-blue-500'"></i> <span>17:00 - 00:00 WITA</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-xs" :class="persona === 'visitor' ? 'text-slate-400' : 'text-slate-600'">&copy; 2026 Pasar Segar Makassar.</div>
+            <div class="text-[10px] font-bold uppercase tracking-widest flex items-center gap-2" :class="persona === 'visitor' ? 'text-slate-400' : 'text-slate-600'">
+                System Infrastructure by <a href="https://cocotech.studio" target="_blank" class="hover:underline" :class="persona === 'visitor' ? 'text-pasger-600' : 'text-blue-400'">CocoTech Studio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+    </script>
+</body>
+</html>

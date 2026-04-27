@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wastraloka & Grebeg UMKM DIY - Corporate Gifting B2B Hub</title>
+    <meta name="description" content="Aglomerasi produsen vintage Nusantara, corporate gifting bernilai seni.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Poiret+One&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                        secondary: '#334155',
+                        cta: '#0369A1',
+                        surface: '#F8FAFC',
+                        ink: '#020617',
+                        gold: '#B8860B'
+                    },
+                    fontFamily: {
+                        heading: ['"Poiret One"', 'cursive'],
+                        body: ['"Didact Gothic"', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Didact Gothic', sans-serif; background-color: #F8FAFC; color: #020617; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poiret One', cursive; }
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.3); }
+        .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05); }
+        .gold-gradient { background: linear-gradient(135deg, #B8860B, #FFD700, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* 3D Parallax Tilt Effect for Cards */
+        .tilt-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .tilt-card:hover { transform: translateY(-10px) rotateX(2deg) rotateY(2deg); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F8FAFC; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .hero-overlay { background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6)); }
+    </style>
+</head>
+<body x-data="{ lang: 'id', scrolled: false, botOpen: false, scrollPercent: 0 }" 
+      @scroll.window="
+        scrolled = (window.pageYOffset > 50); 
+        scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+        if(scrollPercent > 30 && !botOpen) { botOpen = true; let audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA'); audio.play().catch(e=>{}); }
+      " 
+      class="antialiased overflow-x-hidden selection:bg-cta selection:text-white">
+
+    <!-- Proposal PDF Widget -->
+    <a href="proposal.html" target="_blank" class="fixed top-24 right-4 z-50 flex items-center gap-2 bg-primary text-white px-4 py-3 rounded-xl shadow-2xl hover:bg-slate-800 transition-all duration-300 transform hover:scale-105 group border border-slate-700">
+        <div class="relative">
+            <i class="ph-fill ph-file-pdf text-2xl text-red-500 group-hover:text-red-400"></i>
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+        </div>
+        <span class="font-bold text-sm" x-text="lang === 'id' ? 'Buka Proposal' : 'View Proposal'"></span>
+    </a>
+
+    <!-- Sticky Navbar -->
+    <nav :class="{'glass-nav py-3': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-crown text-3xl" :class="{'text-primary': scrolled, 'text-white': !scrolled}"></i>
+                <span class="text-2xl font-bold tracking-widest uppercase font-heading" :class="{'text-primary': scrolled, 'text-white': !scrolled}">Grebeg UMKM DIY</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 font-semibold text-sm tracking-wide" :class="{'text-secondary': scrolled, 'text-slate-200': !scrolled}">
+                <a href="#about" class="hover:text-cta transition-colors" x-text="lang === 'id' ? 'Kisah Kami' : 'Our Story'"></a>
+                <a href="#catalog" class="hover:text-cta transition-colors" x-text="lang === 'id' ? 'Katalog B2B' : 'B2B Catalog'"></a>
+                <a href="#virtual-tour" class="hover:text-cta transition-colors" x-text="lang === 'id' ? 'Tur Bengkel' : 'Workshop Tour'"></a>
+                
+                <!-- Lang Switcher -->
+                <div class="flex items-center gap-2 bg-slate-800/10 px-3 py-1.5 rounded-full border border-slate-500/20">
+                    <button @click="lang = 'id'" :class="lang === 'id' ? 'font-bold' : 'opacity-60 hover:opacity-100'">ID</button>
+                    <span class="opacity-30">|</span>
+                    <button @click="lang = 'en'" :class="lang === 'en' ? 'font-bold' : 'opacity-60 hover:opacity-100'">EN</button>
+                </div>
+                
+                <a href="https://wa.me/6281283321577?text=Halo%20CocoTech,%20saya%20tertarik%20dengan%20sistem%20B2B%20Corporate%20Gifting" class="bg-cta text-white px-6 py-2.5 rounded-full hover:bg-blue-600 transition-all shadow-lg hover:shadow-blue-500/30 flex items-center gap-2">
+                    <span x-text="lang === 'id' ? 'Hubungi Korporat' : 'Corporate Contact'"></span>
+                    <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center pt-20 hero-bg overflow-hidden">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <!-- Decorative Blobs -->
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-cta rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob"></div>
+        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-amber-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-blob animation-delay-2000"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-12 w-full grid lg:grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="text-white space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-sm font-semibold tracking-widest uppercase">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span x-text="lang === 'id' ? 'Suvenir Korporat Bernilai Seni' : 'Artisanal Corporate Gifting'"></span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight font-heading">
+                    <span x-text="lang === 'id' ? 'Berhenti Memberikan' : 'Stop Giving'"></span><br>
+                    <span class="gold-gradient" x-text="lang === 'id' ? 'Suvenir Biasa.' : 'Ordinary Gifts.'"></span><br>
+                    <span class="text-3xl lg:text-5xl text-slate-300" x-text="lang === 'id' ? 'Hadirkan Kriya Berjiwa.' : 'Present Soulful Crafts.'"></span>
+                </h1>
+                
+                <p class="text-lg lg:text-xl text-slate-300 max-w-lg leading-relaxed" x-text="lang === 'id' ? 'Kami adalah aglomerasi pengrajin Nusantara. Kurasi hadiah B2B eksklusif untuk klien VIP Anda langsung dari bengkel pengrajin lokal kami.' : 'We are an agglomeration of archipelago artisans. Curate exclusive B2B gifts for your VIP clients directly from our local artisan workshops.'"></p>
+                
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <button onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})" class="bg-amber-600 hover:bg-amber-500 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-amber-900/50 flex items-center gap-3">
+                        <i class="ph-bold ph-shopping-bag"></i>
+                        <span x-text="lang === 'id' ? 'Lihat Katalog B2B' : 'View B2B Catalog'"></span>
+                    </button>
+                    <button onclick="document.getElementById('virtual-tour').scrollIntoView({behavior: 'smooth'})" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center gap-3">
+                        <i class="ph-bold ph-video-camera"></i>
+                        <span x-text="lang === 'id' ? 'Tur Bengkel 360°' : '360° Workshop Tour'"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hero Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:ml-12 animate-float">
+                <div class="glass-card p-6 rounded-2xl border-white/20 bg-white/10 text-white backdrop-blur-lg">
+                    <i class="ph-light ph-users-three text-4xl text-amber-400 mb-4"></i>
+                    <div class="text-4xl font-bold font-heading mb-1">500+</div>
+                    <div class="text-sm text-slate-300 uppercase tracking-wider" x-text="lang === 'id' ? 'Pengrajin Aktif' : 'Active Artisans'"></div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-white/20 bg-white/10 text-white backdrop-blur-lg mt-8">
+                    <i class="ph-light ph-buildings text-4xl text-amber-400 mb-4"></i>
+                    <div class="text-4xl font-bold font-heading mb-1">50+</div>
+                    <div class="text-sm text-slate-300 uppercase tracking-wider" x-text="lang === 'id' ? 'Klien Korporasi' : 'Corporate Clients'"></div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-white/20 bg-white/10 text-white backdrop-blur-lg -mt-8">
+                    <i class="ph-light ph-globe-hemisphere-east text-4xl text-amber-400 mb-4"></i>
+                    <div class="text-4xl font-bold font-heading mb-1">12</div>
+                    <div class="text-sm text-slate-300 uppercase tracking-wider" x-text="lang === 'id' ? 'Negara Tujuan' : 'Export Destinations'"></div>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border-white/20 bg-white/10 text-white backdrop-blur-lg">
+                    <i class="ph-light ph-medal text-4xl text-amber-400 mb-4"></i>
+                    <div class="text-4xl font-bold font-heading mb-1">100%</div>
+                    <div class="text-sm text-slate-300 uppercase tracking-wider" x-text="lang === 'id' ? 'Otentik Lokal' : 'Local Authentic'"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Marquee Logo -->
+        <div class="absolute bottom-0 w-full bg-primary/80 backdrop-blur-md border-t border-white/10 py-4 overflow-hidden">
+            <div class="flex whitespace-nowrap opacity-60">
+                <div class="animate-marquee flex items-center gap-16 text-white text-xl font-heading font-bold tracking-widest px-8">
+                    <span>MID-CENTURY FURNITURE</span><span>•</span>
+                    <span>VINTAGE NUSANTARA</span><span>•</span>
+                    <span>CONTEMPORARY BATIK</span><span>•</span>
+                    <span>NATURAL FIBERS</span><span>•</span>
+                    <span>MID-CENTURY FURNITURE</span><span>•</span>
+                    <span>VINTAGE NUSANTARA</span><span>•</span>
+                    <span>CONTEMPORARY BATIK</span><span>•</span>
+                    <span>NATURAL FIBERS</span><span>•</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- The Stolen Traffic (FOMO Section) -->
+    <section class="py-24 bg-surface relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="bg-red-50/50 border border-red-100 rounded-3xl p-8 lg:p-12 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-red-100 rounded-full mix-blend-multiply filter blur-3xl opacity-70"></div>
+                
+                <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-red-600 font-bold mb-4 uppercase tracking-widest text-sm">
+                            <i class="ph-fill ph-warning-circle text-xl"></i>
+                            <span x-text="lang === 'id' ? 'Realita Pasar Korporat' : 'Corporate Market Reality'"></span>
+                        </div>
+                        <h2 class="text-3xl lg:text-4xl font-bold font-heading mb-6 text-slate-900 leading-tight">
+                            <span x-text="lang === 'id' ? 'Kompetitor Anda Mencuri Klien VIP' : 'Competitors are Stealing VIP Clients'"></span><br>
+                            <span class="text-red-600" x-text="lang === 'id' ? 'Dengan Hadiah Eksklusif.' : 'With Exclusive Gifts.'"></span>
+                        </h2>
+                        <p class="text-slate-600 text-lg mb-8 leading-relaxed" x-text="lang === 'id' ? 'Setiap tahun, miliaran rupiah dihabiskan untuk bingkisan korporat. Perusahaan besar mencari cerita, bukan sekadar barang pabrikan. Jika Anda tidak menyediakan katalog B2B yang meyakinkan, pesanan massal ini lari ke tempat lain.' : 'Billions are spent on corporate gifts yearly. Large firms seek stories, not factory goods. Without a convincing B2B catalog, these bulk orders go elsewhere.'"></p>
+                        
+                        <div class="flex items-center gap-4 text-sm font-semibold text-slate-700 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                            <i class="ph-fill ph-trend-down text-3xl text-red-500"></i>
+                            <div x-text="lang === 'id' ? 'Kehilangan potensi profit ekspor hingga 300% karena ketiadaan platform B2B terpercaya.' : 'Losing up to 300% export profit potential due to lack of a trusted B2B platform.'"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fake Graph -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <div class="text-sm text-slate-500 font-semibold" x-text="lang === 'id' ? 'Volume Pesanan B2B' : 'B2B Order Volume'"></div>
+                                <div class="text-2xl font-bold text-slate-900">Pasar DIY</div>
+                            </div>
+                            <div class="text-red-500 text-sm font-bold bg-red-50 px-3 py-1 rounded-full">- Rawan Hilang</div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1 font-semibold text-slate-600">
+                                    <span>Brand Pabrikan (Impor)</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-3"><div class="bg-slate-400 h-3 rounded-full" style="width: 65%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1 font-semibold text-slate-600">
+                                    <span>Katalog B2B Pesaing (Digital)</span>
+                                    <span>28%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-3"><div class="bg-red-400 h-3 rounded-full" style="width: 28%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1 font-bold text-primary">
+                                    <span x-text="lang === 'id' ? 'Pengrajin Tanpa Sistem Digital' : 'Artisans Without Digital System'"></span>
+                                    <span>7%</span>
+                                </div>
+                                <div class="w-full bg-red-100 rounded-full h-4"><div class="bg-primary h-4 rounded-full" style="width: 7%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spectacular Feature: 360 Virtual Tour & Bidding (Alpine JS) -->
+    <section id="virtual-tour" class="py-24 bg-primary text-white relative overflow-hidden" x-data="{ currentTab: 'tour', bidAmount: '', bidSuccess: false }">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold font-heading mb-4"><span class="gold-gradient" x-text="lang === 'id' ? 'Sistem Pengadaan B2B Cerdas' : 'Smart B2B Procurement System'"></span></h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto" x-text="lang === 'id' ? 'Tingkatkan kepercayaan buyer internasional. Biarkan mereka meninjau bengkel produksi secara virtual dan mengajukan penawaran harga massal secara real-time.' : 'Increase international buyer trust. Let them virtually inspect the production workshop and submit bulk price bids in real-time.'"></p>
+            </div>
+            
+            <div class="glass-card rounded-3xl border border-slate-700 bg-slate-900/50 overflow-hidden shadow-2xl">
+                <!-- Tab Headers -->
+                <div class="flex border-b border-slate-800">
+                    <button @click="currentTab = 'tour'" class="flex-1 py-4 text-center font-bold text-sm tracking-widest uppercase transition-colors" :class="currentTab === 'tour' ? 'bg-slate-800 text-white border-b-2 border-amber-500' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'">
+                        <i class="ph-fill ph-virtual-reality mr-2 text-lg align-middle"></i> <span x-text="lang === 'id' ? 'Tur Bengkel 360°' : '360° Workshop Tour'"></span>
+                    </button>
+                    <button @click="currentTab = 'bid'" class="flex-1 py-4 text-center font-bold text-sm tracking-widest uppercase transition-colors" :class="currentTab === 'bid' ? 'bg-slate-800 text-white border-b-2 border-amber-500' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'">
+                        <i class="ph-fill ph-handshake mr-2 text-lg align-middle"></i> <span x-text="lang === 'id' ? 'Live Chat Bidding' : 'Live Chat Bidding'"></span>
+                    </button>
+                </div>
+                
+                <!-- Tab Content: Virtual Tour -->
+                <div x-show="currentTab === 'tour'" x-transition class="p-8 lg:p-12 relative min-h-[500px] flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center">
+                    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+                    
+                    <div class="relative z-10 text-center">
+                        <button class="w-20 h-20 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center mx-auto mb-6 transition-transform hover:scale-110" onclick="alert('Modul Kamera 360° akan ter-load dari API Kuula/Matterport di versi live.')">
+                            <i class="ph-fill ph-play-circle text-4xl text-amber-400"></i>
+                        </button>
+                        <h3 class="text-2xl font-bold mb-2 font-heading" x-text="lang === 'id' ? 'Jelajahi Sentra Pengrajin' : 'Explore Artisan Center'"></h3>
+                        <p class="text-slate-300 max-w-md mx-auto text-sm" x-text="lang === 'id' ? 'Geser layar untuk melihat proses pemahatan kayu jati secara langsung (Simulasi)' : 'Swipe screen to see teak wood carving process live (Simulation)'"></p>
+                    </div>
+                </div>
+                
+                <!-- Tab Content: Bidding -->
+                <div x-show="currentTab === 'bid'" x-transition class="p-8 lg:p-12 bg-slate-900" style="display: none;">
+                    <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="text-2xl font-bold font-heading mb-4 text-white" x-text="lang === 'id' ? 'Pengajuan Harga (Minimum Order: 500 pcs)' : 'Price Bidding (Minimum Order: 500 pcs)'"></h3>
+                            <p class="text-slate-400 mb-8" x-text="lang === 'id' ? 'Sistem pengadaan B2B terenkripsi. Ajukan target harga Anda untuk produk Kriya Jati Klasik.' : 'Encrypted B2B procurement system. Submit your target price for Classic Teak Crafts.'"></p>
+                            
+                            <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-16 h-16 rounded-lg object-cover" alt="Product">
+                                    <div>
+                                        <div class="font-bold text-white">Mid-Century Teak Accent</div>
+                                        <div class="text-sm text-slate-400">Base Price: $120.00 / pc</div>
+                                    </div>
+                                </div>
+                                <hr class="border-slate-700 my-4">
+                                <div class="flex justify-between text-sm text-slate-300 mb-2">
+                                    <span x-text="lang === 'id' ? 'Estimasi Waktu Produksi' : 'Est. Production Time'"></span>
+                                    <span class="font-bold text-white">45 Days</span>
+                                </div>
+                                <div class="flex justify-between text-sm text-slate-300">
+                                    <span x-text="lang === 'id' ? 'Sertifikasi Ekspor' : 'Export Certification'"></span>
+                                    <span class="font-bold text-emerald-400"><i class="ph-bold ph-check"></i> Verified (SVLK)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl relative">
+                            <div x-show="!bidSuccess">
+                                <label class="block text-sm font-semibold text-slate-300 mb-2" x-text="lang === 'id' ? 'Penawaran Anda (USD/pc)' : 'Your Bid (USD/pc)'"></label>
+                                <div class="relative mb-6">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <span class="text-slate-500 font-bold">$</span>
+                                    </div>
+                                    <input type="number" x-model="bidAmount" class="w-full bg-slate-900 border border-slate-600 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors" placeholder="e.g. 105.00">
+                                </div>
+                                
+                                <label class="block text-sm font-semibold text-slate-300 mb-2" x-text="lang === 'id' ? 'Kuantitas Order' : 'Order Quantity'"></label>
+                                <input type="number" value="500" class="w-full bg-slate-900 border border-slate-600 rounded-xl py-3 px-4 text-white mb-8 focus:outline-none focus:border-amber-500 transition-colors" readonly>
+                                
+                                <button @click="if(bidAmount) bidSuccess = true" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-xl shadow-lg transition-colors flex justify-center items-center gap-2">
+                                    <i class="ph-bold ph-paper-plane-tilt"></i>
+                                    <span x-text="lang === 'id' ? 'Kirim Penawaran ke Pengrajin' : 'Submit Bid to Artisans'"></span>
+                                </button>
+                            </div>
+                            
+                            <!-- Success State -->
+                            <div x-show="bidSuccess" x-transition class="text-center py-8">
+                                <div class="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <i class="ph-fill ph-check-circle text-5xl text-emerald-400"></i>
+                                </div>
+                                <h4 class="text-2xl font-bold text-white mb-2" x-text="lang === 'id' ? 'Penawaran Terkirim!' : 'Bid Submitted!'"></h4>
+                                <p class="text-slate-400 text-sm mb-6" x-text="lang === 'id' ? 'Ketua Paguyuban akan merespon via WhatsApp korporat Anda dalam 1x24 jam.' : 'The Guild Leader will respond via your corporate WhatsApp within 24 hours.'"></p>
+                                <button @click="bidSuccess = false; bidAmount = ''" class="text-amber-500 hover:text-amber-400 font-bold text-sm underline" x-text="lang === 'id' ? 'Buat Penawaran Lain' : 'Make Another Bid'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator & Proof Stacking -->
+    <section class="py-24 bg-surface">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            
+            <!-- Proof Stack -->
+            <div class="space-y-8">
+                <h2 class="text-4xl font-bold font-heading text-slate-900" x-text="lang === 'id' ? 'Dipercaya oleh Korporasi Global' : 'Trusted by Global Corporations'"></h2>
+                
+                <div class="tilt-card bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex gap-4">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Client" class="w-16 h-16 rounded-full object-cover shadow-sm">
+                    <div>
+                        <div class="flex text-amber-400 text-sm mb-1"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <p class="text-slate-700 text-sm italic mb-2">"Kualitas kriya rotannya luar biasa. Klien VIP perbankan kami sangat terkesan dengan sentuhan personal dan sertifikat keaslian dari pengrajin."</p>
+                        <p class="text-xs font-bold text-slate-900 uppercase">Sarah J. - Procurement Director, Multi-Bank</p>
+                    </div>
+                </div>
+                
+                <div class="tilt-card bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex gap-4">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Client" class="w-16 h-16 rounded-full object-cover shadow-sm">
+                    <div>
+                        <div class="flex text-amber-400 text-sm mb-1"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                        <p class="text-slate-700 text-sm italic mb-2">"Sistem Virtual Tour meyakinkan dewan direksi kami di Singapura bahwa bengkel ini memenuhi standar keamanan & etika kerja (Fair Trade)."</p>
+                        <p class="text-xs font-bold text-slate-900 uppercase">Michael T. - Regional VP, TechFirm SG</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic ROI Calculator -->
+            <div class="bg-primary text-white p-8 lg:p-10 rounded-3xl shadow-2xl relative overflow-hidden" x-data="{ lostOrders: 3, orderValue: 25000000 }">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500 rounded-full mix-blend-multiply filter blur-2xl opacity-50"></div>
+                
+                <h3 class="text-2xl font-bold font-heading mb-2 relative z-10" x-text="lang === 'id' ? 'Kalkulator Kebocoran B2B' : 'B2B Leakage Calculator'"></h3>
+                <p class="text-slate-400 text-sm mb-8 relative z-10" x-text="lang === 'id' ? 'Hitung potensi kerugian karena tidak memiliki portal B2B profesional.' : 'Calculate potential loss for not having a professional B2B portal.'"></p>
+                
+                <div class="space-y-6 relative z-10">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm font-semibold text-slate-300" x-text="lang === 'id' ? 'Pesanan Massal Hilang / Bulan' : 'Lost Bulk Orders / Month'"></label>
+                            <span class="font-bold text-amber-400" x-text="lostOrders"></span>
+                        </div>
+                        <input type="range" x-model="lostOrders" min="1" max="20" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm font-semibold text-slate-300" x-text="lang === 'id' ? 'Rata-rata Nilai Pesanan (Rp)' : 'Average Order Value (IDR)'"></label>
+                            <span class="font-bold text-amber-400" x-text="new Intl.NumberFormat('id-ID').format(orderValue)"></span>
+                        </div>
+                        <input type="range" x-model="orderValue" min="5000000" max="100000000" step="1000000" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-600 p-6 rounded-2xl mt-8">
+                        <div class="text-sm text-slate-400 uppercase tracking-widest font-semibold mb-1" x-text="lang === 'id' ? 'Potensi Pendapatan Terselamatkan (Setahun)' : 'Potential Revenue Saved (Yearly)'"></div>
+                        <div class="text-4xl font-bold text-white font-heading">
+                            Rp <span x-text="new Intl.NumberFormat('id-ID').format(lostOrders * orderValue * 12)"></span>
+                        </div>
+                        <div class="text-xs text-emerald-400 mt-2 flex items-center gap-1 font-bold">
+                            <i class="ph-bold ph-trend-up"></i> Dengan Sistem Corporate Hub
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Self-Destructing Offer -->
+    <section class="py-24 bg-slate-900 text-white border-t border-slate-800" x-data="{ 
+        timeLeft: 48 * 60 * 60,
+        formatTime() {
+            let h = Math.floor(this.timeLeft / 3600);
+            let m = Math.floor((this.timeLeft % 3600) / 60);
+            let s = this.timeLeft % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+    }" x-init="setInterval(() => { if(timeLeft > 0) timeLeft--; }, 1000)">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i class="ph-fill ph-clock-countdown text-5xl text-amber-500 mb-6 animate-pulse"></i>
+            <h2 class="text-4xl lg:text-5xl font-bold font-heading mb-4 text-white" x-text="lang === 'id' ? 'Penawaran Terbatas CocoTech' : 'Limited Time Offer'"></h2>
+            <p class="text-xl text-slate-400 mb-8" x-text="lang === 'id' ? 'Dapatkan setup Corporate Gifting Hub (Tier 3 Enterprise) dengan potongan harga arsitektur 30%.' : 'Get Corporate Gifting Hub setup (Tier 3 Enterprise) with 30% architectural discount.'"></p>
+            
+            <div class="text-4xl md:text-6xl md:text-5xl lg:text-8xl font-bold font-mono text-amber-400 tracking-tighter mb-8 bg-slate-800/50 inline-block px-8 py-4 rounded-3xl border border-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.2)]" x-text="formatTime()"></div>
+            
+            <p class="text-sm text-slate-500 mb-8 max-w-lg mx-auto" x-text="lang === 'id' ? '*Waktu terus berjalan. Proposal unik Anda akan diarsipkan secara otomatis oleh sistem saat timer mencapai nol.' : '*Time is ticking. Your unique proposal will be automatically archived by the system when timer hits zero.'"></p>
+            
+            <a href="proposal.html" class="inline-flex items-center gap-3 bg-white text-slate-900 font-bold text-lg px-10 py-4 rounded-full hover:bg-slate-200 transition-transform transform hover:scale-105 shadow-xl">
+                <i class="ph-bold ph-file-pdf text-red-500"></i>
+                <span x-text="lang === 'id' ? 'Unduh Proposal PDF & Harga' : 'Download PDF Proposal & Pricing'"></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Sticky WhatsApp Footer -->
+    <a href="https://wa.me/6281283321577?text=Halo%20CocoTech,%20saya%20tertarik%20dengan%20sistem%20B2B%20Corporate%20Gifting" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-transform transform hover:scale-110 flex items-center justify-center group">
+        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out font-bold ml-0 group-hover:ml-2 text-sm" x-text="lang === 'id' ? 'Chat Developer' : 'Chat Developer'"></span>
+    </a>
+
+    <!-- The Trojan Horse Sales Bot -->
+    <div x-show="botOpen" x-transition.opacity.duration.500ms class="fixed bottom-24 right-6 z-50 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden" style="display: none;">
+        <div class="bg-primary text-white p-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center font-bold text-xs shadow-inner">AI</div>
+                <div class="font-bold text-sm">CocoTech Assistant</div>
+            </div>
+            <button @click="botOpen = false" class="text-slate-300 hover:text-white"><i class="ph-bold ph-x"></i></button>
+        </div>
+        <div class="p-4 bg-slate-50 text-sm text-slate-700 h-32 overflow-y-auto">
+            <div class="bg-white p-3 rounded-xl rounded-tl-none shadow-sm border border-slate-100 mb-2">
+                Halo manajemen Grebeg UMKM DIY / Wastraloka! 👋
+            </div>
+            <div class="bg-white p-3 rounded-xl rounded-tl-none shadow-sm border border-slate-100">
+                Sistem B2B Bidding ini keren kan? Kalau ada pertanyaan soal integrasi ekspor atau harga, langsung ketik di sini ya, masuk ke WA saya (081283321577)!
+            </div>
+        </div>
+        <div class="p-3 border-t border-slate-100 bg-white">
+            <form onsubmit="event.preventDefault(); window.open('https://wa.me/6281283321577?text=' + encodeURIComponent(this.msg.value)); this.msg.value = '';">
+                <div class="relative">
+                    <input type="text" name="msg" class="w-full border border-slate-200 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-primary" placeholder="Ketik pesan...">
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-primary hover:text-amber-500"><i class="ph-fill ph-paper-plane-right text-lg"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mega Footer -->
+    <footer class="bg-primary text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <div class="text-white text-xl font-bold font-heading mb-2">CocoTech Digital Agency</div>
+                <p class="text-sm max-w-sm">Architecting High-Conversion Digital Empires. Kami mengubah desain menjadi mesin penjualan B2B.</p>
+            </div>
+            <div class="md:text-right">
+                <div class="text-sm font-semibold text-slate-300 mb-2">Contact Architect</div>
+                <p class="text-sm mb-1">WA: +62 812 8332 1577</p>
+                <p class="text-sm">Email: nurcahyapriantoro23@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

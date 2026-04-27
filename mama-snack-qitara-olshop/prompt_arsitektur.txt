@@ -1,0 +1,30 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and FMCG E-commerce Specialist.
+Client: Mama Snack & Qitara OlShop, Depok.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Heading/Editorial) & 'Plus Jakarta Sans' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Wholesale Snack & Hampers Pre-Order Catalog
+- Style: Warm, Approachable yet Professional, Clean E-commerce, Festive (Hampers vibe)
+- Colors: 
+  - Primary: #FAFAFA (Clean Off-White Surface)
+  - Secondary: #111827 (Dark text)
+  - Accent/Brand: #F59E0B (Amber/Warm Yellow for Snacks) & #E11D48 (Red/Festive for Hampers)
+  - Text: #3F3F46
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Kelezatan Curah & Hampers Elegan, Tanpa Batas Wilayah."
+- Unique Mechanism: "Bulk-Order Engine & Hampers Customization Flow" - Keluar dari jebakan pesanan perumahan, jangkau pesanan massal otomatis.
+- Target: Ibu rumah tangga, panitia acara/hajatan, HRD perusahaan (untuk hampers lebaran/natal).
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Professional 3D Hero Section: Warm, inviting, displaying snacks and elegant hampers packaging.
+2. Dual-Persona Engine (Dynamic Context Shifting): "Ngemil Harian (Eceran)" vs "Pesanan Massal / Hampers (Grosir)".
+3. Interactive Smart Catalog: Lightweight grid, filtering categories (Kue Kering, Snack Curah, Hampers).
+4. Headless WhatsApp Cart (The Bulk Engine): Cart system that auto-calculates bulk discounts and routes cleanly to WA.
+5. The VVIP Backdoor: Click the logo 3x for "Reseller Dropship Portal".
+6. Process Transparency Tracker: Hygiene, Packaging, and Delivery Safety (Trust Builder).
+7. Professional Mega Footer: Official address in Depok, clean corporate structure, CocoTech Studio branding.
+8. Floating Proposal Widget: "Buka Blueprint B2B" (CocoTech link).
+
+UI/UX Rules: Professional, highly legible, NO LOREM IPSUM, extremely aesthetic but fast-loading, clean layout, bilingual (EN/ID).

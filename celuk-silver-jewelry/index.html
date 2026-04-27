@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celuk Silver Artisans - Bespoke Balinese Fine Jewelry</title>
+    <meta name="description" content="Direct to artisan. Commission bespoke wedding bands and fine silver jewelry from the legendary master carvers of Celuk, Bali.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        silver: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            400: '#94a3b8',
+                            500: '#64748b', 
+                            800: '#1e293b',
+                            900: '#0f172a', // Deep Slate
+                        },
+                        platinum: {
+                            500: '#cbd5e1',
+                            700: '#475569',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -10px rgba(0,0,0,0.1)',
+                        'floating': '0 10px 30px -10px rgba(0,0,0,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #1e293b; transition: background-color 0.7s ease, color 0.7s ease; }
+        .b2b-mode { background-color: #0f172a; color: #f8fafc; } 
+        
+        .glass-nav { background: rgba(250, 250, 250, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        .b2b-mode .glass-nav { background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        
+        .card-premium { background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); transition: all 0.5s ease; border-radius: 0; }
+        .b2b-mode .card-premium { background: #1e293b; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; }
+        .b2b-mode ::-webkit-scrollbar-thumb { background: #475569; }
+
+        @keyframes slideInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .glitch { animation: glitch-anim 0.2s linear infinite; }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) } 20% { transform: translate(-1px, 1px) }
+            40% { transform: translate(-1px, -1px) } 60% { transform: translate(1px, 1px) }
+            80% { transform: translate(1px, -1px) } 100% { transform: translate(0) }
+        }
+
+        .bg-pattern { background-image: radial-gradient(#94a3b8 0.5px, transparent 0.5px); background-size: 48px 48px; opacity: 0.2; }
+        .b2b-mode .bg-pattern { opacity: 0.05; background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px); }
+    </style>
+</head>
+<body x-data="{ 
+        lang: 'en', 
+        scrolled: false, 
+        persona: 'bespoke', /* bespoke (D2C Custom) or wholesale (B2B Gallery) */
+        
+        /* VVIP Backdoor (Archive Portal) */
+        secretClicks: 0,
+        vvipOpen: false,
+        vvipCode: '',
+        vvipError: false,
+        
+        /* Interactive 3D Customization Builder (Simulation) */
+        builderOpen: false,
+        ringStyle: 'Classic Band',
+        metalType: 'Sterling 925 Silver',
+        stoneOption: 'No Stone',
+        engravingText: '',
+        
+        get estCustomPrice() {
+            let base = 250;
+            if(this.ringStyle === 'Balinese Intricate Carve') base += 150;
+            if(this.metalType === 'Gold Plated Silver') base += 80;
+            if(this.stoneOption === 'Local Sapphires') base += 200;
+            return base;
+        },
+        
+        requestConsultation() {
+            let text = `*[BESPOKE JEWELRY INQUIRY - CELUK]*%0A%0A`;
+            text += `I would like to request a video consultation for a custom piece.%0A%0A`;
+            text += `*Configuration Details:*%0A`;
+            text += `- Style: ${this.ringStyle}%0A`;
+            text += `- Metal: ${this.metalType}%0A`;
+            text += `- Stone: ${this.stoneOption}%0A`;
+            text += `- Engraving: ${this.engravingText || 'None'}%0A`;
+            text += `%0A*Est. Budget:* $${this.estCustomPrice} USD%0A%0A`;
+            text += `Please send me the Calendly link to book a video call with the Master Carver.`;
+            
+            window.open('https://wa.me/6281283321577?text=' + encodeURIComponent(text), '_blank');
+            this.builderOpen = false;
+        }
+    }" 
+    :class="{'b2b-mode': persona === 'wholesale'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased selection:bg-silver-400 selection:text-white relative">
+
+    <div class="fixed inset-0 pointer-events-none bg-pattern z-0"></div>
+
+    <!-- THE VVIP BACKDOOR (Masterpiece Archive) -->
+    <div x-show="vvipOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-white/95 backdrop-blur-xl flex items-center justify-center" style="display: none;">
+        <div class="max-w-xl w-full p-12 border border-slate-200 bg-white shadow-premium text-center relative" @click.away="vvipOpen = false">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-silver-400 to-transparent"></div>
+            <i class="ph-light ph-diamond text-5xl text-silver-500 mb-6"></i>
+            <h3 class="text-4xl font-serif text-silver-900 mb-4 tracking-widest uppercase italic">The Archive.</h3>
+            <p class="text-slate-500 text-sm mb-10 font-light tracking-wide">Enter clearance pin to access the private collection of heritage molds and exhibition-grade silverworks.</p>
+            
+            <input type="password" x-model="vvipCode" @keyup.enter="if(vvipCode==='1960') { window.location.href='proposal.html'; } else { vvipError = true; setTimeout(()=>vvipError=false, 1000); vvipCode=''; }" class="w-full bg-transparent border-b border-slate-300 focus:border-silver-500 outline-none text-center text-4xl tracking-[1em] py-4 text-silver-900 font-serif mb-6 transition-colors" placeholder="••••" maxlength="4">
+            
+            <div x-show="vvipError" class="text-red-500 text-xs font-bold uppercase tracking-[0.3em] glitch">Access Denied.</div>
+            <button @click="vvipOpen = false" class="absolute top-8 right-8 text-slate-400 hover:text-dark transition-colors"><i class="ph-light ph-x text-2xl"></i></button>
+        </div>
+    </div>
+
+    <!-- COCOTECH WIDGET: Floating Proposal (Only Wholesale Mode) -->
+    <a href="proposal.html" target="_blank" x-show="persona === 'wholesale'" x-transition class="fixed top-32 right-8 z-50 flex items-center gap-4 bg-white text-dark px-6 py-4 rounded-none shadow-floating hover:shadow-premium transition-all duration-500 border border-slate-200 group no-print">
+        <div class="text-right">
+            <div class="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">CocoTech Agency</div>
+            <div class="font-serif font-bold text-sm text-silver-900 italic" x-text="lang === 'id' ? 'Buka Blueprint B2B' : 'View B2B Blueprint'"></div>
+        </div>
+        <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-silver-900 group-hover:text-white transition-colors border border-slate-200">
+            <i class="ph-light ph-folder-open text-xl"></i>
+        </div>
+    </a>
+
+    <!-- CUSTOMIZATION BUILDER MODAL -->
+    <div x-show="builderOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md flex justify-end" style="display: none;">
+        <div class="h-full w-full max-w-lg bg-white border-l border-slate-200 shadow-2xl flex flex-col" @click.away="builderOpen = false">
+            <div class="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div>
+                    <h3 class="font-serif font-bold text-2xl text-silver-900 italic">Bespoke Studio.</h3>
+                    <p class="text-[9px] text-silver-500 uppercase tracking-[0.2em] font-bold mt-1">Design Your Masterpiece</p>
+                </div>
+                <button @click="builderOpen = false" class="w-12 h-12 rounded-full flex items-center justify-center text-slate-400 hover:text-dark hover:bg-slate-100 transition-colors"><i class="ph-light ph-x text-xl"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-8 space-y-8">
+                <!-- Visual Simulation Area -->
+                <div class="w-full h-48 bg-slate-100 border border-slate-200 flex items-center justify-center relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b2548e?q=80&w=800&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-30 grayscale mix-blend-multiply">
+                    <div class="text-center z-10">
+                        <i class="ph-light ph-sketch-logo text-4xl text-silver-500 mb-2"></i>
+                        <p class="text-xs uppercase tracking-widest text-slate-400 font-bold">3D Rendering Simulator</p>
+                    </div>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Carving Style</label>
+                        <select x-model="ringStyle" class="w-full bg-transparent border-b border-slate-300 py-3 text-sm text-dark font-sans outline-none focus:border-silver-900 transition-colors cursor-pointer appearance-none font-medium">
+                            <option value="Classic Band">Classic Polished Band</option>
+                            <option value="Balinese Intricate Carve">Balinese Intricate Carving (+ $150)</option>
+                            <option value="Hammered Texture">Rustic Hammered Texture</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Material Base</label>
+                        <select x-model="metalType" class="w-full bg-transparent border-b border-slate-300 py-3 text-sm text-dark font-sans outline-none focus:border-silver-900 transition-colors cursor-pointer appearance-none font-medium">
+                            <option value="Sterling 925 Silver">Sterling 925 Silver (Celuk Standard)</option>
+                            <option value="Gold Plated Silver">18K Gold Plated Silver (+ $80)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Stone Inclusion</label>
+                        <select x-model="stoneOption" class="w-full bg-transparent border-b border-slate-300 py-3 text-sm text-dark font-sans outline-none focus:border-silver-900 transition-colors cursor-pointer appearance-none font-medium">
+                            <option value="No Stone">Solid Metal Only</option>
+                            <option value="Local Sapphires">Balinese Local Sapphires (+ $200)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Personal Engraving</label>
+                        <input type="text" x-model="engravingText" class="w-full bg-transparent border-b border-slate-300 py-3 text-sm text-dark font-sans outline-none focus:border-silver-900 transition-colors font-medium" placeholder="E.g., Forever 12.04">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-8 bg-slate-50 border-t border-slate-200">
+                <div class="flex justify-between items-end mb-6">
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Est. Bespoke Investment</span>
+                    <span class="text-3xl font-serif text-silver-900 italic">$<span x-text="new Intl.NumberFormat('en-US').format(estCustomPrice)"></span> USD</span>
+                </div>
+                <button @click="requestConsultation()" class="w-full bg-silver-900 text-white font-bold py-5 text-[11px] tracking-[0.2em] uppercase transition-colors flex items-center justify-center gap-3 shadow-premium hover:bg-black">
+                    Book Video Consultation <i class="ph-bold ph-video-camera"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mega Header (Dual Persona Engine) -->
+    <nav :class="{'glass-nav py-6': scrolled, 'bg-transparent py-10': !scrolled}" class="fixed w-full z-40 transition-all duration-700 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            
+            <!-- Logo (VVIP Backdoor Trigger) -->
+            <div class="cursor-pointer group text-center md:text-left flex flex-col items-center md:items-start" @click="secretClicks++; if(secretClicks >= 3) { vvipOpen = true; secretClicks = 0; }">
+                <div class="flex gap-2 items-center">
+                    <span class="text-3xl font-serif font-bold tracking-widest uppercase" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Celuk.</span>
+                </div>
+                <span class="text-[7px] font-sans font-bold uppercase tracking-[0.4em] mt-2 block" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">Master Silversmiths &bull; Bali</span>
+            </div>
+            
+            <!-- Dual-Persona Toggle Switch (Ultra Luxury Style) -->
+            <div class="flex items-center transition-colors duration-700 p-1 rounded-none border" :class="persona === 'bespoke' ? 'bg-white/50 border-slate-200' : 'bg-slate-800/50 border-slate-700'">
+                <button @click="persona = 'bespoke'" class="px-8 py-3 text-[9px] font-bold transition-all uppercase tracking-widest" :class="persona === 'bespoke' ? 'bg-silver-900 text-white shadow-lg border border-silver-900' : 'text-slate-500 hover:text-dark'">Bespoke (D2C)</button>
+                <button @click="persona = 'wholesale'" class="px-8 py-3 text-[9px] font-bold transition-all uppercase tracking-widest" :class="persona === 'wholesale' ? 'bg-white text-silver-900 shadow-lg border border-slate-200' : 'text-slate-400 hover:text-white'">Wholesale (B2B)</button>
+            </div>
+
+            <!-- Language & Links -->
+            <div class="hidden lg:flex items-center gap-10 text-[10px] font-bold uppercase tracking-[0.2em]" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">
+                <a href="#artisans" class="hover:text-silver-900 transition-colors" x-text="lang === 'id' ? 'Seniman' : 'Artisans'"></a>
+                <a href="#process" class="hover:text-silver-900 transition-colors" x-text="lang === 'id' ? 'Proses' : 'Process'"></a>
+                <div class="flex items-center gap-3">
+                    <button @click="lang = 'en'" :class="lang === 'en' ? (persona==='wholesale'?'text-white':'text-silver-900') : ''">EN</button>
+                    <span class="opacity-20 font-light">|</span>
+                    <button @click="lang = 'id'" :class="lang === 'id' ? (persona==='wholesale'?'text-white':'text-silver-900') : ''">ID</button>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Ultra-Luxury Cinematic Hero Section -->
+    <header class="relative pt-48 pb-32 lg:pt-64 lg:pb-48 overflow-hidden transition-colors duration-1000 min-h-screen flex items-center z-10 border-b" :class="persona === 'wholesale' ? 'border-slate-800' : 'border-slate-200'">
+        
+        <!-- Cinematic Backgrounds -->
+        <div class="absolute inset-0 z-0">
+            <div x-show="persona === 'bespoke'" x-transition.opacity.duration.1000ms class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605100804763-247f67b2548e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 grayscale mix-blend-multiply"></div>
+            <div x-show="persona === 'wholesale'" x-transition.opacity.duration.1000ms class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573408301145-b98c46544ea0?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 grayscale-[50%]" style="display: none;"></div>
+            
+            <!-- Vignette Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface" :class="persona === 'wholesale' ? 'to-silver-900' : 'to-surface'"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-transparent opacity-90" :class="persona === 'wholesale' ? 'from-silver-900' : 'from-surface'"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-8 w-full grid lg:grid-cols-12 gap-20 items-center relative z-10">
+            <div class="lg:col-span-7 space-y-10 animate-up">
+                
+                <div class="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] transition-colors" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">
+                    <span class="w-8 h-px" :class="persona === 'wholesale' ? 'bg-slate-400' : 'bg-slate-500'"></span>
+                    <span x-text="persona === 'bespoke' ? 'Custom Promise Rings & Wedding Bands' : 'Bulk Silversmith Commission'"></span>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-5xl lg:text-8xl font-serif font-normal leading-[1.05] tracking-tight">
+                    <template x-if="persona === 'bespoke'">
+                        <span class="text-silver-900">
+                            <span class="italic text-5xl lg:text-7xl text-slate-400">Your Love Story,</span><br>
+                            Eternally Carved.<br>
+                            <span class="text-silver-500 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">By Bali's Maestros.</span>
+                        </span>
+                    </template>
+                    <template x-if="persona === 'wholesale'">
+                        <span class="text-white">
+                            <span class="italic text-5xl lg:text-7xl text-slate-400">Bypass the</span><br>
+                            Souvenir Giants.<br>
+                            <span class="text-silver-400 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">Source from the Village.</span>
+                        </span>
+                    </template>
+                </h1>
+                
+                <p class="text-lg leading-relaxed max-w-xl font-light" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">
+                    <template x-if="persona === 'bespoke'"><span x-text="lang === 'id' ? 'Jangan beli perhiasan massal. Pesan cincin pernikahan Anda secara langsung dari seniman perak Celuk. Kami memahat setiap desain sesuai filosofi cinta Anda.' : 'Do not buy mass-produced jewelry. Commission your wedding bands directly from the silver artisans of Celuk. We carve every design according to your love philosophy.'"></span></template>
+                    <template x-if="persona === 'wholesale'"><span x-text="lang === 'id' ? 'Untuk butik perhiasan internasional. Hindari rantai perantara yang memangkas nilai seniman. Beli perhiasan perak halus secara grosir, langsung dari paguyuban pengrajin tertua di Bali.' : 'For international jewelry boutiques. Avoid the middlemen chain that slashes artisan value. Buy fine silver jewelry wholesale, directly from Bali\'s oldest artisan guild.'"></span></template>
+                </p>
+                
+                <div class="pt-8">
+                    <template x-if="persona === 'bespoke'">
+                        <div class="flex gap-6">
+                            <button @click="builderOpen = true" class="bg-silver-900 text-white px-10 py-5 font-sans font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-black transition-all shadow-premium flex items-center gap-3">
+                                <span>Design Custom Piece</span> <i class="ph-light ph-faders text-lg"></i>
+                            </button>
+                        </div>
+                    </template>
+                    <template x-if="persona === 'wholesale'">
+                        <button onclick="window.open('https://wa.me/6281283321577?text=Hello%20Celuk%20Guild,%20we%20are%20interested%20in%20wholesale%20catalogs.')" class="bg-white text-silver-900 px-10 py-5 font-sans font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-slate-200 transition-all shadow-xl flex items-center gap-3">
+                            <span>Request Wholesale Catalog</span> <i class="ph-light ph-folder-open text-lg"></i>
+                        </button>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- Floating Artisan Detail (Vanilla Tilt) -->
+            <div class="lg:col-span-5 relative hidden lg:flex justify-end" data-tilt data-tilt-max="2" data-tilt-speed="2000" data-tilt-perspective="1000">
+                 <div class="w-[400px] h-[550px] relative transition-all duration-700" :class="persona === 'wholesale' ? 'shadow-[0_20px_50px_rgba(0,0,0,0.8)]' : 'shadow-premium'">
+                    <img x-show="persona === 'bespoke'" src="https://images.unsplash.com/photo-1599643477874-c11c4c15db64?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale-[30%]" alt="Bespoke Rings">
+                    <img x-show="persona === 'wholesale'" src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale-[30%]" alt="Artisan Hands" style="display: none;">
+                    
+                    <div class="absolute -bottom-8 -left-8 p-8 backdrop-blur-md border transition-colors duration-700" :class="persona === 'wholesale' ? 'bg-silver-900/90 border-slate-800 shadow-premium' : 'bg-white/90 border-slate-100 shadow-xl'">
+                        <div class="font-serif text-2xl italic mb-1" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Sterling 925 Base</div>
+                        <div class="text-[9px] uppercase tracking-widest font-bold font-sans" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">Celuk Authentication</div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODULE 1: Artisan Brand Equity Showcase -->
+    <section id="artisans" class="py-32 border-y transition-colors duration-700" :class="persona === 'wholesale' ? 'bg-[#0a0a0a] border-slate-800' : 'bg-white border-slate-200'">
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-24">
+                <div class="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-silver-500'">The Masters Behind the Silver</div>
+                <h2 class="text-4xl lg:text-5xl font-serif mb-6 italic" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Know Your Artisan.</h2>
+                <p class="max-w-2xl mx-auto font-light text-base leading-relaxed" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">Karya kami bukan diproduksi oleh mesin pabrik. Setiap seniman di paguyuban Celuk memiliki spesialisasi dan filosofi ukir tersendiri.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Artisan 1 -->
+                <div class="group">
+                    <div class="h-80 bg-slate-100 overflow-hidden mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-105">
+                        <div class="absolute bottom-4 right-4 bg-white text-dark px-3 py-1 text-[9px] font-bold uppercase tracking-widest">Master Carver</div>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-2" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Wayan Suardana</h3>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-4">Specialty: Floral Filigree</p>
+                    <p class="text-sm font-light leading-relaxed" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-600'">Spesialis dalam memahat detail motif bunga halus yang melambangkan kemakmuran. Berpengalaman 30 tahun.</p>
+                </div>
+                
+                <!-- Artisan 2 -->
+                <div class="group">
+                    <div class="h-80 bg-slate-100 overflow-hidden mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-105">
+                        <div class="absolute bottom-4 right-4 bg-white text-dark px-3 py-1 text-[9px] font-bold uppercase tracking-widest">Goldsmith</div>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-2" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Ketut Arsana</h3>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-4">Specialty: Minimalist Bands</p>
+                    <p class="text-sm font-light leading-relaxed" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-600'">Fokus pada desain modern dan kontemporer untuk cincin pernikahan dengan sentuhan akhir polesan presisi tinggi.</p>
+                </div>
+                
+                <!-- Artisan 3 -->
+                <div class="group">
+                    <div class="h-80 bg-slate-100 overflow-hidden mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-105">
+                        <div class="absolute bottom-4 right-4 bg-white text-dark px-3 py-1 text-[9px] font-bold uppercase tracking-widest">Gem Setter</div>
+                    </div>
+                    <h3 class="font-serif text-2xl mb-2" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Ni Nyoman Ratih</h3>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-4">Specialty: Stone Mounting</p>
+                    <p class="text-sm font-light leading-relaxed" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-600'">Akurasi mutlak dalam mengunci batu safir lokal atau permata pada bingkai perak Sterling 925.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE SOCIAL PROOF ENGINE (Discreet) -->
+    <div x-data="{ show: false, message: '' }" 
+         x-init="
+            const msgs = [
+                'A couple from Milan booked a video consultation for wedding bands.',
+                'A boutique in New York inquired about wholesale supply.',
+                'Master Wayan just completed a custom filigree piece for export.'
+            ];
+            setInterval(() => {
+                message = msgs[Math.floor(Math.random() * msgs.length)];
+                show = true;
+                setTimeout(() => show = false, 6000);
+            }, 25000);
+         "
+         x-show="show" 
+         x-transition:enter="toast-enter"
+         x-transition:leave="transition ease-in duration-500"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed bottom-10 left-10 z-50 p-6 border shadow-2xl flex items-center gap-5 max-w-sm backdrop-blur-md" :class="persona === 'wholesale' ? 'bg-white/90 border-slate-100' : 'bg-silver-900/90 border-slate-800'" style="display: none;">
+        <div class="w-10 h-10 flex items-center justify-center shrink-0 border rounded-full" :class="persona === 'wholesale' ? 'bg-surface border-slate-200 text-slate-400' : 'bg-black border-slate-700 text-slate-500'">
+            <i class="ph-light ph-diamond text-xl"></i>
+        </div>
+        <div>
+            <div class="text-[8px] font-bold uppercase tracking-[0.3em] mb-1" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">Atelier Activity</div>
+            <div class="text-xs font-light leading-relaxed" :class="persona === 'wholesale' ? 'text-silver-900' : 'text-white'" x-text="message"></div>
+        </div>
+    </div>
+
+    <!-- Mega Footer -->
+    <footer class="pt-24 pb-12 border-t transition-colors duration-700" :class="persona === 'wholesale' ? 'bg-[#0a0a0a] border-slate-800' : 'bg-surface border-slate-200'">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-16 mb-16 border-b pb-16" :class="persona === 'wholesale' ? 'border-slate-800' : 'border-slate-200'">
+            <div class="col-span-1 md:col-span-2">
+                <h1 class="text-3xl font-serif font-bold tracking-widest uppercase mb-2" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Celuk.</h1>
+                <span class="text-[9px] font-bold uppercase tracking-[0.4em]" :class="persona === 'wholesale' ? 'text-slate-500' : 'text-slate-400'">Independent Artisans Guild</span>
+                <p class="mt-8 text-sm font-light leading-relaxed max-w-md" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">Kesatuan paguyuban pengrajin komunal pembuat kerajinan perhiasan perak ukir super halus legendaris. Membuka akses langsung (D2C) untuk pesanan historis dari wisatawan Eropa dan mancanegara eksklusif.</p>
+                
+                <div class="mt-8 flex gap-4 opacity-50">
+                    <i class="ph-light ph-seal-check text-3xl" :class="persona === 'wholesale' ? 'text-white' : 'text-dark'" title="Authenticity Guaranteed"></i>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-sans font-bold mb-8 text-[10px] uppercase tracking-[0.2em]" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">Navigation</h4>
+                <ul class="space-y-4 text-xs font-light tracking-wide" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">
+                    <li><a href="#artisans" class="hover:text-silver-500 transition-colors">Our Artisans</a></li>
+                    <li><a href="#" @click.prevent="builderOpen = true" class="hover:text-silver-500 transition-colors">Bespoke Studio</a></li>
+                    <li><a href="proposal.html" target="_blank" class="hover:text-silver-500 transition-colors font-bold">B2B Wholesale Proposal</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-sans font-bold mb-8 text-[10px] uppercase tracking-[0.2em]" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">The Atelier</h4>
+                <ul class="space-y-4 text-sm font-light" :class="persona === 'wholesale' ? 'text-slate-400' : 'text-slate-500'">
+                    <li class="flex items-start gap-4"><i class="ph-light ph-map-pin mt-1 text-silver-500"></i> <span>Pusat Desa Celuk<br>Gianyar, Bali - Indonesia</span></li>
+                    <li class="flex items-center gap-4"><i class="ph-light ph-video-camera text-silver-500"></i> <span>Virtual Appointment Available</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-[10px] font-light tracking-widest" :class="persona === 'wholesale' ? 'text-slate-500' : 'text-slate-400'">&copy; <span x-text="new Date().getFullYear()"></span> UMKM Perak Celuk. All rights reserved.</div>
+            <div class="text-[9px] font-bold uppercase tracking-[0.3em] flex items-center gap-3" :class="persona === 'wholesale' ? 'text-slate-500' : 'text-slate-400'">
+                System Infrastructure by <a href="https://cocotech.studio" target="_blank" class="hover:underline transition-colors" :class="persona === 'wholesale' ? 'text-white' : 'text-silver-900'">CocoTech Studio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and D2C E-commerce Specialist.
+Client: Ekosistem Oleh-Oleh Komoditas Masif (Pia Legong, Kacang Disco, dkk), Denpasar/Bypass Ngurah Rai, Bali.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Heading/Nostalgia) & 'Inter' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Premium D2C E-Commerce & Reseller (Jastip) Portal
+- Style: Warm Balinese Heritage, Trustworthy Logistics, Modern Food E-Commerce
+- Colors: 
+  - Primary: #FAFAFA (Clean White)
+  - Secondary: #18181B (Deep Zinc)
+  - Accent/Brand: #EA580C (Sunset Orange) & #B45309 (Warm Spice)
+  - Text: #27272A / #F4F4F5
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Bring the Taste of Bali Home, Again and Again." (Bawa Pulang Rasa Rindu Bali, Kapan Saja Anda Inginkan.)
+- Unique Mechanism: "Inter-Island Flawless Delivery Engine & Package Insurance Guarantee" - Jaminan paket rapuh (Pia) tiba dengan selamat antar pulau.
+- Target: Konsumen domestik (Jakarta, Surabaya, Bandung) yang kangen jajanan Bali tanpa harus menunggu liburan berikutnya, serta agen Jastip (Jasa Titip).
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Warm 3D Hero Section: High-quality imagery of famous Balinese snacks, inviting typography, sunset-inspired gradients.
+2. Dual-Persona Engine: "Nostalgic Traveler (Personal)" vs "Jastip / Corporate Bulk (Wholesale)".
+3. Inter-Island Shipping & Insurance Calculator (Alpine.js): Pengguna memilih destinasi (Jabodetabek, Jatim, dll) dan sistem menghitung ongkos kirim kargo khusus makanan + Asuransi Keutuhan Paket (Pia tidak hancur).
+4. The VVIP Backdoor (Easter Egg): Klik logo 3x untuk membuka portal "Secret Restock" khusus Agen Jastip terverifikasi untuk melihat harga margin khusus.
+5. Headless WhatsApp Cart: Sistem keranjang belanja yang mengompilasi pesanan + asuransi + ongkir langsung menjadi format teks WA yang rapi.
+6. The Stolen Traffic (Social Proof): "Dikirimkan lebih dari 10.000 paket utuh ke Jabodetabek minggu ini."
+7. Professional Mega Footer: Pusat distribusi di Denpasar/Bypass, logo logistik (Paxel, JNE, Garuda), CocoTech Studio branding.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, clean and trustworthy design, fast-loading e-commerce interface, bilingual (ID/EN) with Indonesian priority.

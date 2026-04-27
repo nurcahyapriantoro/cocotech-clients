@@ -1,0 +1,25 @@
+
+Kamu adalah Agent Web Generator untuk klien B2B: bolu-menara-medan.
+Buatkan file index.html dan proposal.html secara lengkap, spektakuler, dan siap tayang.
+
+ATURAN MUTLAK (Sesuai GEMINI.md):
+1. **SINGLE FILE RULE untuk index.html**: Semua HTML, CSS (Tailwind CDN), dan JS (Alpine.js) harus dalam 1 file utuh.
+2. **COMPANY PROFILE FIRST**: Harus ada Hero, Stats, About, Menu/Katalog, Fitur Spektakuler, Testimonial, Galeri, dan Footer bisnis.
+3. **PENAWARAN COCOTECH DI BAWAH**: Di bagian paling bawah (setelah footer), berikan section penawaran "Self-Destructing Offer" (Countdown 48 jam) & The "Stolen Traffic" Section.
+4. **BILINGUAL**: Gunakan Alpine.js (x-data="{ lang: 'id' }") untuk Inggris dan Indonesia.
+5. **PDF PROPOSAL WIDGET**: Tombol mengambang dengan ikon PDF menuju 'proposal.html' di pojok kanan atas.
+6. **NO LOREM IPSUM**: Semua teks harus asli, profesional, dan menggambarkan bisnis tersebut.
+7. **WOW FACTOR**: Buatkan 1 section fitur interaktif spesifik untuk mereka (misal: kalkulator, booking form, atau animasi 3D CSS).
+8. WAJIB menggunakan Phosphor Icons (https://unpkg.com/@phosphor-icons/web).
+
+Deliverables Khusus yang harus ditonjolkan:
+- Aggregator Oleh-Oleh Medan (Bolu Menara, Meranti, dll)
+- Integrasi Kargo & Hitung Ongkir Otomatis (Cold-chain delivery)
+- Sistem Pemesanan Skala Besar (Corporate Gifting / Hampers)
+
+TUGASMU:
+Berikan output berupa JSON murni (TANPA MARKDOWN ```json) dengan format:
+{
+  "index_html": "<seluruh kode HTML untuk index.html>",
+  "proposal_html": "<seluruh kode HTML untuk proposal.html>"
+}

@@ -11,7 +11,7 @@ Sistem ini sudah dilengkapi fitur **Bilingual** dan **Simulator Pelacakan Kargo 
 
 *(Coba ubah toggle bahasa ke Inggris untuk melihat narasinya).*
 
-Jika preview ini menarik, Anda bisa balas "Boleh", atau langsung pilih waktu kosong saya di sini untuk ngobrol 10 menit via Zoom/GMeet: **[LINK_CALENDLY/CAL.COM ANDA]** 📅
+Jika preview ini menarik, Anda bisa balas "Boleh", atau langsung pilih waktu kosong saya di sini untuk ngobrol 10 menit via Zoom/GMeet: **https://cal.com/cocotech-studio** 📅
 
 ---
 

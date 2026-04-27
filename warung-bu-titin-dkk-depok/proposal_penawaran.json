@@ -1,0 +1,19 @@
+{
+    "clientName": "Paguyuban Wirausaha Lingkungan Depok",
+    "pricingTier": "Tier 2: Conversion Engine",
+    "pricingName": "The Hyperlocal Community Hub",
+    "estimatedPrice": "Rp 8.500.000",
+    "featuresGenerated": [
+        "Headless WhatsApp Multi-Vendor Cart",
+        "Interactive Community Directory (Alpine.js)",
+        "Dual-Persona Engine (Warga & Mitra)",
+        "Live Social Proof (Neighborhood Activity)",
+        "VVIP Backdoor (Paguyuban Admin Portal)"
+    ],
+    "identifiedPainPoints": [
+        "Usaha mikro sangat bergantung pada visibilitas fisik, kehilangan pesanan dari warga perumahan yang lebih memilih aplikasi ojol raksasa.",
+        "Potongan komisi aplikasi besar terlalu memberatkan margin keuntungan warung dan jasa laundry kecil.",
+        "Pelanggan lokal tidak memiliki satu direktori terpadu untuk mengetahui usaha apa saja yang ada di lingkungan mereka."
+    ],
+    "timestamp": "2026-04-27T08:00:00.000Z"
+}

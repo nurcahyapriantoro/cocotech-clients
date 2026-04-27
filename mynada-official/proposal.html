@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official E-Commerce Blueprint & Proposal - MYNADA Official</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #171717; /* Soft Black */
+            --accent: #a8a29e; /* Muted Stone */
+            --surface: #FAFAFA;
+            --text-dark: #27272A;
+            --text-light: #71717A;
+            --border: #E4E4E7;
+            --success: #10B981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--surface);
+            color: var(--text-dark);
+            font-size: 14.5px;
+            line-height: 1.8;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; font-size: 11pt; }
+            .page-break { break-before: page; }
+            .section { break-inside: avoid; }
+        }
+
+        /* --- COVER --- */
+        .cover {
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px;
+            position: relative;
+            color: var(--text-dark);
+            overflow: hidden;
+            border-left: 20px solid var(--primary);
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; width: 50%;
+            background: url('https://images.unsplash.com/photo-1550614000-4b95d4edfa20?q=80&w=1000&auto=format&fit=crop') center/cover;
+            z-index: 1;
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+            opacity: 0.8;
+            filter: grayscale(20%);
+        }
+
+        .cover-content { position: relative; z-index: 10; max-width: 60%; }
+        
+        .cover-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            border-radius: 0px;
+            margin-bottom: 30px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .cover-title span { color: var(--accent); font-style: italic; }
+
+        .cover-subtitle { font-size: 16px; color: var(--text-light); line-height: 1.6; margin-bottom: 40px; font-weight: 400; max-width: 450px; }
+
+        .prepared-for { border-left: 2px solid var(--primary); padding-left: 24px; margin-top: 100px; }
+        .prepared-for-label { font-size: 10px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+        .client-name { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 4px; letter-spacing: -1px; }
+        .client-detail { font-size: 14px; color: var(--text-light); font-weight: 500; }
+
+        .footer-cover { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; border-top: 1px solid var(--border); padding-top: 30px; position: relative; z-index: 10; max-width: 45%; }
+        
+        /* --- PAGES --- */
+        .page { background: white; min-height: 100vh; padding: 80px; position: relative; }
+        .page-inner { max-width: 800px; margin: 0 auto; }
+
+        .header-page { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 50px; }
+        .header-logo { font-weight: 800; font-size: 16px; color: var(--primary); letter-spacing: 2px; font-family: 'Playfair Display', serif; }
+        .header-doc { font-size: 10px; color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
+
+        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 30px; line-height: 1.2; }
+
+        p { margin-bottom: 20px; color: var(--text-dark); font-weight: 300; }
+        .highlight { color: var(--primary); font-weight: 700; }
+
+        /* --- FASCINATIONS & LISTS --- */
+        .problem-box { background: #fafafa; border-left: 2px solid var(--primary); padding: 30px; margin-bottom: 40px; }
+        .problem-box h4 { color: var(--primary); font-size: 14px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1.5px; }
+        .problem-box p { color: var(--text-light); margin-bottom: 0; }
+
+        .fascination-list { list-style: none; margin-bottom: 40px; }
+        .fascination-list li { position: relative; padding-left: 36px; margin-bottom: 16px; font-weight: 400; color: var(--text-dark); }
+        .fascination-list li::before { content: '—'; position: absolute; left: 0; top: 0; font-weight: bold; color: var(--accent); }
+
+        /* --- ROI TABLE --- */
+        .roi-table { width: 100%; border-collapse: collapse; margin: 40px 0; font-weight: 300; }
+        .roi-table th { background: var(--surface); color: var(--primary); padding: 16px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; border-top: 1px solid var(--primary); border-bottom: 1px solid var(--primary); }
+        .roi-table td { padding: 16px; border-bottom: 1px solid var(--border); background: white; }
+        .roi-table tr:last-child td { border-bottom: 1px solid var(--primary); font-weight: 600; }
+        .text-red { color: #EF4444; }
+        .text-green { color: var(--primary); font-weight: 700; }
+
+        /* --- PRICING TIERS --- */
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 50px; }
+        
+        .tier-card { border: 1px solid var(--border); padding: 50px; background: white; position: relative; text-align: center; }
+        .tier-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 4px 16px; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+        
+        .tier-name { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+        .tier-desc { color: var(--text-light); font-size: 13px; margin-bottom: 30px; font-weight: 300; }
+        .tier-price { font-size: 40px; font-weight: 300; color: var(--primary); margin-bottom: 40px; font-family: 'Playfair Display', serif; }
+        
+        .tier-features { list-style: none; text-align: left; }
+        .tier-features li { padding: 12px 0; border-bottom: 1px solid var(--surface); display: flex; align-items: flex-start; gap: 12px; font-size: 13px; font-weight: 400; color: var(--text-dark); }
+        .tier-features li:last-child { border-bottom: none; }
+        .tier-features i { color: var(--primary); font-size: 16px; margin-top: 2px; }
+
+        /* --- TIMELINE --- */
+        .timeline { position: relative; margin-bottom: 50px; }
+        .timeline-item { display: flex; gap: 24px; margin-bottom: 30px; }
+        .timeline-date { width: 120px; flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; padding-top: 4px; border-right: 1px solid var(--border); padding-right: 24px; text-align: right; }
+        .timeline-content { flex-grow: 1; }
+        .timeline-title { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+
+        /* --- GUARANTEE --- */
+        .guarantee-box { background: var(--surface); color: var(--primary); padding: 40px; display: flex; gap: 30px; align-items: flex-start; border: 1px solid var(--border); }
+        .guarantee-icon { font-size: 40px; color: var(--primary); }
+        .guarantee-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .guarantee-box p { color: var(--text-dark); font-weight: 300; margin-bottom: 0; font-size: 13px; }
+
+        /* --- ACTION BAR --- */
+        .action-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 12px 24px; border-radius: 100px; display: flex; gap: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); z-index: 100; border: 1px solid var(--border); }
+        .btn { padding: 14px 32px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--text-light); }
+        .btn-outline { background: transparent; color: var(--text-dark); border: 1px solid var(--border); }
+        .btn-outline:hover { background: var(--surface); }
+    </style>
+</head>
+<body>
+
+    <div class="action-bar no-print">
+        <button class="btn btn-outline" onclick="window.print()"><i class="ph-bold ph-printer"></i> Print</button>
+        <a href="https://wa.me/6281283321577?text=Halo%20Tim%20CocoTech,%20saya%20telah%20membaca%20proposal%20MYNADA%20dan%20tertarik%20untuk%20eksekusi." class="btn btn-primary" target="_blank">Approve Blueprint <i class="ph-bold ph-arrow-right"></i></a>
+    </div>
+
+    <!-- COVER PAGE -->
+    <div class="cover page-break">
+        <div class="cover-content">
+            <div class="cover-badge">FASHION COMMERCE BLUEPRINT</div>
+            <h1 class="cover-title">The Digital<br><span>Lookbook Engine.</span></h1>
+            <p class="cover-subtitle">Rancangan infrastruktur E-Commerce eksklusif untuk mentransformasi penjualan manual MYNADA menjadi sistem otomasi tanpa gesekan.</p>
+        </div>
+
+        <div class="cover-content">
+            <div class="prepared-for">
+                <div class="prepared-for-label">Disiapkan Secara Eksklusif Untuk:</div>
+                <div class="client-name">MYNADA Official</div>
+                <div class="client-detail">Modest Fashion Manufacturer - Bandung</div>
+            </div>
+
+            <div class="footer-cover">
+                <div>
+                    <div style="font-size: 9px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 2px;">Tanggal</div>
+                    <div style="font-size: 13px; font-weight: 700; color: var(--primary);">24 April 2026</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 14px; font-weight: 800; color: var(--primary); letter-spacing: 1px;">COCOTECH STUDIO</div>
+                    <div style="font-size: 10px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;">Conversion Architects</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: THE PROBLEM & THE SOLUTION -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">MYNADA <span>X</span> COCOTECH</div>
+                <div class="header-doc">EXECUTIVE SUMMARY</div>
+            </div>
+
+            <h2 class="section-title">The Hidden Bottleneck:<br>Jebakan Chat Manual.</h2>
+
+            <p>Mencapai omzet Rp 18 Juta per bulan murni dari industri rumahan di Buah Batu membuktikan satu hal: <span class="highlight">Kualitas bahan dan jahitan MYNADA sangat luar biasa.</span> Anda memiliki produk pemenang.</p>
+            
+            <p>Namun, bagaimana Anda akan <em>scale-up</em> (meningkatkan) omzet ke angka Rp 100 Juta per bulan jika Anda masih terjebak melayani pelanggan satu per satu?</p>
+
+            <div class="problem-box">
+                <h4>Fakta E-Commerce Fesyen 2026</h4>
+                <p>Metode penjualan tradisional (balas chat manual) membunuh skalabilitas. Admin Anda menghabiskan 60% waktunya hanya untuk menjawab pertanyaan <em>"Kak, tinggi 160 berat 55 pakai size apa?"</em> atau mendata resi pengiriman satu per satu. Belum lagi, mustahil merekrut ratusan agen *reseller/dropshipper* secara masif jika Anda tidak menyediakan ekosistem digital untuk mereka.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">The Blueprint Solution:<br>Automasi Berkelas.</h2>
+
+            <p>Kami merancang <em>"The Smart Fit E-Commerce Engine"</em> yang baru saja Anda alami di tautan <em>Live Preview</em>. Platform ini dirancang bukan sekadar agar Anda memiliki website, melainkan untuk <strong>memotong seluruh interaksi manual yang tidak menghasilkan uang.</strong></p>
+
+            <ul class="fascination-list">
+                <li><strong>Interactive Size Calculator:</strong> Pelanggan tidak perlu lagi bertanya kepada admin. Mereka cukup memasukkan Tinggi & Berat Badan, dan algoritma pintar (*Alpine.js*) di website akan seketika menyarankan potongan baju yang sempurna (S/M/L/XL).</li>
+                <li><strong>Headless WhatsApp Cart:</strong> Pengalaman belanja *checkout* yang mulus layaknya aplikasi internasional. Saat keranjang di-*checkout*, sistem secara otomatis mem-*parsing* Nama, Alamat Lengkap, dan Pesanan ke dalam format *Invoice* yang siap *copy-paste* untuk keperluan label resi ekspedisi.</li>
+                <li><strong>Dual-Persona Engine (Reseller Portal):</strong> Dengan satu tombol, tampilan website berubah menjadi portal khusus agen B2B. Harga otomatis terpotong 20%, memudahkan *dropshipper* Anda untuk berjualan tanpa harus meminta daftar harga grosir secara manual.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE 2: ROI & INVESTMENT -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">MYNADA <span>X</span> COCOTECH</div>
+                <div class="header-doc">ROI & PRICING</div>
+            </div>
+
+            <h2 class="section-title">Logika Matematis:<br>Investasi Skalabilitas.</h2>
+
+            <p>Mari kita memproyeksikan penghematan biaya operasional (waktu admin) dan potensi pendaftaran *reseller* baru karena Anda kini memiliki portal bisnis (*Lookbook*) kelas atas.</p>
+
+            <table class="roi-table">
+                <thead>
+                    <tr>
+                        <th>Parameter Efisiensi Bisnis</th>
+                        <th>Tanpa Infrastruktur Digital</th>
+                        <th>Dengan E-Commerce Engine MYNADA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Waktu Proses 1 Pesanan (Tanya Size hingga Resi)</td>
+                        <td class="text-red">15 - 25 Menit / Pelanggan</td>
+                        <td class="text-green">1 Menit (Full Otomatis)</td>
+                    </tr>
+                    <tr>
+                        <td>Pengelolaan Harga Agen/Reseller</td>
+                        <td class="text-red">Kirim PDF Harga Manual</td>
+                        <td class="text-green">Fitur Toggle Diskon Instan</td>
+                    </tr>
+                    <tr>
+                        <td>Persepsi Nilai Merek (Brand Value)</td>
+                        <td class="text-red">Industri Rumahan Biasa</td>
+                        <td class="text-green">Butik Premium Setara Brand Besar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kapasitas Pesanan Maksimal Harian</strong></td>
+                        <td>Terbatas Tenaga Admin</td>
+                        <td class="text-green">Tidak Terbatas (Skalabel)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="section-title" style="margin-top: 60px;">The Investment</h2>
+
+            <div class="pricing-grid">
+                <!-- TIER 3 (Enterprise) -->
+                <div class="tier-card recommended">
+                    <div class="tier-badge">The Ultimate Growth Engine</div>
+                    <div class="tier-name">Paket Enterprise / B2B Ops</div>
+                    <div class="tier-desc">Hak Milik Penuh atas seluruh arsitektur *Fashion E-Commerce* MYNADA.</div>
+                    <div class="tier-price">Rp 16.500.000</div>
+                    
+                    <ul class="tier-features">
+                        <li><i class="ph-light ph-check-circle"></i> <span><strong>Editorial UI/UX Design</strong> (Tampilan Minimalis & Clean)</span></li>
+                        <li><i class="ph-light ph-check-circle"></i> <span><strong>Interactive Size Calculator Engine</strong> (Alpine.js)</span></li>
+                        <li><i class="ph-light ph-check-circle"></i> <span><strong>Dual-Persona Engine</strong> (Mode Retail & Reseller Dropship)</span></li>
+                        <li><i class="ph-light ph-check-circle"></i> <span><strong>Headless WhatsApp Checkout Flow</strong> (Generate Label Pengiriman)</span></li>
+                        <li><i class="ph-light ph-check-circle"></i> <span><strong>1 Tahun Cloud Hosting Premium</strong> & Domain Bebas Pilih (.com/.id)</span></li>
+                        <li><i class="ph-light ph-check-circle"></i> <span><strong>Revisi Tanpa Batas</strong> hingga desain 100% selaras dengan identitas MYNADA.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PAGE 3: TIMELINE & GUARANTEE -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">MYNADA <span>X</span> COCOTECH</div>
+                <div class="header-doc">EXECUTION & GUARANTEE</div>
+            </div>
+
+            <h2 class="section-title">Timeline Pengerjaan Presisi</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Fase I<br>(Hari 1 - 3)</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Assets Handover & Design System</div>
+                        <p class="text-slate-600 text-sm font-light">Pembayaran DP (30%). Kami membutuhkan foto-foto katalog resolusi tinggi dari produk Anda untuk menyempurnakan struktur *Lookbook* digital.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Fase II<br>(Hari 4 - 8)</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Logic Development</div>
+                        <p class="text-slate-600 text-sm font-light">Pemrograman sistem kalkulator ukuran cerdas dan *Dual-Persona* agar diskon *reseller* bisa berfungsi secara *real-time* di keranjang belanja.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Fase III<br>(Hari 9 - 14)</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Quality Control & Deployment</div>
+                        <p class="text-slate-600 text-sm font-light">Revisi final. Setelah persetujuan penuh dan pelunasan, sistem dinaikkan ke domain publik (misal: *mynadaofficial.com*) dan siap menerima puluhan agen *dropshipper* baru.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guarantee-box" style="margin-top: 60px;">
+                <div class="guarantee-icon"><i class="ph-light ph-shield-check"></i></div>
+                <div>
+                    <h3 class="guarantee-title">Zero-Risk Performance Guarantee</h3>
+                    <p>Kami tidak bermain dengan kualitas. Jika dalam 30 hari operasional pasca-peluncuran, fungsi *Headless Cart* atau kalkulator ukuran tidak beroperasi secara matematis sebagaimana mestinya, teknisi kami akan mengatasinya 24/7. Jika gagal diperbaiki, <strong>100% nilai investasi Anda akan dikembalikan tanpa potongan</strong>.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 80px;">Take the Next Step.</h2>
+            
+            <p>Berhentilah membalas pertanyaan *size chart* secara manual. Biarkan sistem bekerja untuk Anda, sehingga Anda bisa fokus pada mendesain koleksi busana muslimah terbaik berikutnya.</p>
+
+            <div style="margin-top: 40px;">
+                <a href="https://wa.me/6281283321577?text=Halo%20Tim%20CocoTech,%20saya%20telah%20membaca%20proposal%20MYNADA%20dan%20tertarik%20untuk%20eksekusi." class="btn btn-primary" style="display: inline-flex;" target="_blank">Approve Blueprint <i class="ph-bold ph-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made Ukir - Authentic Balinese Wood Carving Masterpieces</title>
+    <meta name="description" content="Bypass the middlemen. Own authentic, handcrafted Balinese wood carvings directly from the artisan's workshop in Jembrana, Bali.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        artisan: {
+                            50: '#fafafa', // Gallery White
+                            100: '#f4f4f5',
+                            400: '#a1a1aa',
+                            500: '#71717a', 
+                            800: '#27272a',
+                            900: '#171717', // Deep Black
+                        },
+                        teak: {
+                            500: '#b45309', // Warm Gold / Carved Teak
+                            800: '#78350f', // Dark Wood
+                            900: '#451a03',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -10px rgba(0,0,0,0.5)',
+                        'floating': '0 10px 30px -10px rgba(180, 83, 9, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #171717; color: #FAFAFA; transition: background-color 0.7s ease, color 0.7s ease; }
+        .gallery-mode { background-color: #FAFAFA; color: #171717; } /* B2B / Gallery Mode is light */
+        
+        .glass-nav { background: rgba(23, 23, 23, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .gallery-mode .glass-nav { background: rgba(250, 250, 250, 0.9); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        
+        .card-premium { background: #27272A; border: 1px solid rgba(255,255,255,0.05); transition: all 0.5s ease; border-radius: 0; }
+        .gallery-mode .card-premium { background: white; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05); }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #171717; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; }
+        .gallery-mode ::-webkit-scrollbar-track { background: #fafafa; }
+        .gallery-mode ::-webkit-scrollbar-thumb { background: #d4d4d8; }
+
+        @keyframes slideInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* The Vault Glitch */
+        .glitch { animation: glitch-anim 0.2s linear infinite; }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) } 20% { transform: translate(-1px, 1px) }
+            40% { transform: translate(-1px, -1px) } 60% { transform: translate(1px, 1px) }
+            80% { transform: translate(1px, -1px) } 100% { transform: translate(0) }
+        }
+
+        .bg-pattern { background-image: radial-gradient(#b45309 0.5px, transparent 0.5px); background-size: 32px 32px; opacity: 0.1; }
+        .gallery-mode .bg-pattern { opacity: 0.05; }
+    </style>
+</head>
+<body x-data="{ 
+        lang: 'en', 
+        scrolled: false, 
+        persona: 'collector', /* collector (B2C) or gallery (Wholesale B2B) */
+        
+        /* VVIP Backdoor (The Vault) */
+        secretClicks: 0,
+        vvipOpen: false,
+        vvipCode: '',
+        vvipError: false,
+        
+        /* Headless Inquiry & Freight Cart */
+        cartOpen: false,
+        cart: [],
+        addToCart(item, id, weight, dimensions) {
+            let existing = this.cart.find(i => i.id === id);
+            if(existing) { existing.qty++; } else { this.cart.push({name: item, id: id, weight: weight, dimensions: dimensions, qty: 1}); }
+            this.cartOpen = true;
+        },
+        removeFromCart(index) {
+            if(this.cart[index].qty > 1) { this.cart[index].qty--; } else { this.cart.splice(index, 1); }
+            if(this.cart.length === 0) this.cartOpen = false;
+        },
+        get totalWeight() { return this.cart.reduce((total, item) => total + (item.weight * item.qty), 0); },
+        
+        /* Cross-Border Freight Calculator */
+        destination: 'US',
+        freightMethod: 'Sea',
+        get estFreight() {
+            if(this.totalWeight === 0) return 0;
+            let rate = 0;
+            if(this.destination === 'US') rate = this.freightMethod === 'Air' ? 25 : 8;
+            if(this.destination === 'EU') rate = this.freightMethod === 'Air' ? 22 : 7;
+            if(this.destination === 'AS') rate = this.freightMethod === 'Air' ? 15 : 5;
+            if(this.destination === 'AU') rate = this.freightMethod === 'Air' ? 20 : 6;
+            return this.totalWeight * rate; /* in USD */
+        },
+        
+        clientName: '',
+        clientEmail: '',
+        
+        checkout() {
+            if(this.cart.length === 0 || !this.clientName || !this.clientEmail) { 
+                alert(this.lang === 'en' ? 'Please complete your Name and Email.' : 'Lengkapi Nama dan Email Anda.'); 
+                return; 
+            }
+            
+            let text = `*[GLOBAL INQUIRY - MADE UKIR BALI]*%0A%0A`;
+            text += `*Collector/Gallery:* ${this.clientName}%0A`;
+            text += `*Email:* ${this.clientEmail}%0A`;
+            text += `*Destination Region:* ${this.destination}%0A`;
+            text += `*Preferred Freight:* ${this.freightMethod}%0A%0A`;
+            text += `*Requested Masterpieces:*%0A`;
+            this.cart.forEach(item => {
+                text += `- *${item.name}* (Ref: ${item.id}) x${item.qty}%0A  Weight: ${item.weight}kg | Dim: ${item.dimensions}%0A`;
+            });
+            text += `%0A--------------------------------%0A`;
+            text += `*TOTAL CARGO WEIGHT: ${this.totalWeight} Kg*%0A`;
+            text += `*EST. FREIGHT COST: $${this.estFreight} USD*%0A`;
+            text += `--------------------------------%0A%0A`;
+            text += `Please provide a formal quotation including insurance and the Paypal/Stripe payment link.`;
+            
+            window.open('https://wa.me/6281283321577?text=' + text, '_blank');
+            this.cart = []; this.cartOpen = false; this.clientName = ''; this.clientEmail = '';
+        }
+    }" 
+    :class="{'gallery-mode': persona === 'gallery'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased selection:bg-teak-500 selection:text-white relative">
+
+    <div class="fixed inset-0 pointer-events-none bg-pattern z-0"></div>
+
+    <!-- THE VVIP BACKDOOR (The Vault for Masterpieces) -->
+    <div x-show="vvipOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center" style="display: none;">
+        <div class="max-w-xl w-full p-12 border border-teak-900 bg-[#0a0a0a] shadow-[0_0_100px_rgba(180,83,9,0.15)] text-center relative" @click.away="vvipOpen = false">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-teak-500 to-transparent"></div>
+            <h3 class="text-4xl font-serif text-white mb-4 tracking-widest uppercase italic">The Vault.</h3>
+            <p class="text-slate-500 text-sm mb-10 font-light tracking-wide">Enter the clearance key to access unreleased, museum-grade masterpieces directly from the master carver's private collection.</p>
+            
+            <input type="password" x-model="vvipCode" @keyup.enter="if(vvipCode==='1999') { window.location.href='proposal.html'; } else { vvipError = true; setTimeout(()=>vvipError=false, 1000); vvipCode=''; }" class="w-full bg-transparent border-b border-teak-800 focus:border-teak-500 outline-none text-center text-4xl tracking-[1em] py-4 text-teak-500 font-serif mb-6 transition-colors" placeholder="••••" maxlength="4">
+            
+            <div x-show="vvipError" class="text-red-800 text-xs font-bold uppercase tracking-[0.3em] glitch">Access Denied. Invalid Key.</div>
+            <button @click="vvipOpen = false" class="absolute top-8 right-8 text-slate-600 hover:text-white transition-colors"><i class="ph-light ph-x text-2xl"></i></button>
+        </div>
+    </div>
+
+    <!-- COCOTECH WIDGET: Floating Proposal (Only Gallery Mode) -->
+    <a href="proposal.html" target="_blank" x-show="persona === 'gallery'" x-transition class="fixed top-32 right-8 z-50 flex items-center gap-4 bg-white text-dark px-6 py-4 rounded-none shadow-floating hover:shadow-premium transition-all duration-500 border border-slate-200 group no-print">
+        <div class="text-right">
+            <div class="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">CocoTech Agency</div>
+            <div class="font-serif font-bold text-sm text-teak-800 italic" x-text="lang === 'id' ? 'Buka Blueprint B2B' : 'View B2B Blueprint'"></div>
+        </div>
+        <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-teak-800 group-hover:text-white transition-colors border border-slate-200">
+            <i class="ph-light ph-folder-open text-xl"></i>
+        </div>
+    </a>
+
+    <!-- HEADLESS INQUIRY CART -->
+    <button @click="cartOpen = true" x-show="cart.length > 0 && !cartOpen" x-transition.scale.origin.bottom class="fixed bottom-10 right-10 z-50 w-16 h-16 bg-teak-500 text-white rounded-full shadow-floating flex items-center justify-center hover:-translate-y-2 transition-all duration-500">
+        <i class="ph-light ph-briefcase text-2xl"></i>
+        <span class="absolute -top-1 -right-1 w-6 h-6 bg-white text-teak-900 font-sans text-xs font-bold rounded-full flex items-center justify-center border border-teak-500" x-text="cart.reduce((a, b) => a + b.qty, 0)"></span>
+    </button>
+
+    <!-- Cart Modal (Cross-Border Freight Engine) -->
+    <div x-show="cartOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex justify-end" style="display: none;">
+        <div class="h-full w-full max-w-lg bg-artisan-900 border-l border-artisan-800 shadow-2xl flex flex-col" @click.away="cartOpen = false">
+            <div class="p-8 border-b border-artisan-800 flex justify-between items-center">
+                <div>
+                    <h3 class="font-serif font-bold text-2xl text-white italic">Inquiry Dossier.</h3>
+                    <p class="text-[9px] text-teak-500 uppercase tracking-[0.2em] font-bold mt-1">Cross-Border Logistics Protocol</p>
+                </div>
+                <button @click="cartOpen = false" class="w-12 h-12 rounded-full flex items-center justify-center text-slate-500 hover:text-white hover:bg-artisan-800 transition-colors"><i class="ph-light ph-x text-xl"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-8 space-y-6">
+                <!-- Items List -->
+                <div class="space-y-4">
+                    <template x-for="(item, index) in cart" :key="index">
+                        <div class="bg-artisan-800 p-5 border border-artisan-500/30">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <div class="font-serif font-bold text-white text-lg mb-1" x-text="item.name"></div>
+                                    <div class="text-[10px] text-slate-400 uppercase tracking-widest font-sans">Ref: <span x-text="item.id"></span></div>
+                                </div>
+                                <button @click="removeFromCart(index)" class="text-slate-500 hover:text-red-500"><i class="ph-light ph-trash"></i></button>
+                            </div>
+                            <div class="flex justify-between items-center mt-4 pt-4 border-t border-artisan-700/50">
+                                <div class="text-xs text-teak-500 font-sans"><span x-text="item.weight * item.qty"></span> Kg Volume</div>
+                                <div class="flex items-center gap-4 text-white font-sans text-sm">
+                                    <button @click="removeFromCart(index)" class="text-slate-400 hover:text-white">-</button>
+                                    <span class="w-4 text-center font-bold" x-text="item.qty"></span>
+                                    <button @click="addToCart(item.name, item.id, item.weight, item.dimensions)" class="text-slate-400 hover:text-white">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Alpine.js Cargo Logistics Calculator -->
+                <div class="bg-black p-6 border border-teak-900/50" x-show="cart.length > 0">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="ph-fill ph-globe-hemisphere-west text-teak-500 text-xl"></i>
+                        <h4 class="font-sans font-bold text-white text-xs uppercase tracking-widest">Freight Estimator</h4>
+                    </div>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Region Destination</label>
+                            <select x-model="destination" class="w-full bg-artisan-800 border border-artisan-700 py-3 px-4 text-sm text-white font-sans outline-none focus:border-teak-500 transition-colors cursor-pointer appearance-none">
+                                <option value="US">North America (USA/Canada)</option>
+                                <option value="EU">Europe (EU/UK)</option>
+                                <option value="AU">Oceania (Australia/NZ)</option>
+                                <option value="AS">Asia (Singapore/Japan/Etc)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Freight Method</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <button @click="freightMethod = 'Air'" class="py-3 border text-xs font-bold uppercase tracking-widest transition-colors flex flex-col items-center gap-2" :class="freightMethod === 'Air' ? 'bg-teak-900 border-teak-500 text-white' : 'bg-artisan-800 border-artisan-700 text-slate-400 hover:text-white'"><i class="ph-light ph-airplane-tilt text-xl"></i> Air Cargo</button>
+                                <button @click="freightMethod = 'Sea'" class="py-3 border text-xs font-bold uppercase tracking-widest transition-colors flex flex-col items-center gap-2" :class="freightMethod === 'Sea' ? 'bg-teak-900 border-teak-500 text-white' : 'bg-artisan-800 border-artisan-700 text-slate-400 hover:text-white'"><i class="ph-light ph-boat text-xl"></i> Sea Freight</button>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-artisan-700/50 flex justify-between items-end">
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Total Cargo Weight</div>
+                                <div class="text-lg text-white font-sans"><span x-text="totalWeight"></span> Kg</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Est. Freight Cost</div>
+                                <div class="text-2xl font-serif text-teak-500 italic">$<span x-text="new Intl.NumberFormat('en-US').format(estFreight)"></span> USD</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Client Details -->
+                <div x-show="cart.length > 0" class="space-y-4">
+                    <input type="text" x-model="clientName" class="w-full bg-artisan-800 border-b border-artisan-500/50 py-3 px-4 text-sm text-white font-sans outline-none focus:border-teak-500 transition-colors" placeholder="Name / Gallery Name">
+                    <input type="email" x-model="clientEmail" class="w-full bg-artisan-800 border-b border-artisan-500/50 py-3 px-4 text-sm text-white font-sans outline-none focus:border-teak-500 transition-colors" placeholder="Official Email">
+                </div>
+            </div>
+            
+            <div class="p-8 bg-artisan-900 border-t border-artisan-800">
+                <button @click="checkout()" :disabled="cart.length === 0" class="w-full bg-teak-800 text-white font-bold py-5 text-xs tracking-[0.2em] uppercase transition-colors flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(180,83,9,0.2)] hover:bg-teak-700" :class="cart.length === 0 ? 'opacity-50 cursor-not-allowed' : ''">
+                    Submit Inquiry <i class="ph-bold ph-arrow-right"></i>
+                </button>
+                <div class="mt-4 flex justify-center gap-4 opacity-50">
+                    <i class="ph-light ph-stripe-logo text-2xl"></i>
+                    <i class="ph-light ph-paypal-logo text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mega Header (Dual Persona Engine) -->
+    <nav :class="{'glass-nav py-6': scrolled, 'bg-transparent py-10': !scrolled}" class="fixed w-full z-40 transition-all duration-700 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            
+            <!-- Logo (VVIP Backdoor Trigger) -->
+            <div class="cursor-pointer group text-center md:text-left" @click="secretClicks++; if(secretClicks >= 3) { vvipOpen = true; secretClicks = 0; }">
+                <h1 class="text-3xl font-serif font-bold tracking-widest uppercase tracking-[0.2em]" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Made Ukir.</h1>
+                <span class="text-[8px] font-sans font-bold uppercase tracking-[0.4em] mt-2 block" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">Jembrana, Bali</span>
+            </div>
+            
+            <!-- Dual-Persona Toggle Switch (Gallery Style) -->
+            <div class="flex items-center transition-colors duration-700" :class="persona === 'collector' ? 'bg-artisan-800 p-1' : 'bg-slate-100 p-1'">
+                <button @click="persona = 'collector'" class="px-8 py-3 text-[10px] font-bold transition-all uppercase tracking-widest" :class="persona === 'collector' ? 'bg-artisan-900 text-white shadow-lg' : 'text-slate-500 hover:text-dark'">Private Collector</button>
+                <button @click="persona = 'gallery'" class="px-8 py-3 text-[10px] font-bold transition-all uppercase tracking-widest" :class="persona === 'gallery' ? 'bg-white text-artisan-900 shadow-lg' : 'text-slate-400 hover:text-white'">Wholesale Gallery</button>
+            </div>
+
+            <!-- Language & Links -->
+            <div class="hidden lg:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em]" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">
+                <a href="#collection" class="hover:text-teak-500 transition-colors" x-text="lang === 'id' ? 'Koleksi' : 'Collection'"></a>
+                <a href="#process" class="hover:text-teak-500 transition-colors" x-text="lang === 'id' ? 'Filosofi' : 'Philosophy'"></a>
+                <div class="flex items-center gap-3">
+                    <button @click="lang = 'en'" :class="lang === 'en' ? (persona==='gallery'?'text-artisan-900':'text-white') : ''">EN</button>
+                    <span class="opacity-20 font-light">|</span>
+                    <button @click="lang = 'id'" :class="lang === 'id' ? (persona==='gallery'?'text-artisan-900':'text-white') : ''">ID</button>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Ultra-Luxury Cinematic Hero Section -->
+    <header class="relative pt-48 pb-32 lg:pt-64 lg:pb-48 overflow-hidden transition-colors duration-1000 min-h-screen flex items-center z-10 border-b" :class="persona === 'gallery' ? 'border-slate-200' : 'border-artisan-800'">
+        
+        <!-- Cinematic Backgrounds -->
+        <div class="absolute inset-0 z-0">
+            <div x-show="persona === 'collector'" x-transition.opacity.duration.1000ms class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1601662528567-526cd06f6582?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale-[50%] mix-blend-luminosity"></div>
+            <div x-show="persona === 'gallery'" x-transition.opacity.duration.1000ms class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1577083165261-0df8dffba4e5?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-10 grayscale-[20%]" style="display: none;"></div>
+            
+            <!-- Vignette Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-artisan-900" :class="persona === 'gallery' ? 'to-white' : 'to-artisan-900'"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-artisan-900 via-transparent to-transparent opacity-80" :class="persona === 'gallery' ? 'from-white' : 'from-artisan-900'"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-8 w-full grid lg:grid-cols-12 gap-20 items-center relative z-10">
+            <div class="lg:col-span-7 space-y-10 animate-up">
+                
+                <div class="inline-flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] transition-colors" :class="persona === 'gallery' ? 'text-teak-800' : 'text-teak-500'">
+                    <span class="w-8 h-px" :class="persona === 'gallery' ? 'bg-teak-800' : 'bg-teak-500'"></span>
+                    <span x-text="persona === 'collector' ? 'Master Carver, Bali' : 'Direct Export Sourcing'"></span>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-5xl lg:text-8xl font-serif font-normal leading-[1.05] tracking-tight">
+                    <template x-if="persona === 'collector'">
+                        <span class="text-white">
+                            <span class="italic text-5xl lg:text-7xl text-slate-400">Bypass the</span><br>
+                            Middlemen.<br>
+                            <span class="text-teak-500 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">Own the Masterpiece.</span>
+                        </span>
+                    </template>
+                    <template x-if="persona === 'gallery'">
+                        <span class="text-artisan-900">
+                            <span class="italic text-5xl lg:text-7xl text-slate-400">Source the</span><br>
+                            Authentic.<br>
+                            <span class="text-teak-800 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">Direct from Jembrana.</span>
+                        </span>
+                    </template>
+                </h1>
+                
+                <p class="text-lg leading-relaxed max-w-xl font-light" :class="persona === 'gallery' ? 'text-slate-600' : 'text-slate-400'">
+                    <template x-if="persona === 'collector'"><span x-text="lang === 'id' ? 'Karya seni ukir kayu Jembrana sering dijual dengan harga yang luar biasa tinggi di galeri Seminyak atau Ubud. Sekarang, Anda dapat membelinya langsung dari tangan sang seniman, dengan pengiriman global.' : 'Jembrana wood carvings are often sold at exorbitant markups in Seminyak or Ubud galleries. Now, you can acquire them directly from the artisan\'s hands, with global shipping.'"></span></template>
+                    <template x-if="persona === 'gallery'"><span x-text="lang === 'id' ? 'Untuk galeri seni internasional dan desainer interior mewah. Bebaskan diri dari rantai pasokan pihak ketiga. Bermitra langsung dengan bengkel pahat paling berdedikasi di Bali.' : 'For international art galleries and luxury interior designers. Break free from third-party supply chains. Partner directly with the most dedicated carving workshop in Bali.'"></span></template>
+                </p>
+                
+                <div class="pt-8">
+                    <template x-if="persona === 'collector'">
+                        <div class="flex gap-6">
+                            <button onclick="document.getElementById('collection').scrollIntoView({behavior: 'smooth'})" class="bg-white text-artisan-900 px-10 py-5 font-sans font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-slate-200 transition-all flex items-center gap-3">
+                                <span>View Collection</span> <i class="ph-light ph-arrow-right text-lg"></i>
+                            </button>
+                        </div>
+                    </template>
+                    <template x-if="persona === 'gallery'">
+                        <button onclick="document.getElementById('collection').scrollIntoView({behavior: 'smooth'})" class="bg-artisan-900 text-white px-10 py-5 font-sans font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-black transition-all shadow-xl flex items-center gap-3">
+                            <span>Browse Wholesale Inventory</span> <i class="ph-light ph-squares-four text-lg"></i>
+                        </button>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- Gallery Float Image (Vanilla Tilt) -->
+            <div class="lg:col-span-5 relative hidden lg:flex justify-end" data-tilt data-tilt-max="2" data-tilt-speed="2000" data-tilt-perspective="1000">
+                 <div class="w-[400px] h-[550px] relative transition-all duration-700" :class="persona === 'gallery' ? 'shadow-2xl' : 'shadow-[0_20px_50px_rgba(0,0,0,0.8)]'">
+                    <img x-show="persona === 'collector'" src="https://images.unsplash.com/photo-1601662528567-526cd06f6582?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale-[20%]" alt="Masterpiece">
+                    <img x-show="persona === 'gallery'" src="https://images.unsplash.com/photo-1596404841973-200234e40eeb?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale-[10%]" alt="Wholesale Art" style="display: none;">
+                    
+                    <div class="absolute -bottom-8 -left-8 p-8 backdrop-blur-md border transition-colors duration-700" :class="persona === 'gallery' ? 'bg-white/90 border-slate-100 shadow-xl' : 'bg-artisan-900/90 border-artisan-800 shadow-premium'">
+                        <div class="font-serif text-2xl italic mb-1" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Garuda Wisnu Kencana</div>
+                        <div class="text-[9px] uppercase tracking-widest font-bold font-sans" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">Solid Teak Wood &bull; 1.2 Meters</div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODULE 1: Process Transparency Tracker (The Journey of the Wood) -->
+    <section id="process" class="py-32 border-y transition-colors duration-700" :class="persona === 'gallery' ? 'bg-surface border-slate-200' : 'bg-[#111111] border-artisan-900'">
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-24">
+                <div class="text-[10px] font-bold uppercase tracking-[0.3em] mb-4" :class="persona === 'gallery' ? 'text-teak-800' : 'text-teak-500'">Authenticity Protocol</div>
+                <h2 class="text-4xl lg:text-5xl font-serif mb-6 italic" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">The Journey of the Wood.</h2>
+                <p class="max-w-2xl mx-auto font-light text-base leading-relaxed" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">Setiap guratan pahat memiliki cerita. Kami menjamin transparansi absolut dari proses pencarian kayu hingga pengiriman kargo ke negara Anda.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-4 relative">
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-px" :class="persona === 'gallery' ? 'bg-slate-200' : 'bg-artisan-800'"></div>
+
+                <div class="pt-8 px-4 text-center relative z-10 group">
+                    <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 transition-colors duration-500 border border-transparent" :class="persona === 'gallery' ? 'bg-white text-teak-800 shadow-lg group-hover:border-teak-500' : 'bg-artisan-900 text-teak-500 shadow-premium group-hover:border-teak-500'">
+                        <i class="ph-light ph-tree text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Log Sourcing</h4>
+                    <p class="text-xs font-light leading-relaxed" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">Pemilihan kayu Jati (Teak) dan Suar yang tersertifikasi perhutani. Usia kayu minimal 40 tahun untuk stabilitas ukiran.</p>
+                </div>
+                
+                <div class="pt-8 px-4 text-center relative z-10 group">
+                    <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 transition-colors duration-500 border border-transparent" :class="persona === 'gallery' ? 'bg-white text-teak-800 shadow-lg group-hover:border-teak-500' : 'bg-artisan-900 text-teak-500 shadow-premium group-hover:border-teak-500'">
+                        <i class="ph-light ph-compass-tool text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Proportion Design</h4>
+                    <p class="text-xs font-light leading-relaxed" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">Pemetaan proporsi menggunakan teknik klasik Bali (*Asta Kosala Kosali*) yang disesuaikan dengan estetika modern.</p>
+                </div>
+                
+                <div class="pt-8 px-4 text-center relative z-10 group">
+                    <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 transition-colors duration-500 border border-transparent" :class="persona === 'gallery' ? 'bg-white text-teak-800 shadow-lg group-hover:border-teak-500' : 'bg-artisan-900 text-teak-500 shadow-premium group-hover:border-teak-500'">
+                        <i class="ph-light ph-hands-clapping text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Master Chiseling</h4>
+                    <p class="text-xs font-light leading-relaxed" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">Proses pemahatan detail (finishing) memakan waktu 3 hingga 8 minggu yang dilakukan murni oleh seniman utama.</p>
+                </div>
+
+                <div class="pt-8 px-4 text-center relative z-10 group">
+                    <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 transition-colors duration-500 border border-transparent" :class="persona === 'gallery' ? 'bg-teak-800 text-white shadow-lg' : 'bg-teak-500 text-white shadow-premium'">
+                        <i class="ph-light ph-airplane-tilt text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl mb-3" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Global Freight</h4>
+                    <p class="text-xs font-light leading-relaxed" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">*Fumigation* dan pengemasan kayu solid (wooden crate) untuk keamanan logistik kargo udara maupun laut ke luar negeri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 2: Interactive Catalog (Headless Inquiry) -->
+    <section id="collection" class="py-32 relative z-10" x-data="{ 
+        category: 'all',
+        items: [
+            { id: 'MW-01', name: 'Rama Shinta Epic', cat: 'Panel', price: 4500, weight: 15, dimensions: '120x80x10 cm', img: 'https://images.unsplash.com/photo-1596404841973-200234e40eeb?q=80&w=600&auto=format&fit=crop' },
+            { id: 'MW-02', name: 'Ganesha Standing', cat: 'Statue', price: 8200, weight: 45, dimensions: '150x60x60 cm', img: 'https://images.unsplash.com/photo-1577083165261-0df8dffba4e5?q=80&w=600&auto=format&fit=crop' },
+            { id: 'MW-03', name: 'Lotus Mandala Wall Art', cat: 'Panel', price: 2100, weight: 8, dimensions: '80x80x5 cm', img: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?q=80&w=600&auto=format&fit=crop' },
+            { id: 'MW-04', name: 'Balinese Temple Door', cat: 'Architectural', price: 12000, weight: 120, dimensions: '220x140x15 cm', img: 'https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=600&auto=format&fit=crop' }
+        ],
+        get filtered() {
+            return this.category === 'all' ? this.items : this.items.filter(i => i.cat === this.category);
+        }
+    }">
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-b pb-8" :class="persona === 'gallery' ? 'border-slate-200' : 'border-artisan-800'">
+                <div>
+                    <h2 class="text-4xl lg:text-5xl font-serif mb-4" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">The Collection.</h2>
+                    <p class="text-sm font-light uppercase tracking-widest" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'" x-text="persona === 'collector' ? 'Available Masterpieces' : 'Wholesale Inventory (Min 5 CBM)'"></p>
+                </div>
+                
+                <!-- Minimalist Filters -->
+                <div class="mt-8 md:mt-0 flex gap-6 text-[10px] font-bold uppercase tracking-[0.2em]">
+                    <button @click="category = 'all'" :class="category === 'all' ? (persona==='gallery'?'text-artisan-900 border-b border-artisan-900':'text-white border-b border-white') : 'text-slate-500 hover:text-slate-400'">All Works</button>
+                    <button @click="category = 'Panel'" :class="category === 'Panel' ? (persona==='gallery'?'text-artisan-900 border-b border-artisan-900':'text-white border-b border-white') : 'text-slate-500 hover:text-slate-400'">Wall Panels</button>
+                    <button @click="category = 'Statue'" :class="category === 'Statue' ? (persona==='gallery'?'text-artisan-900 border-b border-artisan-900':'text-white border-b border-white') : 'text-slate-500 hover:text-slate-400'">Statues</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <template x-for="item in filtered" :key="item.id">
+                    <div class="group cursor-pointer">
+                        <div class="relative h-[500px] overflow-hidden mb-8 bg-black">
+                            <img :src="item.img" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 grayscale-[30%] group-hover:grayscale-0">
+                            <!-- Overlay CTA -->
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                <button @click="addToCart(item.name, item.id, item.weight, item.dimensions)" class="bg-white text-artisan-900 px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em] shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all hover:bg-slate-200">
+                                    Add to Inquiry
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="text-[9px] uppercase tracking-[0.2em] font-bold mb-2" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">Ref: <span x-text="item.id"></span> &bull; <span x-text="item.cat"></span></div>
+                                <h3 class="font-serif text-2xl mb-1" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'" x-text="item.name"></h3>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xl font-serif italic" :class="persona === 'gallery' ? 'text-teak-800' : 'text-teak-500'">$<span x-text="new Intl.NumberFormat('en-US').format(item.price)"></span></div>
+                                <template x-if="persona === 'gallery'">
+                                    <div class="text-[9px] text-slate-400 uppercase tracking-widest mt-1">Est. Gallery Retail: $<span x-text="new Intl.NumberFormat('en-US').format(item.price * 3.5)"></span></div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t flex justify-between text-xs font-light" :class="persona === 'gallery' ? 'border-slate-100 text-slate-500' : 'border-artisan-800 text-slate-400'">
+                            <span>Weight: <span x-text="item.weight"></span>kg</span>
+                            <span>Dim: <span x-text="item.dimensions"></span></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE SOCIAL PROOF ENGINE (Discreet) -->
+    <div x-data="{ show: false, message: '' }" 
+         x-init="
+            const msgs = [
+                'A collector from London, UK just placed an inquiry for a Wall Panel.',
+                'A gallery in Sydney, AU is estimating sea freight logistics.',
+                'A private estate in California secured a bespoke statue commission.'
+            ];
+            setInterval(() => {
+                message = msgs[Math.floor(Math.random() * msgs.length)];
+                show = true;
+                setTimeout(() => show = false, 6000);
+            }, 25000);
+         "
+         x-show="show" 
+         x-transition:enter="toast-enter"
+         x-transition:leave="transition ease-in duration-500"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed bottom-10 left-10 z-50 p-6 border shadow-2xl flex items-center gap-5 max-w-sm backdrop-blur-md" :class="persona === 'gallery' ? 'bg-white/90 border-slate-100' : 'bg-artisan-900/90 border-artisan-800'" style="display: none;">
+        <div class="w-10 h-10 flex items-center justify-center shrink-0 border rounded-full" :class="persona === 'gallery' ? 'bg-surface border-slate-200 text-slate-400' : 'bg-black border-artisan-700 text-slate-500'">
+            <i class="ph-light ph-globe-hemisphere-west text-xl"></i>
+        </div>
+        <div>
+            <div class="text-[8px] font-bold uppercase tracking-[0.3em] mb-1" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">Global Movement</div>
+            <div class="text-xs font-light leading-relaxed" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-slate-300'" x-text="message"></div>
+        </div>
+    </div>
+
+    <!-- Mega Footer -->
+    <footer class="pt-24 pb-12 border-t transition-colors duration-700" :class="persona === 'gallery' ? 'bg-surface border-slate-200' : 'bg-[#0a0a0a] border-artisan-900'">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-16 mb-16 border-b pb-16" :class="persona === 'gallery' ? 'border-slate-200' : 'border-artisan-800'">
+            <div class="col-span-1 md:col-span-2">
+                <h1 class="text-3xl font-serif font-bold tracking-widest uppercase tracking-[0.2em] mb-2" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Made Ukir.</h1>
+                <span class="text-[9px] font-bold uppercase tracking-[0.4em]" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">Authentic Craftsmanship</span>
+                <p class="mt-8 text-sm font-light leading-relaxed max-w-md" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">Preserving the integrity of classic Balinese wood carving. We bypass the middlemen to deliver museum-quality masterpieces directly to collectors and international galleries worldwide.</p>
+                
+                <div class="mt-8 flex gap-4 opacity-50">
+                    <i class="ph-light ph-stripe-logo text-3xl" :class="persona === 'gallery' ? 'text-dark' : 'text-white'"></i>
+                    <i class="ph-light ph-paypal-logo text-3xl" :class="persona === 'gallery' ? 'text-dark' : 'text-white'"></i>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-sans font-bold mb-8 text-[10px] uppercase tracking-[0.2em]" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Navigation</h4>
+                <ul class="space-y-4 text-xs font-light tracking-wide" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">
+                    <li><a href="#collection" class="hover:text-teak-500 transition-colors">The Collection</a></li>
+                    <li><a href="#process" class="hover:text-teak-500 transition-colors">Our Philosophy</a></li>
+                    <li><a href="#" @click.prevent="vvipOpen = true" class="hover:text-teak-500 transition-colors">The Vault (Private)</a></li>
+                    <li><a href="proposal.html" target="_blank" class="hover:text-teak-500 transition-colors font-bold">B2B Export Proposal</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-sans font-bold mb-8 text-[10px] uppercase tracking-[0.2em]" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">Workshop HQ</h4>
+                <ul class="space-y-4 text-sm font-light" :class="persona === 'gallery' ? 'text-slate-500' : 'text-slate-400'">
+                    <li class="flex items-start gap-4"><i class="ph-light ph-map-pin mt-1 text-teak-500"></i> <span>Lingkungan Terusan, Loloan Barat<br>Jembrana, Bali - Indonesia</span></li>
+                    <li class="flex items-center gap-4"><i class="ph-light ph-envelope-simple text-teak-500"></i> <span>export@madeukir.com</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-[10px] font-light tracking-widest" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-600'">&copy; <span x-text="new Date().getFullYear()"></span> Made Ukir Bali. All rights reserved.</div>
+            <div class="text-[9px] font-bold uppercase tracking-[0.3em] flex items-center gap-3" :class="persona === 'gallery' ? 'text-slate-400' : 'text-slate-500'">
+                System Infrastructure by <a href="https://cocotech.studio" target="_blank" class="hover:underline transition-colors" :class="persona === 'gallery' ? 'text-artisan-900' : 'text-white'">CocoTech Studio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and Luxury Hospitality Specialist.
+Client: Falala Chocolate & Heavenly Chocolate, Bali.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Heading/Luxury) & 'Inter' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Ultra-Luxury D2C E-Commerce & Hospitality B2B Portal
+- Style: Ultra-Luxury, Premium Artisan, Dark Elegance, High-End Patisserie
+- Colors: 
+  - Primary: #0F0F0F (Obsidian Black)
+  - Secondary: #FAFAFA (Silk White)
+  - Accent/Brand: #D4AF37 (Metallic Gold) & #3E2723 (Deep Chocolate Brown)
+  - Text: #D1D5DB / #18181B
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Melted Perfection, Delivered to Your Departure Gate." (Kesersempurnaan Cokelat Lumer, Diantar ke Gerbang Keberangkatan Anda).
+- Unique Mechanism: "Airport-Sync Precision Delivery" & "B2B Villa Connectivity".
+- Target: High-net-worth tourists, luxury villa managers, premium hotel concierges.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Cinematic 3D Hero Section: Slow motion chocolate melting video/images, elegant typography, dark aesthetic.
+2. Dual-Persona Engine: "Tourist (Airport Delivery)" vs "Hospitality Partner (B2B)".
+3. Precision Airport Delivery Tracker: Alpine.js module to input Ngurah Rai flight number/time, calculating the exact delivery window for fresh melted chocolate.
+4. B2B Hospitality Login (VVIP Backdoor): Click the logo 3x to access the wholesale portal for villa/hotel managers.
+5. Headless WhatsApp Inquiry: Seamless checkout routing to WhatsApp with flight details or villa resupply needs.
+6. The Stolen Traffic (Social Proof): "Loved by 10,000+ Premium Travelers in Seminyak & Canggu."
+7. Professional Mega Footer: Store locations across premium areas, concierge contact, CocoTech Studio branding.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, ultra-luxury aesthetic, fast-loading, clean layout, strictly bilingual (EN/ID) with English priority.

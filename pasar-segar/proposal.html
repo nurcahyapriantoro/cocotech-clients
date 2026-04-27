@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official B2B Digital Blueprint & Proposal - Pasar Segar Makassar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #111827; /* Dark Gray */
+            --accent: #f59e0b; /* Amber 500 - PasGer Color */
+            --surface: #FAFAFA;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+            --success: #10B981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--surface);
+            color: var(--text-dark);
+            font-size: 14.5px;
+            line-height: 1.8;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; font-size: 11pt; }
+            .page-break { break-before: page; }
+            .section { break-inside: avoid; }
+        }
+
+        /* --- COVER --- */
+        .cover {
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px;
+            position: relative;
+            color: var(--text-dark);
+            overflow: hidden;
+            border-top: 12px solid var(--accent);
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; width: 45%;
+            background: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop') center/cover;
+            z-index: 1;
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            opacity: 0.85;
+        }
+
+        .cover-content { position: relative; z-index: 10; max-width: 60%; }
+        
+        .cover-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .cover-title span { color: var(--accent); }
+
+        .cover-subtitle { font-size: 18px; color: var(--text-light); line-height: 1.6; margin-bottom: 40px; font-weight: 500; }
+
+        .prepared-for { border-left: 4px solid var(--accent); padding-left: 24px; margin-top: 100px; }
+        .prepared-for-label { font-size: 12px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+        .client-name { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+        .client-detail { font-size: 16px; color: var(--text-light); font-weight: 500; }
+
+        .footer-cover { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; border-top: 1px solid var(--border); padding-top: 30px; position: relative; z-index: 10;}
+        
+        /* --- PAGES --- */
+        .page { background: white; min-height: 100vh; padding: 80px; position: relative; }
+        .page-inner { max-width: 800px; margin: 0 auto; }
+
+        .header-page { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 50px; }
+        .header-logo { font-weight: 800; font-size: 16px; color: var(--primary); letter-spacing: 1px; }
+        .header-logo span { color: var(--accent); }
+        .header-doc { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; }
+
+        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 30px; line-height: 1.2; }
+        .section-subtitle { font-size: 18px; font-weight: 600; color: var(--primary); margin-top: 40px; margin-bottom: 16px; }
+
+        p { margin-bottom: 20px; }
+        .highlight { color: var(--primary); font-weight: 700; }
+
+        /* --- FASCINATIONS & LISTS --- */
+        .problem-box { background: #FEF2F2; border-left: 4px solid #EF4444; padding: 30px; border-radius: 0 12px 12px 0; margin-bottom: 40px; }
+        .problem-box h4 { color: #B91C1C; font-size: 16px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .problem-box p { color: #7F1D1D; margin-bottom: 0; }
+
+        .fascination-list { list-style: none; margin-bottom: 40px; }
+        .fascination-list li { position: relative; padding-left: 36px; margin-bottom: 16px; font-weight: 500; }
+        .fascination-list li::before { content: '✓'; position: absolute; left: 0; top: 2px; width: 24px; height: 24px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+
+        /* --- ROI TABLE --- */
+        .roi-table { width: 100%; border-collapse: collapse; margin: 40px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .roi-table th { background: var(--primary); color: white; padding: 16px; text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .roi-table td { padding: 16px; border-bottom: 1px solid var(--border); background: white; }
+        .roi-table tr:last-child td { border-bottom: none; font-weight: 800; background: var(--surface); font-size: 16px; }
+        .text-red { color: #EF4444; font-weight: 700; }
+        .text-green { color: var(--success); font-weight: 700; }
+
+        /* --- PRICING TIERS --- */
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 50px; }
+        
+        .tier-card { border: 2px solid var(--border); border-radius: 20px; padding: 40px; background: white; position: relative; }
+        .tier-card.recommended { border-color: var(--primary); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); transform: scale(1.02); }
+        .tier-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .tier-name { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 8px; text-align: center; }
+        .tier-desc { text-align: center; color: var(--text-light); font-size: 13px; margin-bottom: 24px; }
+        .tier-price { text-align: center; font-size: 40px; font-weight: 800; color: var(--primary); margin-bottom: 30px; }
+        
+        .tier-features { list-style: none; }
+        .tier-features li { padding: 12px 0; border-bottom: 1px dashed var(--border); display: flex; align-items: flex-start; gap: 12px; font-size: 14px; }
+        .tier-features li:last-child { border-bottom: none; }
+        .tier-features i { color: var(--success); font-size: 18px; margin-top: 2px; }
+
+        /* --- TIMELINE --- */
+        .timeline { position: relative; border-left: 2px solid var(--border); margin-left: 20px; padding-left: 30px; margin-bottom: 50px; }
+        .timeline-item { position: relative; margin-bottom: 30px; }
+        .timeline-item::before { content: ''; position: absolute; left: -39px; top: 0; width: 16px; height: 16px; background: white; border: 4px solid var(--accent); border-radius: 50%; }
+        .timeline-date { font-size: 12px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .timeline-title { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+
+        /* --- GUARANTEE --- */
+        .guarantee-box { background: var(--primary); color: white; padding: 40px; border-radius: 20px; display: flex; gap: 30px; align-items: flex-start; }
+        .guarantee-icon { width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 40px; color: var(--accent); }
+        .guarantee-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+        .guarantee-box p { color: #CBD5E1; margin-bottom: 0; }
+
+        /* --- ACTION BAR --- */
+        .action-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 12px 24px; border-radius: 100px; display: flex; gap: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); z-index: 100; border: 1px solid var(--border); }
+        .btn { padding: 14px 32px; border-radius: 50px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .btn-primary { background: var(--success); color: white; }
+        .btn-primary:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 10px 20px -10px rgba(16,185,129,0.5); }
+        .btn-outline { background: transparent; color: var(--text-dark); border: 1px solid var(--border); }
+        .btn-outline:hover { background: var(--surface); }
+    </style>
+</head>
+<body>
+
+    <div class="action-bar no-print">
+        <button class="btn btn-outline" onclick="window.print()"><i class="ph-bold ph-printer"></i> Cetak Dokumen</button>
+        <a href="https://wa.me/6281283321577?text=Halo%20Tim%20CocoTech,%20saya%20telah%20membaca%20proposal%20untuk%20Pasar%20Segar%20dan%20tertarik%20untuk%20melanjutkan%20ke%20tahap%20eksekusi." class="btn btn-primary" target="_blank"><i class="ph-bold ph-check-circle"></i> Setujui & Mulai Eksekusi</a>
+    </div>
+
+    <!-- COVER PAGE -->
+    <div class="cover page-break">
+        <div class="cover-content">
+            <div class="cover-badge">B2B MONETIZATION BLUEPRINT</div>
+            <h1 class="cover-title">The Omni-Channel<br><span>Revenue Engine.</span></h1>
+            <p class="cover-subtitle">Sebuah kerangka kerja strategis untuk mengkonversi 5.000+ traffic organik harian Pasar Segar menjadi aset bernilai tinggi di mata sponsor korporat raksasa.</p>
+        </div>
+
+        <div class="cover-content">
+            <div class="prepared-for">
+                <div class="prepared-for-label">Eksklusif Disiapkan Untuk:</div>
+                <div class="client-name">Manajemen Pasar Segar (PasGer)</div>
+                <div class="client-detail">Pusat Kuliner & Lifestyle - Makassar</div>
+            </div>
+
+            <div class="footer-cover">
+                <div>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;">Tanggal Dokumen</div>
+                    <div style="font-size: 15px; font-weight: 800; color: var(--primary);">24 April 2026</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 16px; font-weight: 800; color: var(--primary);">CocoTech Studio</div>
+                    <div style="font-size: 12px; color: var(--text-light);">B2B Conversion Architects</div>
+                    <div style="font-size: 12px; color: var(--text-light);">admin@cocotech.studio</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: THE PROBLEM & THE SOLUTION -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">PAS<span>GER.</span> X COCOTECH</div>
+                <div class="header-doc">EXECUTIVE SUMMARY</div>
+            </div>
+
+            <h2 class="section-title">The Hidden Leak:<br>Mengapa PasGer Kehilangan Miliaran Rupiah dari Sponsor.</h2>
+
+            <p>Pasar Segar (PasGer) adalah fenomena organik. Dengan 225+ tenant aktif dan lebih dari 5.000 kunjungan milenial setiap malamnya, Anda telah memenangkan peperangan di pasar B2C (Customer).</p>
+            
+            <p>Namun, di balik keramaian tersebut, terdapat <span class="highlight">kebocoran profit yang sangat masif</span> di sektor B2B (Corporate Sponsorship).</p>
+
+            <div class="problem-box">
+                <h4>Realita Pasar Korporat 2026</h4>
+                <p>Brand multinasional (seperti Telkomsel, Gojek, atau FMCG raksasa) mengalokasikan miliaran rupiah setiap kuartal untuk aktivasi *offline*. <strong>Mereka TIDAK LAGI menerima proposal cetak kertas bergaya lama.</strong> Mereka menuntut metrik digital, impresi yang terukur, dan kemudahan transaksi B2B.</p>
+                <p style="margin-top: 10px;">Saat Anda masih mengirim PDF statis ke meja direktur marketing, kompetitor Anda (event organizer modern) menyodorkan <em>Live Digital Dashboard</em> dan menyedot dana sponsor tersebut.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">The Blueprint Solution:<br>Bukan Sekadar "Website".</h2>
+
+            <p>Anda baru saja melihat dan berinteraksi langsung dengan tautan <em>Live Preview</em> yang kami kirimkan sebelumnya. Apa yang Anda rasakan?</p>
+            
+            <p>Itu bukan brosur digital. Itu adalah <strong>The Omni-Channel Digital Mall</strong>—sebuah infrastruktur B2B fungsional yang dirancang khusus, 100% menggunakan *branding* dan menceritakan kehebatan PasGer. Sistem ini bekerja seperti mesin otomatis untuk Anda:</p>
+
+            <ul class="fascination-list">
+                <li><strong>Dynamic Bidding Engine:</strong> Formulir pengajuan sponsor cerdas. Manajer FMCG bisa melihat area kosong (Main Stage/Gate), memasukkan estimasi budget mereka, dan sistem akan langsung mengirimkannya ke WhatsApp Anda secara otomatis. Ini memotong birokrasi berbulan-bulan menjadi hitungan menit.</li>
+                <li><strong>Interactive Tenant Directory:</strong> Fitur yang memanjakan pengunjung Anda (B2C) sekaligus memamerkan kebesaran skala PasGer kepada calon sponsor. Fitur filter *real-time* untuk 225+ tenant membuat PasGer terlihat seperti mal raksasa profesional.</li>
+                <li><strong>Live Social Proof (FOMO Engine):</strong> Sistem notifikasi simulasi yang menanamkan ketakutan (*Fear of Missing Out*) di benak calon sponsor, membuat mereka merasa harus segera mem-booking spot iklan sebelum diambil kompetitor bisnis mereka.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE 2: ROI & INVESTMENT -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">PAS<span>GER.</span> X COCOTECH</div>
+                <div class="header-doc">ROI & PRICING</div>
+            </div>
+
+            <h2 class="section-title">Logika Matematis:<br>Mengapa Ini Adalah Investasi, Bukan Biaya.</h2>
+
+            <p>Mari kita lakukan perhitungan rasional. Tujuan sistem ini dibangun bukan untuk membuat PasGer "terlihat keren" di internet. Tujuannya adalah <strong>menangkap dana sponsor yang selama ini terbuang</strong>.</p>
+
+            <table class="roi-table">
+                <thead>
+                    <tr>
+                        <th>Metrik & Kondisi (Asumsi Setahun)</th>
+                        <th>Sistem Manual Lama</th>
+                        <th>Sistem Digital Bidding PasGer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kesuksesan Penetrasi Proposal ke Direktur</td>
+                        <td class="text-red">Sangat Rendah (Dibuang)</td>
+                        <td class="text-green">Sangat Tinggi (Impresif)</td>
+                    </tr>
+                    <tr>
+                        <td>Dana Sponsor Main Stage (1 Brand/Kuartal)</td>
+                        <td class="text-red">Rp 0 (Lepas ke Event Lain)</td>
+                        <td class="text-green">Rp 50.000.000 x 4 Kuartal</td>
+                    </tr>
+                    <tr>
+                        <td>Kecepatan Closing B2B</td>
+                        <td class="text-red">3-4 Minggu (Birokrasi)</td>
+                        <td class="text-green">1-3 Hari (Auto-Bidding)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Potensi Pendapatan Sponsor Tertahan</strong></td>
+                        <td>-</td>
+                        <td class="text-green">+ Rp 200.000.000 / Tahun</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Jika infrastruktur <em>Omni-Channel</em> ini hanya berhasil meyakinkan <strong>SATU brand sedang</strong> untuk memasang iklan di PasGer dalam setahun penuh, sistem ini sudah membayarkan dirinya sendiri berkali-kali lipat.</p>
+
+            <h2 class="section-title" style="margin-top: 60px;">Investment Tiers</h2>
+            
+            <p>Standar arsitektur tingkat dewa (*Titanium God-Tier*) kami didesain untuk perusahaan yang serius menggarap pasar digital.</p>
+
+            <div class="pricing-grid">
+                <!-- TIER 3 (Recommended) -->
+                <div class="tier-card recommended">
+                    <div class="tier-badge">The Ultimate Conversion Engine</div>
+                    <div class="tier-name">Paket Enterprise / B2B Ops</div>
+                    <div class="tier-desc">Hak Milik Penuh atas infrastruktur digital PasGer (seperti di Live Preview).</div>
+                    <div class="tier-price">Rp 18.500.000</div>
+                    
+                    <ul class="tier-features">
+                        <li><i class="ph-bold ph-check"></i> Desain UI/UX Premium (Awwwards-Level 3D & Parallax)</li>
+                        <li><i class="ph-bold ph-check"></i> Modul Interactive Tenant Directory (Kapasitas 500+ Tenant)</li>
+                        <li><i class="ph-bold ph-check"></i> Modul Dynamic Bidding Engine untuk Sponsor B2B</li>
+                        <li><i class="ph-bold ph-check"></i> Modul Live Social Proof & FOMO Engine</li>
+                        <li><i class="ph-bold ph-check"></i> Bilingual System (Indonesia & English)</li>
+                        <li><i class="ph-bold ph-check"></i> 1 Tahun Cloud Hosting (High-Speed) + Domain Internasional</li>
+                        <li><i class="ph-bold ph-check"></i> <strong>Revisi Unlimited (Tanpa Batas)</strong> hingga sistem sempurna 100%.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PAGE 3: TIMELINE & GUARANTEE -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">PAS<span>GER.</span> X COCOTECH</div>
+                <div class="header-doc">EXECUTION & GUARANTEE</div>
+            </div>
+
+            <h2 class="section-title">Timeline Eksekusi Cepat</h2>
+            <p>Waktu adalah uang. Terutama ketika dana kuartal dari brand besar sedang turun. Kami bekerja dengan kecepatan arsitektur yang tidak bisa disamai agensi tradisional.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 1 - 2</div>
+                    <div class="timeline-title">Kickoff & Data Ingestion</div>
+                    <p class="text-slate-600 text-sm">Pembayaran DP (30%). Kami meminta list lengkap 225 tenant Anda dan materi foto asli PasGer untuk menggantikan aset simulasi.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 3 - 7</div>
+                    <div class="timeline-title">Heavy Development (Code Injection)</div>
+                    <p class="text-slate-600 text-sm">Pemasangan sistem filter Alpine.js untuk direktori dan enkripsi *backend* untuk formulir Bidding Sponsor.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 8 - 10</div>
+                    <div class="timeline-title">Quality Control & Revisi</div>
+                    <p class="text-slate-600 text-sm">Sistem diserahkan kepada Anda untuk diuji coba. Anda berhak merevisi teks, penempatan tombol, hingga warna tanpa batasan.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 12</div>
+                    <div class="timeline-title">Deployment & Handover</div>
+                    <p class="text-slate-600 text-sm">Pelunasan sisa tagihan. Sistem 100% <em>Live</em> di domain publik dan siap Anda bagikan *link*-nya ke calon sponsor korporat manapun.</p>
+                </div>
+            </div>
+
+            <div class="guarantee-box" style="margin-top: 60px;">
+                <div class="guarantee-icon"><i class="ph-fill ph-shield-check"></i></div>
+                <div>
+                    <h3 class="guarantee-title">The 30-Day Zero-Risk Guarantee</h3>
+                    <p>Kami tahu ini adalah langkah besar. Oleh karena itu, kami menghapus 100% risiko dari bahu Anda. Jika dalam 30 hari pertama setelah rilis, sistem <em>Sponsorship Bidding Engine</em> gagal memfasilitasi formulir pengajuan secara teknis (down/error), kami akan memperbaikinya dalam hitungan jam, atau <strong>mengembalikan seluruh investasi Anda 100% utuh</strong>. Anda sama sekali tidak bisa rugi.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">Langkah Selanjutnya.</h2>
+            <p>Jangan biarkan 5.000 pengunjung harian Anda hanya menjadi penonton. Ubah mereka menjadi angka yang memukau para Direktur Korporat raksasa.</p>
+            
+            <p>Klik tombol di bawah ini (atau pada bar navigasi di layar Anda) untuk menyetujui proposal ini dan menghubungi saya secara langsung via WhatsApp. Mari kita mulai mengarsiteki masa depan PasGer.</p>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="https://wa.me/6281283321577?text=Halo%20Tim%20CocoTech,%20saya%20telah%20membaca%20proposal%20untuk%20Pasar%20Segar%20dan%20tertarik%20untuk%20melanjutkan%20ke%20tahap%20eksekusi." class="btn btn-primary" style="display: inline-flex;" target="_blank"><i class="ph-bold ph-paper-plane-tilt"></i> Amankan Infrastruktur Ini Sekarang</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

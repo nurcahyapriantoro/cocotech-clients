@@ -1,0 +1,30 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and B2B Catering Specialist.
+Client: Kapuas Dapur Kue & VIKA CATERING, Depok.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Space Grotesk' (Heading/Corporate) & 'Plus Jakarta Sans' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: B2B Corporate Catering & School Supply Portal
+- Style: Trustworthy, Clean Corporate, Hygienic, Institutional, Minimalist Modern
+- Colors: 
+  - Primary: #0F172A (Slate 900 - Corporate Trust)
+  - Secondary: #FAFAFA (Clean Off-White)
+  - Accent/Brand: #059669 (Emerald Green - Fresh/Healthy) & #3B82F6 (Blue - Institutional)
+  - Text: #1E293B
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Kapasitas Ribuan Porsi, Kualitas Rumahan Tanpa Kompromi."
+- Unique Mechanism: "B2B Auto-Quota Catering Engine" - Form pemesanan prabayar dengan algoritma batas kuota harian otomatis (auto-close cap).
+- Target: Panitia pengadaan instansi pemerintahan Depok, yayasan sekolah, HRD korporat (B2B).
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Professional 3D Hero Section: Clean, hygienic kitchen aesthetic, showing large-scale catering readiness.
+2. Dual-Persona Engine (Dynamic Context Shifting): "School Meal Plan" vs "Government/Corporate Catering".
+3. Headless WhatsApp Cart with Auto-Quota (The B2B Engine): Sistem pre-order snack box bulanan. Jika kuota dapur tercapai (misal 5000 box/hari), tanggal tersebut otomatis ter-block (disable).
+4. Process Transparency Tracker: "From Kitchen to Institution" - Capacity forecasting, Hygiene protocols (Sertifikasi Halal/BPOM).
+5. The VVIP Backdoor: Click the Vika logo 3x for "Procurement Director Portal" (Kontrak Lelang Instansi).
+6. Live Social Proof Engine: "SDN 1 Depok baru saja menyetujui kontrak 500 Snack Box/bulan."
+7. Professional Mega Footer: Official address in Taman Melati Premiere Depok, clean corporate structure, CocoTech Studio branding.
+8. Floating Proposal Widget: "Buka Blueprint B2B" (CocoTech link).
+
+UI/UX Rules: Professional, highly legible, NO LOREM IPSUM, extremely aesthetic but fast-loading, clean layout, bilingual (EN/ID).

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYNADA Official - Modest Fashion Elegance, Bandung</title>
+    <meta name="description" content="Koleksi busana muslim wanita elegan dari Buah Batu, Bandung. Crafted with premium textiles.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nada: {
+                            50: '#fcfcfc', // Clean Off-White
+                            100: '#f5f5f5',
+                            300: '#d6d3d1', // Warm Sand
+                            500: '#a8a29e', // Muted Stone
+                            800: '#27272a',
+                            900: '#171717', // Soft Black
+                        },
+                        surface: '#FAFAFA',
+                        dark: '#171717',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -10px rgba(0,0,0,0.05)',
+                        'floating': '0 10px 30px -10px rgba(0,0,0,0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FAFAFA; color: #27272A; transition: background-color 0.5s, color 0.5s; }
+        .dark-mode { background-color: #171717; color: #FAFAFA; }
+        
+        .glass-nav { background: rgba(250, 250, 250, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        .dark-mode .glass-nav { background: rgba(23, 23, 23, 0.9); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        .card-premium { background: white; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.03); transition: all 0.4s ease; }
+        .dark-mode .card-premium { background: #27272A; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3); }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #D6D3D1; }
+        .dark-mode ::-webkit-scrollbar-thumb { background: #3F3F46; }
+
+        .editorial-image { clip-path: inset(0 0 0 0); transition: clip-path 0.5s ease; }
+        
+        @keyframes slideInUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body x-data="{ 
+        lang: 'id', 
+        scrolled: false, 
+        
+        /* God-Tier Feature 1: Dual-Persona Context Shifting */
+        persona: 'retail', /* retail or reseller */
+        
+        /* God-Tier Feature 2: Interactive Size Calculator */
+        weight: '',
+        height: '',
+        sizeResult: null,
+        calculateSize() {
+            if(!this.weight || !this.height) return;
+            let bmi = this.weight / ((this.height/100) * (this.height/100));
+            if(bmi < 18.5) this.sizeResult = 'S';
+            else if(bmi >= 18.5 && bmi < 22.9) this.sizeResult = 'M';
+            else if(bmi >= 22.9 && bmi < 25) this.sizeResult = 'L';
+            else this.sizeResult = 'XL';
+        },
+        
+        /* God-Tier Feature 3: Headless WhatsApp Cart */
+        cartOpen: false,
+        cart: [],
+        addToCart(item, price, image) {
+            let existing = this.cart.find(i => i.name === item);
+            let finalPrice = this.persona === 'reseller' ? price * 0.8 : price; // 20% discount for reseller
+            if(existing) { existing.qty++; } else { this.cart.push({name: item, price: finalPrice, img: image, qty: 1}); }
+            this.cartOpen = true;
+        },
+        removeFromCart(index) {
+            if(this.cart[index].qty > 1) { this.cart[index].qty--; } else { this.cart.splice(index, 1); }
+            if(this.cart.length === 0) this.cartOpen = false;
+        },
+        get cartTotal() { return this.cart.reduce((total, item) => total + (item.price * item.qty), 0); },
+        
+        checkoutName: '',
+        checkoutAddress: '',
+        checkoutPhone: '',
+        
+        checkout() {
+            if(this.cart.length === 0 || !this.checkoutName || !this.checkoutAddress) {
+                alert(this.lang === 'id' ? 'Mohon lengkapi Nama dan Alamat Pengiriman.' : 'Please complete Name and Shipping Address.');
+                return;
+            }
+            let type = this.persona === 'reseller' ? 'RESELLER DROPSHIP' : 'RETAIL ORDER';
+            let text = `*MYNADA OFFICIAL - ${type} INVOICE*%0A%0A`;
+            text += `*Nama Penerima:* ${this.checkoutName}%0A`;
+            text += `*Telepon:* ${this.checkoutPhone}%0A`;
+            text += `*Alamat Lengkap:* ${this.checkoutAddress}%0A%0A`;
+            text += `*Detail Pesanan:*%0A`;
+            this.cart.forEach(item => { text += `- *${item.name}* x${item.qty} : Rp ${new Intl.NumberFormat('id-ID').format(item.price * item.qty)}%0A`; });
+            text += `%0A--------------------------------%0A`;
+            text += `*TOTAL TAGIHAN: Rp ${new Intl.NumberFormat('id-ID').format(this.cartTotal)}*%0A`;
+            text += `--------------------------------%0A%0A`;
+            text += `Mohon konfirmasi ketersediaan stok dan berikan nomor rekening/QRIS untuk pembayaran.`;
+            window.open('https://wa.me/6281283321577?text=' + text, '_blank');
+            this.cart = []; this.cartOpen = false; this.checkoutName = ''; this.checkoutAddress = ''; this.checkoutPhone = '';
+        }
+    }" 
+    :class="{'dark-mode': persona === 'reseller'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased selection:bg-nada-900 selection:text-white transition-colors duration-700">
+
+    <!-- COCOTECH WIDGET: Floating Proposal B2B -->
+    <a href="proposal.html" target="_blank" class="fixed top-28 right-6 z-50 flex items-center gap-3 bg-white text-dark px-5 py-3 rounded-full shadow-premium hover:shadow-floating transition-all duration-300 border border-slate-200 group no-print">
+        <div class="w-8 h-8 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:bg-dark group-hover:text-white transition-colors">
+            <i class="ph-bold ph-folder-lock text-lg"></i>
+        </div>
+        <div>
+            <div class="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">CocoTech Agency</div>
+            <div class="font-bold text-[11px] text-dark" x-text="lang === 'id' ? 'Proposal Digital B2B' : 'Digital B2B Deck'"></div>
+        </div>
+    </a>
+
+    <!-- HEADLESS WHATSAPP CART BUTTON -->
+    <button @click="cartOpen = true" x-show="cart.length > 0 && !cartOpen" x-transition.scale.origin.bottom class="fixed bottom-8 right-8 z-50 w-16 h-16 bg-nada-900 text-white rounded-full shadow-floating flex items-center justify-center hover:-translate-y-1 transition-transform" style="display: none;">
+        <i class="ph-light ph-shopping-bag text-2xl"></i>
+        <span class="absolute 0 top-0 right-0 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-nada-900" x-text="cart.reduce((a, b) => a + b.qty, 0)"></span>
+    </button>
+
+    <!-- Headless Cart Modal (Zero Friction Checkout) -->
+    <div x-show="cartOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-dark/60 backdrop-blur-sm flex justify-end" style="display: none;">
+        <div class="h-full w-full max-w-md bg-white shadow-2xl flex flex-col" @click.away="cartOpen = false">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-nada-50">
+                <div>
+                    <h3 class="font-serif font-bold text-2xl text-nada-900" x-text="lang === 'id' ? 'Keranjang Belanja' : 'Shopping Bag'"></h3>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-widest font-medium" x-text="persona === 'reseller' ? 'Reseller Pricing Applied (-20%)' : 'Retail Pricing'"></p>
+                </div>
+                <button @click="cartOpen = false" class="text-slate-400 hover:text-dark"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 bg-white">
+                <template x-if="cart.length === 0">
+                    <div class="h-full flex flex-col items-center justify-center text-slate-300 space-y-4">
+                        <i class="ph-light ph-shopping-bag-open text-4xl md:text-6xl"></i>
+                        <p class="text-sm">Keranjang Anda kosong.</p>
+                    </div>
+                </template>
+                <template x-for="(item, index) in cart" :key="index">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-50">
+                        <div class="w-16 h-20 bg-slate-100 overflow-hidden">
+                            <img :src="item.img" class="w-full h-full object-cover grayscale-[30%]">
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-bold text-dark text-sm mb-1 line-clamp-1" x-text="item.name"></div>
+                            <div class="text-xs font-semibold text-slate-500 mb-2">Rp <span x-text="new Intl.NumberFormat('id-ID').format(item.price)"></span></div>
+                            <div class="flex items-center gap-3 bg-nada-50 w-24 rounded border border-slate-200 px-2 py-1">
+                                <button @click="removeFromCart(index)" class="text-slate-400 hover:text-dark font-bold"><i class="ph-bold ph-minus text-[10px]"></i></button>
+                                <span class="text-xs font-bold text-dark flex-1 text-center" x-text="item.qty"></span>
+                                <button @click="addToCart(item.name, item.price, item.img)" class="text-slate-400 hover:text-dark font-bold"><i class="ph-bold ph-plus text-[10px]"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <div class="p-6 bg-nada-50 border-t border-slate-100">
+                <div class="space-y-4 mb-6" x-show="cart.length > 0">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Nama Lengkap</label>
+                            <input type="text" x-model="checkoutName" class="w-full bg-white border border-slate-200 rounded py-2 px-3 text-xs text-dark focus:border-nada-900 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">No. Telepon / WA</label>
+                            <input type="tel" x-model="checkoutPhone" class="w-full bg-white border border-slate-200 rounded py-2 px-3 text-xs text-dark focus:border-nada-900 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Alamat Pengiriman (Cetak Resi)</label>
+                        <textarea x-model="checkoutAddress" rows="2" class="w-full bg-white border border-slate-200 rounded py-2 px-3 text-xs text-dark focus:border-nada-900 outline-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-end mb-6">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Belanja</span>
+                    <span class="font-serif font-bold text-2xl text-nada-900">Rp <span x-text="new Intl.NumberFormat('id-ID').format(cartTotal)"></span></span>
+                </div>
+                <button @click="checkout()" :disabled="cart.length === 0" class="w-full bg-nada-900 text-white font-bold py-4 text-xs tracking-widest uppercase transition-colors shadow-lg flex items-center justify-center gap-2" :class="cart.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-black'">
+                    <i class="ph-fill ph-whatsapp-logo text-lg"></i> 
+                    <span x-text="lang === 'id' ? 'Lanjut Pembayaran via WA' : 'Proceed to Payment via WA'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mega Header (Dual Persona Engine) -->
+    <nav :class="{'glass-nav py-3': scrolled, 'bg-transparent py-8': !scrolled}" class="fixed w-full z-40 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="text-center md:text-left">
+                <h1 class="text-3xl font-serif font-bold tracking-tight uppercase" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">MYNADA.</h1>
+            </div>
+            
+            <!-- Dual-Persona Toggle Switch -->
+            <div class="flex items-center p-1 rounded-full border transition-colors duration-500" :class="persona === 'retail' ? 'bg-white/50 border-slate-200 backdrop-blur-sm' : 'bg-dark/50 border-slate-800 backdrop-blur-sm'">
+                <button @click="persona = 'retail'" class="px-6 py-2.5 rounded-full text-[10px] font-bold transition-all uppercase tracking-widest" :class="persona === 'retail' ? 'bg-nada-900 text-white shadow-md' : 'text-slate-400 hover:text-white'">Beli Eceran</button>
+                <button @click="persona = 'reseller'" class="px-6 py-2.5 rounded-full text-[10px] font-bold transition-all uppercase tracking-widest" :class="persona === 'reseller' ? 'bg-white text-dark shadow-md' : 'text-slate-500 hover:text-white'">Mitra Reseller (-20%)</button>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-8 font-medium text-sm">
+                <a href="#lookbook" class="transition-colors text-xs uppercase tracking-widest font-bold" :class="persona === 'retail' ? 'text-slate-500 hover:text-nada-900' : 'text-slate-400 hover:text-white'">Lookbook</a>
+                <a href="#transparency" class="transition-colors text-xs uppercase tracking-widest font-bold" :class="persona === 'retail' ? 'text-slate-500 hover:text-nada-900' : 'text-slate-400 hover:text-white'">Craftsmanship</a>
+                <div class="flex items-center gap-2">
+                    <button @click="lang = 'id'" class="text-xs font-bold" :class="lang === 'id' ? (persona==='retail'?'text-nada-900':'text-white') : 'text-slate-400'">ID</button>
+                    <span class="text-slate-300 text-xs">|</span>
+                    <button @click="lang = 'en'" class="text-xs font-bold" :class="lang === 'en' ? (persona==='retail'?'text-nada-900':'text-white') : 'text-slate-400'">EN</button>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Luxury Editorial Hero Section -->
+    <header class="relative pt-40 pb-20 lg:pt-56 lg:pb-40 overflow-hidden transition-colors duration-700 border-b" :class="persona === 'retail' ? 'border-slate-100' : 'border-slate-800'">
+        
+        <div x-show="persona === 'retail'" x-transition.opacity.duration.700ms class="absolute inset-0">
+            <div class="absolute right-0 top-0 w-full lg:w-2/3 h-full bg-[url('https://images.unsplash.com/photo-1550614000-4b95d4edfa20?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-top editorial-image opacity-20 lg:opacity-100 grayscale-[40%]"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-transparent lg:w-2/3"></div>
+        </div>
+        
+        <div x-show="persona === 'reseller'" x-transition.opacity.duration.700ms class="absolute inset-0" style="display: none;">
+            <div class="absolute right-0 top-0 w-full lg:w-2/3 h-full bg-[url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center editorial-image opacity-30 grayscale"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 to-transparent lg:w-3/4"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-10 grid lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-7 space-y-8 animate-up">
+                
+                <div class="inline-flex items-center gap-3 border-l-2 pl-4" :class="persona === 'retail' ? 'border-nada-900 text-nada-900' : 'border-white text-white'">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Buah Batu, Bandung</span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-serif leading-[1.1] tracking-tight">
+                    <template x-if="persona === 'retail'">
+                        <span class="text-nada-900">
+                            Modest Fashion,<br>
+                            <span class="italic font-light text-nada-500 text-4xl lg:text-4xl md:text-6xl">Elevated.</span>
+                        </span>
+                    </template>
+                    <template x-if="persona === 'reseller'">
+                        <span class="text-white">
+                            Join the Mynada<br>
+                            <span class="italic font-light text-slate-400 text-4xl lg:text-4xl md:text-6xl">Distribution Network.</span>
+                        </span>
+                    </template>
+                </h1>
+                
+                <p class="text-sm lg:text-base leading-relaxed max-w-lg font-light" :class="persona === 'retail' ? 'text-slate-600' : 'text-slate-400'">
+                    <template x-if="persona === 'retail'"><span x-text="lang === 'id' ? 'Menghadirkan koleksi busana muslim wanita eksklusif dengan material pilihan. Dijahit dengan teliti oleh pengrajin lokal Bandung, menciptakan siluet anggun untuk setiap momen Anda.' : 'Presenting exclusive modest fashion collections for women with carefully selected materials. Meticulously tailored by local Bandung artisans, creating an elegant silhouette for your every moment.'"></span></template>
+                    <template x-if="persona === 'reseller'"><span x-text="lang === 'id' ? 'Dapatkan margin keuntungan 20% tanpa syarat stok barang. Sistem E-Commerce pintar kami mencetak label pengiriman atas nama toko Anda secara otomatis. Scale up bisnis fesyen Anda dari rumah.' : 'Get a 20% profit margin without any stock requirements. Our smart E-Commerce system automatically prints shipping labels under your store name. Scale up your fashion business from home.'"></span></template>
+                </p>
+                
+                <div class="pt-8">
+                    <template x-if="persona === 'retail'">
+                        <button onclick="document.getElementById('lookbook').scrollIntoView({behavior: 'smooth'})" class="bg-nada-900 text-white px-10 py-4 font-bold text-xs uppercase tracking-widest transition-all hover:bg-black flex items-center gap-3">
+                            <span>Explore Lookbook</span> <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </template>
+                    <template x-if="persona === 'reseller'">
+                        <button onclick="document.getElementById('lookbook').scrollIntoView({behavior: 'smooth'})" class="bg-white text-dark px-10 py-4 font-bold text-xs uppercase tracking-widest transition-all hover:bg-slate-200 flex items-center gap-3">
+                            <span>View Reseller Pricing</span> <i class="ph-bold ph-trend-up"></i>
+                        </button>
+                    </template>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-5 relative hidden lg:flex justify-end items-center" data-tilt data-tilt-max="2" data-tilt-speed="1000">
+                 <!-- Aesthetic Box for Visual Balance -->
+                 <div class="w-72 h-96 border p-4 relative" :class="persona === 'retail' ? 'border-slate-200 bg-white' : 'border-slate-800 bg-dark'">
+                    <img src="https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover grayscale-[20%]" alt="Fabric Detail">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-5 shadow-premium border border-slate-100" :class="persona === 'reseller' ? 'bg-dark border-slate-700' : ''">
+                        <div class="font-serif font-bold text-xl" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">Premium Silk</div>
+                        <div class="text-[8px] uppercase tracking-[0.2em] font-bold mt-1" :class="persona === 'retail' ? 'text-nada-500' : 'text-slate-500'">Breathable Material</div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODULE 1: Interactive Size Calculator (Alpine.js) -->
+    <section class="py-16 bg-nada-100 transition-colors duration-500" :class="{'bg-slate-900': persona === 'reseller'}">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white p-8 lg:p-12 shadow-premium flex flex-col md:flex-row items-center gap-12" :class="{'bg-dark border border-slate-800': persona === 'reseller'}">
+                <div class="md:w-1/2">
+                    <div class="text-[10px] font-bold uppercase tracking-widest mb-3" :class="persona === 'retail' ? 'text-nada-500' : 'text-slate-500'">Smart Fit Engine</div>
+                    <h3 class="text-3xl font-serif font-bold mb-4" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">Find Your Perfect Size.</h3>
+                    <p class="text-sm font-light leading-relaxed" :class="persona === 'retail' ? 'text-slate-500' : 'text-slate-400'">Hilangkan keraguan. Masukkan proporsi tubuh Anda, dan biarkan kalkulator algoritma cerdas MYNADA merekomendasikan potongan (cutting) terbaik untuk postur Anda.</p>
+                </div>
+                <div class="md:w-1/2 w-full space-y-4">
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <label class="block text-[10px] font-bold uppercase tracking-widest mb-2" :class="persona === 'retail' ? 'text-slate-400' : 'text-slate-500'">Berat Badan (Kg)</label>
+                            <input type="number" x-model="weight" @input="calculateSize()" class="w-full border-b py-2 bg-transparent outline-none text-xl font-serif" :class="persona === 'retail' ? 'border-slate-200 text-dark focus:border-nada-900' : 'border-slate-700 text-white focus:border-white'" placeholder="55">
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-[10px] font-bold uppercase tracking-widest mb-2" :class="persona === 'retail' ? 'text-slate-400' : 'text-slate-500'">Tinggi (Cm)</label>
+                            <input type="number" x-model="height" @input="calculateSize()" class="w-full border-b py-2 bg-transparent outline-none text-xl font-serif" :class="persona === 'retail' ? 'border-slate-200 text-dark focus:border-nada-900' : 'border-slate-700 text-white focus:border-white'" placeholder="160">
+                        </div>
+                    </div>
+                    
+                    <div x-show="sizeResult" x-transition class="mt-6 p-4 border" :class="persona === 'retail' ? 'bg-surface border-slate-100' : 'bg-black border-slate-800'">
+                        <div class="text-[10px] font-bold uppercase tracking-widest mb-1 text-slate-400">Rekomendasi Size (Modest Fit):</div>
+                        <div class="text-4xl font-serif font-bold" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'" x-text="sizeResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 2: Interactive Smart Lookbook / Catalog -->
+    <section id="lookbook" class="py-24 relative" x-data="{ 
+        category: 'all',
+        products: [
+            { name: 'Kaftan Andalusia', cat: 'Kaftan', price: 350000, img: 'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?q=80&w=400&auto=format&fit=crop' },
+            { name: 'Tunik Saffron', cat: 'Tunik', price: 280000, img: 'https://images.unsplash.com/photo-1434389678232-02c34db13382?q=80&w=400&auto=format&fit=crop' },
+            { name: 'Abaya Medina', cat: 'Abaya', price: 420000, img: 'https://images.unsplash.com/photo-1550614000-4b95d4edfa20?q=80&w=400&auto=format&fit=crop' },
+            { name: 'Pashmina Silk', cat: 'Hijab', price: 120000, img: 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=400&auto=format&fit=crop' }
+        ],
+        get filtered() { return this.category === 'all' ? this.products : this.products.filter(p => p.cat === this.category); }
+    }">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b pb-8" :class="persona === 'retail' ? 'border-slate-200' : 'border-slate-800'">
+                <div>
+                    <h2 class="text-4xl lg:text-5xl font-serif mb-4" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">Digital Lookbook.</h2>
+                    <p class="text-sm font-light" :class="persona === 'retail' ? 'text-slate-500' : 'text-slate-400'" x-text="persona === 'retail' ? 'Koleksi musim ini. Tambahkan ke keranjang untuk proses checkout yang mulus.' : 'Katalog harga khusus Reseller (Diskon otomatis -20% saat checkout).'"></p>
+                </div>
+                
+                <div class="mt-8 md:mt-0 flex gap-6 text-[10px] font-bold uppercase tracking-widest">
+                    <button @click="category = 'all'" :class="category === 'all' ? (persona==='retail'?'text-nada-900 border-b border-nada-900':'text-white border-b border-white') : 'text-slate-400 hover:text-slate-500'">All</button>
+                    <button @click="category = 'Kaftan'" :class="category === 'Kaftan' ? (persona==='retail'?'text-nada-900 border-b border-nada-900':'text-white border-b border-white') : 'text-slate-400 hover:text-slate-500'">Kaftan</button>
+                    <button @click="category = 'Tunik'" :class="category === 'Tunik' ? (persona==='retail'?'text-nada-900 border-b border-nada-900':'text-white border-b border-white') : 'text-slate-400 hover:text-slate-500'">Tunik</button>
+                    <button @click="category = 'Hijab'" :class="category === 'Hijab' ? (persona==='retail'?'text-nada-900 border-b border-nada-900':'text-white border-b border-white') : 'text-slate-400 hover:text-slate-500'">Hijab</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <template x-for="item in filtered" :key="item.name">
+                    <div class="group">
+                        <div class="relative h-[400px] bg-slate-100 overflow-hidden mb-6" :class="persona === 'reseller' ? 'bg-slate-900' : ''">
+                            <img :src="item.img" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                            <!-- Overlay CTA -->
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                                <button @click="addToCart(item.name, item.price, item.img)" class="bg-white text-dark px-6 py-3 text-xs font-bold uppercase tracking-widest shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all">
+                                    <i class="ph-bold ph-bag mr-1"></i> Quick Add
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-serif font-bold text-lg" :class="persona === 'retail' ? 'text-dark' : 'text-white'" x-text="item.name"></h4>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <template x-if="persona === 'reseller'">
+                                    <span class="text-xs text-slate-500 line-through">Rp <span x-text="new Intl.NumberFormat('id-ID').format(item.price)"></span></span>
+                                </template>
+                                <span class="text-sm font-medium" :class="persona === 'retail' ? 'text-slate-600' : 'text-white'">Rp <span x-text="new Intl.NumberFormat('id-ID').format(persona === 'reseller' ? item.price * 0.8 : item.price)"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 3: Process Transparency Tracker -->
+    <section id="transparency" class="py-24 bg-white border-y border-slate-100 transition-colors duration-500" :class="{'hidden': persona === 'reseller'}">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-serif text-nada-900 mb-4">Crafted in Bandung.</h2>
+            <p class="text-slate-500 max-w-xl mx-auto font-light text-sm mb-16">MYNADA bukan fesyen massal pabrikan (*fast-fashion*). Kami memberdayakan penjahit lokal Buah Batu untuk menghasilkan kualitas butik di setiap potongannya.</p>
+            
+            <div class="grid md:grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto text-left">
+                <div class="border-l border-nada-300 pl-6">
+                    <div class="text-3xl font-serif text-nada-300 mb-4">01.</div>
+                    <h4 class="font-bold text-dark text-sm uppercase tracking-widest mb-2">Textile Sourcing</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Pemilihan material Sutra Premium dan Katun Jepang yang sejuk, *breathable*, dan tidak transparan untuk kenyamanan aurat muslimah.</p>
+                </div>
+                <div class="border-l border-nada-300 pl-6">
+                    <div class="text-3xl font-serif text-nada-300 mb-4">02.</div>
+                    <h4 class="font-bold text-dark text-sm uppercase tracking-widest mb-2">Local Craftsmanship</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Pola dipotong dan dijahit secara manual oleh pengrajin berpengalaman di Bandung, memastikan siluet yang jatuh sempurna di badan.</p>
+                </div>
+                <div class="border-l border-nada-300 pl-6">
+                    <div class="text-3xl font-serif text-nada-300 mb-4">03.</div>
+                    <h4 class="font-bold text-dark text-sm uppercase tracking-widest mb-2">Quality Control</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Pengecekan jahitan dan benang 3 lapis sebelum dikemas secara elegan dalam kotak MYNADA. Siap dikirim ke seluruh Indonesia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Mega-Footer -->
+    <footer class="pt-20 pb-10 transition-colors duration-500" :class="persona === 'retail' ? 'bg-surface border-t border-slate-200' : 'bg-black border-t border-slate-800'">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-16 border-b pb-16" :class="persona === 'retail' ? 'border-slate-200' : 'border-slate-800'">
+            <div class="col-span-1 md:col-span-2">
+                <h1 class="text-3xl font-serif font-bold tracking-tight uppercase mb-2" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">MYNADA.</h1>
+                <span class="text-[9px] font-bold uppercase tracking-[0.3em]" :class="persona === 'retail' ? 'text-nada-500' : 'text-slate-500'">Official Brand</span>
+                <p class="mt-6 text-sm font-light leading-relaxed max-w-sm" :class="persona === 'retail' ? 'text-slate-500' : 'text-slate-400'">Industri manufaktur busana muslim wanita berskala rumahan dengan bahan tekstil berkualitas pilihan dari Buah Batu, Bandung.</p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-6 font-serif tracking-wide" :class="persona === 'retail' ? 'text-dark' : 'text-white'">Navigasi</h4>
+                <ul class="space-y-4 text-xs uppercase tracking-widest font-bold" :class="persona === 'retail' ? 'text-slate-400' : 'text-slate-600'">
+                    <li><a href="#lookbook" class="hover:text-nada-900 transition-colors">Lookbook</a></li>
+                    <li><a href="#transparency" class="hover:text-nada-900 transition-colors">Craftsmanship</a></li>
+                    <li><a href="#" @click.prevent="persona = 'reseller'" class="hover:text-nada-900 transition-colors">Join Reseller</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 font-serif tracking-wide" :class="persona === 'retail' ? 'text-dark' : 'text-white'">Kontak Kami</h4>
+                <ul class="space-y-4 text-sm font-light" :class="persona === 'retail' ? 'text-slate-500' : 'text-slate-400'">
+                    <li class="flex items-start gap-3"><i class="ph-light ph-map-pin mt-0.5 text-nada-500"></i> <span>Jl. Jatisari II No.79, Buah Batu<br>Bandung 40286, Indonesia</span></li>
+                    <li class="flex items-center gap-3"><i class="ph-light ph-globe text-nada-500"></i> <span>mynadaofficial.wixsite.com/home</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-xs font-light" :class="persona === 'retail' ? 'text-slate-400' : 'text-slate-600'">&copy; <span x-text="new Date().getFullYear()"></span> MYNADA Official. All rights reserved.</div>
+            <div class="text-[9px] font-bold uppercase tracking-widest flex items-center gap-2" :class="persona === 'retail' ? 'text-slate-400' : 'text-slate-600'">
+                System Infrastructure by <a href="https://cocotech.studio" target="_blank" class="hover:underline" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">CocoTech Studio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+    </script>
+</body>
+</html>

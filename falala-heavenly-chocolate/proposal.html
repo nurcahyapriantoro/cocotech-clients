@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Hospitality Blueprint & Proposal - Falala Chocolate Bali</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #0F0F0F; /* Obsidian Black */
+            --accent: #d4af37; /* Metallic Gold */
+            --accent-alt: #3e2723; /* Deep Chocolate Brown */
+            --surface: #fafafa;
+            --text-dark: #18181b;
+            --text-light: #71717a;
+            --border: #e4e4e7;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--surface);
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; font-size: 11pt; }
+            .page-break { break-before: page; }
+            .section { break-inside: avoid; }
+        }
+
+        /* --- COVER --- */
+        .cover {
+            background: var(--primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px;
+            position: relative;
+            color: white;
+            overflow: hidden;
+            border-left: 2px solid var(--accent);
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; width: 60%;
+            background: url('https://images.unsplash.com/photo-1559598467-f8b76c8155d0?q=80&w=1000&auto=format&fit=crop') center/cover;
+            z-index: 1;
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            opacity: 0.4;
+            mix-blend-mode: luminosity;
+        }
+
+        .cover-content { position: relative; z-index: 10; max-width: 60%; }
+        
+        .cover-badge {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent);
+            padding: 8px 0;
+            font-size: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .cover-title {
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        .cover-title span { color: var(--accent); font-style: italic; }
+
+        .cover-subtitle { font-size: 16px; color: #a1a1aa; line-height: 1.7; margin-bottom: 40px; font-weight: 300; max-width: 480px; font-family: 'Inter', sans-serif; }
+
+        .prepared-for { border-left: 2px solid var(--accent); padding-left: 24px; margin-top: 100px; }
+        .prepared-for-label { font-size: 10px; font-family: 'Inter', sans-serif; font-weight: 700; color: #71717a; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+        .client-name { font-size: 32px; font-weight: 700; color: white; margin-bottom: 4px; letter-spacing: 1px;}
+        .client-detail { font-size: 14px; color: #a1a1aa; font-weight: 400; font-family: 'Inter', sans-serif; }
+
+        .footer-cover { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; position: relative; z-index: 10; max-width: 50%; }
+        
+        /* --- PAGES --- */
+        .page { background: white; min-height: 100vh; padding: 80px; position: relative; }
+        .page-inner { max-width: 800px; margin: 0 auto; }
+
+        .header-page { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 50px; }
+        .header-logo { font-weight: 700; font-size: 20px; color: var(--primary); letter-spacing: 2px;}
+        .header-logo span { color: var(--accent); font-style: italic; }
+        .header-doc { font-size: 10px; font-family: 'Inter', sans-serif; color: var(--text-light); text-transform: uppercase; letter-spacing: 3px; font-weight: 700; }
+
+        .section-title { font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 30px; line-height: 1.2; }
+
+        p { margin-bottom: 20px; color: var(--text-dark); font-weight: 300;}
+        .highlight { color: var(--primary); font-weight: 600; background: var(--surface); padding: 2px 6px; }
+
+        /* --- FASCINATIONS & LISTS --- */
+        .problem-box { background: var(--surface); padding: 40px; margin-bottom: 40px; border-left: 2px solid var(--primary); }
+        .problem-box h4 { color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif; }
+        .problem-box p { color: var(--text-dark); margin-bottom: 0; font-size: 14px;}
+
+        .fascination-list { list-style: none; margin-bottom: 40px; }
+        .fascination-list li { position: relative; padding-left: 40px; margin-bottom: 20px; font-weight: 400; color: var(--text-dark); font-size: 15px;}
+        .fascination-list li::before { content: '—'; position: absolute; left: 0; top: 0; color: var(--accent); font-weight: bold; font-family: 'Inter', sans-serif;}
+
+        /* --- ROI TABLE --- */
+        .roi-table { width: 100%; border-collapse: collapse; margin: 40px 0; font-family: 'Inter', sans-serif; font-size: 13px;}
+        .roi-table th { background: var(--primary); color: white; padding: 20px; text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 10px;}
+        .roi-table td { padding: 20px; border-bottom: 1px solid var(--border); background: white; font-weight: 400;}
+        .roi-table tr:last-child td { border-bottom: none; font-weight: 700; background: var(--surface); color: var(--primary); }
+        .text-red { color: #dc2626; }
+        .text-green { color: var(--accent); font-weight: 600; }
+
+        /* --- PRICING TIERS --- */
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 50px; }
+        
+        .tier-card { border: 1px solid var(--border); padding: 50px; background: white; position: relative; text-align: center; }
+        .tier-card.recommended { border: 1px solid var(--primary); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.08); }
+        .tier-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 6px 20px; font-size: 9px; font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+        
+        .tier-name { font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+        .tier-desc { color: var(--text-light); font-size: 14px; margin-bottom: 40px; font-weight: 300; font-family: 'Inter', sans-serif;}
+        .tier-price { font-size: 48px; font-weight: 700; color: var(--primary); margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 30px;}
+        
+        .tier-features { list-style: none; text-align: left; font-family: 'Inter', sans-serif;}
+        .tier-features li { padding: 16px 0; border-bottom: 1px solid var(--surface); display: flex; align-items: flex-start; gap: 16px; font-size: 14px; font-weight: 400; color: var(--text-dark); }
+        .tier-features li:last-child { border-bottom: none; }
+        .tier-features i { color: var(--accent); font-size: 18px; margin-top: 2px; }
+
+        /* --- GUARANTEE --- */
+        .guarantee-box { background: var(--primary); color: white; padding: 50px; display: flex; gap: 30px; align-items: flex-start; margin-top: 60px; }
+        .guarantee-icon { font-size: 48px; color: var(--accent); }
+        .guarantee-title { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: white; }
+        .guarantee-box p { color: #a1a1aa; margin-bottom: 0; font-weight: 300; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.8;}
+
+        /* --- ACTION BAR --- */
+        .action-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 12px 24px; border-radius: 0; display: flex; gap: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); z-index: 100; border: 1px solid var(--border); }
+        .btn { padding: 14px 36px; font-size: 11px; font-family: 'Inter', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--accent); }
+        .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--border); }
+        .btn-outline:hover { background: var(--surface); }
+    </style>
+</head>
+<body>
+
+    <div class="action-bar no-print">
+        <button class="btn btn-outline" onclick="window.print()"><i class="ph-light ph-printer"></i> Print Document</button>
+        <a href="https://wa.me/6281283321577?text=Hello%20CocoTech,%20we%20have%20reviewed%20the%20Falala%20proposal%20and%20are%20ready%20to%20proceed." class="btn btn-primary" target="_blank">Approve Blueprint <i class="ph-light ph-arrow-right"></i></a>
+    </div>
+
+    <!-- COVER PAGE -->
+    <div class="cover page-break">
+        <div class="cover-content">
+            <div class="cover-badge">B2B HOSPITALITY BLUEPRINT</div>
+            <h1 class="cover-title">The Airport &<br><span>Hospitality Engine.</span></h1>
+            <p class="cover-subtitle">A strategic digital infrastructure designed to reclaim your margins from macro souvenir retailers by capturing the high-net-worth tourist and 5-star villa market directly.</p>
+        </div>
+
+        <div class="cover-content">
+            <div class="prepared-for">
+                <div class="prepared-for-label">Exclusively Prepared For:</div>
+                <div class="client-name">Falala & Heavenly Chocolate</div>
+                <div class="client-detail">Premium Artisan Chocolate - Bali</div>
+            </div>
+
+            <div class="footer-cover">
+                <div>
+                    <div style="font-size: 10px; font-family: 'Inter', sans-serif; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 2px;">Document Date</div>
+                    <div style="font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 400; color: white; margin-top: 4px;">April 27, 2026</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 700; color: white; letter-spacing: 2px;">COCOTECH STUDIO</div>
+                    <div style="font-size: 10px; font-family: 'Inter', sans-serif; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-top: 4px;">Conversion Architects</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: THE PROBLEM & THE SOLUTION -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">FALALA <span>X</span> COCOTECH</div>
+                <div class="header-doc">EXECUTIVE SUMMARY</div>
+            </div>
+
+            <h2 class="section-title">The Bottleneck:<br>Logistics & Retail Dominance.</h2>
+
+            <p>Falala and Heavenly Chocolate have successfully established themselves as a premium alternative to traditional Balinese souvenirs (kue pia, etc.), riding the wave of high-end social media virality.</p>
+            
+            <p>However, despite the massive demand, your profit scaling is severely limited by <span class="highlight">two critical bottlenecks</span>.</p>
+
+            <div class="problem-box">
+                <h4>The Friction of Melting & Macro Retailers</h4>
+                <p><strong>1. The Melting Factor:</strong> Tourists desperately want to bring your melted chocolate back to Jakarta or overseas. However, the fear of the chocolate melting before their flight deters massive last-day purchases.</p>
+                <p style="margin-top: 15px;"><strong>2. The Macro Retail Trap:</strong> To reach the masses, you are forced to surrender massive distribution margins to giant retail centers (like Krisna). You are losing control of the direct customer relationship and diluting your premium brand equity.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">The Blueprint Solution:<br>Airport-Sync & Direct B2B.</h2>
+
+            <p>You have just experienced the <em>Live Preview</em> link. This is not an ordinary website; it is <strong>The Ultra-Luxury Airport & Hospitality Engine</strong>.</p>
+
+            <ul class="fascination-list">
+                <li><strong>Airport-Sync Delivery Calculator:</strong> We built a custom Alpine.js module where tourists input their flight time and terminal. The system mathematically calculates the exact "Drop-off Window" at Ngurah Rai Airport (e.g., 2.5 hours before departure) to ensure the chocolate stays perfectly cold. This eliminates buyer hesitation instantly.</li>
+                <li><strong>The VVIP Backdoor (Villa Portal):</strong> By clicking your logo 3 times and entering a secure PIN, 5-Star Villa and Hotel Managers gain access to a hidden Wholesale Portal. This allows you to penetrate the lucrative "Welcome Amenities" B2B market directly.</li>
+                <li><strong>Dual-Persona Ultra-Luxury UI:</strong> A breathtaking, cinematic "Dark Mode" aesthetic that matches international luxury brands (like Godiva or Bvlgari). With one toggle, it shifts context seamlessly between Retail Tourists and B2B Hospitality clients.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE 2: ROI & INVESTMENT -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">FALALA <span>X</span> COCOTECH</div>
+                <div class="header-doc">ROI & PRICING</div>
+            </div>
+
+            <h2 class="section-title">The Mathematical Logic:<br>Bypassing the Giants.</h2>
+
+            <p>By implementing this Direct-to-Consumer (D2C) Airport Delivery mechanism and the B2B Villa Portal, you bypass the massive cuts taken by macro souvenir retailers.</p>
+
+            <table class="roi-table">
+                <thead>
+                    <tr>
+                        <th>Sales Strategy Comparison</th>
+                        <th>Via Macro Souvenir Retailers</th>
+                        <th>Via Our Airport-Sync Engine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Brand Perception & Control</td>
+                        <td class="text-red">Diluted (Mixed with cheap items)</td>
+                        <td class="text-green">Ultra-Premium (Owned Channel)</td>
+                    </tr>
+                    <tr>
+                        <td>Logistics for Departing Tourists</td>
+                        <td class="text-red">Risky (Melting in traffic)</td>
+                        <td class="text-green">Flawless (Airport-Synced Drop-off)</td>
+                    </tr>
+                    <tr>
+                        <td>Profit Margin Distribution</td>
+                        <td class="text-red">Heavily cut by retail fees</td>
+                        <td class="text-green">100% retained by Falala</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="section-title" style="margin-top: 60px;">Investment Tier</h2>
+
+            <div class="pricing-grid">
+                <!-- TIER 3 (Enterprise) -->
+                <div class="tier-card recommended">
+                    <div class="tier-badge">The International Standard</div>
+                    <div class="tier-name">Enterprise B2B / Hospitality Ops</div>
+                    <div class="tier-desc">Full ownership of the Falala digital concierge and airport logistics infrastructure.</div>
+                    <div class="tier-price">Rp 28.500.000</div>
+                    
+                    <ul class="tier-features">
+                        <li><i class="ph-light ph-check"></i> <span><strong>Ultra-Luxury Cinematic UI/UX</strong> (Awwwards-level Dark Mode aesthetics)</span></li>
+                        <li><i class="ph-light ph-check"></i> <span><strong>Airport-Sync Delivery Engine</strong> (Automated flight-time logistics calculator)</span></li>
+                        <li><i class="ph-light ph-check"></i> <span><strong>Dual-Persona Architecture</strong> (Tourist D2C & B2B Wholesale shifting)</span></li>
+                        <li><i class="ph-light ph-check"></i> <span><strong>The VVIP Backdoor Module</strong> (PIN-protected portal for Villa Managers)</span></li>
+                        <li><i class="ph-light ph-check"></i> <span><strong>1 Year Premium Cloud Hosting</strong> & International Domain (.com)</span></li>
+                        <li><i class="ph-light ph-check"></i> <span><strong>Unlimited Revisions</strong> until the system perfectly matches your brand prestige.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PAGE 3: GUARANTEE & ACTION -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">FALALA <span>X</span> COCOTECH</div>
+                <div class="header-doc">GUARANTEE & LAUNCH</div>
+            </div>
+
+            <div class="guarantee-box">
+                <div class="guarantee-icon"><i class="ph-light ph-shield-check"></i></div>
+                <div>
+                    <h3 class="guarantee-title">Zero-Risk Logistics SLA</h3>
+                    <p>We stand by the precision of our engineering. If, within the first 30 days of operation, the <em>Airport-Sync Delivery Calculator</em> fails to accurately compute the drop-off window or fails to transmit the formatted inquiry to your WhatsApp Concierge, our engineers will resolve it 24/7. If we fail to fix it, <strong>we will refund 100% of your investment, no questions asked.</strong></p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 80px;">Dominate the Premium Market.</h2>
+            
+            <p>Stop losing the lucrative departure-day sales and start capturing the 5-Star Villa amenity market directly. Secure this infrastructure to elevate Falala and Heavenly Chocolate to the pinnacle of Balinese luxury.</p>
+
+            <div style="margin-top: 40px;">
+                <a href="https://wa.me/628126195420?text=Hello%20CocoTech,%20we%20have%20reviewed%20the%20Falala%20proposal%20and%20are%20ready%20to%20proceed." class="btn btn-primary" style="display: inline-flex;" target="_blank">Approve This Blueprint <i class="ph-light ph-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

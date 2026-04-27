@@ -175,7 +175,7 @@
         <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-fumo-gold/10 rounded-full mix-blend-screen filter blur-[128px] animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-1/4 left-1/2 w-96 h-96 bg-fumo-crimson/20 rounded-full mix-blend-screen filter blur-[128px] animate-blob animation-delay-4000"></div>
 
-        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div class="space-y-8 z-10">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-fumo-red/30 bg-fumo-red/5 backdrop-blur-sm">
                     <span class="relative flex h-3 w-3">
@@ -206,9 +206,9 @@
 
                 <div class="pt-8 border-t border-white/10 flex items-center gap-6">
                     <div class="flex -space-x-3">
-                        <img src="https://i.pravatar.cc/100?img=33" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
-                        <img src="https://i.pravatar.cc/100?img=12" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
-                        <img src="https://i.pravatar.cc/100?img=68" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" class="w-10 h-10 rounded-full border-2 border-fumo-black" alt="Corporate Client">
                         <div class="w-10 h-10 rounded-full border-2 border-fumo-black bg-fumo-surface flex items-center justify-center text-xs font-bold">+50</div>
                     </div>
                     <div class="text-sm">
@@ -290,7 +290,7 @@
                 <p class="text-fumo-text max-w-2xl mx-auto">Kami tidak sekadar mendesain web. Kami merangkum identitas, rasa, dan hype dari Blok M menjadi sebuah aset digital kelas enterprise.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
                 <!-- Item 1 -->
                 <div class="md:col-span-2 glass-card rounded-3xl p-8 relative overflow-hidden group">
                     <div class="absolute inset-0 bg-gradient-to-r from-fumo-red/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -391,7 +391,7 @@
                         <!-- Package Selection -->
                         <div class="space-y-4">
                             <h3 class="text-xl font-heading font-bold text-white">Pilih Paket Katering</h3>
-                            <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
                                 <template x-for="pkg in engine.packages" :key="pkg.id">
                                     <div @click="engine.selectedPkg = pkg.id" 
                                          class="cursor-pointer rounded-2xl p-5 border transition-all duration-300 relative overflow-hidden group"
@@ -505,7 +505,7 @@
     <!-- 5. The Stolen Traffic / Competitor Reality Section -->
     <section id="realita" class="py-24 relative reveal bg-fumo-surface/30">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="space-y-8">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-fumo-gold/30 bg-fumo-gold/5">
                         <i class="ph-fill ph-warning-circle text-fumo-gold"></i>
@@ -553,7 +553,7 @@
 
                 <div class="relative">
                     <div class="absolute inset-0 bg-gradient-to-tr from-fumo-red/20 to-transparent rounded-[2rem] blur-2xl"></div>
-                    <img src="https://picsum.photos/seed/fumo-corporate/1000/600" alt="Corporate Meeting" class="relative z-10 rounded-[2rem] border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[500px] w-full">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" alt="Corporate Meeting" class="relative z-10 rounded-[2rem] border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[500px] w-full">
                     
                     <!-- Floating Alert -->
                     <div class="absolute -bottom-6 -left-6 z-20 glass-card p-4 rounded-xl border border-white/10 shadow-xl flex items-center gap-4 animate-float animation-delay-2000">
@@ -686,7 +686,7 @@
                 <i class="ph-bold ph-x text-sm"></i>
             </button>
             <a href="https://wa.me/6281283321577?text=Halo%20CocoTech%2C%20saya%20dari%20Fumo%20Chicken%20ingin%20implementasi%20B2B%20Catering%20Engine" target="_blank" class="flex items-center gap-3 bg-gradient-to-r from-fumo-red to-fumo-crimson px-5 py-3 rounded-full text-white font-bold text-sm shadow-[0_0_20px_rgba(229,9,20,0.4)] hover:scale-105 transition-transform">
-                <img src="https://i.pravatar.cc/100?img=11" alt="Sales Architect" class="w-6 h-6 rounded-full border border-white">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Sales Architect" class="w-6 h-6 rounded-full border border-white">
                 Chat Architect
             </a>
         </div>

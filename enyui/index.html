@@ -145,7 +145,7 @@
                 Jl. Palagan KM 14, Sleman • Premium Retails
             </div>
             
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
+            <h1 class="text-5xl md:text-7xl lg:text-5xl lg:text-8xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
                 Estetika Japandi Anda <br/>
                 <span class="relative inline-block mt-2">
                     <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-wood-500 to-wood-900">Bukan Sekadar Persinggahan.</span>
@@ -167,7 +167,7 @@
             </div>
 
             <!-- Stats/Social Proof -->
-            <div class="mt-20 pt-10 border-t border-wood-200/40 w-full grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="mt-20 pt-10 border-t border-wood-200/40 w-full grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="flex flex-col items-center">
                     <span class="text-3xl font-serif font-bold text-wood-900">300+</span>
                     <span class="text-xs tracking-wider uppercase text-ink/50 mt-1">Sesi Foto / Bulan</span>
@@ -211,13 +211,13 @@
             </div>
 
             <!-- Bento Grid Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
                 
                 <!-- Card 1: Kolam Air Mengalir -->
                 <div class="md:col-span-2 relative rounded-3xl overflow-hidden group">
                     <div class="absolute inset-0 bg-zen-900/20 group-hover:bg-zen-900/10 transition-colors duration-500 z-10"></div>
                     <!-- Placeholder High-Res Image (Retina Ready) -->
-                    <img src="https://picsum.photos/seed/enyui-interior/1600/900" alt="Interior Minimalis Enyui" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" alt="Interior Minimalis Enyui" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute bottom-0 left-0 p-8 z-20 w-full bg-gradient-to-t from-black/80 to-transparent">
                         <div class="flex items-center gap-3 mb-2">
                             <i class="ph ph-waves text-2xl text-paper"></i>
@@ -293,7 +293,7 @@
             </div>
 
             <!-- Menu Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-8">
                 <template x-for="item in filteredMenu" :key="item.id">
                     <div class="bg-paper rounded-2xl p-6 border border-wood-100 shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                         <div class="h-48 rounded-xl bg-wood-100 mb-6 overflow-hidden relative">
@@ -423,7 +423,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-ink mb-2">Slot Tersedia</label>
-                            <div class="grid grid-cols-3 gap-3">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <template x-for="timeSlot in ['08:00', '10:00', '13:00', '15:00', '17:00']">
                                     <button type="button" @click="time = timeSlot" 
                                             class="py-3 rounded-xl border text-sm font-medium transition-colors"
@@ -726,12 +726,12 @@
                     { id: 'pastry', name: 'Premium Pastry' }
                 ],
                 items: [
-                    { id: 1, category: 'signature', name: 'Enyui Original Latte', desc: 'Espresso medium-dark roast dengan susu oat organik, disajikan dengan es batu kristal yang perlahan mencair tanpa merusak profil rasa.', price: '45', image: 'https://picsum.photos/seed/enyui-menu1/800/600' },
-                    { id: 2, category: 'signature', name: 'Matcha Zen Blend', desc: 'Bubuk matcha ceremonial grade langsung dari Uji, Jepang. Dikocok menggunakan chasen bambu tradisional, dipadukan dengan foam susu kedelai.', price: '52', image: 'https://picsum.photos/seed/enyui-menu2/800/600' },
-                    { id: 3, category: 'brunch', name: 'Nordic Smoked Salmon Toast', desc: 'Roti sourdough artisan hasil fermentasi alami 48 jam, dilumuri cream cheese herb, ditumpuk dengan salmon asap Norwegia dan capers.', price: '85', image: 'https://picsum.photos/seed/enyui-menu3/800/600' },
-                    { id: 4, category: 'brunch', name: 'Truffle Mushroom Omelette', desc: 'Telur omega-3 dikocok lembut ala Prancis, diisi tumisan jamur shimeji, dan disiram minyak truffle asli Italia.', price: '65', image: 'https://picsum.photos/seed/enyui-menu4/800/600' },
-                    { id: 5, category: 'pastry', name: 'Hokkaido Cheese Tart', desc: 'Kulit tart renyah dengan isian keju Hokkaido tiga lapis yang lumer di mulut. Dipanggang hingga karamelisasi sempurna.', price: '35', image: 'https://picsum.photos/seed/enyui-menu5/800/600' },
-                    { id: 6, category: 'pastry', name: 'Yuzu Almond Croissant', desc: 'Tekstur flaky mentega Prancis asli, diinjeksi dengan selai jeruk yuzu Jepang yang menyegarkan, ditaburi almond panggang.', price: '42', image: 'https://picsum.photos/seed/enyui-menu6/800/600' }
+                    { id: 1, category: 'signature', name: 'Enyui Original Latte', desc: 'Espresso medium-dark roast dengan susu oat organik, disajikan dengan es batu kristal yang perlahan mencair tanpa merusak profil rasa.', price: '45', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 2, category: 'signature', name: 'Matcha Zen Blend', desc: 'Bubuk matcha ceremonial grade langsung dari Uji, Jepang. Dikocok menggunakan chasen bambu tradisional, dipadukan dengan foam susu kedelai.', price: '52', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 3, category: 'brunch', name: 'Nordic Smoked Salmon Toast', desc: 'Roti sourdough artisan hasil fermentasi alami 48 jam, dilumuri cream cheese herb, ditumpuk dengan salmon asap Norwegia dan capers.', price: '85', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 4, category: 'brunch', name: 'Truffle Mushroom Omelette', desc: 'Telur omega-3 dikocok lembut ala Prancis, diisi tumisan jamur shimeji, dan disiram minyak truffle asli Italia.', price: '65', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 5, category: 'pastry', name: 'Hokkaido Cheese Tart', desc: 'Kulit tart renyah dengan isian keju Hokkaido tiga lapis yang lumer di mulut. Dipanggang hingga karamelisasi sempurna.', price: '35', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 6, category: 'pastry', name: 'Yuzu Almond Croissant', desc: 'Tekstur flaky mentega Prancis asli, diinjeksi dengan selai jeruk yuzu Jepang yang menyegarkan, ditaburi almond panggang.', price: '42', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' }
                 ],
                 get filteredMenu() {
                     return this.items.filter(item => item.category === this.activeCategory);

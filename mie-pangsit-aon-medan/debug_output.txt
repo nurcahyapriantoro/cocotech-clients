@@ -1,0 +1,314 @@
+```html
+<!-- Ini adalah index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mie Pangsit Aon - Warisan Rasa Modern</title>
+    
+    <!-- Google Fonts: Clash Display (Bold) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* CLAUDE DESIGN SKILLS & AWWWARDS LEVEL CUSTOM CSS */
+        
+        :root {
+            --color-primary: #FF4D00; /* Vibrant Orange-Red */
+            --color-secondary: #FFC700; /* Bold Yellow */
+            --color-dark: #121212;
+            --color-light: #F5F5F5;
+        }
+
+        /* Custom Font Family with Tailwind */
+        .font-display { font-family: 'Poppins', sans-serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-light);
+            overflow-x: hidden;
+        }
+
+        .smooth-gradient-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(255, 77, 0, 0.15), transparent 50%),
+                        radial-gradient(circle at 80% 90%, rgba(255, 199, 0, 0.1), transparent 50%),
+                        var(--color-dark);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        /* Glassmorphism */
+        .glassmorphism {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 3D Tilt Effect Container */
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .card-3d-inner {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+        .card-3d-glow {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.1), transparent 40%);
+            transition: opacity 0.4s;
+            opacity: 0;
+        }
+        .card-3d:hover .card-3d-glow {
+            opacity: 1;
+        }
+        .card-3d-content {
+            transform: translateZ(40px); /* Pushes content forward in 3D space */
+        }
+        
+        /* Scroll Animation with Intersection Observer */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .animate-fade-in-up {
+            transform: translateY(30px);
+        }
+        .animate-scale-in {
+            transform: scale(0.9);
+        }
+        .animate-reveal {
+            clip-path: inset(0 100% 0 0);
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: none;
+            clip-path: inset(0 0 0 0);
+        }
+    </style>
+</head>
+<body class="smooth-gradient-bg font-body" x-data="mieAonApp()">
+
+    <!-- PDF PROPOSAL WIDGET -->
+    <a href="proposal.html" class="animate-on-scroll animate-fade-in-up fixed top-6 right-6 z-50 glassmorphism rounded-full px-4 py-2 text-sm font-bold uppercase tracking-wider hover:bg-white/20 transition-all duration-300">
+        <span x-text="content[lang].proposal">Proposal</span>
+    </a>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-40 p-6">
+        <nav class="container mx-auto flex justify-between items-center glassmorphism rounded-xl p-4 animate-on-scroll animate-fade-in-up">
+            <div class="font-display text-2xl font-black">
+                <a href="#">MIE AON</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm font-bold" :class="lang === 'id' ? 'text-white' : 'text-gray-400'">ID</span>
+                <button @click="toggleLang()" type="button" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-gray-600" role="switch" aria-checked="false">
+                    <span :class="lang === 'en' ? 'translate-x-5' : 'translate-x-0'" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                </button>
+                <span class="text-sm font-bold" :class="lang === 'en' ? 'text-white' : 'text-gray-400'">EN</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden text-center p-6">
+            <div 
+                class="parallax-bg absolute inset-0 bg-cover bg-center z-0" 
+                style="background-image: url('https://picsum.photos/seed/mieaon-hero/1920/1080'); filter: brightness(0.4);"
+                data-parallax-speed="-0.3">
+            </div>
+            <div class="relative z-10">
+                <h1 class="font-display font-black text-6xl md:text-8xl lg:text-9xl uppercase animate-on-scroll animate-fade-in-up" style="transition-delay: 100ms;">
+                    <span x-text="content[lang].heroTitle">Warisan Rasa</span><br><span class="text-gradient" x-text="content[lang].heroTitle2">Generasi Baru</span>
+                </h1>
+                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300 animate-on-scroll animate-fade-in-up" style="transition-delay: 200ms;" x-text="content[lang].heroSubtitle">
+                    Resep otentik tiga generasi, diracik ulang dengan semangat modern. Rasakan pengalaman mie pangsit yang belum pernah ada sebelumnya.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 animate-on-scroll animate-fade-in-up" style="transition-delay: 300ms;">
+                    <a href="#menu" class="w-full sm:w-auto bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full text-lg uppercase tracking-wider hover:scale-105 transform transition-transform duration-300">
+                        <span x-text="content[lang].ctaMenu">Lihat Menu</span>
+                    </a>
+                    <a href="#order" class="w-full sm:w-auto glassmorphism border-0 text-white font-bold py-3 px-8 rounded-full text-lg uppercase tracking-wider hover:bg-white/20 transition-all duration-300">
+                        <span x-text="content[lang].ctaOrder">Pesan Sekarang</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU INTERAKTIF SECTION -->
+        <section id="menu" class="py-20 md:py-32 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-display font-black text-4xl md:text-6xl uppercase animate-on-scroll animate-fade-in-up" x-text="content[lang].menuTitle">Menu Andalan Kami</h2>
+                    <p class="mt-4 max-w-xl mx-auto text-gray-400 animate-on-scroll animate-fade-in-up" style="transition-delay: 100ms;" x-text="content[lang].menuSubtitle">
+                        Setiap mangkuk adalah karya seni, dibuat dengan bahan-bahan pilihan dan cinta.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Menu Item 1 -->
+                    <div class="card-3d animate-on-scroll animate-scale-in" x-data="card3d()" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
+                        <div class="card-3d-inner rounded-2xl overflow-hidden glassmorphism" :style="`transform: ${transform}`">
+                            <img src="https://picsum.photos/seed/mieaon-menu1/600/800" alt="Mie Pangsit Spesial Aon" class="w-full h-96 object-cover">
+                            <div class="card-3d-glow" :style="`--x: ${x}%; --y: ${y}%;`"></div>
+                            <div class="card-3d-content p-6">
+                                <h3 class="font-display font-bold text-2xl" x-text="content[lang].menu1.name">Mie Pangsit Spesial Aon</h3>
+                                <p class="text-gray-300 mt-2 text-sm" x-text="content[lang].menu1.desc">Signature kami. Mie kenyal dengan topping ayam jamur melimpah dan pangsit rebus legendaris.</p>
+                                <p class="mt-4 font-bold text-xl text-gradient">Rp 35.000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Menu Item 2 -->
+                    <div class="card-3d animate-on-scroll animate-scale-in" style="transition-delay: 150ms;" x-data="card3d()" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
+                        <div class="card-3d-inner rounded-2xl overflow-hidden glassmorphism" :style="`transform: ${transform}`">
+                            <img src="https://picsum.photos/seed/mieaon-menu2/600/800" alt="Mie Chili Oil 'Membara'" class="w-full h-96 object-cover">
+                            <div class="card-3d-glow" :style="`--x: ${x}%; --y: ${y}%;`"></div>
+                            <div class="card-3d-content p-6">
+                                <h3 class="font-display font-bold text-2xl" x-text="content[lang].menu2.name">Mie Chili Oil 'Membara'</h3>
+                                <p class="text-gray-300 mt-2 text-sm" x-text="content[lang].menu2.desc">Tantangan bagi para pemberani. Racikan chili oil rahasia dengan tingkat kepedasan yang bisa diatur.</p>
+                                <p class="mt-4 font-bold text-xl text-gradient">Rp 38.000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Menu Item 3 -->
+                    <div class="card-3d animate-on-scroll animate-scale-in" style="transition-delay: 300ms;" x-data="card3d()" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
+                        <div class="card-3d-inner rounded-2xl overflow-hidden glassmorphism" :style="`transform: ${transform}`">
+                            <img src="https://picsum.photos/seed/mieaon-menu3/600/800" alt="Pangsit Goreng 'Renyah' Viral" class="w-full h-96 object-cover">
+                            <div class="card-3d-glow" :style="`--x: ${x}%; --y: ${y}%;`"></div>
+                            <div class="card-3d-content p-6">
+                                <h3 class="font-display font-bold text-2xl" x-text="content[lang].menu3.name">Pangsit Goreng 'Renyah'</h3>
+                                <p class="text-gray-300 mt-2 text-sm" x-text="content[lang].menu3.desc">Isian udang dan ayam penuh, digoreng hingga keemasan sempurna. Disajikan dengan saus asam manis spesial.</p>
+                                <p class="mt-4 font-bold text-xl text-gradient">Rp 25.000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDER & WAITLIST SECTION -->
+        <section id="order" class="py-20 md:py-32 px-6 relative overflow-hidden">
+             <div 
+                class="parallax-bg absolute top-0 left-0 w-full h-full object-cover z-0" 
+                style="background-image: url('https://picsum.photos/seed/mieaon-texture/1920/1080'); filter: brightness(0.2) blur(3px);"
+                data-parallax-speed="-0.2">
+            </div>
+            <div class="container mx-auto relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <!-- Sistem Pemesanan Online -->
+                    <div class="animate-on-scroll animate-fade-in-up">
+                        <h2 class="font-display font-black text-4xl md:text-5xl uppercase" x-text="content[lang].orderTitle">Nikmati Di Mana Saja</h2>
+                        <p class="mt-4 text-gray-300" x-text="content[lang].orderSubtitle">Pesan kelezatan Mie Aon langsung ke depan pintu Anda. Cepat, mudah, dan selalu hangat.</p>
+                        <div class="mt-8 space-y-4">
+                            <a href="#" class="flex items-center gap-4 p-4 glassmorphism rounded-lg hover:bg-white/10 transition-colors duration-300">
+                                <img src="https://www.vectorlogo.zone/logos/gojek/gojek-icon.svg" class="h-10 w-10">
+                                <div>
+                                    <h4 class="font-bold text-lg">GoFood</h4>
+                                    <p class="text-sm text-gray-400" x-text="content[lang].orderGoFood">Pengiriman super cepat di seluruh kota.</p>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center gap-4 p-4 glassmorphism rounded-lg hover:bg-white/10 transition-colors duration-300">
+                                <img src="https://www.vectorlogo.zone/logos/grab/grab-icon.svg" class="h-10 w-10">
+                                <div>
+                                    <h4 class="font-bold text-lg">GrabFood</h4>
+                                    <p class="text-sm text-gray-400" x-text="content[lang].orderGrabFood">Promo eksklusif dan jangkauan luas.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Manajemen Waitlist Digital -->
+                    <div class="animate-on-scroll animate-fade-in-up" style="transition-delay: 150ms;">
+                        <h2 class="font-display font-black text-4xl md:text-5xl uppercase" x-text="content[lang].waitlistTitle">Hindari Antrian</h2>
+                        <p class="mt-4 text-gray-300" x-text="content[lang].waitlistSubtitle">Jam sibuk? Masukkan nama Anda ke daftar tunggu digital kami dan kami akan memberitahu saat meja Anda siap.</p>
+                        <form class="mt-8 glassmorphism p-6 rounded-xl space-y-4">
+                            <input type="text" :placeholder="content[lang].waitlistName" class="w-full bg-gray-800/50 border border-gray-700 rounded-md p-3 text-white focus:ring-primary focus:border-primary transition">
+                            <input type="number" :placeholder="content[lang].waitlistGuests" class="w-full bg-gray-800/50 border border-gray-700 rounded-md p-3 text-white focus:ring-primary focus:border-primary transition">
+                            <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-md text-lg uppercase tracking-wider hover:scale-105 transform transition-transform duration-300">
+                                <span x-text="content[lang].waitlistCTA">Masuk Daftar Tunggu</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section class="py-20 md:py-32 px-6">
+            <div class="container mx-auto text-center">
+                <h2 class="font-display font-black text-4xl md:text-6xl uppercase animate-on-scroll animate-reveal" x-text="content[lang].testimonialTitle">Apa Kata Mereka?</h2>
+                <div class="mt-16 max-w-3xl mx-auto space-y-12">
+                    <div class="animate-on-scroll animate-fade-in-up">
+                        <p class="text-2xl md:text-3xl font-display font-bold leading-snug">"<span x-text="content[lang].testimonial1.quote">Mie pangsit terenak yang pernah saya coba di Jakarta. Tekstur mie-nya pas, bumbunya meresap sempurna!</span>"</p>
+                        <p class="mt-4 text-gray-400">- <span class="font-bold text-white">Andi, Food Blogger</span></p>
+                    </div>
+                    <div class="animate-on-scroll animate-fade-in-up" style="transition-delay: 150ms;">
+                        <p class="text-2xl md:text-3xl font-display font-bold leading-snug">"<span x-text="content[lang].testimonial2.quote">Pangsit gorengnya bikin nagih. Garing di luar, juicy di dalam. Wajib coba!</span>"</p>
+                        <p class="mt-4 text-gray-400">- <span class="font-bold text-white">Sarah, Pelanggan Setia</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER & COCOTECH OFFER -->
+    <footer class="bg-black py-16 px-6 text-center">
+        <div class="container mx-auto animate-on-scroll animate-fade-in-up">
+            <h3 class="font-display font-bold text-2xl text-gradient">Special Offer by CocoTech</h3>
+            <p class="mt-2 text-gray-400" x-text="content[lang].footerOffer">Dapatkan website canggih seperti ini untuk bisnis Anda. Penawaran berakhir dalam:</p>
+            <div id="countdown" class="flex justify-center gap-4 md:gap-8 mt-6 text-white">
+                <div class="text-center">
+                    <div x-text="countdown.days" class="font-display font-black text-4xl md:text-6xl">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400" x-text="content[lang].countdownDays">Hari</div>
+                </div>
+                <div class="text-center">
+                    <div x-text="countdown.hours" class="font-display font-black text-4xl md:text-6xl">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400" x-text="content[lang].countdownHours">Jam</div>
+                </div>
+                <div class="text-center">
+                    <div x-text="countdown.minutes" class="font-display font-black text-4xl md:text-6xl">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400" x-text="content[lang].countdownMinutes">Menit</div>
+                </div>
+                <div class="text-center">
+                    <div x-text="countdown.seconds" class="font-display font-black text-4xl md:text-6xl">00</div>
+                    <div class="text-xs uppercase tracking-widest text-gray-400" x-text="content[lang].countdownSeconds">Detik</div>
+                </div>
+            </div>
+            <p class="mt-10 text-sm text-gray-600">&copy; 2024 Mie Pangsit Aon. All Rights Reserved. <br> Website designed & developed by CocoTech.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('mieAonApp', () => ({
+            lang: 'id',
+            content: {
+                id: {
+                    proposal: 'Proposal',
+                    heroTitle: 'Warisan Rasa,',
+                    heroTitle2: 'Generasi Baru',
+                    heroSubtitle: 'Resep otentik tiga generasi, diracik ulang dengan semangat modern. Rasakan pengalaman mie pangsit yang belum pernah ada sebelumnya.',
+                    ctaMenu: 'Lihat Menu',
+                    ctaOrder: 'Pesan Sekarang',
+                    menuTitle: 'Menu Andalan Kami',
+                    menuSubtitle: 'Setiap mangkuk adalah karya seni, dibuat dengan bahan-bahan pilihan dan cinta.',
+                    menu1: { name: "Mie Pangsit Spesial Aon", desc: "Signature kami. Mie kenyal dengan topping ayam jamur melimpah dan pangsit rebus legendaris." },
+                    menu2: { name: "Mie Chili Oil 'Membara'", desc: "Tantangan bagi para pemberani. Racikan

@@ -1,0 +1,30 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and Fashion E-commerce Specialist.
+Client: MYNADA Official, Bandung.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Heading/Editorial) & 'Plus Jakarta Sans' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Luxury Modest Fashion E-Commerce & Lookbook
+- Style: Minimalist, Clean Editorial, High-End Fashion, Elegant
+- Colors: 
+  - Primary: #FAFAFA (Clean Off-White)
+  - Secondary: #171717 (Soft Black)
+  - Accent/Brand: #A8A29E (Muted Stone/Taupe) & #D6D3D1 (Warm Sand)
+  - Text: #27272A
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Elegansi Modest Fesyen dalam Sentuhan Jari." (Modest Elegance at Your Fingertips)
+- Unique Mechanism: "Smart Fit E-Commerce Engine & Reseller Portal" - Pindah dari WA manual ke checkout otomatis dan hitung ukuran baju akurat.
+- Target: Muslimah urban, fashion enthusiasts, reseller/dropshipper.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Elegant 3D Hero Section: Cinematic editorial fashion imagery, soft parallax.
+2. Dual-Persona Engine (Dynamic Context Shifting): "Shop Collection" (Retail) vs "Become a Reseller" (B2B/Dropship).
+3. The Interactive Size Calculator: Input Height & Weight, Alpine.js outputs recommended size (S/M/L/XL).
+4. Interactive Smart Lookbook: E-commerce catalog with filters (Kaftan, Tunik, Hijab).
+5. Headless WhatsApp Cart: Real-time cart system routing to WA with auto-formatted invoice & shipping label data.
+6. Process Transparency Tracker: "Crafted with Care in Bandung" - highlighting textile quality.
+7. Mega Footer: Official address in Buah Batu, Bandung, IG links, clean corporate structure.
+8. Floating Proposal Widget: "Buka Proposal B2B" (CocoTech link).
+
+UI/UX Rules: Professional, highly legible, NO LOREM IPSUM, extremely aesthetic, clean layout, bilingual (EN/ID).

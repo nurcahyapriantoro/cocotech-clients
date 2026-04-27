@@ -1,29 +1,30 @@
-# Instruksi Arsitektur UI/UX & Konfigurasi Teknis: Maiku Tiramisu
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and High-End Sales Closer.
+Client: Maiku Tiramisu, Blok M - Jakarta Selatan.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Serif/Heading) & 'Outfit' (Sans-serif/Body).
 
-## 1. Identitas Visual & Tema
-*   **Vibe:** Premium Artisan, Luxurious Italian Dessert, Modern Hype (Blok M Crowd).
-*   **Warna Utama:**
-    *   `Cocoa/Espresso (#3E2723, #2D1B15)`: Melambangkan kopi dan cokelat premium yang intens.
-    *   `Mascarpone Cream (#FFFCF5, #FFF8E7)`: Warna background dominan, memberikan kesan bersih, mewah, dan creamy.
-    *   `Gold Accent (#D4AF37)`: Sentuhan premium/artisan untuk tombol CTA dan highlight text.
-    *   `Danger/Urgency (#E53E3E)`: Warna peringatan khusus saat stok menipis atau Sold Out.
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Luxury Dessert E-Commerce & Pre-Order Engine
+- Style: Minimalist, Editorial, High-End Patisserie, Instagrammable
+- Colors: 
+  - Primary: #FAFAFA (Off-White/Cream)
+  - Secondary: #18181B (Rich Black)
+  - Accent/Brand: #78350F (Tiramisu Espresso Brown) & #D97706 (Mascarpone Gold)
+  - Text: #27272A
 
-## 2. Tipografi (Google Fonts)
-*   **Heading/Title:** `Playfair Display` (Serif). Menciptakan nuansa klasik, mahal, dan eksklusif.
-*   **Body/UI Elements:** `Plus Jakarta Sans` (Sans-Serif). Sangat modern, mudah dibaca di layar kecil, merepresentasikan vibe metropolitan Jakarta.
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Eksklusivitas yang Bisa Dipesan." (Exclusivity You Can Pre-Order)
+- Unique Mechanism: "Smart Stock & Pre-Order Routing Engine" - Menghilangkan kekecewaan pelanggan akibat *sold out*, memfasilitasi pre-order pintar.
+- Target: Urban millennials, foodies, corporate catering (B2B).
 
-## 3. Tech Stack Requirement
-*   **Framework:** HTML5 murni utuh tanpa modul terpisah.
-*   **CSS:** Tailwind CSS (via CDN dengan kustomisasi konfigurasi pada tag `<script>`).
-*   **Interaktivitas & State Management:** Alpine.js (`x-data`, `@click`, `x-show`, `x-transition`). Wajib digunakan untuk mengatur logika keranjang belanja, pengurangan stok waktu nyata, dan efek scroll.
-*   **Iconography:** Phosphor Icons (via CDN) karena desainnya rapi dan mendukung varian tebal/tipis (`ph-bold`, `ph-fill`).
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Elegant 3D Hero Section: Soft parallax, mouth-watering tiramisu visuals.
+2. Dual-Persona Engine (Dynamic Context Shifting): "I am craving Tiramisu" (B2C) vs "I need Corporate Catering" (B2B).
+3. The VVIP Backdoor: Click the Maiku logo 3x to open a secret "Wholesale/Reseller Portal".
+4. Interactive Smart Catalog: Filter based on flavors (Classic, Pistachio, Matcha, Lotus).
+5. Headless WhatsApp Cart: Real-time stock display, pre-order cart system directly routing to WA without friction.
+6. Process Transparency Tracker: "From Italian Mascarpone to Your Doorstep."
+7. Live Social Proof Engine: "10 Classic Tiramisu baru saja di-pre-order dari Kemang."
+8. Mega Footer: Official address in Blok M, IG links, clean structure.
 
-## 4. UX / Interaksi Utama Wajib
-*   **Glassmorphism Sticky Nav:** Navbar harus transparan saat awal, dan menjadi background blur-gelap saat pengguna scroll ke bawah (`@scroll.window`).
-*   **Simulasi State Stok (Core Engine):** Harus ada daftar produk dengan status persediaan (contoh: 12 box, sisa 3 box, 0 box). Jika stok 0, UI card produk menjadi *dimmed* / diblok dengan tulisan "Habis Terjual" dan tombol berubah secara dinamis menjadi "PO Untuk Besok".
-*   **Notification Bot Simulation:** Gunakan event listener scroll pada Alpine. Ketika *scroll depth* mencapai 30%, munculkan popup di pojok kanan bawah seperti ada agent CS yang mengirim pesan langsung.
-
-## 5. Animasi (CSS Keyframes Kustom)
-*   Ciptakan objek *blob* abstrak di background *Hero Section* dengan animasi rotasi/scaling lambat agar background terasa "hidup".
-*   Gunakan efek *Shine/Glow* pada tombol utama (CTA) agar mengundang *click-through rate (CTR)* yang tinggi.
-*   Tambahkan *Marquee* berjalan (CSS animate-marquee) untuk menampilkan *selling point* seperti "Solusi Antrean Blok M - Auto-Sinkronisasi Stok".
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, extremely aesthetic, professional, clean layout, bilingual (EN/ID).

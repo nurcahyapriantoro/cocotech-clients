@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and High-End Jewelry E-commerce Specialist.
+Client: UMKM Kerajinan Perak Celuk (Agregat Pengrajin Independen), Celuk, Gianyar, Bali.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Heading/Luxury) & 'Inter' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Fine Jewelry Bespoke Customization & Artisan Portfolio
+- Style: Ultra-Luxury, Heritage Silver, Minimalist Elegance, High-End Craftsmanship
+- Colors: 
+  - Primary: #FAFAFA (Silk White)
+  - Secondary: #0F172A (Deep Slate/Black)
+  - Accent/Brand: #94A3B8 (Silver/Platinum) & #334155 (Dark Silver)
+  - Text: #18181B / #F8FAFC
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Kisah Cinta Anda, Dipahat Abadi oleh Maestro Perak Bali." (Your Love Story, Eternally Carved by Balinese Silver Maestros.)
+- Unique Mechanism: "Bespoke Jewelry Customization Engine & Artisan Equity Tracker" - Angkat nama seniman pembuatnya (individual artist brand equity), target pesanan khusus bernilai historis.
+- Target: Wisatawan mancanegara, pasangan yang mencari cincin pertunangan/pernikahan eksklusif (wedding bands/promise rings), kolektor perhiasan.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Ultra-Luxury 3D Hero Section: Cinematic background, close-up of intricate silver carving, elegant typography (silver/light theme).
+2. Dual-Persona Engine: "Bespoke Customization (D2C)" vs "Wholesale Gallery (B2B)".
+3. Interactive 3D Customization Builder (Simulation): Alpine.js module allowing users to select material (Sterling 925), stone, and engraving style.
+4. Video Call Appointment System: Calendar integration logic to book a virtual design consultation with the master carver.
+5. Behind-The-Scenes Narrative (Artisan Profile): Showcasing the individual master carvers of Celuk to build individual artist equity.
+6. The VVIP Backdoor (Easter Egg): Click the Celuk logo 3x to access the "Masterpiece Archive" (Private Collection).
+7. Professional Mega Footer: Official address in Celuk Gianyar, material authenticity guarantee, CocoTech Studio branding.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, extremely aesthetic (fine jewelry), clean layout, bilingual (EN/ID) but default to English for global appeal.

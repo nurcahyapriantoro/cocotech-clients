@@ -1,0 +1,34 @@
+Role: World-Class Frontend Developer, UI/UX Expert, and Conversion Rate Optimizer.
+Tech Stack: HTML5, Tailwind CSS (via CDN), Alpine.js/Vanilla JS, Phosphor Icons.
+Google Fonts: Poiret One (Heading) & Didact Gothic (Body)
+
+Design System (ui-ux-pro-max):
+- Pattern: Pricing-Focused Landing & Corporate B2B
+- Style: Trust & Authority, Luxury, Vintage Artisan
+- Colors: 
+  - Primary: #0F172A
+  - Secondary: #334155
+  - CTA: #0369A1
+  - Background: #F8FAFC
+  - Text: #020617
+
+Copywriting Strategy (Direct Response S-Tier):
+- Big Idea: Corporate Gifting with Soul. Stop giving forgettable corporate gifts.
+- Unique Mechanism: "Grebeg Artisan Curation" - 100% authentic, community-crafted pieces.
+- Target: B2B Procurement Managers, Corporate HR.
+- Hook: Elevate your corporate relationships with bespoke heritage pieces.
+
+Mandatory Sections:
+1. Hero Section: Elegant background (vintage artisan vibe), clear CTA, gradient overlay.
+2. PDF Proposal Widget: Floating PDF icon top right linking to 'proposal.html'.
+3. Stats/Angka Kunci: Impact of artisan goods.
+4. Tentang/Kisah Bisnis: The story of Grebeg UMKM DIY.
+5. Produk/Layanan: Kriya, Makanan, Fesyen (B2B Focus).
+6. Fitur Spektakuler: Simulated 360 Virtual Tour of Artisan Workshop & Live Chat Bidding Form.
+7. The Stolen Traffic Section: "Kompetitor Anda mencuri klien VIP dengan hadiah eksklusif."
+8. Testimoni & Social Proof: Glowing 5-star reviews from corporate clients.
+9. Sticky WhatsApp Footer.
+10. The Self-Destructing Offer: 48-Hour Countdown for Setup Discount.
+11. Footer CocoTech.
+
+UI/UX Rules: No emojis, use SVG (Phosphor), smooth hover transitions, glassmorphism, parallax effects, bilingual system (EN/ID).

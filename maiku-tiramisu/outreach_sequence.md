@@ -1,42 +1,21 @@
-﻿# 3-Step WhatsApp Outreach Sequence untuk Maiku Tiramisu
+# PESAN HARI 1: THE PROTOTYPE DROP
+Halo Tim **Maiku Tiramisu**, ini sungguh brilian! Membangun *cult-following* pencinta *dessert* di kawasan Blok M hingga produk sering *sold out* adalah mimpi bagi setiap bisnis kuliner. Kalian telah membuktikan kualitas rasa tidak pernah bohong.
 
-## HARI 1: The "Bleeding Neck" Hook & Prototype Drop
-**Tujuan:** Menarik perhatian manajemen dengan masalah nyata (kebocoran stok di Blok M) dan memberikan solusi visual instan tanpa basa-basi.
+Namun, mengelola pesanan *pre-order* (PO) harian secara manual melalui DM Instagram atau WhatsApp biasa tentu sangat menguras energi admin. Apalagi, pelanggan sering kecewa ketika tiba di toko dan varian favorit mereka (*Pistachio* atau *Classic*) sudah habis.
 
-**Pesan WhatsApp:**
-> "Halo tim manajemen Maiku Tiramisu Blok M. Saya perhatikan antrean kalian luar biasa, tapi saya juga riset ada puluhan pelanggan per hari yang terpaksa pindah ke toko lain karena tiramisu kalian sering *sold out* mendadak di sore hari. 
-> 
-> Ini artinya kalian kehilangan potensi puluhan juta rupiah tiap bulannya karena tidak ada sistem Pre-Order H-1 yang terotomatisasi. 
-> 
-> Daripada berasumsi, saya buatkan *Live Prototype E-Commerce Engine* eksklusif khusus untuk Maiku. Sistem ini bisa lacak stok real-time dan kunci pesanan pelanggan sebelum mereka datang ke Blok M. Coba klik dan mainkan tombol 'Add to Cart' nya di sini: [Link_Website]
-> 
-> Kabari kalau kalian tertarik menghentikan kebocoran omzet ini."
+Kami dari **CocoTech Studio**, arsitek spesialis konversi B2B/B2C, baru saja membangun **"D2C Pre-Order & Inventory Engine"** secara khusus untuk Maiku. Sistem ini dilengkapi fitur *Live Stock Counter* dan *Headless WhatsApp Cart*, yang memungkinkan pelanggan melakukan PO terstruktur yang langsung diformat rapi ke WA Anda—tanpa error admin.
 
----
+Coba rasakan mulusnya *checkout* ala *luxury brand* di sini (Cobalah klik varian rasa, lalu klik keranjang belanja):
+🔗 https://nurcahyapriantoro.github.io/cocotech-clients/maiku-tiramisu/index.html
 
-## HARI 3: The Feature Spotlight & Scarcity Urgency
-**Tujuan:** Mengingatkan fitur inti yang paling relevan (Live Stock & Pre-Order) dan mengingatkan batas waktu diskon setup.
+Jika preview ini sesuai dengan standar estetika *brand* Maiku dan Anda ingin membebaskan admin dari *chat* yang membingungkan, balas "Boleh", atau pilih slot kosong kami di sini untuk diskusi 10 menit: **https://cal.com/cocotech-studio** 📅
 
-**Pesan WhatsApp:**
-> "Halo lagi tim Maiku. Sudah sempat klik prototipe yang saya kirim lusa lalu? 
-> 
-> Coba lihat bagian 'Katalog'. Kalau diset stok = 0, sistem otomatis berubah jadi 'Pre-Order Untuk Besok'. Pelanggan bayar lunas hari ini via payment gateway, kalian produksi pas sesuai jumlah, besok pelanggan tinggal *pick-up* di Blok M tanpa antre lama. *Zero food waste, 100% cash flow secured.*
-> 
-> Oh ya, timer diskon 30% untuk setup *engine* ini sisa kurang dari 24 jam. Kalau kalian butuh sistem ini *live* minggu ini, kita bisa meeting 15 menit hari ini via Zoom/Call."
+# PESAN HARI 3: THE FOMO FOLLOW-UP
+Halo **Manajemen Maiku**, sudah sempat menguji *Headless Cart System* di preview kemarin? 
 
----
+Banyak bisnis *dessert premium* di Jakarta gagal berekspansi ke layanan *Hampers* korporat karena tidak memiliki "Pintu Masuk" (*B2B Channel*) yang profesional di website mereka. Jika Maiku terus mengandalkan bio Instagram, pesanan ratusan *box* dari divisi HR perusahaan multinasional akan ragu untuk masuk.
 
-## HARI 7: The Final Push & ROI Logic (Self-Destruct Offer)
-**Tujuan:** Logika angka (ROI). Menggambarkan bahwa harga web ini terbayar lunas hanya dari menyelamatkan beberapa porsi pesanan.
+Proposal infrastruktur beserta diskon setup 30% untuk portal E-Commerce Maiku di link kemarin akan hangus otomatis dari server kami dalam 24 jam. Mau kami demokan fitur sakelar "B2C vs B2B" nya sekarang?
 
-**Pesan WhatsApp:**
-> "Pagi tim Maiku. Ini *follow-up* terakhir dari saya terkait sistem Pre-Order.
-> 
-> Mari berhitung logis: Kalau sistem ini menyelamatkan 20 pesanan saja per hari (asumsi @65rb) dari orang yang malas antre tapi mau *Pre-Order*, itu tambahan omzet Rp 1.300.000/hari. Dalam 1 bulan: +Rp 39.000.000.
-> 
-> Biaya *setup website* dan sistem ini jauh, jauh di bawah angka tersebut. ROI tercapai di minggu pertama.
-> 
-> Prototipe ( [Link_Website] ) akan saya *take down* besok siang jika memang belum masuk prioritas bisnis kalian. Jika berubah pikiran, balas pesan ini dengan 'SIAP SETUP'. Terima kasih dan sukses terus untuk viralnya Maiku!"
-
----
-**Live Preview URL:** https://nurcahyapriantoro.github.io/cocotech-clients/maiku-tiramisu/
+# PESAN HARI 7: THE TAKEAWAY / SCARCITY
+Halo **Maiku Tiramisu**, sepertinya arus pengunjung di gerai Blok M sedang sangat padat. Kami akan mengarsipkan purwarupa **D2C Pre-Order Engine** Maiku besok pagi agar server kami bisa dialokasikan untuk klien lain. Jika suatu saat Anda lelah mengurus PO manual yang berantakan dan ingin memiliki ekosistem penjualan yang elegan layaknya jenama *patisserie* Eropa, pintu CocoTech selalu terbuka. Terus hasilkan tiramisu terbaik di Jakarta!

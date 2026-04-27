@@ -152,7 +152,7 @@
 <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
     <!-- Image BG -->
     <div class="absolute inset-0 z-0">
-        <img src="https://picsum.photos/seed/arvahero/1920/1080" alt="Gourmet Background" class="w-full h-full object-cover animate-slow-zoom filter grayscale contrast-125 brightness-[0.25]">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" alt="Gourmet Background" class="w-full h-full object-cover animate-slow-zoom filter grayscale contrast-125 brightness-[0.25]">
         <div class="absolute inset-0 bg-gradient-to-t from-arva-black via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-arva-black via-arva-black/80 to-transparent"></div>
     </div>
@@ -165,7 +165,7 @@
                 <div class="h-px bg-gradient-to-r from-arva-gold to-transparent w-full"></div>
             </div>
             
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] mb-6">
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-5xl lg:text-8xl font-bold text-white leading-[1.1] mb-6">
                 <span x-text="lang==='en' ? 'The Crisp of ' : 'Renahnya '"></span><em class="text-arva-gold italic" x-text="lang==='en' ? 'Heritage.' : 'Warisan.'"></em><br>
                 <span x-text="lang==='en' ? 'Taste of ' : 'Cita Rasa '"></span><em class="text-white italic" x-text="lang==='en' ? 'Luxury.' : 'Kemewahan.'"></em>
             </h1>
@@ -189,7 +189,7 @@
      STATS BAR (HIGH DETAIL)
 =========================================================== -->
 <section class="py-12 border-y border-white/10 bg-arva-charcoal/80 relative z-20">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
         <div class="text-center group">
             <i class="ph-fill ph-check-badge text-3xl text-arva-gold mb-3 mx-auto transform group-hover:-translate-y-1 transition-transform"></i>
             <p class="font-serif text-2xl font-bold text-white mb-1">FDA</p>
@@ -217,7 +217,7 @@
      TENTANG (NARRATIVE TEXT-HEAVY)
 =========================================================== -->
 <section id="about" class="py-32 relative">
-    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-1 md:grid-cols-2 gap-20 items-center">
         
         <!-- Text Column -->
         <div class="reveal" x-intersect="$el.classList.add('in')">
@@ -239,7 +239,7 @@
 
             <!-- Value Props (High Detail Table-like) -->
             <div class="border border-white/10 bg-arva-charcoal/50 rounded-xl p-6">
-                <div class="grid grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <p class="font-bold text-white text-lg mb-1">Zero Oil Residue</p>
                         <p class="text-[11px] text-white/50" x-text="lang==='en' ? 'Advanced baking technique ensuring maximum crispness without the greasiness.' : 'Teknik pemanggangan maju menjamin tekstur renyah tanpa residu minyak.'"></p>
@@ -255,7 +255,7 @@
         <!-- Image Column -->
         <div class="relative reveal" x-intersect="$el.classList.add('in')">
             <div class="relative z-10 w-full aspect-[4/5] overflow-hidden ml-auto rounded border border-white/10 shadow-2xl">
-                <img src="https://picsum.photos/seed/arvafactory2/800/1000" alt="Arva Production" class="w-full h-full object-cover filter sepia-[.3] contrast-125 transition-transform duration-1000 hover:scale-105">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" alt="Arva Production" class="w-full h-full object-cover filter sepia-[.3] contrast-125 transition-transform duration-1000 hover:scale-105">
             </div>
             <!-- Decorative borders -->
             <div class="absolute -bottom-6 -left-6 w-full h-full border border-arva-gold/20 z-0 rounded pointer-events-none"></div>
@@ -279,7 +279,7 @@
             <!-- Truffle -->
             <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')">
                 <div class="aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/arvaprod11/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Truffle">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Truffle">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
                     <p class="text-arva-gold text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Signature' : 'Unggulan'"></p>
@@ -292,7 +292,7 @@
             <!-- Mala -->
             <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
                 <div class="aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/arvaprod22/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Mala">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Mala">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
                     <p class="text-red-500 text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Spicy' : 'Pedas'"></p>
@@ -305,7 +305,7 @@
             <!-- Honey Butter -->
             <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
                 <div class="aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/arvaprod33/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Honey">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Honey">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
                     <p class="text-yellow-400 text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Sweet' : 'Manis'"></p>
@@ -318,7 +318,7 @@
             <!-- Salt -->
             <div class="group relative overflow-hidden bg-arva-black border border-white/5 rounded-lg reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 300ms">
                 <div class="aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/arvaprod44/600/800" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Salt">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 filter grayscale group-hover:grayscale-0" alt="Salt">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col justify-end p-6">
                     <p class="text-pink-400 text-[10px] tracking-[.3em] font-bold uppercase mb-2" x-text="lang==='en' ? 'Classic' : 'Klasik'"></p>
@@ -444,7 +444,7 @@
                 <div class="w-full md:w-64 border-r border-white/5 bg-[#141414] p-6 flex flex-col">
                     <div class="flex items-center gap-4 mb-10 pb-6 border-b border-white/5">
                         <div class="w-12 h-12 rounded-full border-2 border-arva-gold p-0.5 overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?img=12" class="w-full h-full rounded-full object-cover grayscale">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" class="w-full h-full rounded-full object-cover grayscale">
                         </div>
                         <div>
                             <p class="font-bold text-white text-sm">EuroFoods LLC</p>
@@ -478,7 +478,7 @@
                     <div class="space-y-4 mb-8">
                         <!-- Item 1 -->
                         <div class="flex flex-wrap items-center gap-6 bg-white/5 p-4 border border-white/5 hover:border-arva-gold/30 rounded-xl transition-colors">
-                            <img src="https://picsum.photos/seed/arvaprod11/200/200" class="w-16 h-16 rounded border border-white/10 object-cover grayscale brightness-75">
+                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-16 h-16 rounded border border-white/10 object-cover grayscale brightness-75">
                             <div class="flex-1 min-w-[200px]">
                                 <p class="font-bold text-sm text-white md:text-base">Arva Truffle Master Carton</p>
                                 <p class="text-[11px] text-white/40 mt-1" x-text="lang==='en' ? 'Contains 24 Retail Pouches. MOQ: 50 Cartons.' : 'Isi 24 Kantong Retail. Minimal Order 50 Dus.'"></p>
@@ -496,7 +496,7 @@
 
                         <!-- Item 2 -->
                         <div class="flex flex-wrap items-center gap-6 bg-white/5 p-4 border border-white/5 hover:border-arva-gold/30 rounded-xl transition-colors">
-                            <img src="https://picsum.photos/seed/arvaprod22/200/200" class="w-16 h-16 rounded border border-white/10 object-cover grayscale brightness-75">
+                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-16 h-16 rounded border border-white/10 object-cover grayscale brightness-75">
                             <div class="flex-1 min-w-[200px]">
                                 <p class="font-bold text-sm text-white md:text-base">Arva Mala Master Carton</p>
                                 <p class="text-[11px] text-white/40 mt-1" x-text="lang==='en' ? 'Contains 24 Retail Pouches. MOQ: 50 Cartons.' : 'Isi 24 Kantong Retail. Minimal Order 50 Dus.'"></p>
@@ -539,12 +539,12 @@
             <p class="text-black/60 max-w-xl mx-auto" x-text="lang==='en' ? 'Currently exporting high-volume orders to the USA, Singapore, Japan, and the European Union.' : 'Mengekspor rutin dalam volume tinggi ke USA, Singapura, Jepang, dan Uni Eropa.'"></p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white border-b-4 border-arva-gold p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all reveal" x-intersect="$el.classList.add('in')">
                 <div class="flex gap-1 text-arva-gold mb-6 text-xl"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-base leading-relaxed mb-8 italic text-black/80 font-serif">"The absolute best gourmet snack we imported from Indonesia. Their B2B portal made document handling (FDA & BL) entirely frictionless for our procurement timeline."</p>
                 <div class="flex items-center gap-4 border-t border-black/10 pt-6">
-                    <img src="https://i.pravatar.cc/150?img=12" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
                     <div>
                         <p class="font-bold text-sm text-black">Sarah Jenkins</p>
                         <p class="text-[10px] uppercase tracking-widest text-[#777] font-bold">Buyer, Premium Grocer USA</p>
@@ -556,7 +556,7 @@
                 <div class="flex gap-1 text-arva-gold mb-6 text-xl"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-base leading-relaxed mb-8 italic text-black/80 font-serif">"Truffle tempeh is an instant hit in our Singaporean outlets. Arva's packaging robustness and export-readiness are definitively tier 1."</p>
                 <div class="flex items-center gap-4 border-t border-black/10 pt-6">
-                    <img src="https://i.pravatar.cc/150?img=9" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
                     <div>
                         <p class="font-bold text-sm text-black">Wei Chen</p>
                         <p class="text-[10px] uppercase tracking-widest text-[#777] font-bold">Importer, SG Direct</p>
@@ -568,7 +568,7 @@
                 <div class="flex gap-1 text-arva-gold mb-6 text-xl"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
                 <p class="text-base leading-relaxed mb-8 italic text-black/80 font-serif">"Professionalism at its best. The live FOB Extranet portal saves our procurement team countless hours on email confirmations."</p>
                 <div class="flex items-center gap-4 border-t border-black/10 pt-6">
-                    <img src="https://i.pravatar.cc/150?img=33" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Buyer" class="w-12 h-12 rounded-full grayscale opacity-80">
                     <div>
                         <p class="font-bold text-sm text-black">Marc Delaour</p>
                         <p class="text-[10px] uppercase tracking-widest text-[#777] font-bold">European Retail Group</p>
@@ -589,21 +589,21 @@
             <p class="text-black text-xs font-bold tracking-[.3em] uppercase" x-text="lang==='en' ? 'The Facilities' : 'Fasilitas Kami'"></p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-4">
             <div class="aspect-square overflow-hidden rounded-xl bg-black reveal" x-intersect="$el.classList.add('in')">
-                <img src="https://picsum.photos/seed/arvagal11/600/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
             </div>
             <div class="aspect-square overflow-hidden rounded-xl bg-black md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
-                <img src="https://picsum.photos/seed/arvagal22/1200/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
             </div>
             <div class="aspect-square overflow-hidden rounded-xl bg-black reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 200ms">
-                <img src="https://picsum.photos/seed/arvagal33/600/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
             </div>
             <div class="aspect-square overflow-hidden rounded-xl bg-black md:col-span-2 reveal" x-intersect="$el.classList.add('in')">
-                <img src="https://picsum.photos/seed/arvagal44/1200/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000 brightness-75">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000 brightness-75">
             </div>
             <div class="aspect-[2/1] md:aspect-square overflow-hidden rounded-xl bg-black md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: 100ms">
-                <img src="https://picsum.photos/seed/arvagal55/1200/600" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal hover:scale-110 transition-all duration-1000">
             </div>
         </div>
     </div>
@@ -635,7 +635,7 @@
         </div>
         <div>
             <p class="font-bold text-xs tracking-widest text-white uppercase mb-8 pb-4 border-b border-white/10" x-text="lang==='en' ? 'Global Accreditations' : 'Akreditasi Global'"></p>
-            <div class="grid grid-cols-2 gap-4 opacity-70">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 opacity-70">
                 <div class="bg-white/5 p-4 rounded text-center"><i class="ph-fill ph-check-badge text-3xl text-arva-gold mb-2 block"></i><span class="text-[9px] uppercase tracking-widest font-bold">FDA</span></div>
                 <div class="bg-white/5 p-4 rounded text-center"><i class="ph-fill ph-seal-check text-3xl text-arva-gold mb-2 block"></i><span class="text-[9px] uppercase tracking-widest font-bold">Halal</span></div>
                 <div class="bg-white/5 p-4 rounded text-center col-span-2 flex items-center justify-center gap-3"><i class="ph-fill ph-globe text-2xl text-arva-gold"></i><span class="text-[9px] uppercase tracking-widest font-bold">ISO 22000 Certified</span></div>
@@ -660,7 +660,7 @@
                 <i class="ph-fill ph-shield-check"></i> Surat Formal: Teruntuk Manajemen Arva Indonesia
             </div>
             <p class="text-white/40 text-[11px] font-bold uppercase tracking-[.4em] mb-4">Dikirim Oleh CocoTech Digital Agency</p>
-            <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-8">
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-4xl md:text-6xl font-bold leading-tight text-white mb-8">
                 <span x-text="lang==='en' ? 'This Enterprise System' : 'Sistem Enterprise Ini'"></span><br>
                 <span x-text="lang==='en' ? 'Is Built ' : 'Dibuat '"></span><em class="text-arva-gold italic" x-text="lang==='en' ? '100% Complete' : 'Lengkap 100%'"></em> <br>
                 <span class="inline-flex items-center gap-3 mt-6 bg-arva-charcoal px-6 py-4 border border-white/10 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform -rotate-1 hover:rotate-0 transition-transform"><span class="text-white/50 text-2xl font-light" x-text="lang==='en' ? 'As' : 'Sebagai'"></span> <span x-text="lang==='en' ? 'Your Prototype.' : 'Prototype Anda.'"></span></span>

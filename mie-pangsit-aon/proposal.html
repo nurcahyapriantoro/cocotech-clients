@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official B2B Digital Blueprint & Proposal - Mie Pangsit Aon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #111827; 
+            --accent: #b91c1c; /* Crimson Red */
+            --accent-alt: #d97706; /* Golden Brown */
+            --surface: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --success: #10B981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--surface);
+            color: var(--text-dark);
+            font-size: 14.5px;
+            line-height: 1.8;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; font-size: 11pt; }
+            .page-break { break-before: page; }
+            .section { break-inside: avoid; }
+        }
+
+        /* --- COVER --- */
+        .cover {
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px;
+            position: relative;
+            color: var(--text-dark);
+            overflow: hidden;
+            border-top: 12px solid var(--accent);
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; width: 45%;
+            background: url('https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=1000&auto=format&fit=crop') center/cover;
+            filter: sepia(0.3);
+            z-index: 1;
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+            opacity: 0.85;
+        }
+
+        .cover-content { position: relative; z-index: 10; max-width: 60%; }
+        
+        .cover-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            border-radius: 0px;
+            margin-bottom: 30px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .cover-title span { color: var(--accent); font-style: italic; }
+
+        .cover-subtitle { font-size: 18px; color: var(--text-light); line-height: 1.6; margin-bottom: 40px; font-weight: 500; max-width: 500px; }
+
+        .prepared-for { border-left: 4px solid var(--accent); padding-left: 24px; margin-top: 100px; }
+        .prepared-for-label { font-size: 12px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+        .client-name { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+        .client-detail { font-size: 16px; color: var(--text-light); font-weight: 500; }
+
+        .footer-cover { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; border-top: 1px solid var(--border); padding-top: 30px; position: relative; z-index: 10;}
+        
+        /* --- PAGES --- */
+        .page { background: white; min-height: 100vh; padding: 80px; position: relative; }
+        .page-inner { max-width: 800px; margin: 0 auto; }
+
+        .header-page { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 20px; margin-bottom: 50px; }
+        .header-logo { font-weight: 800; font-size: 16px; color: var(--primary); letter-spacing: 1px; font-family: 'Playfair Display', serif; }
+        .header-doc { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; }
+
+        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 30px; line-height: 1.2; }
+
+        p { margin-bottom: 20px; color: var(--text-dark); }
+        .highlight { color: var(--accent); font-weight: 700; }
+
+        /* --- FASCINATIONS & LISTS --- */
+        .problem-box { background: #FEF2F2; border-left: 4px solid var(--accent); padding: 30px; margin-bottom: 40px; }
+        .problem-box h4 { color: var(--accent); font-size: 16px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .problem-box p { color: #7F1D1D; margin-bottom: 0; }
+
+        .fascination-list { list-style: none; margin-bottom: 40px; }
+        .fascination-list li { position: relative; padding-left: 36px; margin-bottom: 16px; font-weight: 500; }
+        .fascination-list li::before { content: '✓'; position: absolute; left: 0; top: 2px; width: 24px; height: 24px; background: var(--accent-alt); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+
+        /* --- ROI TABLE --- */
+        .roi-table { width: 100%; border-collapse: collapse; margin: 40px 0; }
+        .roi-table th { background: var(--primary); color: white; padding: 16px; text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .roi-table td { padding: 16px; border-bottom: 1px solid var(--border); background: white; }
+        .roi-table tr:last-child td { border-bottom: none; font-weight: 800; background: var(--surface); font-size: 16px; }
+        .text-red { color: var(--accent); font-weight: 700; }
+        .text-green { color: var(--success); font-weight: 700; }
+
+        /* --- PRICING TIERS --- */
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 50px; }
+        
+        .tier-card { border: 2px solid var(--border); padding: 40px; background: white; position: relative; }
+        .tier-card.recommended { border-color: var(--primary); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+        .tier-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 6px 16px; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .tier-name { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 8px; text-align: center; }
+        .tier-desc { text-align: center; color: var(--text-light); font-size: 13px; margin-bottom: 24px; }
+        .tier-price { text-align: center; font-size: 40px; font-weight: 800; color: var(--primary); margin-bottom: 30px; }
+        
+        .tier-features { list-style: none; }
+        .tier-features li { padding: 12px 0; border-bottom: 1px dashed var(--border); display: flex; align-items: flex-start; gap: 12px; font-size: 14px; }
+        .tier-features li:last-child { border-bottom: none; }
+        .tier-features i { color: var(--success); font-size: 18px; margin-top: 2px; }
+
+        /* --- TIMELINE --- */
+        .timeline { position: relative; border-left: 2px solid var(--border); margin-left: 20px; padding-left: 30px; margin-bottom: 50px; }
+        .timeline-item { position: relative; margin-bottom: 30px; }
+        .timeline-item::before { content: ''; position: absolute; left: -36px; top: 0; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+        .timeline-date { font-size: 12px; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .timeline-title { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+
+        /* --- GUARANTEE --- */
+        .guarantee-box { background: var(--primary); color: white; padding: 40px; display: flex; gap: 30px; align-items: flex-start; }
+        .guarantee-icon { width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 40px; color: var(--accent-alt); }
+        .guarantee-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; color: var(--accent-alt); }
+        .guarantee-box p { color: #D1D5DB; margin-bottom: 0; }
+
+        /* --- ACTION BAR --- */
+        .action-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 12px 24px; border-radius: 100px; display: flex; gap: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); z-index: 100; border: 1px solid var(--border); }
+        .btn { padding: 14px 32px; border-radius: 50px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--accent); }
+        .btn-outline { background: transparent; color: var(--text-dark); border: 1px solid var(--border); }
+        .btn-outline:hover { background: var(--surface); }
+    </style>
+</head>
+<body>
+
+    <div class="action-bar no-print">
+        <button class="btn btn-outline" onclick="window.print()"><i class="ph-bold ph-printer"></i> Cetak Dokumen</button>
+        <a href="https://wa.me/6281283321577?text=Halo%20Tim%20CocoTech,%20saya%20telah%20membaca%20proposal%20untuk%20Aon%20dan%20tertarik%20untuk%20melanjutkan%20ke%20tahap%20eksekusi." class="btn btn-primary" target="_blank"><i class="ph-bold ph-check-circle"></i> Setujui Infrastruktur</a>
+    </div>
+
+    <!-- COVER PAGE -->
+    <div class="cover page-break">
+        <div class="cover-content">
+            <div class="cover-badge">D2C COMMERCE BLUEPRINT</div>
+            <h1 class="cover-title">The D2C Heritage<br><span>E-Commerce Engine.</span></h1>
+            <p class="cover-subtitle">Rancangan infrastruktur eksklusif untuk melepaskan ketergantungan Mie Pangsit Aon dari komisi marketplace dan mengkapitalisasi warisan 1967 secara langsung ke konsumen nasional.</p>
+        </div>
+
+        <div class="cover-content">
+            <div class="prepared-for">
+                <div class="prepared-for-label">Hak Milik Eksklusif Atas Nama:</div>
+                <div class="client-name">Pewaris Mie Pangsit Aon</div>
+                <div class="client-detail">Legenda Artisan Siantar - Medan, Est. 1967</div>
+            </div>
+
+            <div class="footer-cover">
+                <div>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px;">Tanggal Dokumen</div>
+                    <div style="font-size: 15px; font-weight: 800; color: var(--primary);">24 April 2026</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 16px; font-weight: 800; color: var(--primary);">CocoTech Studio</div>
+                    <div style="font-size: 12px; color: var(--text-light);">B2B Conversion Architects</div>
+                    <div style="font-size: 12px; color: var(--text-light);">admin@cocotech.studio</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: THE PROBLEM & THE SOLUTION -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">AON <span>X</span> COCOTECH</div>
+                <div class="header-doc">EXECUTIVE SUMMARY</div>
+            </div>
+
+            <h2 class="section-title">The Hidden Leak:<br>Kerugian Berdarah di Ekosistem Marketplace.</h2>
+
+            <p>Mie Pangsit Aon bukan sekadar makanan; ini adalah <span class="highlight">sejarah yang bisa dimakan</span>. Dengan resep otentik yang bertahan sejak 1967, memproduksi versi *frozen* kelas premium (Rp 145.000 - Rp 212.000) adalah langkah ekspansi yang sangat cerdas untuk menjangkau kerinduan diaspora Siantar di seluruh Indonesia.</p>
+            
+            <p>Namun, saat ini ekspansi tersebut disandera oleh platform pihak ketiga.</p>
+
+            <div class="problem-box">
+                <h4>Fakta Pahit Marketplace 2026</h4>
+                <p>Platform seperti Shopee dan Tokopedia terus memangkas margin profit Anda dengan biaya admin dan komisi siluman yang bisa mencapai 8-12%. Lebih parah lagi, <strong>mereka merampas aset paling berharga Anda: Database Pelanggan</strong>. Anda tidak tahu siapa yang membeli produk Anda, Anda tidak bisa menghubungi mereka langsung, dan produk premium Anda dijejerkan bersebelahan dengan mi instan murahan seharga lima ribu rupiah.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">The Blueprint Solution:<br>Kemandirian Penjualan.</h2>
+
+            <p>Kami telah merancang <em>"The D2C Heritage E-Commerce Engine"</em> yang baru saja Anda lihat pada tautan <em>Live Preview</em>. Platform ini dirancang untuk satu tujuan: <strong>Menjual langsung ke pelanggan (Direct-to-Consumer) tanpa perantara.</strong></p>
+
+            <ul class="fascination-list">
+                <li><strong>Dynamic Subscription Engine:</strong> Formulir pemesanan cerdas yang memfasilitasi pesanan langganan bulanan atau mingguan secara instan. Pelanggan memesan langsung ke WhatsApp Anda, uang langsung masuk ke rekening Anda.</li>
+                <li><strong>Process Transparency Tracker:</strong> Klien premium B2C menuntut alasan mengapa sebuah porsi mi beku dihargai Rp 212.000. Modul ini menceritakan secara runut proses masak *slow-cooked broth* hingga *flash-freezing*, menanamkan kepercayaan absolut.</li>
+                <li><strong>Editorial Heritage Design:</strong> Kami membuang desain toko online murahan. Kami membalut sejarah 1967 Aon dengan tampilan *Luxury Editorial* (Awwwards-level 3D) yang sekelas dengan jenama gastronomi internasional.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE 2: ROI & INVESTMENT -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">AON <span>X</span> COCOTECH</div>
+                <div class="header-doc">ROI & PRICING</div>
+            </div>
+
+            <h2 class="section-title">Logika Matematis:<br>Mengapa D2C Menguntungkan.</h2>
+
+            <p>Mari kita hitung potensi hilangnya profit jika Anda terus mengandalkan marketplace untuk pesanan rutin <em>frozen food</em> Family Pack (Rp 212.000).</p>
+
+            <table class="roi-table">
+                <thead>
+                    <tr>
+                        <th>Skenario (Asumsi 100 Penjualan/Bulan)</th>
+                        <th>Via Marketplace (Potongan 10%)</th>
+                        <th>Via D2C E-Commerce Engine (0%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Omzet Kotor</td>
+                        <td>Rp 21.200.000</td>
+                        <td>Rp 21.200.000</td>
+                    </tr>
+                    <tr>
+                        <td>Potongan Platform</td>
+                        <td class="text-red">- Rp 2.120.000</td>
+                        <td class="text-green">- Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td>Akses Data Pelanggan Baru</td>
+                        <td class="text-red">Tertutup (Milik Platform)</td>
+                        <td class="text-green">Dimiliki 100% oleh Aon</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Margin Profit yang Diselamatkan Setahun</strong></td>
+                        <td>-</td>
+                        <td class="text-green">+ Rp 25.440.000 / Tahun</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Infrastruktur D2C E-Commerce ini akan membayarkan dirinya sendiri dalam waktu kurang dari 10 bulan hanya dari margin komisi yang terselamatkan, belum termasuk *repeat order* yang jauh lebih tinggi karena adanya fitur *Subscription* langsung ke WA.</p>
+
+            <h2 class="section-title" style="margin-top: 60px;">Investment Tiers</h2>
+
+            <div class="pricing-grid">
+                <!-- TIER 3 (Recommended) -->
+                <div class="tier-card recommended">
+                    <div class="tier-badge">The Ultimate Conversion Engine</div>
+                    <div class="tier-name">Paket Enterprise / B2B Ops</div>
+                    <div class="tier-desc">Hak Milik Penuh atas infrastruktur digital Mie Pangsit Aon (seperti di Live Preview).</div>
+                    <div class="tier-price">Rp 21.500.000</div>
+                    
+                    <ul class="tier-features">
+                        <li><i class="ph-bold ph-check"></i> Desain UI/UX Premium (Editorial Heritage 3D & Parallax)</li>
+                        <li><i class="ph-bold ph-check"></i> Modul Direct-to-Consumer (D2C) Subscription Flow</li>
+                        <li><i class="ph-bold ph-check"></i> Modul Process Transparency Tracker (Trust Builder)</li>
+                        <li><i class="ph-bold ph-check"></i> Bilingual System (Indonesia & English)</li>
+                        <li><i class="ph-bold ph-check"></i> 1 Tahun Cloud Hosting (High-Speed) + Domain Internasional</li>
+                        <li><i class="ph-bold ph-check"></i> <strong>Revisi Unlimited (Tanpa Batas)</strong> hingga sistem sempurna 100%.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PAGE 3: TIMELINE & GUARANTEE -->
+    <div class="page page-break">
+        <div class="page-inner">
+            <div class="header-page">
+                <div class="header-logo">AON <span>X</span> COCOTECH</div>
+                <div class="header-doc">EXECUTION & GUARANTEE</div>
+            </div>
+
+            <h2 class="section-title">Timeline Eksekusi Cepat</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 1 - 2</div>
+                    <div class="timeline-title">Kickoff & Data Ingestion</div>
+                    <p class="text-slate-600 text-sm">Pembayaran DP (30%). Kami meminta katalog harga terbaru dan materi foto asli Dapur Aon untuk menggantikan aset simulasi.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 3 - 7</div>
+                    <div class="timeline-title">Heavy Development (Code Injection)</div>
+                    <p class="text-slate-600 text-sm">Pemasangan logika *Alpine.js E-Commerce* untuk kalkulasi diskon *subscription* otomatis ke WhatsApp admin Anda.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 8 - 10</div>
+                    <div class="timeline-title">Quality Control & Revisi</div>
+                    <p class="text-slate-600 text-sm">Sistem diserahkan kepada Anda untuk diuji coba. Anda berhak merevisi teks, penempatan tombol, hingga warna tanpa batasan.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Hari 12</div>
+                    <div class="timeline-title">Deployment & Handover</div>
+                    <p class="text-slate-600 text-sm">Pelunasan sisa tagihan. Sistem 100% <em>Live</em> di domain publik dan siap mengumpulkan pesanan langsung dari pelanggan setia Anda di seluruh Indonesia.</p>
+                </div>
+            </div>
+
+            <div class="guarantee-box" style="margin-top: 60px;">
+                <div class="guarantee-icon"><i class="ph-fill ph-shield-check"></i></div>
+                <div>
+                    <h3 class="guarantee-title">The 30-Day Zero-Risk Guarantee</h3>
+                    <p>Kami menghapus 100% risiko dari Anda. Jika dalam 30 hari pertama setelah rilis, sistem <em>D2C Checkout</em> mengalami kegagalan fungsi teknis yang menghalangi masuknya pesanan, kami akan memperbaikinya secara instan atau <strong>mengembalikan seluruh investasi Anda 100% utuh</strong>.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">Ambil Alih Penjualan Anda.</h2>
+            
+            <p>Klik tombol di bawah ini untuk menyetujui proposal ini dan beralih ke WhatsApp kami. Mari kita bangkitkan kembali kebanggaan jenama 1967 ini.</p>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="https://wa.me/6281283321577?text=Halo%20Tim%20CocoTech,%20saya%20telah%20membaca%20proposal%20untuk%20Aon%20dan%20tertarik%20untuk%20melanjutkan%20ke%20tahap%20eksekusi." class="btn btn-primary" style="display: inline-flex;" target="_blank"><i class="ph-bold ph-paper-plane-tilt"></i> Amankan Infrastruktur Ini Sekarang</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

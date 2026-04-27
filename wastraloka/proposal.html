@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Resmi CocoTech × Grebeg UMKM DIY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-dark: #020617;
+            --accent: #B8860B;
+            --accent-light: #FFD700;
+            --surface: #F8FAFC;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--surface);
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; font-size: 11pt; }
+            .page-break { break-before: page; }
+            .section { break-inside: avoid; }
+            a { color: inherit !important; text-decoration: none !important; }
+        }
+
+        /* ===== LAYOUT ===== */
+        .max-w { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== COVER PAGE ===== */
+        .cover {
+            background: var(--primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 80px;
+            position: relative;
+            color: white;
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop') center/cover;
+            opacity: 0.15;
+            mix-blend-mode: luminosity;
+            pointer-events: none;
+        }
+
+        .cover-content { position: relative; z-index: 10; }
+        
+        .cover-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 24px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .cover-title span { color: var(--accent-light); font-style: italic; }
+
+        .cover-subtitle {
+            font-size: 18px;
+            color: #CBD5E1;
+            max-width: 500px;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .prepared-for {
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+            margin-top: auto;
+        }
+        
+        .prepared-for-label { font-size: 10px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+        .client-name { font-size: 24px; font-weight: 700; color: white; margin-bottom: 4px; }
+        .client-detail { font-size: 14px; color: #CBD5E1; }
+
+        .footer-cover {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+        }
+        
+        .agency-info { text-align: right; }
+        .agency-name { font-size: 16px; font-weight: 800; color: white; margin-bottom: 4px; }
+        .agency-contact { font-size: 12px; color: #94A3B8; }
+
+        /* ===== CONTENT PAGES ===== */
+        .page {
+            background: white;
+            min-height: 100vh;
+            padding: 80px;
+            position: relative;
+        }
+
+        .header-page {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .header-logo { font-weight: 800; font-size: 14px; color: var(--primary); letter-spacing: 1px; }
+        .header-doc { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 24px;
+            position: relative;
+            padding-bottom: 16px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 60px; height: 3px;
+            background: var(--accent);
+        }
+
+        p { margin-bottom: 20px; color: var(--text-light); }
+        strong { color: var(--text-dark); }
+
+        /* ===== EXECUTIVE SUMMARY ===== */
+        .exec-summary {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .exec-summary p:last-child { margin-bottom: 0; }
+
+        /* ===== FASCINATIONS (GARY HALBERT STYLE) ===== */
+        .fascination-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .fascination-list li {
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: var(--text-dark);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .fascination-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0; top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px; height: 24px;
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* ===== FEATURES GRID ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            width: 40px; height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h4 { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+        .feature-card p { font-size: 13px; color: var(--text-light); margin-bottom: 0; }
+
+        /* ===== PRICING ===== */
+        .pricing-box {
+            background: var(--primary);
+            color: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-box::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 150px; height: 150px;
+            background: var(--accent);
+            filter: blur(50px);
+            opacity: 0.3;
+        }
+
+        .pricing-tier {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 8px;
+        }
+
+        .pricing-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .pricing-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-sub {
+            font-size: 13px;
+            color: #94A3B8;
+            margin-bottom: 32px;
+        }
+
+        .pricing-terms {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 13px;
+            color: #CBD5E1;
+        }
+        
+        .pricing-terms ul { list-style: none; }
+        .pricing-terms li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
+        .pricing-terms li i { color: var(--accent-light); margin-top: 3px; }
+
+        /* ===== ROI CALCULATION ===== */
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        
+        .roi-table th { background: #F1F5F9; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; color: var(--text-dark); text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid #CBD5E1; }
+        .roi-table td { padding: 16px; border-bottom: 1px solid #E2E8F0; font-size: 14px; color: var(--text-dark); }
+        .roi-table td:last-child, .roi-table th:last-child { text-align: right; }
+        .roi-table tr.total td { font-weight: 700; font-size: 16px; background: #F8FAFC; color: var(--primary); border-bottom: none; }
+        .roi-positive { color: #059669 !important; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .roi-negative { color: #DC2626 !important; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+
+        /* ===== NEXT STEPS ===== */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .step-num {
+            width: 40px; height: 40px;
+            flex-shrink: 0;
+            background: var(--surface);
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+        }
+
+        .step-content h4 { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .step-content p { font-size: 13px; color: var(--text-light); margin-bottom: 0; }
+
+        /* ===== FLOATING ACTION (NO PRINT) ===== */
+        .action-bar {
+            position: fixed;
+            bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            padding: 12px 24px;
+            border-radius: 100px;
+            display: flex;
+            gap: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #9c7209; }
+        .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+
+    <!-- ACTION BAR (SCREEN ONLY) -->
+    <div class="action-bar no-print">
+        <button class="btn btn-outline" onclick="window.print()">
+            <i class="ph ph-printer"></i> Cetak PDF
+        </button>
+        <a href="https://wa.me/6281283321577?text=Halo%20CocoTech,%20saya%20setuju%20dengan%20Proposal%20Corporate%20Gifting%20Grebeg%20UMKM%20DIY." class="btn btn-primary" target="_blank">
+            <i class="ph-fill ph-check-circle"></i> Setujui Proposal
+        </a>
+    </div>
+
+    <!-- COVER PAGE -->
+    <div class="cover page-break">
+        <div class="cover-content">
+            <div class="cover-badge">CONFIDENTIAL PROPOSAL</div>
+            <h1 class="cover-title">Digital Blueprint:<br><span>The Corporate Gifting Hub</span></h1>
+            <p class="cover-subtitle">Rancangan infrastruktur portal B2B premium untuk mendominasi pasar pengadaan suvenir korporat dan memfasilitasi ekspor artisan Nusantara.</p>
+        </div>
+
+        <div class="cover-content">
+            <div class="prepared-for">
+                <div class="prepared-for-label">Disiapkan Secara Khusus Untuk</div>
+                <div class="client-name">Wastraloka & Grebeg UMKM DIY</div>
+                <div class="client-detail">Aglomerasi Pengrajin & Petani Lokal DIY</div>
+            </div>
+
+            <div class="footer-cover">
+                <div class="date">
+                    <div style="font-size: 10px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 2px;">Tanggal Diterbitkan</div>
+                    <div style="font-size: 14px; font-weight: 600; color: white;">24 April 2026</div>
+                </div>
+                <div class="agency-info">
+                    <div class="agency-name">CocoTech Studio</div>
+                    <div class="agency-contact">nurcahyapriantoro23@gmail.com | 0812-8332-1577</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: EXECUTIVE SUMMARY & THE BIG IDEA -->
+    <div class="page page-break">
+        <div class="header-page">
+            <div class="header-logo">COCOTECH.</div>
+            <div class="header-doc">STRATEGY & ARCHITECTURE</div>
+        </div>
+
+        <h2 class="section-title">The Big Idea:<br>Corporate Gifting with Soul</h2>
+
+        <div class="exec-summary">
+            <p><strong>Masalah:</strong> Grebeg UMKM DIY memiliki ratusan pengrajin dengan komoditas bernilai seni tinggi. Namun, saat ini Anda <strong>kehilangan miliaran rupiah pesanan B2B massal</strong> (dari korporasi Jakarta dan internasional) karena ketiadaan infrastruktur portal yang meyakinkan.</p>
+            <p>Buyer B2B (Manajer HR, Procurement) mencari suvenir yang tidak berakhir di tempat sampah. Mereka mencari "cerita" dan keaslian, namun mereka ragu memesan 1.000 pcs dari pengrajin jika mereka tidak bisa melihat kapasitas produksi secara langsung.</p>
+            <p><strong>Solusi (Unique Mechanism):</strong> Kami menyebutnya <em>"The Artisan Trust Engine"</em>. Alih-alih hanya membuat katalog foto biasa, kami merancang portal B2B yang mensimulasikan <strong>Virtual Tour 360 derajat</strong> dari bengkel pengrajin Anda, dilengkapi dengan <strong>Live Chat Bidding System</strong> yang terenkripsi.</p>
+        </div>
+
+        <h3 style="font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Apa yang Akan Anda Dapatkan:</h3>
+        
+        <ul class="fascination-list">
+            <li><strong>The "Virtual Trust" Module:</strong> Memungkinkan klien korporat dari luar negeri menelusuri bengkel kayu jati atau sentra batik Anda langsung dari browser mereka, menghancurkan keraguan akan kapasitas produksi.</li>
+            <li><strong>The "Silent Closer" Bidding System:</strong> Formulir negosiasi harga otomatis (Live Chat Bidding) untuk pesanan di atas 500 pcs, yang langsung mengirim notifikasi negosiasi ke WhatsApp Ketua Paguyuban tanpa perantara tengkulak.</li>
+            <li><strong>The Bilingual Authority:</strong> Arsitektur web yang secara instan dapat beralih antara Bahasa Indonesia dan English tanpa memuat ulang (reload), memancarkan kredibilitas eksportir internasional.</li>
+            <li><strong>The "Heritage Storytelling" Architecture:</strong> Desain <em>glassmorphism</em> dan tipografi <em>vintage luxury</em> yang membuat kriya rotan seharga Rp 200.000 terlihat seperti karya seni seharga jutaan rupiah.</li>
+        </ul>
+    </div>
+
+    <!-- PAGE 2: INFRASTRUCTURE & PRICING -->
+    <div class="page page-break">
+        <div class="header-page">
+            <div class="header-logo">COCOTECH.</div>
+            <div class="header-doc">INVESTMENT & ROI</div>
+        </div>
+
+        <h2 class="section-title">Infrastruktur B2B Enterprise</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph ph-buildings"></i></div>
+                <h4>B2B Corporate Catalog</h4>
+                <p>Katalog produk spesifik yang dirancang untuk pesanan massal (bukan eceran), dengan detail sertifikasi (SVLK/Fair Trade) dan rentang harga tiering.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph ph-handshake"></i></div>
+                <h4>Automated Bidding Form</h4>
+                <p>Formulir penawaran (bidding) cerdas yang menghitung estimasi diskon otomatis berdasarkan input kuantitas, langsung terhubung ke sistem admin.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph ph-virtual-reality"></i></div>
+                <h4>360° Workshop Integration</h4>
+                <p>Framework untuk menanamkan (embed) tur virtual dari bengkel produksi (menggunakan Kuula/Matterport API) sebagai social proof pamungkas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="ph ph-globe"></i></div>
+                <h4>Zero-Latency Global Access</h4>
+                <p>Hosting CDN global yang memastikan portal Anda dimuat dalam waktu kurang dari 1 detik, baik diakses dari Jakarta maupun San Francisco.</p>
+            </div>
+        </div>
+
+        <!-- PRICING TIER 3 -->
+        <div class="pricing-box">
+            <div class="pricing-tier">Tier 3: Full Enterprise Ops & B2B Portal</div>
+            <div class="pricing-name">The Corporate Gifting Hub</div>
+            <div class="pricing-amount">Rp 18.500.000</div>
+            <div class="pricing-sub">One-time investment untuk kepemilikan aset digital penuh.</div>
+            
+            <div class="pricing-terms">
+                <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <li><i class="ph-bold ph-check"></i> Desain UI/UX Premium (Awwwards Level)</li>
+                    <li><i class="ph-bold ph-check"></i> Modul B2B Bidding System</li>
+                    <li><i class="ph-bold ph-check"></i> 1 Tahun Hosting & Domain Internasional</li>
+                    <li><i class="ph-bold ph-check"></i> Bilingual Engine Setup (EN/ID)</li>
+                    <li><i class="ph-bold ph-check"></i> Instalasi Copywriting Direct-Response</li>
+                    <li><i class="ph-bold ph-check"></i> <strong>Bonus:</strong> Framework Virtual Tour Ready</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 40px; margin-bottom: 16px;">Proyeksi ROI (Return on Investment)</h3>
+        <p style="font-size: 13px; margin-bottom: 24px;">Berikut adalah proyeksi konservatif jika portal ini hanya menyelamatkan <strong>1 kontrak pesanan B2B massal per kuartal</strong> (contoh: 500 pcs suvenir meja kayu @ Rp 100.000) yang biasanya hilang karena kurangnya kepercayaan klien korporat.</p>
+        
+        <table class="roi-table">
+            <thead>
+                <tr>
+                    <th>Metrik B2B Korporat</th>
+                    <th>Tanpa Sistem Digital</th>
+                    <th>Dengan "The Corporate Gifting Hub"</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tingkat Kepercayaan Klien (Corporate Trust)</td>
+                    <td class="roi-negative">Rendah (Rawan Batal)</td>
+                    <td class="roi-positive">Tinggi (Sertifikasi Visual & Virtual Tour)</td>
+                </tr>
+                <tr>
+                    <td>Kontrak Massal Diselamatkan (Per Tahun)</td>
+                    <td class="roi-negative">0 Kontrak Tambahan</td>
+                    <td class="roi-positive">+ 4 Kontrak (Minimal)</td>
+                </tr>
+                <tr>
+                    <td>Potensi Margin Pendapatan Hilang</td>
+                    <td class="roi-negative">- Rp 200.000.000</td>
+                    <td class="roi-positive">+ Rp 200.000.000</td>
+                </tr>
+                <tr class="total">
+                    <td>Net ROI pada Investasi Sistem (Rp 18.5M)</td>
+                    <td>-</td>
+                    <td class="roi-positive">+ 980% ROI di Tahun Pertama</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PAGE 3: TIMELINE & ACTION -->
+    <div class="page page-break">
+        <div class="header-page">
+            <div class="header-logo">COCOTECH.</div>
+            <div class="header-doc">IMPLEMENTATION TIMELINE</div>
+        </div>
+
+        <h2 class="section-title">Langkah Selanjutnya</h2>
+        <p>Kami bekerja dengan kecepatan dan presisi eksekusi yang tinggi. Proyek ini dirancang untuk selesai dalam waktu <strong>14 Hari Kerja</strong> setelah pembayaran Uang Muka (DP).</p>
+
+        <div class="steps">
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>Persetujuan & DP (30%)</h4>
+                    <p>Anda mengkonfirmasi proposal ini melalui tombol Setujui Proposal. Kami akan menerbitkan invoice untuk Down Payment sebesar Rp 5.550.000 untuk mengunci jadwal produksi kami.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>Penyerahan Aset & Copywriting (Hari 1-5)</h4>
+                    <p>Tim Anda menyediakan foto resolusi tinggi produk, logo, dan materi virtual tour (jika ada). Kami meracik <em>Direct-Response Copywriting</em> untuk pasar korporat.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>Development & Bidding Setup (Hari 6-12)</h4>
+                    <p>Konstruksi arsitektur web, implementasi animasi UI/UX, dan penyambungan sistem <em>Live Chat Bidding</em> langsung ke nomor WhatsApp operasional Anda.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>Revisi Akhir & Pelunasan (Hari 13-14)</h4>
+                    <p>Sesi review final (maksimal 2x minor revision). Setelah disetujui, pelunasan sisa 70% dilakukan, dan sistem akan langsung <em>Live</em> ke domain publik Anda.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: rgba(184, 134, 11, 0.05); border: 1px solid rgba(184, 134, 11, 0.2); padding: 24px; border-radius: 12px; margin-top: 60px;">
+            <h4 style="font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">The Risk-Reversal Guarantee (Garansi Tanpa Risiko)</h4>
+            <p style="font-size: 13px; color: var(--text-dark); margin-bottom: 0;">Kami berani memberikan garansi bahwa sistem ini akan berjalan 100% bebas dari <em>bug</em> fatal saat peluncuran. Jika dalam 30 hari pertama terdapat kegagalan fungsi pada sistem <em>bidding</em> yang tidak bisa kami perbaiki, kami akan mengembalikan 100% biaya pengembangan Anda tanpa pertanyaan.</p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -176,7 +176,7 @@
             <div class="relative w-full h-[600px] hidden lg:block">
                 <!-- Abstract Representation of August Food & Architecture -->
                 <div class="absolute inset-0 bg-gradient-to-br from-august-charcoal to-august-black rounded-t-full border border-august-gold/20 overflow-hidden glass-card transform hover:scale-[1.02] transition-transform duration-700">
-                    <div class="absolute inset-0 bg-[url('https://picsum.photos/seed/august-bg/1000/600')] bg-cover bg-center opacity-30 mix-blend-luminosity"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-luminosity"></div>
                     
                     <!-- Floating UI Cards Simulating Booking System -->
                     <div class="absolute top-1/4 -left-10 glass-card p-4 flex items-center gap-4 border border-august-gold/30 shadow-2xl animate-float rounded-lg w-64">
@@ -216,7 +216,7 @@
                 <p class="text-august-cream/60 max-w-2xl mx-auto text-lg">Menerjemahkan warisan private dining 2021 menjadi mahakarya Franco-Asian yang diakui Asia's 50 Best. Website Anda harus menceritakan kisah ini.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
                 <!-- Box 1: Hans Christian -->
                 <div class="glass-card p-8 flex flex-col justify-between group hover:border-august-gold/50 transition-colors reveal">
                     <div class="mb-6 text-august-gold"><i class="ph-light ph-knife text-4xl group-hover:scale-110 transition-transform"></i></div>
@@ -238,7 +238,7 @@
                 <!-- Box 3: Asia's 50 Best -->
                 <div class="glass-card p-8 flex flex-col justify-center items-center text-center group hover:border-august-gold/50 transition-colors reveal delay-200 border-august-gold/30 md:row-span-2 relative overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-t from-august-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="ph-fill ph-trophy text-6xl text-august-gold mb-6 animate-pulse-slow"></i>
+                    <i class="ph-fill ph-trophy text-4xl md:text-6xl text-august-gold mb-6 animate-pulse-slow"></i>
                     <h3 class="text-2xl font-serif font-bold text-august-cream mb-4">Asia's 50 Best Restaurants</h3>
                     <p class="text-sm text-august-cream/70 leading-relaxed">Satu-satunya wakil Indonesia. Gelar prestisius ini menuntut infrastruktur digital yang sama eksklusifnya, bukan sekadar menggunakan tautan Linktree atau platform generik.</p>
                 </div>
@@ -305,7 +305,7 @@
                         <h3 class="text-2xl font-serif text-august-cream mb-2 text-center">Tamu Internasional?</h3>
                         <p class="text-center text-august-cream/50 text-sm mb-6">Sistem otomatis mendeteksi lokasi dan mengonversi deposit.</p>
                         
-                        <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                             <template x-for="c in currencies" :key="c.code">
                                 <div @click="setCurrency(c)" class="cursor-pointer border p-4 rounded text-center transition-all" :class="currency === c.code ? 'border-august-gold bg-august-gold/10' : 'border-august-gold/20 hover:border-august-gold/50'">
                                     <div class="text-2xl mb-1" x-text="c.flag"></div>
@@ -344,7 +344,7 @@
                         <div class="space-y-4 mb-8 max-w-md mx-auto">
                             <input type="text" placeholder="Nama Pemegang Kartu" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
                             <input type="text" placeholder="Nomor Kartu (Simulasi)" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <input type="text" placeholder="MM/YY" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
                                 <input type="text" placeholder="CVC" class="w-full bg-august-black border border-august-gold/30 rounded p-3 text-august-cream focus:outline-none">
                             </div>
@@ -358,7 +358,7 @@
 
                     <!-- Success State -->
                     <div x-show="step === 4" x-transition.opacity.duration.500ms style="display: none;" class="text-center">
-                        <i class="ph-fill ph-check-circle text-6xl text-green-500 mb-6"></i>
+                        <i class="ph-fill ph-check-circle text-4xl md:text-6xl text-green-500 mb-6"></i>
                         <h3 class="text-3xl font-serif text-august-cream mb-2">Deposit Berhasil Diamankan</h3>
                         <p class="text-august-cream/60 mb-8">Pendapatan dipastikan masuk sebelum tamu bahkan tiba di restoran. Ini adalah standar fine dining global.</p>
                         <button @click="resetEngine()" class="py-3 px-8 border border-august-gold text-august-gold hover:bg-august-gold/10 transition rounded">Mulai Ulang Simulasi</button>
@@ -441,17 +441,17 @@
                 
                 <div class="flex justify-center gap-4 md:gap-8 mb-10">
                     <div class="flex flex-col">
-                        <span class="text-4xl md:text-6xl font-sans font-bold text-august-gold" x-text="hours">48</span>
+                        <span class="text-4xl md:text-4xl md:text-6xl font-sans font-bold text-august-gold" x-text="hours">48</span>
                         <span class="text-xs uppercase tracking-widest text-august-cream/50 mt-2">Jam</span>
                     </div>
-                    <div class="text-4xl md:text-6xl font-bold text-august-gold/50">:</div>
+                    <div class="text-4xl md:text-4xl md:text-6xl font-bold text-august-gold/50">:</div>
                     <div class="flex flex-col">
-                        <span class="text-4xl md:text-6xl font-sans font-bold text-august-gold" x-text="minutes">00</span>
+                        <span class="text-4xl md:text-4xl md:text-6xl font-sans font-bold text-august-gold" x-text="minutes">00</span>
                         <span class="text-xs uppercase tracking-widest text-august-cream/50 mt-2">Menit</span>
                     </div>
-                    <div class="text-4xl md:text-6xl font-bold text-august-gold/50">:</div>
+                    <div class="text-4xl md:text-4xl md:text-6xl font-bold text-august-gold/50">:</div>
                     <div class="flex flex-col">
-                        <span class="text-4xl md:text-6xl font-sans font-bold text-red-500 animate-pulse" x-text="seconds">00</span>
+                        <span class="text-4xl md:text-4xl md:text-6xl font-sans font-bold text-red-500 animate-pulse" x-text="seconds">00</span>
                         <span class="text-xs uppercase tracking-widest text-august-cream/50 mt-2">Detik</span>
                     </div>
                 </div>

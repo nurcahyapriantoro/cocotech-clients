@@ -153,7 +153,7 @@
 <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
     <!-- Background image -->
     <div class="absolute inset-0">
-        <img src="https://picsum.photos/seed/indohero/1600/900"
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop"
              alt="Artisan Weaving" class="w-full h-full object-cover animate-pan"
              style="filter:brightness(0.5) saturate(1.1);">
         <div class="absolute inset-0" style="background:linear-gradient(170deg, rgba(31,54,54,0.7) 0%, rgba(10,20,20,0.4) 40%, #0A1414 100%);"></div>
@@ -166,7 +166,7 @@
             <span class="text-white/90 text-[10px] font-bold tracking-[.2em] uppercase" x-text="lang==='en' ? 'Global Eco-Craft Exporter' : 'Eksportir Kerajinan Ramah Lingkungan'"></span>
         </div>
 
-        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] mb-6 reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.1s">
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-5xl lg:text-8xl font-bold text-white leading-[1.05] mb-6 reveal" x-intersect="$el.classList.add('in')" style="transition-delay:.1s">
             <em class="block font-normal italic text-clay text-3xl md:text-4xl mb-3" x-text="lang==='en' ? 'Weaving Nature,' : 'Menenun Alam,'"></em>
             <span x-text="lang==='en' ? 'Crafting Futures.' : 'Merangkai Masa Depan.'"></span>
         </h1>
@@ -188,7 +188,7 @@
      STATS BAR
 =========================================================== -->
 <section id="stats" class="bg-pine-600 text-white py-12 relative z-20 shadow-xl border-y border-pine-500">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
         <div class="text-center px-4">
             <p class="font-serif text-4xl font-bold mb-1">20+</p>
             <p class="text-[10px] font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Export Countries' : 'Negara Ekspor'"></p>
@@ -213,12 +213,12 @@
 =========================================================== -->
 <section id="about" class="py-28 bg-sand-100">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-20 items-center">
 
             <!-- Images collage -->
             <div class="relative reveal-l" x-intersect="$el.classList.add('in')">
                 <div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-2xl">
-                    <img src="https://picsum.photos/seed/indostory/800/1000"
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop"
                          alt="Rattan Crafts" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-pine-900/80 to-transparent"></div>
                     <div class="absolute bottom-8 left-8 text-white max-w-xs">
@@ -245,7 +245,7 @@
                 <p class="text-sand-900/70 leading-relaxed mb-8 text-[16px]" x-text="lang==='en' ? 'Every basket woven and every chair shaped represents a Fair Trade commitment to ensure our artisans receive living wages, safe conditions, and sustainable livelihoods.' : 'Setiap keranjang dan kursi yang dibuat mewakili komitmen Fair Trade (Perdagangan Adil) kami untuk memastikan pengrajin menerima upah layak dan kesejahteraan.'"></p>
 
                 <!-- Values -->
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="flex items-start gap-3 bg-white p-4 rounded-xl border border-sand-200">
                         <div class="w-8 h-8 bg-pine-600/10 text-pine-600 rounded-lg flex items-center justify-center text-lg flex-shrink-0"><i class="ph-fill ph-globe-hemisphere-east"></i></div>
                         <div>
@@ -283,10 +283,10 @@
         </div>
 
         <!-- Grid -->
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-1 md:grid-cols-3 gap-8">
             <div class="group cursor-pointer reveal" x-intersect="$el.classList.add('in')">
                 <div class="overflow-hidden rounded-xl mb-4 relative aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/indoprod1/600/800" alt="Furniture" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Furniture" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" x-text="lang==='en' ? 'Rattan Furniture' : 'Perabot Rotan'"></div>
                 </div>
                 <h3 class="font-serif text-xl font-bold text-white mb-1" x-text="lang==='en' ? 'Bali Lounge Chair' : 'Kursi Santai Bali'"></h3>
@@ -295,7 +295,7 @@
             
             <div class="group cursor-pointer reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
                 <div class="overflow-hidden rounded-xl mb-4 relative aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/indoprod2/600/800" alt="Basket" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Basket" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" x-text="lang==='en' ? 'Seagrass Decor' : 'Dekorasi Mendong'"></div>
                 </div>
                 <h3 class="font-serif text-xl font-bold text-white mb-1" x-text="lang==='en' ? 'Kubu Storage Basket 3-Set' : 'Set 3 Keranjang Kubu'"></h3>
@@ -304,7 +304,7 @@
 
             <div class="group cursor-pointer reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .2s">
                 <div class="overflow-hidden rounded-xl mb-4 relative aspect-[4/5]">
-                    <img src="https://picsum.photos/seed/indoprod3/600/800" alt="Home Decor" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Home Decor" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute top-4 left-4 bg-black/60 backdrop-blur text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full" x-text="lang==='en' ? 'Home Accents' : 'Aksesoris Ruangan'"></div>
                 </div>
                 <h3 class="font-serif text-xl font-bold text-white mb-1" x-text="lang==='en' ? 'Java Teak Wood Tray' : 'Nampan Kayu Jati Jawa'"></h3>
@@ -333,7 +333,7 @@
     rate: { USD: 1, EUR: 0.92, IDR: 15600 } 
 }">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-20 items-center">
 
             <!-- Left: Sales Pitch -->
             <div class="reveal-l" x-intersect="$el.classList.add('in')">
@@ -457,11 +457,11 @@
             <p class="text-sand-900/60 max-w-xl mx-auto" x-text="lang==='en' ? 'What our international wholesale partners are saying.' : 'Apa kata mitra grosir internasional kami.'"></p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-sand-100 p-8 rounded-2xl reveal" x-intersect="$el.classList.add('in')">
                 <p class="text-pine-900/80 leading-relaxed mb-6">"The capability to track our FCL containers via their dashboard is unprecedented for a manufacturer in Java. Delivery was flawless and the eco-certifications were verified."</p>
                 <div class="flex items-center gap-4">
-                    <img src="https://i.pravatar.cc/150?img=11" alt="Buyer" class="w-12 h-12 rounded-full object-cover grayscale">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Buyer" class="w-12 h-12 rounded-full object-cover grayscale">
                     <div>
                         <p class="font-bold text-pine-900 text-sm">Matthias R.</p>
                         <p class="text-[10px] uppercase tracking-widest text-clay font-bold">Furniture Retailer, Germany</p>
@@ -472,7 +472,7 @@
             <div class="bg-sand-100 p-8 rounded-2xl reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
                 <p class="text-pine-900/80 leading-relaxed mb-6">"We've been sourcing rattan furniture from Indo Risakti for 3 years. Their fair-trade practices and transparent shipping updates make them a highly reliable partner."</p>
                 <div class="flex items-center gap-4">
-                    <img src="https://i.pravatar.cc/150?img=5" alt="Buyer" class="w-12 h-12 rounded-full object-cover grayscale">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Buyer" class="w-12 h-12 rounded-full object-cover grayscale">
                     <div>
                         <p class="font-bold text-pine-900 text-sm">Elena V.</p>
                         <p class="text-[10px] uppercase tracking-widest text-clay font-bold">Boutique Decor, Italy</p>
@@ -483,7 +483,7 @@
             <div class="bg-pine-900 text-white p-8 rounded-2xl reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .2s">
                 <p class="text-white/80 leading-relaxed mb-6">"Finally an exporter that understands international corporate standards. The bilingual portal saves us hours of tedious emails for every new container request."</p>
                 <div class="flex items-center gap-4">
-                    <img src="https://i.pravatar.cc/150?img=8" alt="Buyer" class="w-12 h-12 rounded-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Buyer" class="w-12 h-12 rounded-full object-cover">
                     <div>
                         <p class="font-bold text-white text-sm">James W.</p>
                         <p class="text-[10px] uppercase tracking-widest text-clay font-bold">Wholesale Distributor, USA</p>
@@ -504,21 +504,21 @@
             <span class="text-xs font-bold uppercase tracking-[.2em] text-clay" x-text="lang==='en' ? 'Facilities & Infrastructure' : 'Fasilitas & Infrastruktur'"></span>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-4">
             <div class="rounded-xl overflow-hidden aspect-square reveal" x-intersect="$el.classList.add('in')">
-                <img src="https://picsum.photos/seed/indogal1/600/600" alt="Weaving facility" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Weaving facility" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
             </div>
             <div class="rounded-xl overflow-hidden aspect-square md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
-                <img src="https://picsum.photos/seed/indogal2/1200/600" alt="Rattan workshop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Rattan workshop" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
             </div>
             <div class="rounded-xl overflow-hidden aspect-square reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .2s">
-                <img src="https://picsum.photos/seed/indogal3/600/600" alt="Products ready for shipping" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Products ready for shipping" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
             </div>
             <div class="rounded-xl overflow-hidden aspect-square md:col-span-2 reveal" x-intersect="$el.classList.add('in')">
-                <img src="https://picsum.photos/seed/indogal4/1200/600" alt="Cargo loading" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 filter saturate-50">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Cargo loading" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 filter saturate-50">
             </div>
             <div class="rounded-xl overflow-hidden aspect-[2/1] md:aspect-square md:col-span-2 reveal" x-intersect="$el.classList.add('in')" style="transition-delay: .1s">
-                <img src="https://picsum.photos/seed/indogal5/1200/600" alt="Export port" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop" alt="Export port" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
             </div>
         </div>
     </div>
@@ -528,7 +528,7 @@
      FOOTER BUSINESS
 =========================================================== -->
 <footer id="contact" class="bg-pine-900 text-white border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-12">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-1 md:grid-cols-3 gap-12">
         <div>
             <div class="flex items-center gap-3 mb-5">
                 <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center font-serif font-bold text-lg text-sand-100">IR</div>
@@ -573,7 +573,7 @@
                 <i class="ph-fill ph-shield-check"></i> Ditujukan Eksklusif untuk Manajemen Indo Risakti
             </div>
             <p class="text-white/50 text-sm font-bold uppercase tracking-widest mb-3">Dari <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">CocoTech Digital Agency</a></p>
-            <h2 class="font-serif text-4xl md:text-6xl font-bold leading-tight mb-6">
+            <h2 class="font-serif text-4xl md:text-4xl md:text-6xl font-bold leading-tight mb-6">
                 Website ini<br><em class="italic text-clay">Dibuat Terbatas</em><br>sebagai Prototype Anda.
             </h2>
             <p class="text-white/60 max-w-xl mx-auto leading-relaxed">
@@ -582,7 +582,7 @@
         </div>
 
         <!-- 3 Proposal Points -->
-        <div class="grid md:grid-cols-3 gap-6 mb-16 reveal" x-intersect="$el.classList.add('in')">
+        <div class="grid md:grid-cols-1 md:grid-cols-3 gap-6 mb-16 reveal" x-intersect="$el.classList.add('in')">
             <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-clay transition-colors">
                 <i class="ph-fill ph-globe text-4xl text-clay mb-4 block"></i>
                 <h3 class="font-bold text-lg mb-2">Bilingual & SEO Global</h3>
@@ -602,7 +602,7 @@
 
         <!-- Pricing + Timer -->
         <div class="bg-black/30 backdrop-blur border border-white/10 rounded-3xl p-8 md:p-12 reveal" x-intersect="$el.classList.add('in')">
-            <div class="grid lg:grid-cols-2 gap-10 items-center">
+            <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-10 items-center">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[.2em] text-clay mb-2">Tier 3 — Full Enterprise Ops</p>
                     <h3 class="font-serif text-5xl font-bold mb-2">

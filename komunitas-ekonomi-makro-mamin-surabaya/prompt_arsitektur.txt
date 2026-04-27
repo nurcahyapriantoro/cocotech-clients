@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and Hyperlocal Delivery Specialist.
+Client: Komunitas Ekonomi Makro Mamin (Kelompok Griya Data SI BADAK), Surabaya.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Inter' (Modern/Clean) & 'Playfair Display' (Trust/Heritage).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Hyperlocal Community Kitchen & Corporate Catering Portal
+- Style: Clean Minimalist, Fresh Culinary, Trustworthy, Fast-Loading
+- Colors: 
+  - Primary: #FAFAFA (Clean Kitchen White)
+  - Secondary: #18181B (Zinc Dark)
+  - Accent/Brand: #16A34A (Fresh Green) & #EAB308 (Warm Yellow/Nasi Kuning)
+  - Text: #27272A / #F4F4F5
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Rasa Rumahan, Standar Korporat. Dari Dapur Ibu untuk Surabaya." (Home-cooked Taste, Corporate Standard. From Mother's Kitchen to Surabaya.)
+- Unique Mechanism: "Smart Neighborhood Catering Engine & WhatsApp Pin-Drop Logistics" - Platform ringan penghubung pesanan masif (kantor/sekolah) langsung ke WhatsApp ibu tangga tanpa aplikasi tambahan.
+- Target: Koordinator konsumsi kantor/sekolah (pesanan masif harian/katering) dan tetangga perumahan terdekat (eceran).
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Fresh 3D Hero Section: Cinematic imagery of fresh home-cooked meals, clean typography, fast-loading micro-animations.
+2. Dual-Persona Engine: "Pesan Harian (Eceran/Tetangga)" vs "Katering Korporat (Grosir/Acara)".
+3. Smart Catering Calculator (Alpine.js): Pengguna memasukkan jumlah porsi katering (misal: 100 kotak nasi kuning) dan sistem otomatis menghitung diskon kuantitas (grosir) + estimasi ongkir rute lokal (Bulak/Sukolilo).
+4. Process Transparency Tracker (Hygiene & Halal): Alur operasional dari "Belanja Pasar Subuh" -> "Dapur Higienis" -> "Pengantaran Tepat Waktu".
+5. Headless WhatsApp Cart & Pin Drop: Sistem keranjang pesanan katering yang meminta titik antar (Google Pin Drop) dan di-compile ke teks WhatsApp rapi.
+6. The VVIP Backdoor (Easter Egg): Klik logo 3x untuk "Portal Koordinator / Agen B2B" yang menampilkan margin khusus reseller acara.
+7. Professional Mega Footer: Titik distribusi (Kelurahan Bulak/Sukolilo Baru), jaminan higienis, CocoTech Studio branding.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, extremely clean, very fast loading (for mobile users in the community), bilingual (ID/EN) with Indonesian priority.

@@ -1,0 +1,30 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and Hyperlocal E-commerce Specialist.
+Client: Wirausaha Lingkungan Depok (Warung Bu Titin, Cafe buds, Haura Snack, Laundry bu mel, dkk).
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Outfit' (Heading/Modern) & 'Inter' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Hyperlocal Community Directory & Delivery Hub
+- Style: Friendly, Community-Driven, Accessible, Clean, Trustworthy
+- Colors: 
+  - Primary: #FFFFFF (Clean White)
+  - Secondary: #111827 (Dark text)
+  - Accent/Brand: #10B981 (Emerald Green for Fresh/Local) & #F59E0B (Amber for Food)
+  - Text: #374151
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Ekonomi Tetangga, Pesan Antar Tanpa Jeda."
+- Unique Mechanism: "Neighborhood Hyperlocal Delivery Engine" - Menyatukan puluhan usaha mikro dalam satu platform pesan antar lokal tanpa potongan platform besar.
+- Target: Warga perumahan sekitar, keluarga sibuk, pekerja lokal di Depok.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Professional 3D Hero Section: Warm community vibe, illustrating fast local delivery.
+2. Dual-Persona Engine: "Pesan Kebutuhan (Warga)" vs "Daftarkan Usaha (Mitra UMKM)".
+3. Interactive Smart Directory: Filter by category (Makanan, Sembako, Jasa Laundry, Kue).
+4. Headless WhatsApp Cart (The Local Engine): Multi-vendor cart routing to a central WhatsApp dispatcher or direct to vendor.
+5. Live Social Proof Engine: "Warga Cilodong baru saja memesan dari Warung Bu Dian."
+6. Process Transparency Tracker: "Diantar oleh kurir lingkungan, keuntungan 100% untuk tetangga."
+7. The VVIP Backdoor: Click the central logo 3x for "Paguyuban Admin Portal".
+8. Professional Mega Footer: Covering Depok areas, CocoTech Studio branding.
+
+UI/UX Rules: Professional, highly legible, NO LOREM IPSUM, extremely fast-loading for mobile users, clean layout, bilingual (EN/ID).

@@ -1,0 +1,38 @@
+
+Kamu adalah Senior Web Architect & UI/UX Expert kelas dunia.
+Tugasmu adalah membuat kode untuk klien F&B/Retail/Kriya bernama: mie-pangsit-aon.
+
+ATURAN DESAIN (UI/UX PRO MAX - WAJIB):
+1. **CLAUDE DESIGN SKILLS & AWWWARDS LEVEL**: Desain tidak boleh terlihat generik/biasa. Harus spektakuler, menggunakan warna-warna berani namun harmoni, *smooth gradients*, dan tipografi tebal yang super modern (Google Fonts).
+2. **PARALLAX & 3D MOTION**: Gunakan efek Parallax ekstensif saat scroll (elemen bergerak di kecepatan berbeda). Buat efek 3D Tilt Hover pada kartu/gambar menggunakan Alpine.js atau Vanilla JS. Implementasikan CSS `perspective`, `transform-style: preserve-3d`.
+3. **GLASSMORPHISM**: Gunakan latar belakang tembus pandang (`backdrop-blur`) dengan border halus pada komponen yang melayang.
+4. **ANIMATION**: Setiap elemen HARUS masuk dengan animasi (fade-in-up, scale-up, reveal) saat di-scroll menggunakan Intersection Observer sederhana di dalam script bawaan.
+5. **SINGLE FILE RULE**: Gabungkan seluruh Tailwind CDN, Custom CSS (untuk keyframes/3d effect), dan JS ke dalam file index.html.
+
+KONTEN BISNIS & WOW FACTOR:
+- Implementasikan fitur interaktif secara visual untuk deliverable berikut:
+  1. Sistem Pemesanan Online dengan Pengiriman Kurir Lokal
+  2. Manajemen Waitlist Digital untuk Jam Sibuk di Toko
+  3. Halaman Testimoni & Menu Interaktif dengan Foto Resolusi Tinggi
+- BILINGUAL: Sediakan fitur switch bahasa EN/ID langsung berfungsi (x-data Alpine).
+- PDF PROPOSAL WIDGET: Sebuah tombol mengambang elegan di kanan atas ke `proposal.html`.
+- PENAWARAN COCOTECH & SELF DESTRUCTING TIMER: Di paling bawah halaman, letakkan "Special Offer by CocoTech" dengan JS Countdown 48 jam yang bergerak mundur.
+- NO LOREM IPSUM. Buat copywriting asli yang menjual.
+
+TUGASMU:
+Keluarkan output dalam format berikut secara tepat:
+
+```html
+<!-- Ini adalah index.html -->
+<!DOCTYPE html>
+... (kode index.html) ...
+```
+
+```html
+<!-- Ini adalah proposal.html -->
+<!DOCTYPE html>
+... (kode proposal.html) ...
+```
+
+Dilarang keras memakai unpkg/unsplash yang sering kena blokir CORS. Gunakan picsum.photos untuk gambar.
+Jangan mengeluarkan respons lain selain 2 blok kode HTML tersebut.

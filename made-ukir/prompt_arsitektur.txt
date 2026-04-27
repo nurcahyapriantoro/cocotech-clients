@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and E-commerce Specialist for Art/Luxury.
+Client: Made Ukir, Kabupaten Jembrana, Bali.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Heading/Editorial) & 'Inter' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Fine Art Gallery E-Commerce & Global Export Portal
+- Style: Ultra-Luxury, Balinese Heritage, Minimalist Gallery, High-End Craftsmanship
+- Colors: 
+  - Primary: #171717 (Deep Black)
+  - Secondary: #FAFAFA (Gallery White)
+  - Accent/Brand: #B45309 (Carved Teak/Warm Gold) & #78350F (Dark Wood)
+  - Text: #E5E7EB / #27272A
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Bypass the Middlemen. Own Authentic Balinese Masterpieces Directly from the Artisan."
+- Unique Mechanism: "Global Collector's Portal" - Menghubungkan langsung kolektor luar negeri dengan bengkel Made Ukir tanpa mark-up galeri Seminyak/Ubud.
+- Target: International art collectors, luxury interior designers, global export buyers.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Ultra-Luxury 3D Hero Section: Cinematic background (dark mode), intricate carving close-ups, elegant typography.
+2. Dual-Persona Engine: "Private Collector" (D2C) vs "Gallery / Interior Designer" (Wholesale/B2B).
+3. Cross-Border Freight Calculator: Alpine.js calculator estimating shipping costs (Air/Sea Freight) globally.
+4. Behind-The-Scenes Narrative (Process Transparency): "The Journey of the Wood" - from selecting the log to the final chisel.
+5. Headless Inquiry Cart: Direct inquiry for bespoke pieces or purchasing existing inventory, formatted cleanly.
+6. The VVIP Backdoor (Easter Egg): Click the logo 3x for "The Vault" (Private, unreleased masterpieces).
+7. Professional Mega Footer: Official address in Jembrana, international payment gateway logos, CocoTech Studio branding.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, extremely aesthetic (gallery-like), clean layout, bilingual (EN/ID) but default to English for global appeal.

@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and B2B Subscription Specialist.
+Client: 1612 Coffee & Roastery, Bandung.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Space Grotesk' (Heading) & 'Plus Jakarta Sans' (Body).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Premium B2B Roastery & Academy Portal
+- Style: Clean Premium, High-End Roastery (like Blue Bottle / %Arabica), Highly Legible, Professional
+- Colors: 
+  - Primary: #FAFAFA (Clean White Surface)
+  - Secondary: #18181B (Rich Black for text/contrast)
+  - Accent/Brand: #EA580C (Burnt Orange) & #F3F4F6 (Soft Gray for sections)
+  - Text: #27272A
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Konsistensi Biji Kopi Adalah Detak Jantung Kafe Anda."
+- Unique Mechanism: "B2B Auto-Replenishment Engine" - Langganan pasokan bulanan presisi.
+- Target: Pemilik kedai kopi independen (B2B), barista, dan *home brewers*.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Professional 3D Hero Section: Clean, bright aesthetic, showcasing roasted beans and precision.
+2. Dual-Persona Engine (Dynamic Context Shifting): "Wholesale (B2B)" vs "Academy (B2C)".
+3. Process Transparency Tracker: Sourcing, Roasting Profile, Cupping Quality Control.
+4. Headless WhatsApp Cart: B2B Subscription Portal.
+5. The VVIP Backdoor (Easter Egg): Click logo 3x for "Roaster's Secret Stash".
+6. Live Social Proof Engine.
+7. Professional Mega Footer: Official address, links, CocoTech Studio branding.
+
+UI/UX Rules: Highly legible, professional, NO LOREM IPSUM, extremely clean layout, strong typography, accessible contrast.

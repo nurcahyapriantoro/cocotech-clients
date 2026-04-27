@@ -1,0 +1,19 @@
+{
+    "clientName": "Kelompok Griya Data SI BADAK Surabaya (Mamin)",
+    "pricingTier": "Tier 1: Paket UMKM / Penggerak Komunitas",
+    "pricingName": "The Hyperlocal Catering Engine",
+    "estimatedPrice": "Rp 2.850.000",
+    "featuresGenerated": [
+        "Smart Catering Calculator (Alpine.js Quantity Discount)",
+        "Dual-Persona Engine (Harian vs Katering Massal)",
+        "Headless WhatsApp Cart with Delivery Logic",
+        "Hygiene Transparency Tracker UI",
+        "Micro-Website Mobile-First Speed"
+    ],
+    "identifiedPainPoints": [
+        "Kesulitan menjangkau pesanan katering massal (kantor/sekolah) karena tidak memiliki profil digital yang profesional/terpercaya.",
+        "Proses pemesanan manual di WhatsApp sering membingungkan ibu-ibu dapur, terutama saat merekap jumlah pesanan dan titik antar rute.",
+        "Keterbatasan akses teknologi rumit, butuh sistem One-Link ringan yang mem-parsing pesanan langsung rapi ke WhatsApp."
+    ],
+    "timestamp": "2026-04-27T08:30:00.000Z"
+}

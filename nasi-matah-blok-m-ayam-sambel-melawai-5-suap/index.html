@@ -165,7 +165,7 @@
             <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-4">
                 <template x-if="cart.length === 0">
                     <div class="text-center text-gray-500 mt-10 flex flex-col items-center">
-                        <i class="ph-light ph-package text-6xl mb-4"></i>
+                        <i class="ph-light ph-package text-4xl md:text-6xl mb-4"></i>
                         <p>Belum ada produk FMCG yang siap dikirim.</p>
                     </div>
                 </template>
@@ -200,7 +200,7 @@
 
     <!-- 2. Interactive Hero Section -->
     <section class="relative min-h-screen flex items-center pt-24 pb-12 px-6 lg:px-12 z-10">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="flex flex-col gap-6 reveal active">
                 <div class="inline-flex items-center gap-2 bg-spicy-950/50 border border-spicy-500/30 px-4 py-2 rounded-full w-fit">
                     <span class="relative flex h-3 w-3">
@@ -230,9 +230,9 @@
 
                 <div class="flex items-center gap-6 mt-8 pt-8 border-t border-white/10">
                     <div class="flex -space-x-4">
-                        <img class="w-12 h-12 rounded-full border-2 border-[#1a1a1a]" src="https://i.pravatar.cc/100?img=11" alt="User">
-                        <img class="w-12 h-12 rounded-full border-2 border-[#1a1a1a]" src="https://i.pravatar.cc/100?img=32" alt="User">
-                        <img class="w-12 h-12 rounded-full border-2 border-[#1a1a1a]" src="https://i.pravatar.cc/100?img=33" alt="User">
+                        <img class="w-12 h-12 rounded-full border-2 border-[#1a1a1a]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="User">
+                        <img class="w-12 h-12 rounded-full border-2 border-[#1a1a1a]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="User">
+                        <img class="w-12 h-12 rounded-full border-2 border-[#1a1a1a]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="User">
                         <div class="w-12 h-12 rounded-full border-2 border-[#1a1a1a] bg-spicy-900 flex items-center justify-center text-xs font-bold">+12k</div>
                     </div>
                     <div class="text-sm text-gray-400">
@@ -334,10 +334,10 @@
                 <p class="text-gray-400 max-w-2xl mx-auto">Bukan sekadar pedas, ini adalah mahakarya bumbu lokal yang diracik dengan integritas. Kami memetakan DNA "Ayam Sambel Melawai & 5 Suap" menjadi identitas korporat kelas atas.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
                 <!-- Grid 1: The Core -->
                 <div class="md:col-span-2 md:row-span-2 glass rounded-3xl p-8 relative overflow-hidden group scroll-element">
-                    <div class="absolute inset-0 bg-[url('https://picsum.photos/seed/nasimatah-bg/2000/900')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
                     <div class="relative h-full flex flex-col justify-end">
                         <div class="w-12 h-12 bg-spicy-600 rounded-full flex items-center justify-center mb-6">
@@ -350,7 +350,7 @@
 
                 <!-- Grid 2: Certification -->
                 <div class="glass rounded-3xl p-8 flex flex-col items-center justify-center text-center scroll-element border-t border-t-heritage-gold/30">
-                    <i class="ph-duotone ph-certificate text-6xl text-heritage-gold mb-4"></i>
+                    <i class="ph-duotone ph-certificate text-4xl md:text-6xl text-heritage-gold mb-4"></i>
                     <h3 class="font-bold text-xl text-white mb-2">Legalitas Premium</h3>
                     <p class="text-sm text-gray-400">Sistem website siap menampilkan QR verifikasi BPOM & Sertifikat Halal MUI secara real-time untuk membangun trus nasional.</p>
                 </div>
@@ -398,7 +398,7 @@
             </div>
 
             <!-- Alpine Loop for Products -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-8">
                 <template x-for="product in products" :key="product.id">
                     <div class="glass rounded-3xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_0_40px_rgba(239,68,68,0.15)] flex flex-col scroll-element">
                         <!-- Product Image Area -->
@@ -454,7 +454,7 @@
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-spicy-900/20 via-[#1a1a1a] to-[#1a1a1a]"></div>
         
         <div class="max-w-7xl mx-auto relative">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="scroll-element">
                     <div class="bg-red-500/10 text-red-500 border border-red-500/20 px-4 py-2 rounded-full inline-flex items-center gap-2 mb-6">
                         <i class="ph-fill ph-warning-circle"></i> <span class="text-xs font-bold uppercase">Realita Kejam Industri F&B 2024</span>
@@ -538,7 +538,7 @@
                 <span>⚡ Penawaran Terbatas</span> <span>⚡ Hanya 1 Slot Tersedia untuk Area Blok M</span> <span>⚡ Eksekusi Langsung</span>
             </div>
 
-            <i class="ph-duotone ph-crown text-6xl text-heritage-gold mb-6 mt-4"></i>
+            <i class="ph-duotone ph-crown text-4xl md:text-6xl text-heritage-gold mb-6 mt-4"></i>
             <h2 class="font-serif text-3xl lg:text-5xl font-black text-white mb-4">Infrastruktur "FMCG Domination"</h2>
             <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
                 Kami hanya mengambil <b class="text-white border-b border-white">satu klien di sektor Sambal/Ayam Pedas per distrik</b> untuk mencegah kanibalisasi sistem. 
@@ -699,9 +699,9 @@
                 botChatOpen: true,
                 botTriggered: false,
                 products: [
-                    { id: 1, name: 'Sambal Matah Sultan (Vakum)', desc: 'Ekstraksi bawang merah premium dan cabai rawit merah setan, disiram minyak kelapa murni. Tahan 3 bulan.', price: 45000, bpom: 'MD 211909001882', heat: 'Level 5', image: 'https://picsum.photos/seed/nasimatah-p1/800/600' },
-                    { id: 2, name: 'Ayam Suwir Sambel Melawai', desc: 'Ayam kampung suwir asap dipadu sambal terasi bakar khas Melawai. Dikemas retort tahan suhu ruang.', price: 65000, bpom: 'MD 211909002882', heat: 'Level 4', image: 'https://picsum.photos/seed/nasimatah-p2/800/600' },
-                    { id: 3, name: 'Sambal Cumi 5 Suap', desc: 'Baby cumi asin ditumis lambat dengan bumbu balado mercon. Best seller pengiriman antar pulau.', price: 55000, bpom: 'MD 211909003882', heat: 'Level Extreme', image: 'https://picsum.photos/seed/nasimatah-p3/800/600' }
+                    { id: 1, name: 'Sambal Matah Sultan (Vakum)', desc: 'Ekstraksi bawang merah premium dan cabai rawit merah setan, disiram minyak kelapa murni. Tahan 3 bulan.', price: 45000, bpom: 'MD 211909001882', heat: 'Level 5', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 2, name: 'Ayam Suwir Sambel Melawai', desc: 'Ayam kampung suwir asap dipadu sambal terasi bakar khas Melawai. Dikemas retort tahan suhu ruang.', price: 65000, bpom: 'MD 211909002882', heat: 'Level 4', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                    { id: 3, name: 'Sambal Cumi 5 Suap', desc: 'Baby cumi asin ditumis lambat dengan bumbu balado mercon. Best seller pengiriman antar pulau.', price: 55000, bpom: 'MD 211909003882', heat: 'Level Extreme', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' }
                 ],
                 cart: [],
                 toasts: [],

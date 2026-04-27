@@ -1,0 +1,30 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and E-commerce Specialist.
+Client: Mie Pangsit Aon, Medan (Est. 1967).
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: Playfair Display (Heading) & Inter (Body)
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Heritage E-Commerce & Subscription Portal
+- Style: Clean Luxury, Heritage Modern, Editorial, Minimalist
+- Colors: 
+  - Primary: #111827 (Luxury Dark)
+  - Secondary: #F9FAFB (Clean White Surface)
+  - Accent/Brand: #B91C1C (Crimson Red - Classic Noodle Vibe) & #D97706 (Golden Brown - Roast)
+  - Text: #1F2937
+
+Copywriting Strategy (The Aha Moment & Direct Response):
+- Big Idea: "Bawa Legenda 1967 ke Meja Makan Anda." (Bring the 1967 Legend to Your Dining Table)
+- Unique Mechanism: "Cold-Chain Artisanal Delivery" - 100% authentic recipe, frozen fresh, delivered nationwide without marketplace commissions.
+- Target: Loyal customers, diaspora, foodies craving authentic Siantar noodles nationwide.
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Elegant 3D Hero Section: Cinematic imagery of the noodles, floating elements, Vanilla-Tilt.
+2. Floating Proposal Widget: "Buka Proposal B2B" (CocoTech link).
+3. The 1967 Heritage Story: Editorial layout explaining the Siantar roots.
+4. Feature 1: Process Transparency Tracker (Behind the Scenes): How the noodles are made and frozen to keep quality.
+5. Feature 2: Direct-to-Consumer (D2C) Subscription Engine (Alpine.js): A multi-step flow to subscribe to a monthly noodle box, bypassing Shopee.
+6. Customer Reviews / Testimonials (Live Social Proof).
+7. The Stolen Traffic (FOMO) - For the Proposal, not the index. In index, replace with "Premium Member Access".
+8. Trojan Horse Bot: Chatbot assistant linking to WA.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, highly legible, professional, clean layout, bilingual (EN/ID).

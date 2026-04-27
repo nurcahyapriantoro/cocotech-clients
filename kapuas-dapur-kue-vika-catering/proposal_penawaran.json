@@ -1,0 +1,19 @@
+{
+    "clientName": "Kapuas Dapur Kue & Vika Catering",
+    "pricingTier": "Tier 3: Enterprise Ops & B2B Portal",
+    "pricingName": "B2B Procurement & Auto-Quota Engine",
+    "estimatedPrice": "Rp 20.500.000",
+    "featuresGenerated": [
+        "Headless WhatsApp Cart (Auto-Close Quota)",
+        "Dual-Persona Engine (School vs Corporate)",
+        "VVIP Backdoor (Procurement Director Portal)",
+        "Process Transparency (Hygiene & Capacity Forecast)",
+        "Live Social Proof (Contract Signings)"
+    ],
+    "identifiedPainPoints": [
+        "Kapasitas produksi harian sering *overload* tanpa manajemen prediksi (forecasting), menyebabkan penurunan kualitas.",
+        "Proses tender atau penawaran ke instansi pemerintahan & sekolah terhambat oleh tidak adanya profil digital yang meyakinkan secara korporat.",
+        "Pesanan bulanan dari institusi masih direkap manual, rentan kesalahan tanggal dan kuantitas pengiriman."
+    ],
+    "timestamp": "2026-04-25T02:00:00.000Z"
+}

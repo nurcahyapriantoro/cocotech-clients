@@ -1,0 +1,31 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and High-End Sales Closer.
+Client: Pasar Segar (PasGer), Makassar.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js (3D Parallax), Phosphor Icons.
+Google Fonts: Syne (Heading) & Outfit (Body)
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Dynamic Night Market Hub & Corporate Sponsorship Portal
+- Style: Neon Cyberpunk, Nightlife Energy, Brutalist Modern
+- Colors: 
+  - Primary: #09090B (Dark Cyberpunk)
+  - Secondary: #18181B
+  - CTA/Neon: #10B981 (Emerald) & #8B5CF6 (Purple)
+  - Text: #F8FAFC
+
+Copywriting Strategy (Todd Brown & Gary Halbert):
+- Big Idea: "Monetisasi Ribuan Mata." - Jangan biarkan 225 tenant dan ribuan pengunjung organik Anda menguap tanpa monetisasi sponsor B2B.
+- Unique Mechanism: "Virtual Mall & Sponsorship Bidding Engine"
+- Target: FMCG & Telco Brands mencari ruang sponsor, dan pengunjung milenial Makassar.
+
+Mandatory Sections:
+1. 3D Hero Section: Neon background, Vanilla-Tilt elements, dynamic text.
+2. PDF Proposal Widget: Floating proposal button.
+3. Market Stats: 225+ Tenants, Ribuan Pengunjung.
+4. Virtual Tenant Directory (Interaktif dengan Alpine).
+5. Sponsorship Bidding Module: B2B Auction untuk spot iklan di PasGer.
+6. The Stolen Traffic (FOMO): "Event musik tempat lain disponsori Telkomsel/Gojek, Anda kehilangan miliaran rupiah karena proposal manual."
+7. Testimonial / Reviews.
+8. The Self-Destructing Offer: 48h Countdown untuk diskon setup.
+9. Trojan Horse Bot: "Ada Telco mau pasang banner? Chat sini."
+
+UI/UX Rules: Awwwards-level execution, NO EMOJIS, Phosphor SVG icons, Tilt 3D cards, noise texture background, bilingual support (EN/ID).

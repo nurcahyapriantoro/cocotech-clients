@@ -1,0 +1,19 @@
+{
+    "clientName": "1612 Coffee",
+    "pricingTier": "Tier 3: Enterprise Ops & B2B Portal",
+    "pricingName": "B2B Roastery Subscription Engine",
+    "estimatedPrice": "Rp 17.500.000",
+    "featuresGenerated": [
+        "B2B Auto-Replenishment Subscription Flow",
+        "Dual-Persona Engine (Wholesale & Academy)",
+        "VVIP Backdoor (Secret Stash Access)",
+        "Process Transparency (Roasting Profile)",
+        "Headless WhatsApp Invoice"
+    ],
+    "identifiedPainPoints": [
+        "Pemesanan suplai biji kopi dari klien B2B (kafe) masih manual, sering lupa jadwal restock.",
+        "Kelas edukasi baristik (Academy) belum memiliki portal pendaftaran mandiri yang profesional.",
+        "Kurangnya sistem kontrak berlangganan (subscription) untuk mengamankan *recurring revenue*."
+    ],
+    "timestamp": "2026-04-24T17:00:00.000Z"
+}

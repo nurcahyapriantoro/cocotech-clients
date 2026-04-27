@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama Snack & Qitara OlShop - Kelezatan Camilan Keluarga</title>
+    <meta name="description" content="Pusat camilan curah, kue kering, dan hampers elegan dari Depok. Berkualitas, higienis, dan terjangkau.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mama: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b', // Warm Amber for Snacks
+                            600: '#d97706',
+                            900: '#78350f',
+                        },
+                        hampers: {
+                            500: '#e11d48', // Rose Red for Festive Hampers
+                            600: '#be123c',
+                            900: '#881337',
+                        },
+                        surface: '#FAFAFA',
+                        dark: '#111827',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(245, 158, 11, 0.1)',
+                        'floating': '0 20px 40px -20px rgba(0,0,0,0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FAFAFA; color: #111827; transition: background-color 0.5s, color 0.5s; }
+        .hampers-mode { background-color: #fff1f2; /* Light Rose background for Hampers mode */ }
+        
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .hampers-mode .glass-nav { background: rgba(255, 241, 242, 0.95); border-bottom: 1px solid rgba(225, 29, 72, 0.1); }
+        
+        .card-premium { background: white; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); transition: all 0.3s ease; border-radius: 20px; }
+        .hampers-mode .card-premium { border: 1px solid rgba(225, 29, 72, 0.1); box-shadow: 0 10px 30px -10px rgba(225, 29, 72, 0.1); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #fcd34d; border-radius: 3px; }
+        .hampers-mode ::-webkit-scrollbar-thumb { background: #fca5a5; }
+
+        @keyframes slideInUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .bg-pattern { background-image: radial-gradient(#f59e0b 1px, transparent 1px); background-size: 24px 24px; opacity: 0.05; }
+        .hampers-mode .bg-pattern { background-image: radial-gradient(#e11d48 1px, transparent 1px); }
+    </style>
+</head>
+<body x-data="{ 
+        lang: 'id', 
+        scrolled: false, 
+        persona: 'retail', /* retail (ngemil) or hampers (grosir/b2b) */
+        
+        /* VVIP Backdoor */
+        secretClicks: 0,
+        vvipOpen: false,
+        vvipCode: '',
+        vvipError: false,
+        
+        /* Headless Cart Engine */
+        cartOpen: false,
+        cart: [],
+        addToCart(item, basePrice, type) {
+            let existing = this.cart.find(i => i.name === item);
+            let finalPrice = this.persona === 'hampers' ? basePrice * 0.9 : basePrice; // 10% discount for bulk
+            if(existing) { existing.qty++; } else { this.cart.push({name: item, price: finalPrice, type: type, qty: 1}); }
+            this.cartOpen = true;
+        },
+        removeFromCart(index) {
+            if(this.cart[index].qty > 1) { this.cart[index].qty--; } else { this.cart.splice(index, 1); }
+            if(this.cart.length === 0) this.cartOpen = false;
+        },
+        get cartTotal() { return this.cart.reduce((total, item) => total + (item.price * item.qty), 0); },
+        
+        customerName: '',
+        deliveryType: 'Reguler',
+        
+        checkout() {
+            if(this.cart.length === 0 || !this.customerName) { alert('Mohon lengkapi Nama Anda.'); return; }
+            let mode = this.persona === 'hampers' ? 'HAMPERS/GROSIR' : 'ECERAN';
+            let text = `*MAMA SNACK - PESANAN ${mode}*%0A%0A`;
+            text += `*Nama:* ${this.customerName}%0A`;
+            text += `*Pengiriman:* ${this.deliveryType}%0A%0A`;
+            text += `*Daftar Pesanan:*%0A`;
+            this.cart.forEach(item => { 
+                text += `- *${item.name}* x${item.qty} : Rp ${new Intl.NumberFormat('id-ID').format(item.price * item.qty)}%0A`; 
+            });
+            text += `%0A--------------------------------%0A`;
+            text += `*TOTAL: Rp ${new Intl.NumberFormat('id-ID').format(this.cartTotal)}*%0A`;
+            text += `--------------------------------%0A%0A`;
+            text += `Mohon konfirmasi ketersediaan stok dan ongkos kirim.`;
+            window.open('https://wa.me/6281283321577?text=' + text, '_blank');
+            this.cart = []; this.cartOpen = false; this.customerName = '';
+        }
+    }" 
+    :class="{'hampers-mode': persona === 'hampers'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased selection:bg-mama-500 selection:text-white relative">
+
+    <!-- Pattern Background -->
+    <div class="fixed inset-0 pointer-events-none bg-pattern z-0"></div>
+
+    <!-- VVIP BACKDOOR (Reseller Portal) -->
+    <div x-show="vvipOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-white/95 backdrop-blur-md flex items-center justify-center" style="display: none;">
+        <div class="max-w-md w-full p-10 border border-slate-200 bg-white rounded-3xl shadow-premium text-center relative" @click.away="vvipOpen = false">
+            <i class="ph-fill ph-storefront text-4xl md:text-6xl text-mama-500 mb-6"></i>
+            <h3 class="text-2xl font-serif text-dark mb-2 font-bold">Reseller Portal</h3>
+            <p class="text-slate-500 text-sm mb-8">Akses khusus agen dropship & mitra Mama Snack.</p>
+            <input type="password" x-model="vvipCode" @keyup.enter="if(vvipCode==='0000') { window.location.href='proposal.html'; } else { vvipError = true; setTimeout(()=>vvipError=false, 1000); vvipCode=''; }" class="w-full bg-slate-50 border-b-2 border-slate-300 focus:border-mama-500 outline-none text-center text-4xl tracking-[0.5em] py-4 text-dark font-mono mb-4 transition-colors" placeholder="••••" maxlength="4">
+            <div x-show="vvipError" class="text-red-500 text-xs font-bold uppercase tracking-widest">Kode Tidak Valid.</div>
+            <button @click="vvipOpen = false" class="absolute top-6 right-6 text-slate-400 hover:text-dark"><i class="ph-bold ph-x text-xl"></i></button>
+        </div>
+    </div>
+
+    <!-- COCOTECH WIDGET: Floating Proposal (Only Hampers/B2B) -->
+    <a href="proposal.html" target="_blank" x-show="persona === 'hampers'" x-transition class="fixed top-28 right-6 z-50 flex items-center gap-3 bg-white text-dark px-5 py-3 rounded-full shadow-floating hover:shadow-premium transition-all duration-300 border border-slate-200 group no-print">
+        <div class="w-8 h-8 bg-hampers-50 rounded-full flex items-center justify-center text-hampers-500 group-hover:bg-hampers-500 group-hover:text-white transition-colors">
+            <i class="ph-bold ph-file-pdf text-lg"></i>
+        </div>
+        <div>
+            <div class="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">CocoTech B2B</div>
+            <div class="font-bold text-xs text-dark">Buka Blueprint Sistem</div>
+        </div>
+    </a>
+
+    <!-- HEADLESS WHATSAPP CART BUTTON -->
+    <button @click="cartOpen = true" x-show="cart.length > 0 && !cartOpen" x-transition.scale.origin.bottom class="fixed bottom-8 right-8 z-50 w-16 h-16 text-white rounded-full shadow-floating flex items-center justify-center hover:-translate-y-1 transition-all" :class="persona === 'hampers' ? 'bg-hampers-600' : 'bg-mama-500'">
+        <i class="ph-bold ph-shopping-cart text-2xl"></i>
+        <span class="absolute -top-1 -right-1 w-6 h-6 bg-white font-bold text-xs rounded-full flex items-center justify-center border-2" :class="persona === 'hampers' ? 'text-hampers-600 border-hampers-600' : 'text-mama-600 border-mama-500'" x-text="cart.reduce((a, b) => a + b.qty, 0)"></span>
+    </button>
+
+    <!-- Cart Modal -->
+    <div x-show="cartOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-dark/60 backdrop-blur-sm flex justify-end" style="display: none;">
+        <div class="h-full w-full max-w-md bg-white shadow-2xl flex flex-col" @click.away="cartOpen = false">
+            <div class="p-6 border-b flex justify-between items-center" :class="persona === 'hampers' ? 'bg-hampers-50 border-hampers-100' : 'bg-mama-50 border-mama-100'">
+                <div>
+                    <h3 class="font-serif font-bold text-xl text-dark" x-text="persona === 'hampers' ? 'Keranjang Hampers/Grosir' : 'Keranjang Belanja'"></h3>
+                    <p class="text-[10px] uppercase tracking-widest font-bold" :class="persona === 'hampers' ? 'text-hampers-600' : 'text-mama-600'" x-text="persona === 'hampers' ? 'Diskon Grosir Aktif (-10%)' : 'Pembelian Eceran'"></p>
+                </div>
+                <button @click="cartOpen = false" class="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-400 hover:text-dark shadow-sm"><i class="ph-bold ph-x text-lg"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 bg-white">
+                <template x-if="cart.length === 0">
+                    <div class="h-full flex flex-col items-center justify-center text-slate-300 space-y-4">
+                        <i class="ph-light ph-shopping-bag-open text-4xl md:text-6xl"></i>
+                        <p class="text-sm">Keranjang kosong.</p>
+                    </div>
+                </template>
+                <template x-for="(item, index) in cart" :key="index">
+                    <div class="bg-white p-4 border border-slate-100 rounded-2xl mb-4 shadow-sm flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center text-2xl" :class="persona === 'hampers' ? 'bg-hampers-50 text-hampers-500' : 'bg-mama-50 text-mama-500'"><i class="ph-fill ph-package"></i></div>
+                        <div class="flex-1">
+                            <div class="font-bold text-dark text-sm mb-1" x-text="item.name"></div>
+                            <div class="text-xs font-semibold text-slate-500 mb-2">Rp <span x-text="new Intl.NumberFormat('id-ID').format(item.price)"></span></div>
+                            <div class="flex items-center gap-3 bg-slate-50 w-24 rounded border border-slate-200 px-2 py-1">
+                                <button @click="removeFromCart(index)" class="text-slate-400 hover:text-dark font-bold"><i class="ph-bold ph-minus text-[10px]"></i></button>
+                                <span class="text-xs font-bold text-dark flex-1 text-center" x-text="item.qty"></span>
+                                <button @click="addToCart(item.name, item.price, item.type)" class="text-slate-400 hover:text-dark font-bold"><i class="ph-bold ph-plus text-[10px]"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            
+            <div class="p-6 border-t shadow-[0_-10px_40px_rgba(0,0,0,0.05)]" :class="persona === 'hampers' ? 'bg-hampers-50 border-hampers-100' : 'bg-mama-50 border-mama-100'">
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-widest mb-2" :class="persona === 'hampers' ? 'text-hampers-600' : 'text-mama-600'">Nama / Pemesan</label>
+                        <input type="text" x-model="customerName" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm text-dark outline-none transition-colors" :class="persona === 'hampers' ? 'focus:border-hampers-500' : 'focus:border-mama-500'" placeholder="Nama Anda">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-widest mb-2" :class="persona === 'hampers' ? 'text-hampers-600' : 'text-mama-600'">Opsi Pengiriman</label>
+                        <select x-model="deliveryType" class="w-full bg-white border border-slate-200 rounded-xl py-3 px-4 text-sm text-dark outline-none transition-colors cursor-pointer" :class="persona === 'hampers' ? 'focus:border-hampers-500' : 'focus:border-mama-500'">
+                            <option value="Reguler">Kurir Reguler (JNE/J&T)</option>
+                            <option value="Instan">Ojol Instan (Gojek/Grab)</option>
+                            <option value="Ambil di Tempat">Ambil Sendiri (Depok)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-end mb-6">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Total Estimasi</span>
+                    <span class="font-serif font-bold text-2xl text-dark">Rp <span x-text="new Intl.NumberFormat('id-ID').format(cartTotal)"></span></span>
+                </div>
+                <button @click="checkout()" class="w-full text-white font-bold py-4 rounded-xl text-xs tracking-widest uppercase transition-colors flex items-center justify-center gap-2 shadow-lg" :class="persona === 'hampers' ? 'bg-hampers-600 hover:bg-hampers-700 shadow-hampers-600/30' : 'bg-mama-500 hover:bg-mama-600 shadow-mama-500/30'">
+                    <i class="ph-bold ph-whatsapp-logo text-lg"></i> Proses Pesanan via WA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mega Header (Dual Persona) -->
+    <nav :class="{'glass-nav py-3': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full z-40 transition-all duration-500 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- Logo (VVIP Backdoor Trigger) -->
+            <div class="cursor-pointer group flex items-center gap-3" @click="secretClicks++; if(secretClicks >= 3) { vvipOpen = true; secretClicks = 0; }">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-colors duration-500 text-white" :class="persona === 'hampers' ? 'bg-hampers-500' : 'bg-mama-500'">
+                    <i class="ph-fill ph-cookie text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-2xl font-serif font-bold tracking-tight text-dark">Mama Snack</h1>
+                    <span class="text-[8px] font-bold uppercase tracking-widest text-slate-500">& Qitara OlShop</span>
+                </div>
+            </div>
+            
+            <!-- Dual-Persona Toggle Switch -->
+            <div class="flex items-center p-1.5 rounded-full border border-slate-200 bg-white/80 backdrop-blur-md shadow-sm transition-colors">
+                <button @click="persona = 'retail'" class="px-5 py-2 text-[10px] font-bold transition-all uppercase tracking-widest rounded-full" :class="persona === 'retail' ? 'bg-mama-500 text-white shadow-md' : 'text-slate-400 hover:text-dark'">Ngemil Harian</button>
+                <button @click="persona = 'hampers'" class="px-5 py-2 text-[10px] font-bold transition-all uppercase tracking-widest rounded-full flex items-center gap-1" :class="persona === 'hampers' ? 'bg-hampers-600 text-white shadow-md' : 'text-slate-400 hover:text-dark'"><i class="ph-fill ph-gift"></i> Pesan Hampers</button>
+            </div>
+
+            <!-- Language & Links -->
+            <div class="hidden lg:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-slate-500">
+                <a href="#catalog" class="hover:text-dark transition-colors">Katalog</a>
+                <a href="#process" class="hover:text-dark transition-colors">Kualitas</a>
+                <div class="flex items-center gap-2">
+                    <button @click="lang = 'id'" :class="lang === 'id' ? 'text-dark' : ''">ID</button>
+                    <span class="opacity-30">|</span>
+                    <button @click="lang = 'en'" :class="lang === 'en' ? 'text-dark' : ''">EN</button>
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+
+    <!-- Professional 3D Hero Section -->
+    <header class="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center z-10">
+        
+        <!-- Glow Background -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/4 transition-colors duration-700" :class="persona === 'hampers' ? 'bg-hampers-500' : 'bg-mama-500'"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-6 space-y-8 animate-up">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-[10px] font-bold uppercase tracking-[0.2em] transition-colors shadow-sm bg-white" :class="persona === 'hampers' ? 'border-hampers-200 text-hampers-600' : 'border-mama-200 text-mama-600'">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" :class="persona === 'hampers' ? 'bg-hampers-400' : 'bg-mama-400'"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2" :class="persona === 'hampers' ? 'bg-hampers-500' : 'bg-mama-500'"></span>
+                    </span>
+                    <span x-text="persona === 'hampers' ? 'Spesialis Hampers Depok' : 'Camilan Keluarga Depok'"></span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-4xl md:text-6xl font-serif font-bold leading-[1.1] tracking-tight text-dark">
+                    <template x-if="persona === 'retail'">
+                        <span>
+                            Kelezatan <br><span class="text-mama-500 italic">Camilan Curah</span><br>Kualitas Premium.
+                        </span>
+                    </template>
+                    <template x-if="persona === 'hampers'">
+                        <span>
+                            Bahagiakan <br><span class="text-hampers-600 italic">Kolega Anda</span><br>Tanpa Repot.
+                        </span>
+                    </template>
+                </h1>
+                
+                <p class="text-lg leading-relaxed max-w-md font-light text-slate-600">
+                    <template x-if="persona === 'retail'"><span x-text="lang === 'id' ? 'Dari kue kering hingga penganan anak-anak. Semua tersedia segar, higienis, dan dengan harga yang ramah di kantong ibu rumah tangga.' : 'From cookies to kids snacks. All available fresh, hygienic, and at prices friendly to housewives.'"></span></template>
+                    <template x-if="persona === 'hampers'"><span x-text="lang === 'id' ? 'Pesan puluhan hampers untuk hari raya atau hajatan secara otomatis melalui Bulk-Order Engine kami. Harga grosir langsung memotong keranjang Anda.' : 'Order dozens of hampers for holidays or events automatically through our Bulk-Order Engine. Wholesale prices directly deduct from your cart.'"></span></template>
+                </p>
+                
+                <div class="pt-6">
+                    <template x-if="persona === 'retail'">
+                        <button onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})" class="bg-mama-500 text-white px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-mama-600 transition-all shadow-lg shadow-mama-500/30 flex items-center gap-3">
+                            <span>Mulai Belanja</span> <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </template>
+                    <template x-if="persona === 'hampers'">
+                        <button onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})" class="bg-hampers-600 text-white px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-hampers-700 transition-all shadow-lg shadow-hampers-600/30 flex items-center gap-3">
+                            <span>Pilih Paket Hampers</span> <i class="ph-bold ph-gift"></i>
+                        </button>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- Clean Image Frame (Vanilla Tilt) -->
+            <div class="lg:col-span-6 relative hidden lg:flex justify-end" data-tilt data-tilt-max="4" data-tilt-speed="1000">
+                 <div class="w-[450px] h-[550px] rounded-3xl p-4 bg-white shadow-premium border border-slate-100 relative">
+                    <img x-show="persona === 'retail'" src="https://images.unsplash.com/photo-1599599810694-b5b37304c041?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover rounded-2xl" alt="Snacks">
+                    <img x-show="persona === 'hampers'" src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover rounded-2xl" alt="Hampers" style="display: none;">
+                    
+                    <div class="absolute bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-floating border border-slate-100 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" :class="persona === 'hampers' ? 'bg-hampers-600' : 'bg-mama-500'"><i class="ph-bold ph-star text-2xl"></i></div>
+                        <div>
+                            <div class="font-bold text-lg text-dark">100% Higienis</div>
+                            <div class="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1">Homemade Quality</div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODULE 1: Interactive Smart Catalog -->
+    <section id="catalog" class="py-24 relative z-10" x-data="{ 
+        category: 'semua',
+        products: [
+            { name: 'Kue Nastar Klasik', cat: 'kue', price: 65000, img: 'https://images.unsplash.com/photo-1590080874088-eec64895b423?q=80&w=400&auto=format&fit=crop', type: 'retail' },
+            { name: 'Kastengel Keju', cat: 'kue', price: 70000, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=400&auto=format&fit=crop', type: 'retail' },
+            { name: 'Keripik Tempe Gurih', cat: 'curah', price: 25000, img: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=400&auto=format&fit=crop', type: 'retail' },
+            { name: 'Snack Anak Bal-balan', cat: 'curah', price: 15000, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?q=80&w=400&auto=format&fit=crop', type: 'retail' },
+            
+            { name: 'Hampers Lebaran Premium', cat: 'hampers', price: 250000, img: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?q=80&w=400&auto=format&fit=crop', type: 'hampers' },
+            { name: 'Hampers Parcel Box', cat: 'hampers', price: 150000, img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=400&auto=format&fit=crop', type: 'hampers' }
+        ],
+        get displayProducts() {
+            let filteredByPersona = this.persona === 'retail' ? this.products.filter(p => p.type === 'retail') : this.products.filter(p => p.type === 'hampers');
+            return this.category === 'semua' ? filteredByPersona : filteredByPersona.filter(p => p.cat === this.category);
+        }
+    }">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-slate-200 pb-8">
+                <div>
+                    <h2 class="text-4xl font-serif font-bold text-dark mb-4">The Catalog.</h2>
+                    <p class="text-slate-500" x-text="persona === 'retail' ? 'Pilih camilan harian favorit keluarga.' : 'Pesan hampers partai besar, harga grosir otomatis memotong.'"></p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="mt-6 md:mt-0 flex gap-4 text-[10px] font-bold uppercase tracking-widest" x-show="persona === 'retail'">
+                    <button @click="category = 'semua'" :class="category === 'semua' ? 'text-mama-600 border-b-2 border-mama-500' : 'text-slate-400 hover:text-dark'">Semua</button>
+                    <button @click="category = 'kue'" :class="category === 'kue' ? 'text-mama-600 border-b-2 border-mama-500' : 'text-slate-400 hover:text-dark'">Kue Kering</button>
+                    <button @click="category = 'curah'" :class="category === 'curah' ? 'text-mama-600 border-b-2 border-mama-500' : 'text-slate-400 hover:text-dark'">Snack Curah</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <template x-for="item in displayProducts" :key="item.name">
+                    <div class="card-premium p-4 group flex flex-col h-full">
+                        <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-100">
+                            <img :src="item.img" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="flex-grow">
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-slate-400 mb-1" x-text="item.cat"></div>
+                            <h3 class="font-bold text-lg text-dark mb-2 line-clamp-1" x-text="item.name"></h3>
+                            <div class="text-lg font-bold mb-4" :class="persona === 'hampers' ? 'text-hampers-600' : 'text-mama-600'">Rp <span x-text="new Intl.NumberFormat('id-ID').format(item.price)"></span></div>
+                        </div>
+                        <button @click="addToCart(item.name, item.price, item.cat)" class="w-full py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2" :class="persona === 'hampers' ? 'bg-hampers-50 text-hampers-600 hover:bg-hampers-600 hover:text-white' : 'bg-mama-50 text-mama-600 hover:bg-mama-500 hover:text-white'">
+                            <i class="ph-bold ph-plus"></i> Tambah
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODULE 2: Process Transparency Tracker -->
+    <section id="process" class="py-24 bg-white border-t border-slate-100 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="text-[10px] font-bold uppercase tracking-widest mb-3 text-slate-400">Quality Assurance</div>
+                <h2 class="text-4xl font-serif text-dark mb-4 font-bold">Aman. Higienis. Terpercaya.</h2>
+                <p class="text-slate-500 max-w-xl mx-auto">Meski berasal dari industri rumahan, standar kebersihan dan pengemasan kami setara dengan pabrik profesional.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 border border-slate-100 rounded-3xl text-center bg-surface hover:border-mama-200 transition-colors">
+                    <div class="w-16 h-16 bg-white text-mama-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100">
+                        <i class="ph-light ph-hands-clapping text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-dark mb-3">100% Higienis</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Produksi rumahan dengan standar kebersihan tinggi. Sarung tangan dan masker selalu dikenakan.</p>
+                </div>
+                
+                <div class="p-8 border border-slate-100 rounded-3xl text-center bg-surface hover:border-mama-200 transition-colors">
+                    <div class="w-16 h-16 bg-white text-mama-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100">
+                        <i class="ph-light ph-package text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-dark mb-3">Kemasan Kedap Udara</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Snack curah dikemas rapat (vacuum/sealed) untuk menjaga kerenyahan hingga berbulan-bulan.</p>
+                </div>
+                
+                <div class="p-8 border border-slate-100 rounded-3xl text-center bg-surface hover:border-hampers-200 transition-colors">
+                    <div class="w-16 h-16 bg-white text-hampers-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100">
+                        <i class="ph-light ph-truck text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-dark mb-3">Pengiriman Aman</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Untuk pesanan hampers partai besar, kami menggunakan armada khusus untuk mencegah kerusakan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Mega-Footer -->
+    <footer class="pt-20 pb-10 bg-white border-t border-slate-200 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 border-b border-slate-100 pb-12">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-mama-500 text-white rounded-xl flex items-center justify-center shadow-md">
+                        <i class="ph-fill ph-cookie text-2xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold tracking-tight font-serif text-dark">Mama Snack</span>
+                        <span class="text-[10px] tracking-widest uppercase font-bold text-slate-500">& Qitara OlShop</span>
+                    </div>
+                </div>
+                <p class="text-sm leading-relaxed max-w-sm text-slate-500">UMKM rumahan terpercaya dari Depok yang menyajikan aneka makanan ringan, camilan curah, kue kering, dan hampers premium untuk keluarga Indonesia.</p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-dark">Layanan</h4>
+                <ul class="space-y-3 text-sm font-medium text-slate-500">
+                    <li><a href="#" class="hover:text-mama-600 transition-colors">Eceran Camilan</a></li>
+                    <li><a href="#" @click.prevent="persona = 'hampers'" class="hover:text-hampers-600 transition-colors">Grosir Hampers B2B</a></li>
+                    <li><a href="proposal.html" target="_blank" class="hover:text-mama-600 transition-colors font-bold">Digital Proposal Deck</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-sm uppercase tracking-widest text-dark">Hubungi Kami</h4>
+                <ul class="space-y-3 text-sm font-medium text-slate-500">
+                    <li class="flex items-start gap-3"><i class="ph-fill ph-map-pin mt-0.5 text-mama-500"></i> <span>Jl. Citanduy V No. 149<br>Kota Depok, Jawa Barat</span></li>
+                    <li class="flex items-center gap-3"><i class="ph-fill ph-whatsapp-logo text-mama-500"></i> <span>Via Headless Cart Website</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-xs font-medium text-slate-400">&copy; <span x-text="new Date().getFullYear()"></span> Mama Snack & Qitara OlShop. All rights reserved.</div>
+            <div class="text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 text-slate-400">
+                System Infrastructure by <a href="https://cocotech.studio" target="_blank" class="hover:text-dark transition-colors">CocoTech Studio</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+    </script>
+</body>
+</html>

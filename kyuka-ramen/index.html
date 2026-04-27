@@ -202,7 +202,7 @@
                     Solusi F&B Blok M Jakarta
                 </div>
                 
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-kyuka-ink">
+                <h1 class="text-5xl md:text-4xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-kyuka-ink">
                     Ubah <span class="text-gradient">Viralitas</span> Menjadi Mesin Profit Terprediksi.
                 </h1>
                 
@@ -221,9 +221,9 @@
                 
                 <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
                     <div class="flex -space-x-3">
-                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=47" alt="User">
-                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=12" alt="User">
-                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=25" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="User">
                         <div class="w-10 h-10 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-xs font-bold">+12k</div>
                     </div>
                     <p class="text-sm text-gray-500">Antrean potensial yang bisa <b>di-monetisasi</b> bulan ini.</p>
@@ -233,7 +233,7 @@
             <!-- Hero Visual: Minimalist Ramen Bowl Representation -->
             <div class="relative w-full h-[600px] flex justify-center items-center animate-float hidden lg:flex">
                 <!-- Decorative Japanese Text -->
-                <div class="absolute right-0 top-10 vertical-text text-6xl font-serif text-gray-200 select-none z-0">
+                <div class="absolute right-0 top-10 vertical-text text-4xl md:text-6xl font-serif text-gray-200 select-none z-0">
                     本物のラーメン
                 </div>
                 
@@ -252,7 +252,7 @@
                     <!-- App Content Simulation -->
                     <div class="space-y-4 flex-1">
                         <div class="h-32 rounded-2xl bg-gray-100 overflow-hidden relative">
-                            <img src="https://picsum.photos/seed/kyuka-hero/600/400" class="object-cover w-full h-full opacity-80" alt="Ramen">
+                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="object-cover w-full h-full opacity-80" alt="Ramen">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
                                 <span class="text-white font-bold tracking-wide">Tori Paitan Edisi Terbatas</span>
                             </div>
@@ -325,7 +325,7 @@
             <div class="bento-grid">
                 <!-- Bento Item 1: Large -->
                 <div class="bento-large rounded-3xl overflow-hidden relative group">
-                    <img src="https://picsum.photos/seed/kyuka-bento/800/600" alt="Tonkotsu Broth" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" alt="Tonkotsu Broth" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 flex flex-col justify-end">
                         <span class="text-kyuka-red font-bold tracking-widest text-sm mb-2">THE SOUL</span>
                         <h4 class="text-2xl font-serif text-white font-bold mb-2">Filosofi Kuah 24 Jam</h4>
@@ -344,7 +344,7 @@
 
                 <!-- Bento Item 3 -->
                 <div class="bg-kyuka-ink rounded-3xl p-8 text-white flex flex-col justify-between relative overflow-hidden">
-                    <div class="absolute -right-4 -top-4 text-8xl text-white/5 font-serif">休</div>
+                    <div class="absolute -right-4 -top-4 text-5xl lg:text-8xl text-white/5 font-serif">休</div>
                     <i class="ph ph-storefront text-4xl text-kyuka-gold mb-4"></i>
                     <div class="relative z-10">
                         <h4 class="text-xl font-bold mb-2 text-kyuka-gold">Atmosfer Blok M</h4>
@@ -422,7 +422,7 @@
                 </div>
 
                 <!-- Step 1: Pilih Menu -->
-                <div x-show="step === 1" x-transition.opacity.duration.500ms class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div x-show="step === 1" x-transition.opacity.duration.500ms class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6">
                     <template x-for="menu in menus" :key="menu.id">
                         <div class="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-kyuka-red cursor-pointer transition-all group relative" @click="selectMenu(menu)">
                             <!-- Sold Out Overlay -->
@@ -494,7 +494,7 @@
                 <!-- Step 3: Konfirmasi & Sukses -->
                 <div x-show="step === 3" x-transition.opacity.duration.500ms style="display: none;" class="text-center py-10">
                     <div class="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="ph ph-check-circle text-6xl text-green-500"></i>
+                        <i class="ph ph-check-circle text-4xl md:text-6xl text-green-500"></i>
                     </div>
                     <h3 class="text-3xl font-serif font-bold mb-2">Pre-Order Dikonfirmasi!</h3>
                     <p class="text-gray-400 max-w-md mx-auto mb-8">Terima kasih <span x-text="formData.name" class="text-white font-bold"></span>. Tiket digital telah dikirim ke WhatsApp Anda. Kami menantikan kehadiran Anda pada jam <span x-text="formData.time" class="text-white font-bold"></span>.</p>
@@ -520,9 +520,9 @@
                             { num: 3, title: 'Pembayaran' }
                         ],
                         menus: [
-                            { id: 1, name: 'Kuro Truffle Ramen', desc: 'Kaldu ayam hitam dengan black truffle oil asli Italia dan chashu wagyu.', price: 125000, stock: 5, tag: 'Chef Spec', image: 'https://picsum.photos/seed/kyuka-menu1/600/400' },
-                            { id: 2, name: 'Hokkaido Uni Mazesoba', desc: 'Dry ramen disajikan dengan sea urchin segar dari Hokkaido dan ikura.', price: 185000, stock: 2, tag: 'Ultra Rare', image: 'https://picsum.photos/seed/kyuka-menu2/600/400' },
-                            { id: 3, name: 'A5 Wagyu Paitan', desc: 'Kuah kental paitan direbus 24 jam dengan topping sirloin A5 Wagyu bakar.', price: 210000, stock: 0, tag: 'Sold Out', image: 'https://picsum.photos/seed/kyuka-menu3/600/400' }
+                            { id: 1, name: 'Kuro Truffle Ramen', desc: 'Kaldu ayam hitam dengan black truffle oil asli Italia dan chashu wagyu.', price: 125000, stock: 5, tag: 'Chef Spec', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                            { id: 2, name: 'Hokkaido Uni Mazesoba', desc: 'Dry ramen disajikan dengan sea urchin segar dari Hokkaido dan ikura.', price: 185000, stock: 2, tag: 'Ultra Rare', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' },
+                            { id: 3, name: 'A5 Wagyu Paitan', desc: 'Kuah kental paitan direbus 24 jam dengan topping sirloin A5 Wagyu bakar.', price: 210000, stock: 0, tag: 'Sold Out', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop' }
                         ],
                         selectedMenu: null,
                         formData: {
