@@ -123,7 +123,7 @@
     <!-- VVIP BACKDOOR (Reseller Portal) -->
     <div x-show="vvipOpen" x-transition.opacity class="fixed inset-0 z-[100] bg-white/95 backdrop-blur-md flex items-center justify-center" style="display: none;">
         <div class="max-w-md w-full p-10 border border-slate-200 bg-white rounded-3xl shadow-premium text-center relative" @click.away="vvipOpen = false">
-            <i class="ph-fill ph-storefront text-4xl md:text-4xl md:text-6xl text-mama-500 mb-6"></i>
+            <i class="ph-fill ph-storefront text-4xl md:text-4xl md:text-4xl md:text-6xl text-mama-500 mb-6"></i>
             <h3 class="text-2xl font-serif text-dark mb-2 font-bold">Reseller Portal</h3>
             <p class="text-slate-500 text-sm mb-8">Akses khusus agen dropship & mitra Mama Snack.</p>
             <input type="password" x-model="vvipCode" @keyup.enter="if(vvipCode==='0000') { window.location.href='proposal.html'; } else { vvipError = true; setTimeout(()=>vvipError=false, 1000); vvipCode=''; }" class="w-full bg-slate-50 border-b-2 border-slate-300 focus:border-mama-500 outline-none text-center text-4xl tracking-[0.5em] py-4 text-dark font-mono mb-4 transition-colors" placeholder="••••" maxlength="4">
@@ -163,7 +163,7 @@
             <div class="flex-1 overflow-y-auto p-6 bg-white">
                 <template x-if="cart.length === 0">
                     <div class="h-full flex flex-col items-center justify-center text-slate-300 space-y-4">
-                        <i class="ph-light ph-shopping-bag-open text-4xl md:text-4xl md:text-6xl"></i>
+                        <i class="ph-light ph-shopping-bag-open text-4xl md:text-4xl md:text-4xl md:text-6xl"></i>
                         <p class="text-sm">Keranjang kosong.</p>
                     </div>
                 </template>
@@ -262,7 +262,7 @@
                     <span x-text="persona === 'hampers' ? 'Spesialis Hampers Depok' : 'Camilan Keluarga Depok'"></span>
                 </div>
                 
-                <h1 class="text-5xl lg:text-4xl md:text-4xl md:text-6xl font-serif font-bold leading-[1.1] tracking-tight text-dark">
+                <h1 class="text-5xl lg:text-4xl md:text-4xl md:text-4xl md:text-6xl font-serif font-bold leading-[1.1] tracking-tight text-dark">
                     <template x-if="persona === 'retail'">
                         <span>
                             Kelezatan <br><span class="text-mama-500 italic">Camilan Curah</span><br>Kualitas Premium.
@@ -373,7 +373,7 @@
                 <p class="text-slate-500 max-w-xl mx-auto">Meski berasal dari industri rumahan, standar kebersihan dan pengemasan kami setara dengan pabrik profesional.</p>
             </div>
             
-            <div class="grid md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="p-8 border border-slate-100 rounded-3xl text-center bg-surface hover:border-mama-200 transition-colors">
                     <div class="w-16 h-16 bg-white text-mama-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm border border-slate-100">
                         <i class="ph-light ph-hands-clapping text-3xl"></i>

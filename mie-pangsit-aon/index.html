@@ -3,484 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mie Pangsit Aon - Legenda Siantar Sejak 1967</title>
-    <meta name="description" content="Kelezatan bakmi artisan klasik dari Pematang Siantar, kini hadir di meja makan Anda dalam kemasan frozen premium.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <title>Mie Pangsit Aon | Legendary Siantar Noodle Est. 1967</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config for Premium Colors -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#fef2f2',
-                            100: '#fee2e2',
-                            500: '#ef4444', 
-                            700: '#b91c1c', // Crimson
-                            900: '#7f1d1d',
-                        },
-                        gold: {
-                            500: '#d97706',
-                            700: '#b45309',
-                        },
-                        surface: '#F9FAFB',
-                        dark: '#111827',
+                        aon: {
+                            dark: '#121212',
+                            red: '#7A1010', // Deep Crimson
+                            gold: '#D4AF37', // Champagne Gold
+                            light: '#FDFBF7', // Ivory White
+                            gray: '#2A2A2A'
+                        }
                     },
                     fontFamily: {
-                        sans: ['"Inter"', 'sans-serif'],
                         serif: ['"Playfair Display"', 'serif'],
-                    },
-                    boxShadow: {
-                        'premium': '0 10px 40px -10px rgba(0,0,0,0.05)',
-                        'gold': '0 10px 30px -10px rgba(217, 119, 6, 0.3)',
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #F9FAFB; 
-            color: #1F2937; 
-        }
+        /* Custom Premium Styles */
+        body { background-color: #121212; color: #FDFBF7; }
         
-        .glass-nav { 
-            background: rgba(255, 255, 255, 0.98); 
-            backdrop-filter: blur(16px); 
-            border-bottom: 1px solid rgba(0,0,0,0.03); 
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+        .glass-nav {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
 
-        .editorial-border {
-            border: 1px solid #E5E7EB;
-            padding: 4px;
-            position: relative;
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        .editorial-border::after {
-            content: '';
-            position: absolute;
-            inset: 4px;
-            border: 1px solid #E5E7EB;
-            pointer-events: none;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Smooth Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #F9FAFB; }
-        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
-        
-        /* Toast Animation */
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .toast-enter { animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; }
 
-        .sepia-img {
-            filter: sepia(0.3) contrast(1.1);
-            transition: filter 0.5s ease;
-        }
-        .sepia-img:hover {
-            filter: sepia(0) contrast(1);
-        }
+        /* Step Indicators */
+        .step-active { color: #D4AF37; border-color: #D4AF37; }
+        .step-inactive { color: #4a4a4a; border-color: #4a4a4a; }
+
+        /* Product Card Selection */
+        .product-card { border: 1px solid #2A2A2A; transition: all 0.3s ease; }
+        .product-card.selected { border-color: #D4AF37; background: rgba(212, 175, 55, 0.05); }
     </style>
 </head>
-<body x-data="{ lang: 'id', scrolled: false, botOpen: false }, init() { $watch(\'lang\', val => triggerGTranslate(val)); }" 
-      @scroll.window="
-        scrolled = (window.pageYOffset > 50); 
-        let scrollP = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
-        if(scrollP > 20 && !botOpen) { botOpen = true; }
-      " 
-      class="antialiased selection:bg-brand-700 selection:text-white">
+<body class="font-sans antialiased selection:bg-aon-gold selection:text-aon-dark">
 
-    <!-- WIDGET PROPOSAL COCOTECH (Hanya di sini) -->
-    <a href="proposal.html" target="_blank" class="fixed top-24 right-6 z-50 flex items-center gap-3 bg-white text-dark px-4 py-3 rounded-xl shadow-premium hover:shadow-gold transition-all duration-300 border border-slate-200 group no-print">
-        <div class="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center text-slate-400 group-hover:bg-gold-500 group-hover:text-white transition-colors">
-            <i class="ph-bold ph-folder-lock text-xl"></i>
-        </div>
-        <div>
-            <div class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">CocoTech Agency</div>
-            <div class="font-bold text-xs text-slate-800" x-text="lang === 'id' ? 'Buka Proposal B2B' : 'View B2B Deck'"></div>
-        </div>
-    </a>
-
-    <!-- Navbar -->
-    <nav :class="{'glass-nav py-4': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full z-40 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-brand-700 text-white rounded-sm flex items-center justify-center font-serif text-2xl font-bold italic shadow-md">A</div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-bold tracking-tight font-serif" :class="{'text-dark': scrolled, 'text-dark': !scrolled}">MIE PANGSIT AON</span>
-                    <span class="text-[10px] tracking-widest uppercase text-gold-500 font-bold">Est. 1967</span>
-                </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-aon-gold font-serif text-2xl font-bold tracking-widest">
+                AON<span class="text-xs align-top ml-1 font-sans font-normal text-gray-400">®</span>
             </div>
-            
-            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600">
-                <a href="#heritage" class="hover:text-brand-700 transition-colors" x-text="lang === 'id' ? 'Warisan 1967' : '1967 Heritage'"></a>
-                <a href="#process" class="hover:text-brand-700 transition-colors" x-text="lang === 'id' ? 'Dapur Artisan' : 'Artisan Kitchen'"></a>
-                <a href="#d2c" class="hover:text-brand-700 transition-colors" x-text="lang === 'id' ? 'Langganan Beku' : 'Frozen Subscriptions'"></a>
-                
-                <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-md border border-slate-200 text-xs">
-                    <button @click="lang = 'id'" :class="lang === 'id' ? 'text-brand-700 font-bold' : 'text-slate-400 hover:text-slate-600'">ID</button>
-                    <span class="text-slate-300">|</span>
-                    <button @click="lang = 'en'" :class="lang === 'en' ? 'text-brand-700 font-bold' : 'text-slate-400 hover:text-slate-600'">EN</button>
-                </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <a href="#heritage" class="hover:text-aon-gold transition">Heritage</a>
+                <a href="#process" class="hover:text-aon-gold transition">Artisan Process</a>
+                <a href="#d2c-portal" class="text-aon-gold border-b-2 border-aon-gold pb-1">D2C Portal</a>
             </div>
+            <button class="md:hidden text-aon-gold"><i class="fas fa-bars text-xl"></i></button>
         </div>
     </nav>
 
-    <!-- Luxury Editorial Hero Section -->
-    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-[0.02]"></div>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <!-- Premium Dark Noodle Imagery -->
+            <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=1920&auto=format&fit=crop" alt="Premium Noodle" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-aon-dark via-aon-dark/80 to-transparent"></div>
+        </div>
         
-        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-12 gap-12 items-center relative z-10">
-            <div class="lg:col-span-5 space-y-8">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 border border-slate-200 text-slate-500 text-[10px] font-bold uppercase tracking-widest bg-white">
-                    <span class="w-1.5 h-1.5 rounded-full bg-gold-500"></span>
-                    <span x-text="lang === 'id' ? 'Pengiriman Dingin Nasional' : 'Nationwide Cold Delivery'"></span>
-                </div>
-                
-                <h1 class="text-5xl lg:text-4xl md:text-4xl md:text-6xl font-serif text-dark leading-tight">
-                    <span x-text="lang === 'id' ? 'Bawa Legenda' : 'Bring the Legend'"></span><br>
-                    <span class="italic text-brand-700 font-bold">1967</span><br>
-                    <span x-text="lang === 'id' ? 'Ke Meja Makan Anda.' : 'to Your Dining Table.'"></span>
-                </h1>
-                
-                <p class="text-slate-600 leading-relaxed" x-text="lang === 'id' ? 'Kelezatan bakmi artisan otentik dari Pematang Siantar, kini hadir di rumah Anda dalam kemasan frozen premium. Tanpa pengawet, murni dari dapur keluarga kami.' : 'The deliciousness of authentic artisan noodles from Pematang Siantar, now at your home in premium frozen packaging. No preservatives, purely from our family kitchen.'"></p>
-                
-                <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-100">
-                    <button onclick="document.getElementById('d2c').scrollIntoView({behavior: 'smooth'})" class="bg-dark text-white px-8 py-4 rounded-none font-medium text-sm transition-colors hover:bg-brand-700 flex items-center gap-2">
-                        <span x-text="lang === 'id' ? 'Pesan Langsung (D2C)' : 'Order Direct (D2C)'"></span>
-                        <i class="ph-bold ph-arrow-right"></i>
-                    </button>
-                    <button onclick="document.getElementById('heritage').scrollIntoView({behavior: 'smooth'})" class="bg-white border border-slate-300 text-slate-700 hover:border-dark px-8 py-4 rounded-none font-medium text-sm transition-all flex items-center gap-2">
-                        <span x-text="lang === 'id' ? 'Baca Kisah Kami' : 'Read Our Story'"></span>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- 3D Editorial Image Layout -->
-            <div class="lg:col-span-7 relative h-[600px] hidden lg:block" data-tilt data-tilt-max="2" data-tilt-speed="1000" data-tilt-perspective="1500">
-                <div class="absolute right-0 top-10 w-3/4 h-[500px] editorial-border bg-white z-10 shadow-premium">
-                    <img src="https://images.unsplash.com/photo-1612929633738-8fe01f7280ed?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover sepia-img" alt="Mie Pangsit Premium">
-                </div>
-                
-                <div class="absolute left-10 bottom-20 w-1/2 h-[300px] editorial-border bg-white z-20 shadow-2xl transform -translate-y-10">
-                    <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Proses Artisan">
-                    <div class="absolute -bottom-6 -right-6 bg-white p-4 shadow-lg border border-slate-100 text-center">
-                        <div class="font-serif font-bold text-2xl text-brand-700">100%</div>
-                        <div class="text-[9px] uppercase tracking-widest text-slate-500 font-bold">Otentik</div>
-                    </div>
-                </div>
-            </div>
+        <div class="relative z-10 text-center px-4 reveal mt-20">
+            <span class="text-aon-gold tracking-[0.3em] text-sm uppercase mb-4 block">Est. 1967 • Pematang Siantar</span>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-5xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+                Legenda Bakmi,<br>
+                <span class="text-aon-red italic">Tanpa Kompromi.</span>
+            </h1>
+            <p class="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl font-light mb-10">
+                Resep otentik yang dijaga selama lebih dari setengah abad. Kini diantarkan langsung ke meja makan Anda melalui teknologi logistik rantai dingin.
+            </p>
+            <a href="#d2c-portal" class="inline-block bg-aon-gold text-aon-dark px-8 py-4 uppercase tracking-widest text-sm font-bold hover:bg-white transition-all duration-300 rounded-sm">
+                Pesan Eksklusif
+            </a>
         </div>
-    </header>
-
-    <!-- Company Profile: Heritage Story -->
-    <section id="heritage" class="py-24 bg-surface border-t border-slate-200">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="text-brand-700 mb-6 flex justify-center"><i class="ph-fill ph-quotes text-4xl opacity-50"></i></div>
-            <h2 class="text-3xl lg:text-4xl font-serif text-dark mb-8 leading-relaxed">
-                "Bermula dari gerobak sederhana di Pematang Siantar, Simalungun. Kakek kami mewariskan filosofi bahwa bakmi yang baik membutuhkan waktu, dedikasi, dan bahan yang tak pernah dikompromikan."
-            </h2>
-            <p class="text-slate-500 mb-12" x-text="lang === 'id' ? 'Berdiri sejak 1967, Mie Pangsit Aon telah melewati tiga generasi. Dari kedai klasik ber-AC di Medan, kini kami berinovasi menghadirkan mahakarya ini dalam bentuk Frozen Food Premium agar diaspora dan pencinta kuliner di seluruh Indonesia dapat menikmati sejarah di setiap suapannya.' : 'Established in 1967, Mie Pangsit Aon has passed through three generations. From a classic air-conditioned shop in Medan, we now innovate by presenting this masterpiece in Premium Frozen Food form so that diaspora and food lovers across Indonesia can enjoy history in every bite.'"></p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8 border-t border-slate-200 pt-12">
-                <div>
-                    <div class="text-3xl font-serif text-dark mb-2">1967</div>
-                    <div class="text-xs uppercase tracking-widest text-slate-500 font-bold" x-text="lang === 'id' ? 'Tahun Berdiri' : 'Year Founded'"></div>
-                </div>
-                <div>
-                    <div class="text-3xl font-serif text-dark mb-2">3</div>
-                    <div class="text-xs uppercase tracking-widest text-slate-500 font-bold" x-text="lang === 'id' ? 'Generasi Resep' : 'Recipe Generations'"></div>
-                </div>
-                <div>
-                    <div class="text-3xl font-serif text-dark mb-2">0%</div>
-                    <div class="text-xs uppercase tracking-widest text-slate-500 font-bold" x-text="lang === 'id' ? 'Pengawet Buatan' : 'Artificial Preservatives'"></div>
-                </div>
-            </div>
+        
+        <div class="absolute bottom-10 animate-bounce text-aon-gold/50 text-2xl z-10">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- MODULE 1: Process Transparency Tracker (Trust Builder) -->
-    <section id="process" class="py-24 bg-white">
+    <!-- Heritage Section -->
+    <section id="heritage" class="py-24 bg-aon-dark relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-200 pb-6">
-                <div>
-                    <div class="text-xs font-bold text-gold-500 uppercase tracking-widest mb-2">Artisan Process</div>
-                    <h2 class="text-4xl font-serif text-dark">Dapur Transparansi Kami.</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?q=80&w=800&auto=format&fit=crop" alt="Heritage Maker" class="w-full rounded-sm grayscale hover:grayscale-0 transition duration-700 border border-aon-gray">
                 </div>
-                <p class="text-slate-500 max-w-md text-sm mt-4 md:mt-0" x-text="lang === 'id' ? 'Mengapa produk frozen kami berada di kelas premium (Rp 145.000 - Rp 212.000)? Ini adalah proses di balik layar yang membedakan kami.' : 'Why are our frozen products in the premium class? This is the behind-the-scenes process that sets us apart.'"></p>
+                <div class="reveal">
+                    <h2 class="font-serif text-4xl md:text-5xl text-aon-gold mb-8">Filosofi Waktu.</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        "Bermula dari gerobak sederhana di Pematang Siantar, Simalungun. Kakek kami mewariskan filosofi bahwa bakmi yang baik membutuhkan waktu, dedikasi, dan bahan yang tak pernah dikompromikan."
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-aon-gray">
+                        <div>
+                            <span class="block text-3xl font-serif text-white mb-1">1967</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-wider">Berdiri</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-serif text-white mb-1">3</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-wider">Generasi</span>
+                        </div>
+                        <div>
+                            <span class="block text-3xl font-serif text-aon-gold mb-1">100%</span>
+                            <span class="text-xs text-aon-gold uppercase tracking-wider">Otentik</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="grid md:grid-cols-4 gap-8">
+        </div>
+    </section>
+
+    <!-- Artisan Process Section -->
+    <section id="process" class="py-24 bg-[#161616]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-aon-gold tracking-widest text-xs uppercase mb-2 block">Dapur Transparansi</span>
+                <h2 class="font-serif text-4xl text-white">Infrastruktur Kualitas</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Step 1 -->
-                <div class="relative group">
-                    <div class="text-4xl md:text-4xl md:text-6xl font-serif text-slate-100 absolute -top-8 -left-4 z-0 group-hover:text-brand-50 transition-colors">01</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-dark text-white rounded-none flex items-center justify-center mb-6"><i class="ph-light ph-bowl-food text-2xl"></i></div>
-                        <h4 class="font-bold text-dark text-lg mb-3">Pembuatan Mie Manual</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">Adonan mi ditarik dan dipotong secara manual setiap subuh untuk menjaga tekstur kenyal khas Siantar.</p>
-                    </div>
+                <div class="bg-aon-gray/30 p-8 border border-aon-gray/50 hover:border-aon-gold transition duration-300 reveal rounded-sm">
+                    <div class="text-aon-gold text-3xl mb-6"><i class="fas fa-hands"></i></div>
+                    <h3 class="text-xl font-serif text-white mb-3">01. Tarikan Manual</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Adonan diuleni dan dipotong manual setiap subuh untuk tekstur kenyal sempurna.</p>
                 </div>
-                
                 <!-- Step 2 -->
-                <div class="relative group">
-                    <div class="text-4xl md:text-4xl md:text-6xl font-serif text-slate-100 absolute -top-8 -left-4 z-0 group-hover:text-brand-50 transition-colors">02</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-dark text-white rounded-none flex items-center justify-center mb-6"><i class="ph-light ph-cooking-pot text-2xl"></i></div>
-                        <h4 class="font-bold text-dark text-lg mb-3">Slow-Cooked Broth</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">Kaldu direbus perlahan selama 12 jam untuk mengekstrak rasa umami murni tanpa tambahan MSG.</p>
-                    </div>
+                <div class="bg-aon-gray/30 p-8 border border-aon-gray/50 hover:border-aon-gold transition duration-300 reveal transition-delay-100 rounded-sm">
+                    <div class="text-aon-gold text-3xl mb-6"><i class="fas fa-fire"></i></div>
+                    <h3 class="text-xl font-serif text-white mb-3">02. Slow-Cooked Broth</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Kaldu direbus 12 jam untuk mengekstrak umami murni, 100% tanpa pengawet.</p>
                 </div>
-                
                 <!-- Step 3 -->
-                <div class="relative group">
-                    <div class="text-4xl md:text-4xl md:text-6xl font-serif text-slate-100 absolute -top-8 -left-4 z-0 group-hover:text-brand-50 transition-colors">03</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-brand-700 text-white rounded-none flex items-center justify-center mb-6"><i class="ph-light ph-snowflake text-2xl"></i></div>
-                        <h4 class="font-bold text-dark text-lg mb-3">Flash-Freezing Technology</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">Makanan segera dibekukan dengan suhu ekstrem (-40°C) untuk mengunci kesegaran, tekstur, dan nutrisi secara sempurna.</p>
-                    </div>
+                <div class="bg-aon-gray/30 p-8 border border-aon-gray/50 hover:border-aon-gold transition duration-300 reveal transition-delay-200 rounded-sm">
+                    <div class="text-aon-gold text-3xl mb-6"><i class="fas fa-snowflake"></i></div>
+                    <h3 class="text-xl font-serif text-white mb-3">03. Flash-Freezing</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Teknologi ekstrem -40°C seketika mengunci rasa dan kesegaran nutrisi produk.</p>
                 </div>
-                
                 <!-- Step 4 -->
-                <div class="relative group">
-                    <div class="text-4xl md:text-4xl md:text-6xl font-serif text-slate-100 absolute -top-8 -left-4 z-0 group-hover:text-brand-50 transition-colors">04</div>
-                    <div class="relative z-10">
-                        <div class="w-12 h-12 bg-dark text-white rounded-none flex items-center justify-center mb-6"><i class="ph-light ph-package text-2xl"></i></div>
-                        <h4 class="font-bold text-dark text-lg mb-3">Cold-Chain Logistics</h4>
-                        <p class="text-sm text-slate-600 leading-relaxed">Dikirim menggunakan logistik berpendingin khusus, memastikan produk tiba di rumah Anda di Jakarta atau luar pulau dalam kondisi beku sempurna.</p>
-                    </div>
+                <div class="bg-aon-gray/30 p-8 border border-aon-gray/50 hover:border-aon-gold transition duration-300 reveal transition-delay-300 rounded-sm">
+                    <div class="text-aon-gold text-3xl mb-6"><i class="fas fa-truck-fast"></i></div>
+                    <h3 class="text-xl font-serif text-white mb-3">04. Cold-Chain Logistics</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Pengiriman armada berpendingin khusus ke seluruh kota besar di Indonesia.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MODULE 2: Direct-to-Consumer (D2C) Subscription Engine -->
-    <section id="d2c" class="py-24 bg-dark text-white relative" x-data="{ 
-        step: 1,
-        packType: '',
-        frequency: '',
-        location: '',
-        price: 0,
-        calculate() {
-            let base = this.packType === 'Family Pack' ? 212000 : 145000;
-            let mult = this.frequency === 'Mingguan' ? 4 : (this.frequency === 'Bulanan' ? 1 : 1);
-            let disc = this.frequency === 'Mingguan' ? 0.85 : (this.frequency === 'Bulanan' ? 0.90 : 1);
-            this.price = base * mult * disc;
-        },
-        submitOrder() {
-            let msg = `Halo Admin Mie Pangsit Aon, saya ingin memesan langsung tanpa marketplace:\n- Paket: *${this.packType}*\n- Pengiriman: *${this.frequency}*\n- Tujuan: *${this.location}*\nMohon panduan QRIS/VA untuk total Rp ${new Intl.NumberFormat('id-ID').format(this.price)}.`;
-            window.open('https://wa.me/62617342318?text=' + encodeURIComponent(msg), '_blank');
-            this.step = 4;
-        }
-    }">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-                <div class="text-xs font-bold text-gold-500 uppercase tracking-widest mb-4">Direct E-Commerce</div>
-                <h2 class="text-4xl lg:text-5xl font-serif mb-6 leading-tight">Pesan Langsung.<br><span class="text-slate-400 italic">Tanpa Potongan Marketplace.</span></h2>
-                <p class="text-slate-400 text-lg mb-8 leading-relaxed" x-text="lang === 'id' ? 'Dengan memesan langsung dari kami, Anda mendapatkan jaminan prioritas stok, pengiriman tercepat, dan harga langganan (Subscription) khusus pelanggan setia.' : 'By ordering directly, you get priority stock guarantee, fastest shipping, and special subscription prices for loyal customers.'"></p>
-                
-                <div class="p-6 border border-slate-800 bg-slate-900/50 mb-8">
-                    <h4 class="font-bold mb-4 flex items-center gap-2"><i class="ph-fill ph-crown text-gold-500"></i> Benefit Langganan (D2C)</h4>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-brand-500"></i> Diskon otomatis hingga 15% untuk langganan mingguan.</li>
-                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-brand-500"></i> Alokasi stok pasti (Tidak pernah kehabisan).</li>
-                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-brand-500"></i> Kemasan *therma-freeze* eksklusif.</li>
-                    </ul>
-                </div>
+    <!-- D2C Order Portal Section -->
+    <section id="d2c-portal" class="py-24 bg-aon-dark">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <div class="text-center mb-12">
+                <span class="text-aon-red tracking-widest text-xs uppercase mb-2 block font-bold">Direct-To-Consumer System</span>
+                <h2 class="font-serif text-4xl text-white mb-4">Pesan Langsung.<br>Tanpa Potongan Aplikasi.</h2>
+                <p class="text-gray-400 text-sm">Dapatkan alokasi stok prioritas dan harga pabrik.</p>
             </div>
-            
-            <!-- Dynamic D2C Flow -->
-            <div class="bg-white text-dark p-8 shadow-2xl relative" data-tilt data-tilt-max="2" data-tilt-glare data-tilt-max-glare="0.05">
-                <div class="flex justify-between items-center mb-8 border-b border-slate-200 pb-4">
-                    <h3 class="text-xl font-bold font-serif text-brand-700">D2C Order Portal</h3>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tahap <span x-text="step < 4 ? step : 3"></span> dari 3</div>
-                </div>
-                
-                <!-- Step 1: Package -->
-                <div x-show="step === 1" x-transition.in.opacity.duration.300ms>
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Pilih Paket Frozen</label>
-                    <div class="space-y-3 mb-8">
-                        <label class="flex items-center p-4 border rounded-none cursor-pointer transition-all" :class="packType === 'Signature Pack' ? 'border-dark bg-slate-50' : 'border-slate-200 hover:bg-slate-50'">
-                            <input type="radio" x-model="packType" value="Signature Pack" @change="calculate" class="hidden">
-                            <div class="flex-1">
-                                <div class="font-bold text-dark">Signature Pack (2 Porsi)</div>
-                                <div class="text-sm text-brand-700 font-bold">Rp 145.000</div>
-                            </div>
-                            <div class="w-5 h-5 border-2 rounded-full flex items-center justify-center" :class="packType === 'Signature Pack' ? 'border-dark' : 'border-slate-300'">
-                                <div class="w-2.5 h-2.5 bg-dark rounded-full" x-show="packType === 'Signature Pack'"></div>
-                            </div>
-                        </label>
-                        <label class="flex items-center p-4 border rounded-none cursor-pointer transition-all" :class="packType === 'Family Pack' ? 'border-dark bg-slate-50' : 'border-slate-200 hover:bg-slate-50'">
-                            <input type="radio" x-model="packType" value="Family Pack" @change="calculate" class="hidden">
-                            <div class="flex-1">
-                                <div class="font-bold text-dark">Family Pack (4 Porsi)</div>
-                                <div class="text-sm text-brand-700 font-bold">Rp 212.000</div>
-                            </div>
-                            <div class="w-5 h-5 border-2 rounded-full flex items-center justify-center" :class="packType === 'Family Pack' ? 'border-dark' : 'border-slate-300'">
-                                <div class="w-2.5 h-2.5 bg-dark rounded-full" x-show="packType === 'Family Pack'"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <button @click="if(packType) step = 2" class="w-full bg-dark text-white font-medium py-4 transition-colors" :class="!packType ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-700'">Lanjutkan <i class="ph-bold ph-arrow-right ml-1"></i></button>
-                </div>
-                
-                <!-- Step 2: Frequency & Location -->
-                <div x-show="step === 2" x-transition.in.opacity.duration.300ms style="display: none;">
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Frekuensi Pengiriman</label>
-                    <select x-model="frequency" @change="calculate" class="w-full bg-transparent border border-slate-200 rounded-none py-3 px-4 text-dark focus:outline-none focus:border-dark mb-6 font-medium">
-                        <option value="" disabled selected>Pilih jadwal...</option>
-                        <option value="Sekali Kirim">Sekali Kirim (Harga Normal)</option>
-                        <option value="Bulanan">Langganan 1 Bulan (Diskon 10%)</option>
-                        <option value="Mingguan">Langganan Mingguan / 4x Sebulan (Diskon 15%)</option>
-                    </select>
 
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Kota Tujuan (Khusus Paxel/Cold Chain)</label>
-                    <input type="text" x-model="location" class="w-full bg-transparent border border-slate-200 rounded-none py-3 px-4 text-dark focus:outline-none focus:border-dark mb-8 font-medium" placeholder="Contoh: Jakarta Selatan">
-
-                    <div class="flex gap-3">
-                        <button @click="step = 1" class="px-6 py-4 bg-slate-100 text-slate-600 font-medium hover:bg-slate-200 transition-colors">Kembali</button>
-                        <button @click="if(frequency && location) step = 3" class="flex-1 bg-dark text-white font-medium py-4 transition-colors" :class="!(frequency && location) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-700'">Hitung Total <i class="ph-bold ph-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
+            <!-- Portal Container -->
+            <div class="bg-[#181818] border border-aon-gray rounded-lg p-6 md:p-10 shadow-2xl relative overflow-hidden">
                 
-                <!-- Step 3: Calculation & Checkout -->
-                <div x-show="step === 3" x-transition.in.opacity.duration.300ms style="display: none;">
-                    <div class="bg-slate-50 p-6 border border-slate-200 mb-8">
-                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Ringkasan Pesanan D2C</div>
-                        <div class="flex justify-between mb-2 text-sm font-medium">
-                            <span class="text-slate-600" x-text="packType"></span>
-                            <span class="text-dark" x-text="packType === 'Family Pack' ? 'Rp 212.000' : 'Rp 145.000'"></span>
-                        </div>
-                        <div class="flex justify-between mb-4 text-sm font-medium border-b border-slate-200 pb-4">
-                            <span class="text-slate-600" x-text="'Skema: ' + frequency"></span>
-                            <span class="text-brand-700 font-bold" x-text="frequency === 'Mingguan' ? '-15%' : (frequency === 'Bulanan' ? '-10%' : '')"></span>
-                        </div>
-                        <div class="flex justify-between items-end">
-                            <span class="text-sm font-bold text-dark">Total Estimasi</span>
-                            <span class="text-2xl font-serif font-bold text-brand-700">Rp <span x-text="new Intl.NumberFormat('id-ID').format(price)"></span></span>
-                        </div>
+                <!-- Progress Indicator -->
+                <div class="flex justify-between items-center mb-10 border-b border-aon-gray pb-6">
+                    <div id="ind-step-1" class="text-center flex-1 step-active transition duration-300">
+                        <span class="text-xs uppercase tracking-widest block font-bold mb-1">Tahap 01</span>
+                        <span class="font-serif">Kurasi Produk</span>
                     </div>
-                    
-                    <div class="flex gap-3">
-                        <button @click="step = 2" class="px-6 py-4 bg-slate-100 text-slate-600 font-medium hover:bg-slate-200 transition-colors">Kembali</button>
-                        <button @click="submitOrder()" class="flex-1 bg-brand-700 text-white font-bold py-4 shadow-lg shadow-brand-700/20 hover:bg-brand-900 transition-colors flex items-center justify-center gap-2"><i class="ph-bold ph-whatsapp-logo text-lg"></i> Proses Pembayaran VA/QRIS</button>
+                    <div id="ind-step-2" class="text-center flex-1 step-inactive transition duration-300 border-l border-r border-aon-gray">
+                        <span class="text-xs uppercase tracking-widest block font-bold mb-1">Tahap 02</span>
+                        <span class="font-serif">Logistik</span>
+                    </div>
+                    <div id="ind-step-3" class="text-center flex-1 step-inactive transition duration-300">
+                        <span class="text-xs uppercase tracking-widest block font-bold mb-1">Tahap 03</span>
+                        <span class="font-serif">Konfirmasi</span>
                     </div>
                 </div>
 
-                <!-- Step 4: Success -->
-                <div x-show="step === 4" x-transition class="text-center py-8" style="display: none;">
-                    <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
-                        <i class="ph-bold ph-check text-3xl"></i>
+                <!-- Step 1: Select Product -->
+                <div id="step-1" class="transition-all duration-500">
+                    <h3 class="text-white text-xl font-serif mb-6">Pilih Varian Frozen <span class="text-aon-red">*</span></h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        
+                        <div class="product-card bg-aon-dark p-6 rounded cursor-pointer relative" onclick="selectProduct('signature', 145000, 'Signature Pack (2 Porsi)')" id="card-signature">
+                            <div class="absolute top-4 right-4 text-aon-gold opacity-0 check-icon"><i class="fas fa-check-circle"></i></div>
+                            <h4 class="text-white font-bold mb-1">Signature Pack</h4>
+                            <p class="text-gray-400 text-sm mb-4">2 Porsi Komplit (Mie, Pangsit, Bumbu, Ayam, Kaldu)</p>
+                            <span class="text-aon-gold font-serif text-lg">Rp 145.000</span>
+                        </div>
+
+                        <div class="product-card bg-aon-dark p-6 rounded cursor-pointer relative" onclick="selectProduct('family', 212000, 'Family Pack (4 Porsi)')" id="card-family">
+                            <div class="absolute top-4 right-4 text-aon-gold opacity-0 check-icon"><i class="fas fa-check-circle"></i></div>
+                            <h4 class="text-white font-bold mb-1">Family Pack</h4>
+                            <p class="text-gray-400 text-sm mb-4">4 Porsi Komplit (Hemat 20%)</p>
+                            <span class="text-aon-gold font-serif text-lg">Rp 212.000</span>
+                        </div>
+
                     </div>
-                    <h4 class="text-xl font-bold font-serif text-dark mb-2">Checkout Dialihkan!</h4>
-                    <p class="text-slate-500 text-sm">Selesaikan pembayaran Anda dengan aman melalui admin resmi WhatsApp kami.</p>
+                    <button onclick="nextStep(2)" class="w-full bg-white text-aon-dark py-4 font-bold uppercase tracking-widest text-sm hover:bg-aon-gold transition-colors" id="btn-next-1">Lanjutkan <i class="fas fa-arrow-right ml-2"></i></button>
+                    <p id="error-step-1" class="text-aon-red text-sm mt-3 hidden text-center">Silakan pilih produk terlebih dahulu.</p>
                 </div>
+
+                <!-- Step 2: Frequency & Shipping -->
+                <div id="step-2" class="hidden transition-all duration-500">
+                    <div class="mb-6">
+                        <label class="text-white text-sm block mb-3 font-bold">Kuantitas Pesanan</label>
+                        <div class="flex items-center space-x-4 bg-aon-dark p-2 rounded border border-aon-gray w-max">
+                            <button onclick="updateQty(-1)" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white"><i class="fas fa-minus"></i></button>
+                            <span id="qty-display" class="text-white font-serif text-xl w-8 text-center">1</span>
+                            <button onclick="updateQty(1)" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <label class="text-white text-sm block mb-3 font-bold">Frekuensi Langganan (Subscription)</label>
+                        <select id="sub-select" onchange="updateSubscription()" class="w-full bg-aon-dark border border-aon-gray text-white p-4 rounded outline-none focus:border-aon-gold transition">
+                            <option value="once">Pembelian Sekali (Harga Normal)</option>
+                            <option value="monthly">Langganan 1 Bulan (Diskon 10%)</option>
+                            <option value="weekly">Langganan Mingguan / 4x Sebulan (Diskon 15%)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-8">
+                        <label class="text-white text-sm block mb-3 font-bold">Kota Pengiriman (Paxel Cold-Chain)</label>
+                        <input type="text" id="city-input" placeholder="Contoh: Jakarta Selatan" class="w-full bg-aon-dark border border-aon-gray text-white p-4 rounded outline-none focus:border-aon-gold transition">
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <button onclick="prevStep(1)" class="w-1/3 border border-aon-gray text-white py-4 font-bold uppercase tracking-widest text-sm hover:border-white transition-colors">Kembali</button>
+                        <button onclick="nextStep(3)" class="w-2/3 bg-white text-aon-dark py-4 font-bold uppercase tracking-widest text-sm hover:bg-aon-gold transition-colors">Hitung Estimasi</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Summary -->
+                <div id="step-3" class="hidden transition-all duration-500">
+                    <div class="bg-aon-dark border border-aon-gray p-6 rounded mb-8">
+                        <h4 class="text-aon-gold font-serif text-xl mb-4 border-b border-aon-gray pb-2">Ringkasan Eksklusif</h4>
+                        
+                        <div class="flex justify-between text-gray-300 text-sm mb-3">
+                            <span id="sum-product-name">-</span>
+                            <span id="sum-qty">x1</span>
+                        </div>
+                        <div class="flex justify-between text-gray-300 text-sm mb-3">
+                            <span>Tipe Pesanan</span>
+                            <span id="sum-sub-type">-</span>
+                        </div>
+                        <div class="flex justify-between text-aon-red text-sm mb-3 border-b border-aon-gray pb-4" id="sum-discount-row">
+                            <span>Benefit Langganan</span>
+                            <span id="sum-discount-amount">-Rp 0</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-white font-bold">Total Estimasi</span>
+                            <span class="text-aon-gold font-serif text-2xl" id="sum-total">Rp 0</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 text-right">*Belum termasuk ongkos kirim Cold-Chain</p>
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <button onclick="prevStep(2)" class="w-1/3 border border-aon-gray text-white py-4 font-bold uppercase tracking-widest text-sm hover:border-white transition-colors">Edit</button>
+                        <button onclick="checkoutWhatsApp()" class="w-2/3 bg-aon-gold text-aon-dark py-4 font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors">
+                            <i class="fab fa-whatsapp mr-2 text-lg"></i> Proses via Admin
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- LIVE SOCIAL PROOF ENGINE (Simulated Toast) -->
-    <div x-data="{ show: false, message: '' }" 
-         x-init="
-            const msgs = [
-                'Pelanggan dari Jakarta Selatan baru saja berlangganan Family Pack.',
-                'Restock mingguan untuk area Jabodetabek telah tiba.',
-                'Pelanggan dari Bandung mem-booking Signature Pack via D2C.'
-            ];
-            setInterval(() => {
-                message = msgs[Math.floor(Math.random() * msgs.length)];
-                show = true;
-                setTimeout(() => show = false, 4000);
-            }, 15000);
-         "
-         x-show="show" 
-         x-transition:enter="toast-enter"
-         x-transition:leave="transition ease-in duration-300"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         class="fixed bottom-6 left-6 z-50 bg-dark text-white border border-slate-700 p-4 shadow-2xl flex items-center gap-4 max-w-xs" style="display: none;">
-        <div class="w-2 h-2 bg-brand-500 rounded-full animate-ping shrink-0"></div>
-        <div>
-            <div class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">D2C Live Update</div>
-            <div class="text-xs font-medium leading-relaxed" x-text="message"></div>
-        </div>
-    </div>
-
-    <!-- Professional Mega-Footer -->
-    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 border-b border-slate-100 pb-12">
-            <div class="col-span-1 md:col-span-2">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-brand-700 text-white rounded-sm flex items-center justify-center font-serif text-xl font-bold italic shadow-md">A</div>
-                    <div class="flex flex-col">
-                        <span class="text-lg font-bold tracking-tight font-serif text-dark">MIE PANGSIT AON</span>
-                        <span class="text-[9px] tracking-widest uppercase text-gold-500 font-bold">Legendary Siantar Noodle</span>
-                    </div>
-                </div>
-                <p class="text-slate-500 text-sm leading-relaxed max-w-sm" x-text="lang === 'id' ? 'Mempertahankan warisan resep orisinal sejak 1967 dari Pematang Siantar, kini hadir ke seluruh Nusantara melalui logistik pengiriman beku premium.' : 'Preserving the original recipe heritage since 1967 from Pematang Siantar, now available across the archipelago through premium frozen logistics.'"></p>
+    <!-- Footer -->
+    <footer class="bg-[#0A0A0A] border-t border-aon-gray py-12 text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            
+            <div class="md:col-span-1">
+                <div class="text-aon-gold font-serif text-3xl font-bold tracking-widest mb-2">AON<span class="text-sm font-sans font-normal text-gray-500">®</span></div>
+                <p class="text-gray-500 text-sm">Legendary Siantar Noodle<br>Sejak 1967.</p>
             </div>
             
-            <div>
-                <h4 class="font-bold text-dark mb-6 font-serif tracking-wide" x-text="lang === 'id' ? 'Tautan Cepat' : 'Quick Links'"></h4>
-                <ul class="space-y-3 text-sm text-slate-500">
-                    <li><a href="#heritage" class="hover:text-brand-700 transition-colors" x-text="lang === 'id' ? 'Kisah 1967' : '1967 Story'"></a></li>
-                    <li><a href="#process" class="hover:text-brand-700 transition-colors" x-text="lang === 'id' ? 'Transparansi Dapur' : 'Kitchen Transparency'"></a></li>
-                    <li><a href="#d2c" class="hover:text-brand-700 transition-colors" x-text="lang === 'id' ? 'Pesan Langsung (D2C)' : 'Direct Order (D2C)'"></a></li>
-                </ul>
+            <div class="md:col-span-1 text-gray-400 text-sm leading-loose">
+                <p><i class="fas fa-map-marker-alt text-aon-gold mr-2 w-4"></i> Jl. Jose Rizal, Kota Medan</p>
+                <p><i class="fas fa-clock text-aon-gold mr-2 w-4"></i> 07:00 - 17:00 WIB (Tiap Hari)</p>
+                <p><i class="fas fa-phone text-aon-gold mr-2 w-4"></i> +62 6173 42318</p>
             </div>
 
-            <div>
-                <h4 class="font-bold text-dark mb-6 font-serif tracking-wide" x-text="lang === 'id' ? 'Kunjungi Kami' : 'Visit Us'"></h4>
-                <ul class="space-y-3 text-sm text-slate-500">
-                    <li class="flex items-start gap-2"><i class="ph-fill ph-map-pin text-brand-700 mt-1"></i> <span>Jl. Jose Rizal, Kota Medan<br>Sumatera Utara, Indonesia</span></li>
-                    <li class="flex items-center gap-2"><i class="ph-fill ph-clock text-brand-700"></i> <span>07:00 - 17:00 WIB (Setiap Hari)</span></li>
-                    <li class="flex items-center gap-2"><i class="ph-fill ph-phone text-brand-700"></i> <span>+62 6173 42318</span></li>
-                </ul>
+            <div class="md:col-span-1 md:text-right">
+                <p class="text-gray-600 text-sm mb-2">&copy; 2026 Mie Pangsit Aon. Hak Cipta Dilindungi.</p>
+                <p class="text-xs text-gray-500">
+                    System Infrastructure engineered by <br>
+                    <a href="https://cocotech.studio" class="text-aon-gold hover:text-white transition uppercase tracking-widest font-bold border-b border-aon-gold/30">CocoTech Studio</a>
+                </p>
             </div>
-        </div>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-slate-400 text-xs">&copy; <span x-text="new Date().getFullYear()"></span> Mie Pangsit Aon. Hak cipta dilindungi.</div>
-            <div class="text-slate-400 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
-                System Infrastructure by <a href="https://cocotech.studio" target="_blank" class="text-brand-700 hover:underline">CocoTech Studio</a>
-            </div>
         </div>
     </footer>
 
+    <!-- JavaScript System Logic -->
     <script>
-        VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
-    </script>
-
-    <!-- Google Translate Universal Engine -->
-    <div id="google_translate_element" style="display:none;"></div>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'id', includedLanguages: 'id,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
-        }
-        function triggerGTranslate(lang) {
-            var selectField = document.querySelector(".goog-te-combo");
-            if (selectField) {
-                selectField.value = lang;
-                selectField.dispatchEvent(new Event('change'));
+        // --- SCROLL ANIMATION SYSTEM ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
             }
         }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    
-    <style>
-        body { top: 0 !important; }
-        .skiptranslate { display: none !important; }
-    </style>
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
 
+        // --- D2C PORTAL SYSTEM LOGIC ---
+        let orderState = {
+            productId: null,
+            productName: '',
+            basePrice: 0,
+            qty: 1,
+            subType: 'once',
+            subDiscountPercent: 0,
+            city: ''
+        };
+
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        };
+
+        function selectProduct(id, price, name) {
+            orderState.productId = id;
+            orderState.basePrice = price;
+            orderState.productName = name;
+
+            // UI Update
+            document.querySelectorAll('.product-card').forEach(el => {
+                el.classList.remove('selected');
+                el.querySelector('.check-icon').classList.remove('opacity-100');
+                el.querySelector('.check-icon').classList.add('opacity-0');
+            });
+            
+            const activeCard = document.getElementById(`card-${id}`);
+            activeCard.classList.add('selected');
+            activeCard.querySelector('.check-icon').classList.remove('opacity-0');
+            activeCard.querySelector('.check-icon').classList.add('opacity-100');
+            
+            document.getElementById('error-step-1').classList.add('hidden');
+        }
+
+        function updateQty(change) {
+            let newQty = orderState.qty + change;
+            if(newQty >= 1 && newQty <= 50) {
+                orderState.qty = newQty;
+                document.getElementById('qty-display').innerText = orderState.qty;
+            }
+        }
+
+        function updateSubscription() {
+            const val = document.getElementById('sub-select').value;
+            orderState.subType = val;
+            if(val === 'once') orderState.subDiscountPercent = 0;
+            if(val === 'monthly') orderState.subDiscountPercent = 10;
+            if(val === 'weekly') orderState.subDiscountPercent = 15;
+        }
+
+        function updateSummary() {
+            const subTotal = orderState.basePrice * orderState.qty;
+            const discountAmt = (subTotal * orderState.subDiscountPercent) / 100;
+            const finalTotal = subTotal - discountAmt;
+
+            document.getElementById('sum-product-name').innerText = orderState.productName;
+            document.getElementById('sum-qty').innerText = `x${orderState.qty}`;
+            
+            let subText = 'Sekali Kirim';
+            if(orderState.subType === 'monthly') subText = 'Langganan Bulanan (-10%)';
+            if(orderState.subType === 'weekly') subText = 'Langganan Mingguan (-15%)';
+            document.getElementById('sum-sub-type').innerText = subText;
+
+            if(discountAmt > 0) {
+                document.getElementById('sum-discount-row').classList.remove('hidden');
+                document.getElementById('sum-discount-row').classList.add('flex');
+                document.getElementById('sum-discount-amount').innerText = `-${formatRupiah(discountAmt)}`;
+            } else {
+                document.getElementById('sum-discount-row').classList.add('hidden');
+                document.getElementById('sum-discount-row').classList.remove('flex');
+            }
+
+            document.getElementById('sum-total').innerText = formatRupiah(finalTotal);
+        }
+
+        function nextStep(targetStep) {
+            if(targetStep === 2 && !orderState.productId) {
+                document.getElementById('error-step-1').classList.remove('hidden');
+                return;
+            }
+
+            if(targetStep === 3) {
+                orderState.city = document.getElementById('city-input').value || 'Belum diisi';
+                updateSummary();
+            }
+
+            // Hide all, show target
+            [1, 2, 3].forEach(step => {
+                document.getElementById(`step-${step}`).classList.add('hidden');
+                let ind = document.getElementById(`ind-step-${step}`);
+                ind.classList.remove('step-active');
+                ind.classList.add('step-inactive');
+            });
+
+            document.getElementById(`step-${targetStep}`).classList.remove('hidden');
+            document.getElementById(`ind-step-${targetStep}`).classList.remove('step-inactive');
+            document.getElementById(`ind-step-${targetStep}`).classList.add('step-active');
+        }
+
+        function prevStep(targetStep) {
+            // Logic is identical to nextStep for UI toggling
+            [1, 2, 3].forEach(step => {
+                document.getElementById(`step-${step}`).classList.add('hidden');
+                let ind = document.getElementById(`ind-step-${step}`);
+                ind.classList.remove('step-active');
+                ind.classList.add('step-inactive');
+            });
+
+            document.getElementById(`step-${targetStep}`).classList.remove('hidden');
+            document.getElementById(`ind-step-${targetStep}`).classList.remove('step-inactive');
+            document.getElementById(`ind-step-${targetStep}`).classList.add('step-active');
+        }
+
+        function checkoutWhatsApp() {
+            // Ganti nomor WA di sini
+            const waNumber = "6281234567890"; 
+            
+            const subTotal = orderState.basePrice * orderState.qty;
+            const discountAmt = (subTotal * orderState.subDiscountPercent) / 100;
+            const finalTotal = subTotal - discountAmt;
+
+            let message = `*VVIP ORDER - MIE PANGSIT AON*\n\n`;
+            message += `Halo Admin, saya ingin memesan melalui D2C Portal:\n\n`;
+            message += `*Produk:* ${orderState.productName}\n`;
+            message += `*Jumlah:* ${orderState.qty} pax\n`;
+            message += `*Tipe Pemesanan:* ${orderState.subType === 'once' ? 'Sekali Kirim' : 'Langganan'}\n`;
+            message += `*Kota Tujuan:* ${orderState.city}\n\n`;
+            message += `*Estimasi Harga:* ${formatRupiah(finalTotal)}\n\n`;
+            message += `Mohon info ongkos kirim Cold-Chain & Nomor Rekening / QRIS. Terima kasih.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
 </body>
 </html>

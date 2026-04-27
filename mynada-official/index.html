@@ -157,7 +157,7 @@
             <div class="flex-1 overflow-y-auto p-6 bg-white">
                 <template x-if="cart.length === 0">
                     <div class="h-full flex flex-col items-center justify-center text-slate-300 space-y-4">
-                        <i class="ph-light ph-shopping-bag-open text-4xl md:text-6xl"></i>
+                        <i class="ph-light ph-shopping-bag-open text-4xl md:text-4xl md:text-6xl"></i>
                         <p class="text-sm">Keranjang Anda kosong.</p>
                     </div>
                 </template>
@@ -262,17 +262,17 @@
                     <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Buah Batu, Bandung</span>
                 </div>
                 
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif leading-[1.1] tracking-tight">
+                <h1 class="text-4xl md:text-4xl md:text-6xl lg:text-7xl font-serif leading-[1.1] tracking-tight">
                     <template x-if="persona === 'retail'">
                         <span class="text-nada-900">
                             Modest Fashion,<br>
-                            <span class="italic font-light text-nada-500 text-3xl md:text-5xl lg:text-6xl">Elevated.</span>
+                            <span class="italic font-light text-nada-500 text-3xl md:text-5xl lg:text-4xl md:text-6xl">Elevated.</span>
                         </span>
                     </template>
                     <template x-if="persona === 'reseller'">
                         <span class="text-white">
                             Join the Mynada<br>
-                            <span class="italic font-light text-slate-400 text-3xl md:text-5xl lg:text-6xl">Distribution Network.</span>
+                            <span class="italic font-light text-slate-400 text-3xl md:text-5xl lg:text-4xl md:text-6xl">Distribution Network.</span>
                         </span>
                     </template>
                 </h1>
@@ -406,7 +406,7 @@
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="text-[10px] font-bold uppercase tracking-widest mb-3" :class="persona === 'retail' ? 'text-nada-500' : 'text-slate-500'">Trusted by Thousands</div>
             <h2 class="text-3xl font-serif mb-12" :class="persona === 'retail' ? 'text-nada-900' : 'text-white'">As Seen On Our Lovely Customers</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Review 1 -->
                 <div class="p-6 bg-white shadow-premium text-left rounded-xl" :class="persona === 'reseller' ? 'bg-black border border-slate-800 shadow-none' : ''">
                     <div class="flex items-center gap-1 text-yellow-500 mb-4">
@@ -450,7 +450,7 @@
             <h2 class="text-3xl font-serif text-nada-900 mb-4">Crafted in Bandung.</h2>
             <p class="text-slate-500 max-w-xl mx-auto font-light text-sm mb-16">MYNADA bukan fesyen massal pabrikan (*fast-fashion*). Kami memberdayakan penjahit lokal Buah Batu untuk menghasilkan kualitas butik di setiap potongannya.</p>
             
-            <div x-data="{ shown1: false, shown2: false, shown3: false }" class="grid md:grid-cols-1 lg:grid-cols-3 gap-12 max-w-4xl mx-auto text-left">
+            <div x-data="{ shown1: false, shown2: false, shown3: false }" class="grid md:grid-cols-1 lg:grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto text-left">
                 <div class="border-l border-nada-300 pl-6 transition-all duration-1000 transform" :class="shown1 ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'" @scroll.window="shown1 = shown1 || (window.scrollY > $el.offsetTop - window.innerHeight + 100)">
                     <div class="text-3xl font-serif text-nada-300 mb-4">01.</div>
                     <h4 class="font-bold text-dark text-sm uppercase tracking-widest mb-2">Textile Sourcing</h4>
