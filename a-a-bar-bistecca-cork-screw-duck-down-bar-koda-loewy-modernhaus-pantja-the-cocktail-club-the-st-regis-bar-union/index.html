@@ -211,7 +211,7 @@
                 <p class="text-brand-platinum/60 max-w-2xl mx-auto">Kami memahami DNA bisnis Anda. Dari pesona klasik Union, atmosfir misterius A/A Bar, hingga presisi mixology Pantja. Kesempurnaan fisik ini membutuhkan pendamping digital yang sama mahakaryanya.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
                 <!-- Bento Box 1: Mixology -->
                 <div class="col-span-1 md:col-span-2 row-span-1 glass-panel rounded-3xl p-8 relative overflow-hidden group">
                     <div class="absolute inset-0 bg-gradient-to-br from-brand-wine/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -320,7 +320,7 @@
                         <!-- Table Layout Selection -->
                         <div class="space-y-4">
                             <label class="text-sm text-brand-platinum/60 uppercase tracking-wider font-bold">Pilih Area & Minimum Spend</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-4">
                                 <template x-for="(area, index) in areas" :key="index">
                                     <div @click="selectedArea = index" 
                                          :class="selectedArea === index ? 'border-brand-gold bg-brand-gold/10' : 'border-brand-gold/20 hover:border-brand-gold/50 bg-brand-dark/50'"
@@ -356,7 +356,7 @@
                     
                     <div x-show="locked" class="w-full max-w-md mx-auto relative">
                         <div class="text-center mb-8">
-                            <i class="ph-duotone ph-shield-check text-4xl md:text-6xl text-brand-gold mb-4 animate-pulse"></i>
+                            <i class="ph-duotone ph-shield-check text-4xl md:text-4xl md:text-6xl text-brand-gold mb-4 animate-pulse"></i>
                             <h3 class="text-2xl font-serif text-white">Area Anggota Eksklusif</h3>
                             <p class="text-sm text-brand-platinum/50 mt-2">Hanya untuk member The Elite Collective. Masukkan Black Card ID atau Pindai Biometrik.</p>
                         </div>
@@ -533,7 +533,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/90 to-transparent"></div>
         
         <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10 text-center">
-            <h2 class="text-4xl md:text-4xl md:text-6xl font-serif font-bold text-white mb-6">Penawaran Arsitektur <br><span class="text-brand-gold">Tertutup & Terbatas</span></h2>
+            <h2 class="text-4xl md:text-4xl md:text-4xl md:text-6xl font-serif font-bold text-white mb-6">Penawaran Arsitektur <br><span class="text-brand-gold">Tertutup & Terbatas</span></h2>
             <p class="text-xl text-brand-platinum/80 mb-12 font-light">
                 Sebagai bagian dari grup The World's 50 Best Discovery, Anda berhak atas sistem terbaik. Kami hanya membuka slot implementasi untuk <strong class="text-brand-gold">1 Klien F&B Premium per kuartal</strong><br><br><em style="font-size:11px;opacity:0.7;">Dibuat oleh <a href="https://cocotech.studio" target="_blank" style="color:inherit;text-decoration:underline;">CocoTech</a> — IT Agency sangat berpengalaman di industri premium Indonesia</em> untuk menjamin kerahasiaan dan dedikasi penuh (Harga Setup: <strong>Rp 15.000.000</strong> (DP Rp 4.500.000) &bull; Total Value Platform: Rp 385.000.000).
             </p>

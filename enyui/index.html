@@ -145,7 +145,7 @@
                 Jl. Palagan KM 14, Sleman • Premium Retails
             </div>
             
-            <h1 class="text-5xl md:text-7xl lg:text-5xl lg:text-8xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
+            <h1 class="text-5xl md:text-7xl lg:text-5xl lg:text-5xl lg:text-8xl font-serif font-bold text-ink leading-[1.1] mb-8 tracking-tight">
                 Estetika Japandi Anda <br/>
                 <span class="relative inline-block mt-2">
                     <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-wood-500 to-wood-900">Bukan Sekadar Persinggahan.</span>
@@ -211,7 +211,7 @@
             </div>
 
             <!-- Bento Grid Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
                 
                 <!-- Card 1: Kolam Air Mengalir -->
                 <div class="md:col-span-2 relative rounded-3xl overflow-hidden group">
@@ -293,7 +293,7 @@
             </div>
 
             <!-- Menu Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-8">
                 <template x-for="item in filteredMenu" :key="item.id">
                     <div class="bg-paper rounded-2xl p-6 border border-wood-100 shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                         <div class="h-48 rounded-xl bg-wood-100 mb-6 overflow-hidden relative">
@@ -423,7 +423,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-ink mb-2">Slot Tersedia</label>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="grid grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-3">
                                 <template x-for="timeSlot in ['08:00', '10:00', '13:00', '15:00', '17:00']">
                                     <button type="button" @click="time = timeSlot" 
                                             class="py-3 rounded-xl border text-sm font-medium transition-colors"

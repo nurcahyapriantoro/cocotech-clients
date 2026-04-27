@@ -1,0 +1,29 @@
+Role: Titanium God-Tier Web Architect, UI/UX Expert, and Wedding Customization Specialist.
+Client: POLIROSA CRAFT, Bojong Pondok Terong, Cipayung, Depok.
+Tech Stack: HTML5, Tailwind CSS, Alpine.js, Vanilla-Tilt.js, Phosphor Icons.
+Google Fonts: 'Playfair Display' (Elegant/Wedding) & 'Inter' (Modern/Clean).
+
+Design System (ui-ux-pro-max + frontend-design):
+- Pattern: Wedding Souvenir Gallery & Dynamic Pricing Estimator
+- Style: Rustic Elegance, Craftsmanship, Romantic, Clean Minimalist
+- Colors: 
+  - Primary: #FAFAFA (Paper White)
+  - Secondary: #27272A (Zinc Dark)
+  - Accent/Brand: #9CA3AF (Muted Silver) & #D4AF37 (Rustic Gold/Wood)
+  - Text: #18181B / #F4F4F5
+
+Copywriting Strategy (The Aha Moment):
+- Big Idea: "Cendera Mata Penuh Makna, Dibuat Sepenuh Hati." (Meaningful Keepsakes, Crafted with Heart.)
+- Unique Mechanism: "Dynamic Price Estimator & Artisan Gallery" - Kalkulator harga souvenir pernikahan berbasis algoritma volume.
+- Target: Calon pengantin (wedding clients) dan Wedding Organizer (B2B mass buyers).
+
+Mandatory Sections (PURE BLUEPRINT - NO COCOTECH SALES PITCH IN INDEX.HTML):
+1. Romantic 3D Hero Section: Cinematic imagery of crafted souvenirs, elegant typography.
+2. Dual-Persona Engine: "Personal Customization" vs "Wedding Organizer (Bulk)".
+3. Dynamic Price Estimator (Alpine.js): Pengguna memasukkan jumlah pesanan suvenir dan sistem menghitung otomatis diskon partai besar.
+4. The Artisan Portfolio: Galeri karya suvenir yang pernah dibuat dengan efek tilt 3D.
+5. Headless WhatsApp Cart: Sistem order yang merangkum kuantitas, kustomisasi grafir, dan estimasi harga ke WA.
+6. The VVIP Backdoor (Easter Egg): Klik logo 3x untuk "Portal Mitra WO" yang menampilkan katalog harga pabrik (wholesale).
+7. Professional Mega Footer: Lokasi workshop di Depok, garansi pengerjaan tepat waktu.
+
+UI/UX Rules: Awwwards-level execution, NO LOREM IPSUM, romantic & rustic aesthetic, fast-loading, mobile-friendly.

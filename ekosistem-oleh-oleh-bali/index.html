@@ -343,19 +343,19 @@
                     <span x-text="persona === 'personal' ? 'Otentik dari Pabrik Bali' : 'Suplai Langsung Distribusi Kargo'"></span>
                 </div>
                 
-                <h1 class="text-4xl md:text-6xl lg:text-5xl lg:text-8xl font-serif font-normal leading-[1.05] tracking-tight">
+                <h1 class="text-4xl md:text-4xl md:text-6xl lg:text-5xl lg:text-5xl lg:text-8xl font-serif font-normal leading-[1.05] tracking-tight">
                     <template x-if="persona === 'personal'">
                         <span class="text-zinc-900">
                             <span class="italic text-5xl lg:text-7xl text-zinc-500">Bawa Pulang Rasa</span><br>
                             Rindu Bali.<br>
-                            <span class="text-bali-500 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">Kapan Saja, Di Mana Saja.</span>
+                            <span class="text-bali-500 italic text-4xl lg:text-4xl md:text-4xl md:text-6xl mt-4 block">Kapan Saja, Di Mana Saja.</span>
                         </span>
                     </template>
                     <template x-if="persona === 'jastip'">
                         <span class="text-white">
                             <span class="italic text-5xl lg:text-7xl text-zinc-400">Potong Jalur Ritel.</span><br>
                             Suplai Nusantara.<br>
-                            <span class="text-bali-500 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">Aman Hingga ke Tangan Reseller.</span>
+                            <span class="text-bali-500 italic text-4xl lg:text-4xl md:text-4xl md:text-6xl mt-4 block">Aman Hingga ke Tangan Reseller.</span>
                         </span>
                     </template>
                 </h1>
@@ -404,7 +404,7 @@
                 <p class="max-w-2xl mx-auto font-light text-base leading-relaxed" :class="persona === 'jastip' ? 'text-zinc-400' : 'text-zinc-600'">Masalah terbesar membeli Pia atau kue basah dari luar Bali adalah risiko hancur saat di kargo bandara. Kami telah memecahkan masalah tersebut dengan infrastruktur pengemasan tingkat militer.</p>
             </div>
             
-            <div class="grid md:grid-cols-1 md:grid-cols-3 gap-12 relative">
+            <div class="grid md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-12 relative">
                 <!-- Connecting Line -->
                 <div class="hidden md:block absolute top-12 left-0 w-full h-px" :class="persona === 'jastip' ? 'bg-zinc-800' : 'bg-zinc-200'"></div>
 
@@ -465,7 +465,7 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-10">
                 <template x-for="item in filtered" :key="item.id">
                     <div class="group cursor-pointer bg-white border transition-shadow hover:shadow-xl" :class="persona === 'jastip' ? 'bg-zinc-800 border-zinc-700' : 'border-zinc-200'">
                         <div class="relative h-64 overflow-hidden bg-zinc-100">

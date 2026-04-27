@@ -319,19 +319,19 @@
                     <span x-text="persona === 'tourist' ? 'Bali\'s Highest Rated Chocolate' : 'Exclusive Villa Amenities'"></span>
                 </div>
                 
-                <h1 class="text-4xl md:text-6xl lg:text-5xl lg:text-8xl font-serif font-normal leading-[1.05] tracking-tight">
+                <h1 class="text-4xl md:text-4xl md:text-6xl lg:text-5xl lg:text-5xl lg:text-8xl font-serif font-normal leading-[1.05] tracking-tight">
                     <template x-if="persona === 'tourist'">
                         <span class="text-white">
                             <span class="italic text-5xl lg:text-7xl text-slate-400">Melted Perfection,</span><br>
                             Delivered to<br>
-                            <span class="text-gold-500 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">Your Departure Gate.</span>
+                            <span class="text-gold-500 italic text-4xl lg:text-4xl md:text-4xl md:text-6xl mt-4 block">Your Departure Gate.</span>
                         </span>
                     </template>
                     <template x-if="persona === 'b2b'">
                         <span class="text-cocoa-900">
                             <span class="italic text-5xl lg:text-7xl text-slate-500">Elevate Your</span><br>
                             Guest Experience.<br>
-                            <span class="text-gold-600 italic text-4xl lg:text-4xl md:text-6xl mt-4 block">With Balinese Luxury.</span>
+                            <span class="text-gold-600 italic text-4xl lg:text-4xl md:text-4xl md:text-6xl mt-4 block">With Balinese Luxury.</span>
                         </span>
                     </template>
                 </h1>
@@ -381,7 +381,7 @@
                 <p class="max-w-2xl mx-auto font-light text-base leading-relaxed" :class="persona === 'b2b' ? 'text-slate-500' : 'text-slate-400'">Setiap kotak Falala dan Heavenly diproduksi dengan dedikasi tinggi. Tekstur lumer yang legendaris bukan kebetulan, melainkan hasil dari presisi temperatur.</p>
             </div>
             
-            <div class="grid md:grid-cols-1 md:grid-cols-3 gap-12 relative">
+            <div class="grid md:grid-cols-1 md:grid-cols-1 md:grid-cols-3 gap-12 relative">
                 <!-- Connecting Line -->
                 <div class="hidden md:block absolute top-12 left-0 w-full h-px" :class="persona === 'b2b' ? 'bg-slate-200' : 'bg-slate-800'"></div>
 

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abon Ayam '89 Premium - 100% Daging Asli Tanpa MSG</title>
+    <meta name="description" content="Abon ayam sehat, tanpa pengawet, dan tanpa MSG buatan Bandung. Buka peluang kemitraan reseller nasional.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chicken: {
+                            50: '#fff8f1',
+                            400: '#f97316', // Orange healthy
+                            500: '#ea580c',
+                            900: '#7c2d12',
+                        },
+                        pure: {
+                            500: '#16a34a', // Pure Green MSG Free
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #27272A; }
+        .b2b-mode { background-color: #18181B; color: #FAFAFA; }
+        .glass-nav { background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(10px); }
+        .b2b-mode .glass-nav { background: rgba(24, 24, 27, 0.95); }
+        .bg-pattern { background-image: radial-gradient(#ea580c 0.5px, transparent 0.5px); background-size: 32px 32px; opacity: 0.05; }
+    </style>
+</head>
+<body x-data="{ 
+        scrolled: false, 
+        persona: 'health', /* health (Eceran) or reseller (Grosir B2B) */
+        
+        /* Cart Engine */
+        qty: 1,
+        basePrice: 70000,
+        
+        get unitPrice() {
+            let price = this.basePrice;
+            if (this.persona === 'reseller') {
+                if (this.qty >= 50) price = 50000;
+                else if (this.qty >= 20) price = 55000;
+                else price = 60000; // minimum reseller price
+            }
+            return price;
+        },
+        
+        get totalPrice() {
+            return this.qty * this.unitPrice;
+        },
+        
+        customerName: '',
+        
+        checkout() {
+            if(!this.customerName) { alert('Lengkapi Nama Anda.'); return; }
+            let text = `*[INQUIRY ABON AYAM '89]*%0A%0A`;
+            text += `*Tipe:* ${this.persona === 'reseller' ? 'RESELLER GROSIR' : 'KONSUMEN ECERAN'}%0A`;
+            text += `*Nama:* ${this.customerName}%0A`;
+            text += `*Kuantitas:* ${this.qty} bungkus%0A`;
+            text += `*Harga Satuan:* Rp ${new Intl.NumberFormat('id-ID').format(this.unitPrice)}%0A`;
+            text += `*Total Pembayaran:* Rp ${new Intl.NumberFormat('id-ID').format(this.totalPrice)}%0A%0A`;
+            text += `Mohon info ongkir dan nomor rekening.`;
+            window.open('https://wa.me/6281221140000?text=' + text, '_blank'); /* dummy number based on mask */
+        }
+    }" 
+    :class="{'b2b-mode': persona === 'reseller'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased relative">
+
+    <div class="fixed inset-0 pointer-events-none bg-pattern z-0"></div>
+
+    <nav :class="{'glass-nav shadow-sm py-4': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full z-40 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-xl font-serif font-bold tracking-widest" :class="persona === 'reseller' ? 'text-white' : 'text-chicken-900'">Abon '89</h1>
+            <div class="flex p-1 bg-zinc-200 rounded-full" :class="persona === 'reseller' ? 'bg-zinc-800' : ''">
+                <button @click="persona = 'health'; qty = 1;" class="px-4 py-1.5 text-xs font-bold rounded-full transition-all" :class="persona === 'health' ? 'bg-white text-chicken-900 shadow' : 'text-zinc-500'">Pembeli Sehat</button>
+                <button @click="persona = 'reseller'; qty = 20;" class="px-4 py-1.5 text-xs font-bold rounded-full transition-all" :class="persona === 'reseller' ? 'bg-chicken-500 text-white shadow' : 'text-zinc-500'">Mitra Reseller</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-20 overflow-hidden z-10">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-chicken-50 text-chicken-500 px-3 py-1 rounded-full text-xs font-bold mb-4 border border-chicken-100" :class="persona === 'reseller' ? 'bg-zinc-800 border-zinc-700' : ''">
+                    <i class="ph-fill ph-check-circle"></i> <span x-text="persona === 'reseller' ? 'Harga Pabrik Langsung' : '100% Daging Ayam Murni'"></span>
+                </div>
+                <h1 class="text-4xl md:text-4xl md:text-6xl font-serif font-bold leading-tight mb-4" :class="persona === 'reseller' ? 'text-white' : 'text-zinc-900'">
+                    Nutrisi Asli.<br><span class="text-chicken-500 italic" x-text="persona === 'reseller' ? 'Margin Pasti.' : 'Tanpa Kompromi.'"></span>
+                </h1>
+                <p class="text-zinc-500 mb-8" x-text="persona === 'reseller' ? 'Bergabunglah dengan jaringan distributor FMCG makanan sehat kami. Dapatkan margin tinggi untuk produk premium bebas MSG yang dicari ibu rumah tangga.' : 'Beralihlah ke abon ayam sehat tanpa pemanis buatan dan pengawet. Aman untuk anak-anak dan lezat untuk keluarga.'"></p>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-xl border border-zinc-100" :class="persona === 'reseller' ? 'bg-zinc-900 border-zinc-800' : ''">
+                    <h3 class="font-bold mb-4" :class="persona === 'reseller' ? 'text-white' : 'text-zinc-900'">Pesan Cepat</h3>
+                    <div class="flex gap-4 items-end mb-4">
+                        <div class="flex-1">
+                            <label class="text-xs text-zinc-500 font-bold block mb-1">Jumlah (Pcs)</label>
+                            <input type="number" x-model="qty" :min="persona === 'reseller' ? 20 : 1" class="w-full p-2 border rounded-lg outline-none focus:border-chicken-500" :class="persona === 'reseller' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'">
+                        </div>
+                        <div class="flex-1">
+                            <label class="text-xs text-zinc-500 font-bold block mb-1">Nama Pemesan</label>
+                            <input type="text" x-model="customerName" class="w-full p-2 border rounded-lg outline-none focus:border-chicken-500" :class="persona === 'reseller' ? 'bg-zinc-800 border-zinc-700 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t" :class="persona === 'reseller' ? 'border-zinc-800' : 'border-zinc-100'">
+                        <div>
+                            <div class="text-xs text-zinc-500">Total Harga</div>
+                            <div class="text-2xl font-bold text-chicken-500">Rp <span x-text="new Intl.NumberFormat('id-ID').format(totalPrice)"></span></div>
+                        </div>
+                        <button @click="checkout()" class="bg-chicken-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-chicken-900 transition-colors">
+                            Kirim ke WA
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative hidden md:block">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop" class="rounded-3xl shadow-2xl object-cover h-[500px] w-full filter" :class="persona === 'reseller' ? 'grayscale-[30%]' : ''">
+                <!-- Nutrition Badge -->
+                <div class="absolute bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl flex items-center gap-3 border border-zinc-100" :class="persona === 'reseller' ? 'bg-zinc-900 border-zinc-800' : ''">
+                    <div class="w-12 h-12 bg-pure-500 rounded-full flex items-center justify-center text-white text-xl"><i class="ph-bold ph-leaf"></i></div>
+                    <div>
+                        <div class="font-bold text-sm" :class="persona === 'reseller' ? 'text-white' : 'text-zinc-900'">Zero MSG</div>
+                        <div class="text-xs text-zinc-500">Halal & BPOM Certified</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <footer class="py-10 border-t mt-10 text-center" :class="persona === 'reseller' ? 'border-zinc-800' : 'border-zinc-200'">
+        <p class="text-xs text-zinc-500">Jl. Parakan Asri No. 31, Batununggal, Bandung. &copy; Abon Ayam '89.</p>
+    </footer>
+</body>
+</html>

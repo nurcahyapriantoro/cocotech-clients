@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLIROSA CRAFT - Suvenir Pernikahan Eksklusif Depok</title>
+    <meta name="description" content="Suvenir pernikahan buatan tangan yang elegan dan penuh makna dari Depok. Cek estimasi harga kustomisasi Anda di sini.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        craft: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            400: '#d4af37', // Rustic Gold
+                            500: '#b48a27',
+                            900: '#27272a', // Zinc Dark
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -10px rgba(0,0,0,0.05)',
+                        'gold': '0 10px 30px -10px rgba(212, 175, 55, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #18181B; transition: background-color 0.5s ease; }
+        .b2b-mode { background-color: #27272A; color: #FAFAFA; } 
+        
+        .glass-nav { background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        .b2b-mode .glass-nav { background: rgba(39, 39, 42, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; }
+
+        @keyframes slideInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .bg-pattern { background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px); background-size: 32px 32px; opacity: 0.1; }
+    </style>
+</head>
+<body x-data="{ 
+        scrolled: false, 
+        persona: 'personal', /* personal (Calon Pengantin) or b2b (Wedding Organizer) */
+        
+        /* VVIP Backdoor */
+        secretClicks: 0,
+        vvipOpen: false,
+        vvipCode: '',
+        vvipError: false,
+        
+        /* Dynamic Estimator */
+        qty: 300,
+        itemType: 'Pouch Rustic Kain',
+        basePrice: 4500,
+        grafir: true,
+        
+        get unitPrice() {
+            if (this.itemType === 'Pouch Rustic Kain') this.basePrice = 4500;
+            if (this.itemType === 'Gelas Kaca Custom') this.basePrice = 8500;
+            if (this.itemType === 'Dompet Kulit Sintetis') this.basePrice = 12000;
+            
+            let price = this.basePrice;
+            if (this.grafir) price += 1000;
+            
+            /* Algorithm Discount */
+            if (this.qty >= 1000) price = price * 0.85; // 15% off
+            else if (this.qty >= 500) price = price * 0.90; // 10% off
+            
+            if (this.persona === 'b2b') price = price * 0.90; // Extra 10% WO discount
+            
+            return Math.floor(price);
+        },
+        
+        get totalPrice() {
+            return this.qty * this.unitPrice;
+        },
+        
+        customerName: '',
+        weddingDate: '',
+        
+        checkout() {
+            if(!this.customerName || !this.weddingDate) { alert('Lengkapi Nama dan Tanggal Acara.'); return; }
+            let text = `*[INQUIRY SUVENIR POLIROSA CRAFT]*%0A%0A`;
+            text += `*Nama:* ${this.customerName}%0A`;
+            text += `*Tanggal Acara:* ${this.weddingDate}%0A`;
+            text += `*Tipe Pemesan:* ${this.persona === 'b2b' ? 'Wedding Organizer (B2B)' : 'Calon Pengantin'}%0A%0A`;
+            text += `*Spesifikasi:*%0A`;
+            text += `- Item: ${this.itemType}%0A`;
+            text += `- Tambah Grafir Nama: ${this.grafir ? 'Ya (+Rp 1.000/pc)' : 'Tidak'}%0A`;
+            text += `- Kuantitas: ${this.qty} pcs%0A`;
+            text += `- Harga Satuan Est.: Rp ${new Intl.NumberFormat('id-ID').format(this.unitPrice)}%0A%0A`;
+            text += `*Estimasi Total:* Rp ${new Intl.NumberFormat('id-ID').format(this.totalPrice)}%0A%0A`;
+            text += `Mohon info lebih lanjut Kak.`;
+            window.open('https://wa.me/6281283321577?text=' + text, '_blank');
+        }
+    }" 
+    :class="{'b2b-mode': persona === 'b2b'}"
+    @scroll.window="scrolled = (window.pageYOffset > 50)" 
+    class="antialiased selection:bg-craft-400 selection:text-white relative">
+
+    <div class="fixed inset-0 pointer-events-none bg-pattern z-0"></div>
+
+    <!-- VVIP Backdoor -->
+    <div x-show="vvipOpen" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center" style="display: none;">
+        <div class="max-w-md w-full p-8 bg-white text-center rounded-xl relative" @click.away="vvipOpen = false">
+            <h3 class="text-2xl font-serif text-craft-900 mb-2 font-bold">Portal Mitra WO</h3>
+            <p class="text-zinc-500 text-xs mb-6">Akses harga pabrik untuk mitra Wedding Organizer.</p>
+            <input type="password" x-model="vvipCode" @keyup.enter="if(vvipCode==='WO24') { window.location.href='proposal.html'; } else { vvipError = true; setTimeout(()=>vvipError=false, 1000); vvipCode=''; }" class="w-full bg-zinc-50 border-b-2 border-craft-400 focus:outline-none text-center text-2xl tracking-[1em] py-3 text-craft-900 mb-4" placeholder="••••" maxlength="4">
+            <button @click="vvipOpen = false" class="absolute top-4 right-4 text-zinc-400"><i class="ph-bold ph-x"></i></button>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <nav :class="{'glass-nav py-4': scrolled, 'bg-transparent py-6': !scrolled}" class="fixed w-full z-40 transition-all duration-500 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="cursor-pointer text-center md:text-left" @click="secretClicks++; if(secretClicks >= 3) { vvipOpen = true; secretClicks = 0; }">
+                <h1 class="text-2xl font-serif font-bold tracking-widest uppercase" :class="persona === 'b2b' ? 'text-white' : 'text-craft-900'">POLIROSA</h1>
+                <span class="text-[8px] font-sans font-bold uppercase tracking-widest text-craft-400">Wedding Craft &bull; Depok</span>
+            </div>
+            
+            <div class="flex p-1 bg-zinc-100 rounded-full" :class="persona === 'b2b' ? 'bg-black' : ''">
+                <button @click="persona = 'personal'" class="px-6 py-2 text-[10px] font-bold rounded-full transition-all" :class="persona === 'personal' ? 'bg-white text-craft-900 shadow-sm' : 'text-zinc-500'">Pengantin (D2C)</button>
+                <button @click="persona = 'b2b'" class="px-6 py-2 text-[10px] font-bold rounded-full transition-all" :class="persona === 'b2b' ? 'bg-craft-400 text-white shadow-gold' : 'text-zinc-500'">Wedding Org. (B2B)</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden z-10 border-b border-zinc-100">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-20" :class="persona === 'b2b' ? 'grayscale-[50%]' : ''">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#FAFAFA]" :class="persona === 'b2b' ? 'to-[#27272A]' : ''"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-20 text-center">
+            <div class="animate-up max-w-3xl mx-auto">
+                <div class="inline-flex items-center gap-2 bg-craft-50 border border-craft-100 text-craft-500 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
+                    <span x-text="persona === 'b2b' ? 'Harga Pabrik untuk Mitra WO' : 'Buatan Tangan Sepenuh Hati'"></span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight mb-6" :class="persona === 'b2b' ? 'text-white' : 'text-craft-900'">
+                    Cendera Mata <br>
+                    <span class="text-craft-400 italic font-medium">Penuh Makna.</span>
+                </h1>
+                <p class="text-sm text-zinc-500 mb-10 leading-relaxed max-w-lg mx-auto">Suvenir pernikahan elegan yang dibuat dengan dedikasi tinggi oleh pengrajin lokal Cipayung, Depok. Hitung estimasi anggaran Anda seketika.</p>
+                <button onclick="document.getElementById('kalkulator').scrollIntoView({behavior: 'smooth'})" class="bg-craft-900 text-white px-8 py-4 rounded-full font-bold text-sm shadow-premium hover:bg-craft-400 hover:shadow-gold transition-all inline-flex items-center gap-3">
+                    Hitung Estimasi Harga <i class="ph-bold ph-calculator"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Calculator Section -->
+    <section id="kalkulator" class="py-20 relative z-10">
+        <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Form -->
+            <div class="bg-white p-8 rounded-3xl shadow-premium border border-zinc-100" :class="persona === 'b2b' ? 'bg-zinc-800 border-zinc-700' : ''">
+                <h2 class="text-2xl font-serif font-bold mb-6" :class="persona === 'b2b' ? 'text-white' : 'text-craft-900'">Kalkulator Suvenir</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold mb-2 text-zinc-500">Pilih Tipe Suvenir</label>
+                        <select x-model="itemType" class="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:border-craft-400 outline-none" :class="persona === 'b2b' ? 'bg-zinc-900 text-white border-zinc-700' : ''">
+                            <option>Pouch Rustic Kain</option>
+                            <option>Gelas Kaca Custom</option>
+                            <option>Dompet Kulit Sintetis</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-2 text-zinc-500">Jumlah Pesanan: <span x-text="qty" class="text-craft-400 text-lg"></span> pcs</label>
+                        <input type="range" x-model="qty" min="100" max="2000" step="50" class="w-full accent-craft-400">
+                        <div class="flex justify-between text-[10px] text-zinc-400 mt-1"><span>100</span><span>2000+</span></div>
+                    </div>
+                    <label class="flex items-center gap-3 cursor-pointer p-3 border rounded-xl" :class="persona === 'b2b' ? 'border-zinc-700' : 'border-zinc-100'">
+                        <input type="checkbox" x-model="grafir" class="w-4 h-4 accent-craft-400">
+                        <span class="text-sm font-medium" :class="persona === 'b2b' ? 'text-zinc-300' : 'text-zinc-700'">Tambah Label/Grafir Nama (+Rp 1.000)</span>
+                    </label>
+                    <div class="pt-4 border-t" :class="persona === 'b2b' ? 'border-zinc-700' : 'border-zinc-100'">
+                        <input type="text" x-model="customerName" placeholder="Nama Calon Pengantin / WO" class="w-full p-3 mb-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:border-craft-400 outline-none" :class="persona === 'b2b' ? 'bg-zinc-900 text-white border-zinc-700' : ''">
+                        <input type="date" x-model="weddingDate" class="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm focus:border-craft-400 outline-none" :class="persona === 'b2b' ? 'bg-zinc-900 text-white border-zinc-700' : ''">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Summary -->
+            <div class="flex flex-col justify-center">
+                <div class="p-8 bg-craft-900 text-white rounded-3xl shadow-gold relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 text-craft-400 opacity-20"><i class="ph-fill ph-calculator text-9xl"></i></div>
+                    <div class="relative z-10">
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-craft-400 mb-2">Estimasi Harga Satuan</div>
+                        <div class="text-4xl font-serif mb-6">Rp <span x-text="new Intl.NumberFormat('id-ID').format(unitPrice)"></span> <span class="text-sm text-zinc-400 font-sans font-normal">/pc</span></div>
+                        
+                        <div class="space-y-2 text-sm text-zinc-300 mb-8 pb-8 border-b border-white/10">
+                            <div class="flex justify-between"><span>Diskon Kuantitas:</span> <span class="text-craft-400 font-bold" x-text="qty >= 1000 ? '15%' : (qty >= 500 ? '10%' : '0%')"></span></div>
+                            <div x-show="persona === 'b2b'" class="flex justify-between"><span>Diskon Mitra WO:</span> <span class="text-craft-400 font-bold">Extra 10%</span></div>
+                        </div>
+
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Total Estimasi Keseluruhan</div>
+                        <div class="text-3xl font-bold text-craft-400 mb-8">Rp <span x-text="new Intl.NumberFormat('id-ID').format(totalPrice)"></span></div>
+                        
+                        <button @click="checkout()" class="w-full bg-craft-400 text-craft-900 font-bold py-4 rounded-xl hover:bg-white transition-colors flex items-center justify-center gap-2">
+                            Konsultasikan via WhatsApp <i class="ph-bold ph-whatsapp-logo text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-16 pb-8 border-t border-zinc-200 mt-20" :class="persona === 'b2b' ? 'bg-zinc-900 border-zinc-800 text-zinc-400' : 'bg-white text-zinc-500'">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-2xl font-serif font-bold tracking-widest uppercase mb-4" :class="persona === 'b2b' ? 'text-white' : 'text-craft-900'">POLIROSA</h1>
+            <p class="text-sm mb-8">Jalan Pala Bali RT 015/006, Bojong Pondok Terong, Cipayung, Depok</p>
+            <div class="text-xs uppercase tracking-widest">
+                Infrastruktur oleh <a href="https://cocotech.studio" target="_blank" class="text-craft-400 hover:text-craft-500">CocoTech Studio</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
