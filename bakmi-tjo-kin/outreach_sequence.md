@@ -11,7 +11,7 @@ Karena Bakmi Tjo Kin sangat bergantung pada Instagram untuk berinteraksi dengan 
 Halo Kak/Tim Bakmi Tjo Kin! 👋 
 Kami dari CocoTech Studio suka banget sama *vibes* dan rasanya Bakmi Tjo Kin (terutama yang di Cihapit!). Tapi kami perhatiin antreannya sering membludak ya Kak pas *weekend*?
 
-Kebetulan kami agensi *digital infrastructure*, dan kami iseng buatin **Virtual Waiting List & Smart Menu** khusus buat Tjo Kin. Jadi pelanggan bisa *booking* antrean dari HP buat cabang Cihapit, Braga, atau Blok M tanpa harus nunggu berdiri di luar.
+Kebetulan kami agensi *digital infrastructure*, dan kami iseng buatin **Virtual Waiting List & Smart Menu** khusus buat Tjo Kin. Jadi pelanggan bisa *booking* antrean dari HP buat cabang Cihapit, Progo, Braga, atau Blok M tanpa harus nunggu berdiri di luar.
 
 Desainnya udah kami cocokin sama *vibes* retro-nya Tjo Kin. Boleh minta izin buat kirim *link preview*-nya ke sini Kak? 🍜
 
