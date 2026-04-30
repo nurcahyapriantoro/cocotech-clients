@@ -1,19 +1,46 @@
 {
-    "clientName": "POLIROSA CRAFT Depok",
-    "pricingTier": "Tier 2: Paket Starter / Business",
-    "pricingName": "The Wedding Customization Gallery",
-    "estimatedPrice": "Rp 5.500.000",
-    "featuresGenerated": [
-        "Dynamic Wedding Price Estimator (Alpine.js)",
-        "Dual-Persona Engine (Personal vs Wedding Organizer)",
-        "WO Wholesale Backdoor Portal",
-        "Rustic 3D Portfolio Gallery",
-        "Headless WhatsApp Quotation"
-    ],
-    "identifiedPainPoints": [
-        "Sulit menembus peringkat atas pencarian lokal (SEO) di Depok untuk kata kunci suvenir pernikahan.",
-        "Calon pengantin sering bertanya harga berulang-ulang untuk kuantitas yang berbeda, memakan waktu admin WA.",
-        "Tidak memiliki katalog portofolio digital yang terlihat setara dengan vendor suvenir premium di Jakarta."
-    ],
-    "timestamp": "2026-04-27T08:40:00.000Z"
+  "client_name": "Polirosa Craft",
+  "industry": "Handicrafts / Wedding Souvenirs",
+  "target_audience": "Wedding Couples, Wedding Organizers (B2B), Corporate Gifting",
+  "pain_points": [
+    "Manual inquiry process for every price variation",
+    "High bounce rate on Instagram DMs due to 'Price Inquiry' friction",
+    "Lack of professional B2B portal for Wedding Organizers"
+  ],
+  "proposed_features": [
+    "Dynamic Price Estimator with Algorithmic Volume Discount",
+    "Dual-Persona Interface (B2C for Brides, B2B for WO)",
+    "VVIP Secret Backdoor for Bulk/Corporate Pricing",
+    "WhatsApp Quotation Parsing System"
+  ],
+  "tiering": {
+    "tier_1": {
+      "name": "Starter Gallery",
+      "price_idr": 3500000,
+      "features": [
+        "Premium Visual Design (Rose Gold/Sage Theme)",
+        "Interactive Product Catalog",
+        "Mobile-First Responsive Web",
+        "Basic WhatsApp Integration"
+      ]
+    },
+    "tier_2": {
+      "name": "Business Engine",
+      "price_idr": 7500000,
+      "recommended": true,
+      "features": [
+        "All Starter Gallery Features",
+        "Dynamic Algorithmic Price Estimator",
+        "Dual-Persona Toggle (Client vs WO)",
+        "VVIP Secret Backdoor Access",
+        "Priority Support & Maintenance"
+      ]
+    }
+  },
+  "agency_contact": {
+    "name": "CocoTech Studio",
+    "whatsapp": "+6281283321577",
+    "email": "admin@cocotech.studio",
+    "address": "Bogor, Jawa Barat"
+  }
 }

@@ -3,59 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposal B2B - POLIROSA CRAFT Depok</title>
+    <title>Strategic Proposal - Polirosa Craft Depok</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        script: ['"Dancing Script"', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#b76e79', // Rose Gold
+                            sage: '#8A9A86', // Sage Green
+                            dark: '#1A1A1A',
+                            cream: '#FDFBF7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #fafafa; color: #27272a; margin: 0; padding: 0; line-height: 1.8; font-size: 14px; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; color: #18181b; }
-        .page { background: white; max-width: 800px; margin: 40px auto; padding: 60px; border: 1px solid #e4e4e7; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .header { border-bottom: 2px solid #d4af37; padding-bottom: 20px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end; }
-        .title { font-size: 36px; line-height: 1.2; margin-bottom: 10px; }
-        .highlight { color: #d4af37; font-style: italic; }
-        .box { background: #fdf8f6; padding: 30px; border-left: 4px solid #d4af37; margin: 30px 0; }
-        .tier { border: 2px solid #27272a; padding: 40px; text-align: center; border-radius: 12px; margin-top: 40px; }
-        .btn { display: inline-block; background: #27272a; color: white; padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
-        @media print { body { background: white; } .page { margin: 0; border: none; box-shadow: none; page-break-after: always; } }
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background-color: white !important; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+            .page-container { box-shadow: none !important; margin: 0 !important; padding: 15mm !important; min-height: 297mm; }
+        }
+        body { background-color: #f1f5f9; color: #1A1A1A; }
+        .page-container { 
+            max-width: 210mm; min-height: 297mm; 
+            margin: 2rem auto; background: white; 
+            padding: 20mm; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            position: relative; overflow: hidden;
+        }
+        .pattern-overlay { background-image: radial-gradient(#b76e79 0.5px, transparent 0.5px); background-size: 20px 20px; opacity: 0.05; }
+        .border-premium { border: 1.5px solid #1A1A1A; box-shadow: 6px 6px 0px #b76e79; }
     </style>
 </head>
-<body>
-    <div class="page">
-        <div class="header">
+<body class="antialiased font-sans selection:bg-brand-gold selection:text-white">
+
+    <!-- Floating Print Action -->
+    <div class="fixed bottom-8 right-8 z-50 no-print flex gap-4">
+        <a href="index.html" class="bg-white border-2 border-brand-dark px-6 py-3 rounded-full font-bold shadow-[4px_4px_0px_#1A1A1A] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#1A1A1A] transition-all flex items-center gap-2">
+            <i class="ph-bold ph-arrow-left"></i> Lihat Web
+        </a>
+        <button onclick="window.print()" class="bg-brand-gold text-white border-2 border-brand-dark px-6 py-3 rounded-full font-bold shadow-[4px_4px_0px_#1A1A1A] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#1A1A1A] transition-all flex items-center gap-2">
+            <i class="ph-bold ph-printer"></i> Export PDF
+        </button>
+    </div>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page-container flex flex-col justify-between border-t-[12px] border-brand-gold">
+        <div class="absolute inset-0 pattern-overlay pointer-events-none"></div>
+        
+        <div class="relative z-10">
+            <div class="flex justify-between items-start mb-24">
+                <div>
+                    <div class="font-script text-4xl text-brand-dark mb-1">Polirosa</div>
+                    <div class="text-[8px] font-bold uppercase tracking-[.4em] text-brand-gold">Wedding Craft &bull; Depok</div>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Exclusive B2B Deck</p>
+                    <p class="text-xs font-bold text-brand-dark">CocoTech Studio &mdash; 2026</p>
+                </div>
+            </div>
+            
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-brand-cream border border-brand-gold/30 rounded-full mb-10">
+                    <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brand-gold">Infrastruktur Digital Masa Depan</span>
+                </div>
+                
+                <h1 class="font-serif text-6xl font-black leading-[1.1] mb-8 text-brand-dark">
+                    Menciptakan <br>Ekosistem <br>
+                    <span class="text-brand-gold italic font-script text-7xl lowercase">Sales Otomatis</span><br>
+                    di Polirosa Craft.
+                </h1>
+                
+                <p class="text-xl text-gray-600 leading-relaxed font-medium mb-12 border-l-4 border-brand-sage pl-6">
+                    Menghilangkan hambatan "DM untuk Harga" dan mengubah trafik Instagram menjadi pesanan nyata melalui sistem <strong>Estimator Harga Algoritmik</strong> khusus untuk Pengantin & Mitra Wedding Organizer.
+                </p>
+            </div>
+        </div>
+
+        <div class="relative z-10 grid grid-cols-2 gap-8 border-t border-gray-100 pt-8 mt-12">
             <div>
-                <div style="font-size: 10px; font-weight: bold; letter-spacing: 2px; color: #a1a1aa; text-transform: uppercase;">B2B Proposal</div>
-                <h1 class="title">The Wedding<br><span class="highlight">Customization Gallery.</span></h1>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Disiapkan Untuk:</p>
+                <p class="font-bold text-lg text-brand-dark">Manajemen Polirosa Craft</p>
+                <p class="text-xs text-gray-500">Cipayung, Depok, Jawa Barat</p>
             </div>
-            <div style="text-align: right; font-size: 12px; color: #71717a;">
-                Disiapkan untuk: <b>POLIROSA CRAFT</b><br>
-                Tanggal: 27 April 2026<br>
-                Oleh: CocoTech Studio
+            <div>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Architected By:</p>
+                <p class="font-bold text-lg text-brand-dark">CocoTech Studio</p>
+                <p class="text-xs text-gray-500">B2B Web Systems Indonesia</p>
             </div>
-        </div>
-
-        <p>Bapak/Ibu pengrajin di POLIROSA CRAFT, keahlian Anda menciptakan suvenir pernikahan fungsional adalah aset yang luar biasa. Namun, di era digital saat ini, karya bagus saja tidak cukup jika <b>tidak dikemas dalam balutan profesional</b> yang memudahkan calon pembeli.</p>
-
-        <div class="box">
-            <h3 style="margin-top:0;">Masalah: Waktu Terbuang & Persepsi Nilai</h3>
-            <p>Saat ini, calon pengantin sering maju-mundur menanyakan harga melalui WhatsApp untuk kuantitas yang berbeda-beda. Ini membuang waktu produksi Anda. Selain itu, tanpa portofolio digital yang elegan, karya Anda di Cipayung sulit bersaing dengan vendor besar di Jakarta yang memiliki *website* mewah.</p>
-        </div>
-
-        <h2>Solusi: Dynamic Price Estimator (D2C)</h2>
-        <p>Tautan yang kami kirimkan adalah sebuah prototipe galeri *online* tingkat tinggi (Awwwards-level). Keunggulan utamanya adalah <b>Kalkulator Harga Cerdas</b>. Calon pengantin bisa melihat langsung bahwa semakin banyak mereka memesan (misal 1000 pcs), harga satuannya akan otomatis turun. Ini memicu mereka untuk memesan dalam partai besar secara psikologis tanpa perlu tawar-menawar panjang di WA.</p>
-
-        <div class="tier">
-            <div style="font-size: 10px; font-weight: bold; letter-spacing: 2px; color: #d4af37; text-transform: uppercase; margin-bottom: 10px;">Paket Business</div>
-            <h2 style="font-size: 32px; margin-bottom: 10px;">The Wedding Gallery</h2>
-            <div style="font-size: 40px; font-weight: bold; margin-bottom: 30px;">Rp 5.500.000</div>
-            <ul style="list-style: none; padding: 0; text-align: left; max-width: 400px; margin: 0 auto 30px auto; color: #3f3f46;">
-                <li style="margin-bottom: 15px;">✓ <b>Kalkulator Diskon Algoritmik</b> (Alpine.js)</li>
-                <li style="margin-bottom: 15px;">✓ <b>Dual-Persona</b> (Harga Eceran vs Harga Grosir Mitra WO)</li>
-                <li style="margin-bottom: 15px;">✓ <b>WhatsApp Quotation Generator</b> (Otomatis merekap spesifikasi)</li>
-                <li style="margin-bottom: 15px;">✓ <b>1 Tahun Premium Hosting</b> (.com)</li>
-            </ul>
-            <a href="https://wa.me/6281283321577?text=Halo%20CocoTech,%20kami%20tertarik%20dengan%20Sistem%20Wedding%20Gallery%20untuk%20POLIROSA" class="btn" target="_blank">Setujui Blueprint B2B</a>
         </div>
     </div>
+
+    <!-- PAGE 2: THE PROBLEM -->
+    <div class="page-container page-break flex flex-col">
+        <div class="flex items-center gap-4 mb-12">
+            <div class="h-px bg-brand-gold flex-1"></div>
+            <h2 class="text-[10px] font-black text-brand-gold uppercase tracking-[.4em]">The Strategic Audit</h2>
+            <div class="h-px bg-brand-gold flex-1"></div>
+        </div>
+        
+        <div class="mt-8 flex-1">
+            <h3 class="font-serif text-4xl font-bold mb-10 leading-tight">Masalah: Kebocoran Waktu <br>& Ketidakpastian Harga</h3>
+            
+            <p class="text-lg text-gray-700 leading-relaxed mb-10">
+                Sebagai pengrajin suvenir di Cipayung, keahlian Anda adalah produksi. Namun, sistem penjualan Anda saat ini mungkin masih bergantung pada interaksi manual WhatsApp yang melelahkan.
+            </p>
+
+            <div class="space-y-6 mb-12">
+                <div class="bg-brand-cream border-premium p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 rounded-full bg-brand-gold/10 text-brand-gold flex items-center justify-center shrink-0">
+                            <i class="ph-bold ph-chats-circle text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-brand-dark">Friction "Tanya Harga"</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">70% calon pembeli dari Instagram membatalkan niat belanja jika harus menunggu balasan admin hanya untuk mengetahui estimasi harga. Mereka butuh hitungan instan untuk menyesuaikan anggaran pernikahan mereka.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brand-sage/5 border border-brand-sage p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 rounded-full bg-brand-sage/10 text-brand-sage flex items-center justify-center shrink-0">
+                            <i class="ph-bold ph-handshake text-3xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2 text-brand-dark">Kepercayaan Wedding Organizer (WO)</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Mitra WO membutuhkan harga grosir yang cepat untuk dimasukkan ke dalam penawaran klien mereka. Tanpa portal khusus, Polirosa terlihat seperti "toko eceran biasa" di mata profesional penyelenggara acara.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-brand-dark text-white p-10 rounded-3xl relative overflow-hidden">
+                <i class="ph-fill ph-quotes text-7xl text-white/5 absolute top-4 left-4"></i>
+                <p class="text-xl font-serif italic text-center relative z-10 leading-relaxed">
+                    "Produk premium tanpa sistem penyajian yang premium <br>hanya akan berakhir menjadi komoditas yang diperdebatkan harganya."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: THE SOLUTION -->
+    <div class="page-container page-break flex flex-col">
+        <div class="flex items-center gap-4 mb-12">
+            <div class="h-px bg-brand-gold flex-1"></div>
+            <h2 class="text-[10px] font-black text-brand-gold uppercase tracking-[.4em]">The Master Solution</h2>
+            <div class="h-px bg-brand-gold flex-1"></div>
+        </div>
+        
+        <div class="mt-8 flex-1">
+            <h3 class="font-serif text-4xl font-bold mb-6 leading-tight">The Dynamic Wedding Gallery <br><span class="text-brand-gold text-2xl">By CocoTech Studio</span></h3>
+            
+            <p class="text-gray-700 leading-relaxed mb-12 text-lg">
+                Infrastruktur yang kami bangun untuk Polirosa bukan sekadar website katalog, melainkan <strong>Sistem Kualifikasi Pesanan Otomatis</strong>.
+            </p>
+
+            <div class="grid grid-cols-2 gap-10 mb-12">
+                <div>
+                    <div class="w-12 h-12 bg-brand-gold text-white rounded-lg flex items-center justify-center mb-4 shadow-lg rotate-3">
+                        <i class="ph-bold ph-calculator text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Estimator Harga Algoritmik</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Sistem cerdas yang otomatis menghitung diskon kuantitas (Qty 500, 1000, dst) sehingga pelanggan terdorong memesan lebih banyak demi mendapatkan harga per pc yang lebih murah.</p>
+                </div>
+
+                <div>
+                    <div class="w-12 h-12 bg-brand-sage text-white rounded-lg flex items-center justify-center mb-4 shadow-lg -rotate-3">
+                        <i class="ph-bold ph-user-focus text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Dual-Persona Engine</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Fitur toggle "I am a Wedding Organizer" yang seketika mengubah struktur harga menjadi harga agen, memberikan rasa eksklusivitas bagi mitra B2B Anda.</p>
+                </div>
+
+                <div>
+                    <div class="w-12 h-12 bg-brand-dark text-white rounded-lg flex items-center justify-center mb-4 shadow-lg rotate-6">
+                        <i class="ph-bold ph-whatsapp-logo text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">Quotation Parsing ke WA</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Admin Anda tidak lagi menerima pesan "Berapa harganya?", melainkan detail pesanan lengkap: *Nama, Tanggal Acara, Qty, dan Item*. Tinggal kirim Invoice!</p>
+                </div>
+
+                <div>
+                    <div class="w-12 h-12 border-2 border-brand-dark text-brand-dark rounded-lg flex items-center justify-center mb-4 shadow-lg">
+                        <i class="ph-bold ph-eye text-2xl"></i>
+                    </div>
+                    <h4 class="font-bold text-lg mb-3">VVIP Secret Backdoor</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Fitur Easter Egg rahasia (klik logo 3x) untuk mengakses Portal Proposal/Harga Tersembunyi khusus untuk pembeli korporat besar.</p>
+                </div>
+            </div>
+
+            <div class="bg-brand-gold/5 p-10 rounded-2xl border-l-4 border-brand-gold">
+                <h4 class="font-serif font-bold text-2xl mb-4">Estimasi Dampak ROI</h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                    Dengan mengotomatiskan 30 menit waktu admin per hari (menjawab pertanyaan harga) dan meningkatkan konversi DM Instagram sebesar 20%, Polirosa dapat memulihkan potensi pendapatan <strong>Rp 5.000.000 - Rp 10.000.000 per bulan</strong>. Sistem ini melunasi investasinya sendiri dalam hitungan minggu.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: INVESTMENT -->
+    <div class="page-container page-break flex flex-col">
+        <div class="flex items-center gap-4 mb-12">
+            <div class="h-px bg-brand-gold flex-1"></div>
+            <h2 class="text-[10px] font-black text-brand-gold uppercase tracking-[.4em]">Investment Tiers</h2>
+            <div class="h-px bg-brand-gold flex-1"></div>
+        </div>
+        
+        <div class="mt-8 flex-1">
+            <div class="grid grid-cols-2 gap-10">
+                <!-- Tier 1 -->
+                <div class="border border-gray-200 rounded-3xl p-10 bg-white flex flex-col">
+                    <h4 class="font-bold text-xl mb-2 text-gray-400">Starter Gallery</h4>
+                    <p class="text-xs text-gray-500 mb-8">Katalog digital estetik untuk UMKM berkembang.</p>
+                    
+                    <div class="text-4xl font-black text-brand-dark mb-2">Rp 3.5<span class="text-lg text-gray-400">jt</span></div>
+                    <p class="text-[10px] text-gray-400 mb-8 pb-8 border-b border-gray-50 uppercase tracking-widest">One-time Investment</p>
+                    
+                    <ul class="space-y-4 text-xs text-gray-600 flex-1">
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Landing Page Mobile-First</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Desain Visual Rose Gold/Sage</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Katalog Produk Interaktif</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-green-500"></i> Integrasi WhatsApp Dasar</li>
+                        <li class="flex items-center gap-3 text-gray-300"><strike>Kalkulator Harga Algoritmik</strike></li>
+                    </ul>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="bg-brand-dark text-white rounded-3xl p-10 border-premium relative transform scale-105 flex flex-col shadow-2xl">
+                    <div class="absolute -top-4 right-10 bg-brand-gold text-white text-[8px] font-bold px-4 py-2 rounded-full uppercase tracking-widest">
+                        Paling Direkomendasikan
+                    </div>
+                    
+                    <h4 class="font-bold text-xl mb-2">Business Engine</h4>
+                    <p class="text-xs text-gray-400 mb-8">Sistem Sales Otomatis untuk Domiasi Pasar.</p>
+                    
+                    <div class="text-4xl font-black text-brand-gold mb-2">Rp 7.5<span class="text-lg text-white/50">jt</span></div>
+                    <p class="text-[10px] text-white/20 mb-8 pb-8 border-b border-white/5 uppercase tracking-widest">Scalable Infrastructure</p>
+                    
+                    <ul class="space-y-4 text-xs text-gray-300 flex-1">
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-brand-gold"></i> Semua Fitur Starter Gallery</li>
+                        <li class="flex items-center gap-3 text-white font-bold"><i class="ph-bold ph-check text-brand-gold"></i> Dynamic Price Estimator (Algoritmik)</li>
+                        <li class="flex items-center gap-3 text-white font-bold"><i class="ph-bold ph-check text-brand-gold"></i> Dual-Persona (Client vs WO Toggle)</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-brand-gold"></i> VVIP Backdoor Access</li>
+                        <li class="flex items-center gap-3"><i class="ph-bold ph-check text-brand-gold"></i> Prioritas Support & Maintenance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Guarantee -->
+            <div class="mt-16 bg-brand-cream border border-brand-gold p-8 rounded-3xl flex items-center gap-8">
+                <i class="ph-fill ph-shield-check text-6xl text-brand-gold"></i>
+                <div>
+                    <h4 class="font-bold text-lg mb-1 uppercase tracking-tight">The CocoTech Risk-Reversal Guarantee</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed italic">"Kami tidak akan menagih pelunasan sampai sistem ini live di server Anda dan admin Anda merasa terbantu dengan otomatisasi pesanan yang masuk. Kepercayaan Polirosa adalah prioritas kami."</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-12 text-center">
+                <p class="text-xs text-gray-500 mb-6 italic">Slot implementasi B2B terbatas hanya untuk 3 klien per bulan.</p>
+                <a href="https://wa.me/6281283321577?text=Halo%20CocoTech,%20saya%20dari%20Manajemen%20Polirosa%20Craft.%20Saya%20tertarik%20dengan%20sistem%20Dynamic%20Estimator%20Weddingnya." class="inline-flex items-center gap-4 bg-brand-gold text-white px-10 py-5 rounded-full font-bold shadow-xl border-premium hover:bg-brand-dark transition-all">
+                    <i class="ph-bold ph-whatsapp-logo text-2xl"></i> Hubungi CocoTech Studio
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const date = new Date();
+        document.querySelectorAll('.current-year').forEach(el => el.innerText = date.getFullYear());
+    </script>
 </body>
 </html>

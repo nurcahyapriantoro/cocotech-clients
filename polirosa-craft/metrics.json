@@ -1,11 +1,20 @@
 {
-    "auditScore": 99,
-    "loadTime": "0.6s",
-    "features": [
-        "Alpine.js Price Estimator",
-        "Rustic Wedding UI",
-        "Dual-Persona Shifting",
-        "WhatsApp Quotation Automation"
-    ],
-    "renderedAt": "2026-04-27T08:40:00.000Z"
+  "audit_date": "2026-04-30",
+  "lighthouse_scores": {
+    "performance": 98,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100
+  },
+  "interactive_features": [
+    "Alpine.js Dynamic Estimator",
+    "Vanilla-Tilt.js Parallax Cards",
+    "Dual-Persona Shifter",
+    "WhatsApp Deep-link Parser"
+  ],
+  "design_tokens": {
+    "primary_color": "#b76e79",
+    "secondary_color": "#8A9A86",
+    "typography": "Inter, Playfair Display, Dancing Script"
+  }
 }

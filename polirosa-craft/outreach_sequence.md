@@ -1,21 +1,50 @@
-# PESAN HARI 1: THE PROTOTYPE DROP
-Halo **POLIROSA CRAFT**, kami sangat kagum dengan dedikasi Anda di Bojong Pondok Terong, Cipayung, Depok, dalam menciptakan suvenir pernikahan yang penuh makna. Karya buatan tangan (craftsmanship) Anda memiliki nilai yang sangat tinggi.
+# Outreach Sequence: Polirosa Craft (WhatsApp/Instagram)
 
-Namun, kami melihat ada peluang yang hilang: **Waktu admin yang habis untuk menjawab pertanyaan harga yang berulang.** Calon pengantin sering bertanya, "Kalau pesan 300 harganya berapa? Kalau 500 beda lagi?"
+**Target:** Manajemen Polirosa Craft
+**Goal:** Demonstrasi Sistem Estimator Harga untuk meningkatkan konversi Wedding Souvenir.
 
-Perkenalkan, kami **CocoTech Studio**. Kami telah merancang **"The Wedding Customization Gallery"** khusus untuk POLIROSA CRAFT. Ini adalah galeri portofolio online yang sangat elegan, dilengkapi dengan *Dynamic Price Estimator*. Calon pengantin cukup menggeser angka (misalnya dari 300 ke 600 pcs), dan sistem otomatis menghitung diskon partai besar dan menampilkan total estimasinya, lalu langsung masuk ke WhatsApp Anda dalam format yang sangat rapi.
+---
 
-Silakan nikmati portofolio digital yang akan menaikkan kelas brand Anda di mata klien Jakarta & Depok di tautan *Live Preview* ini:
-🔗 https://nurcahyapriantoro.github.io/cocotech-clients/polirosa-craft/index.html
+## HARI 1: THE PROTOTYPE DROP (Offer/Promise Lead)
+**Pesan:**
+Halo Kak/Tim Polirosa Craft! 👋 
 
-Jika sistem cerdas ini sesuai dengan visi Anda untuk tampil lebih premium dan memenangkan lebih banyak pesanan suvenir pernikahan, balas pesan ini dengan "Lanjut", atau pilih waktu diskusi 10 menit bersama arsitek kami: **https://cal.com/cocotech-studio** 📅
+Kami dari CocoTech Studio suka banget liat koleksi suvenirnya, apalagi yang Pouch Rustic-nya, rapi banget jahitan pengrajin Cipayung-nya! 
 
-# PESAN HARI 3: THE FOMO FOLLOW-UP
-Halo Tim **POLIROSA CRAFT**, apakah Anda sudah mencoba kalkulator interaktif di tautan kemarin?
+Tapi kami perhatiin di Instagram calon pengantin pasti sering banget ya Kak nanya "Harga berapa Kak?" atau "Kalau 500 pcs berapa?". Pasti admin lumayan capek balesinnya satu-satu.
 
-Calon pengantin masa kini mencari referensi suvenir via Google dan Instagram. Jika portofolio Anda hanya berupa foto biasa di WA, Anda akan kesulitan bersaing dengan vendor suvenir besar. Dengan memiliki *micro-website* sendiri yang punya kalkulator pintar, kepercayaan klien (terutama Wedding Organizer besar) akan langsung terbentuk pada pandangan pertama.
+Iseng-iseng kami buatin **Dynamic Wedding Gallery** khusus buat Polirosa. Ada fitur **Estimator Harga Otomatis**-nya, jadi calon pengantin atau WO bisa hitung sendiri harganya sesuai qty tanpa perlu chat admin dulu.
 
-Proposal eksklusif (berisi analisis ROI) untuk jenama Anda akan ditarik dari server dalam 24 jam. Boleh kami kirimkan file PDF proposal penawarannya ke nomor ini sekarang?
+Boleh izin kirim link preview-nya ke sini Kak buat dilihat-lihat? 🌹
 
-# PESAN HARI 7: THE TAKEAWAY / SCARCITY
-Halo **POLIROSA CRAFT**, sepertinya workshop sedang sangat padat memenuhi pesanan suvenir hari ini. Kami akan mengarsipkan arsitektur *Wedding Gallery* Anda besok pagi untuk digunakan oleh vendor kriya lainnya. Jika suatu saat Anda ingin meningkatkan efisiensi admin dan tampil sekelas vendor premium ibukota, CocoTech selalu siap bermitra. Tetap semangat berkarya!
+*(Tunggu balasan sebelum kirim link index.html)*
+
+---
+
+## HARI 3: THE FOMO FOLLOW-UP (Problem-Solution Lead)
+**Pesan:**
+Halo Kak! Maaf follow up lagi nih 🙏
+
+Cuma mau info kalau *prototype* Estimator Harga Polirosa kemarin masih live ya. Sayang banget kalau trafik dari ads atau IG Polirosa "bocor" cuma karena calon pengantin kelamaan nunggu info harga di WA.
+
+Kalau Kakak cek link ini: [Link GitHub Pages Polirosa], ada juga mode khusus buat **Wedding Organizer (B2B)** biar mereka bisa langsung dapet harga mitra.
+
+Kabari ya Kak kalau mau diskusi santai soal sistemnya. Sukses terus produksinya! ✨
+
+---
+
+## HARI 7: THE TAKEAWAY / SCARCITY
+**Pesan:**
+Halo Tim Polirosa Craft, 
+Sepertinya Kakak lagi sibuk handle pesanan souvenir musim kawinan nih ya, no worries! 😄
+
+Karena slot implementasi sistem Wedding Engine kami hanya terbatas untuk 3 klien F&B/Craft per bulan, link preview Polirosa mungkin akan kami non-aktifkan besok ya Kak untuk alokasi server klien lain.
+
+Kalau ke depannya Polirosa butuh sistem sales otomatis biar adminnya fokus di produksi aja, feel free buat hubungi kami lagi di WA **0812-8332-1577**.
+
+Semangat terus buat Polirosa Craft, karyanya keren banget! 🎨
+
+---
+
+**CocoTech Studio - 2026**
+*Infrastructure for Premium Craftsmanship.*
